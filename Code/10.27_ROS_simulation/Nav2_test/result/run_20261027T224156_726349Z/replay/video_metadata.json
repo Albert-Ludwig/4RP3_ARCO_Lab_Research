@@ -1,0 +1,28 @@
+{
+  "status": "verified",
+  "kind": "rosbag_pose_visualization",
+  "camera_footage": false,
+  "source_topic": "/simulation/ground_truth/odom",
+  "source_pose_samples": 1747,
+  "source_simulation_time_range_s": [
+    1.76,
+    36.68
+  ],
+  "recorded_image_topics": [],
+  "frame_selection": "nearest recorded pose; no position interpolation",
+  "fps": 12,
+  "frame_count": 421,
+  "duration_s": 35.083333333333336,
+  "playback_speed": 1.0,
+  "codec": "H.264",
+  "width": 1000,
+  "height": 600,
+  "decoded_frames": 421,
+  "video_sha256": "1a82be22dfe1ea2e901004beb4fd8cfb319c85aaee8e14b51ddf45f59af995f3",
+  "pose_csv_sha256": "8f374ff9ac64b1c24842cd9dcda4031914a10ca3007d1d7ef5ce964befdf8131",
+  "bag_sha256": {
+    "rosbag_0.mcap": "56d1806b577285b2bd320327af31888d29842b72cb0d894dde6c63cd2a38c898"
+  },
+  "scenario_sha256": "6a96ee78dacd103f9754ac6ac781558b3b5d555acf300c26f749b1ede05ac4b5",
+  "render_source_sha256": "524217eeeef4cc7551012c4b85b8c60f4aecebdaec9436839a3eeed08ea53073"
+}

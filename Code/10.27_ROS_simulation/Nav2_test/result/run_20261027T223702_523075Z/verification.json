@@ -1,0 +1,9 @@
+{
+  "status": "failed",
+  "checks": {
+    "probe_exit_success": false,
+    "simulation_shutdown_completed": false,
+    "rosbag_closed_cleanly": false,
+    "rosbag_read_and_replay_verified": false
+  }
+}

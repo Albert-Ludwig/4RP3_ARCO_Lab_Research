@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "checks": {
+    "probe_exit_success": true,
+    "motion_checks_passed": true,
+    "trajectory_saved": true,
+    "topics_saved": true,
+    "sdf_valid": true,
+    "simulation_shutdown_completed": true
+  }
+}

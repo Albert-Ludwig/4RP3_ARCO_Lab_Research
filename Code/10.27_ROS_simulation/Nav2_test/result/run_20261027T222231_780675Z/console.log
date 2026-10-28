@@ -1,0 +1,50 @@
+[WARN] [1793139771.753614724] [nav2_obstacle_probe]: New publisher discovered on topic '/clock', offering incompatible QoS. No messages will be received from it. Last incompatible policy: RELIABILITY
+{
+  "status": "failed",
+  "case": "known_static_obstacle",
+  "assumptions": {
+    "known_static_obstacle_map": true,
+    "ground_truth_localization": true
+  },
+  "criteria": {
+    "position_error_max_m": 0.2,
+    "yaw_error_max_rad": 0.2,
+    "minimum_clearance_m": 0.05
+  }
+}
+Traceback (most recent call last):
+  File "/workspace/Code/10.27_ROS_simulation/Nav2_test/testing_code/src/well_e_nav2_test/scripts/navigation_probe.py", line 108, in main
+    handle = None
+        ^^^^^^^^^^
+  File "/workspace/Code/10.27_ROS_simulation/Nav2_test/testing_code/src/well_e_nav2_test/scripts/navigation_probe.py", line 75, in ready
+    if time.monotonic() > deadline:
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/__init__.py", line 226, in spin_once
+    executor.spin_once(timeout_sec=timeout_sec)
+  File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/executors.py", line 926, in spin_once
+    self._spin_once_impl(timeout_sec)
+  File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/executors.py", line 907, in _spin_once_impl
+    handler, entity, node = self.wait_for_ready_callbacks(
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/executors.py", line 877, in wait_for_ready_callbacks
+    return next(self._cb_iter)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/executors.py", line 781, in _wait_for_ready_callbacks
+    wait_set.wait(timeout_nsec)
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/Code/10.27_ROS_simulation/Nav2_test/testing_code/src/well_e_nav2_test/scripts/navigation_probe.py", line 195, in <module>
+    
+  File "/workspace/Code/10.27_ROS_simulation/Nav2_test/testing_code/src/well_e_nav2_test/scripts/navigation_probe.py", line 191, in main
+    print(json.dumps(report, indent=2), flush=True)
+    ^^^^^^^^^^^^^^^^
+  File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/__init__.py", line 134, in shutdown
+    _shutdown(context=context)
+  File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/utilities.py", line 82, in shutdown
+    context.shutdown()
+  File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/context.py", line 129, in shutdown
+    self.__context.shutdown()
+rclpy._rclpy_pybind11.RCLError: failed to shutdown: rcl_shutdown already called on the given context, at ./src/rcl/init.c:333

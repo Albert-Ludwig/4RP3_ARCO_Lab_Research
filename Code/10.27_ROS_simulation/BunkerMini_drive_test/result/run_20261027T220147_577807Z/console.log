@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/workspace/Code/10.27_ROS_simulation/BunkerMini_drive_test/testing_code/src/well_e_bunker_sim/scripts/turning_test.py", line 81, in <module>
+    main()
+  File "/workspace/Code/10.27_ROS_simulation/BunkerMini_drive_test/testing_code/src/well_e_bunker_sim/scripts/turning_test.py", line 32, in main
+    probe.run_for(0.4, 0.0)
+  File "/workspace/Code/10.27_ROS_simulation/BunkerMini_drive_test/testing_code/src/well_e_bunker_sim/scripts/smoke_test.py", line 95, in run_for
+    raise RuntimeError('Odometry, ground truth or TF is stale')
+RuntimeError: Odometry, ground truth or TF is stale

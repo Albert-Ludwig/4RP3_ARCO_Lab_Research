@@ -1,0 +1,34 @@
+{
+  "status": "passed",
+  "ros_domain_id": 73,
+  "playback_rate": 5,
+  "command_topics_replayed": false,
+  "received_messages": {
+    "tf": 3779,
+    "truth": 1891,
+    "clock": 756,
+    "map": 1
+  },
+  "final_xy": [
+    5.89848447295062,
+    0.10760801423596586
+  ],
+  "tf_frames": [
+    [
+      "base_link",
+      "left_track"
+    ],
+    [
+      "base_link",
+      "right_track"
+    ],
+    [
+      "map",
+      "odom"
+    ],
+    [
+      "odom",
+      "base_link"
+    ]
+  ]
+}

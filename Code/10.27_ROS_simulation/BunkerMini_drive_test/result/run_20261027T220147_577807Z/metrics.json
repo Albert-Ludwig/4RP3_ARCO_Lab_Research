@@ -1,0 +1,6 @@
+{
+  "status": "failed",
+  "stage": "steering-diagnostics",
+  "cases": [],
+  "error": "RuntimeError: Odometry, ground truth or TF is stale"
+}

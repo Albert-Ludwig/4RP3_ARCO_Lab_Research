@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "checks": {
+    "nav2_succeeded": true,
+    "physical_goal_position": true,
+    "physical_goal_heading": true,
+    "no_sampled_body_overlap": true,
+    "minimum_clearance": true,
+    "body_remained_in_field": true,
+    "detour_executed": true,
+    "stopped_after_success": true,
+    "probe_exit_success": true,
+    "simulation_shutdown_completed": true
+  }
+}

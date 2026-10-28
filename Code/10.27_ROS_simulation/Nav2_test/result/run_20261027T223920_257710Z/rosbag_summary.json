@@ -1,0 +1,64 @@
+{
+  "status": "passed",
+  "storage_id": "mcap",
+  "bag_directory": "rosbag",
+  "message_count": 35012,
+  "topics": {
+    "/clock": 18900,
+    "/cmd_vel": 665,
+    "/global_costmap/costmap": 64,
+    "/global_costmap/published_footprint": 379,
+    "/local_costmap/costmap": 62,
+    "/local_costmap/published_footprint": 379,
+    "/lookahead_point": 664,
+    "/map": 1,
+    "/navigate_to_pose/_action/feedback": 1677,
+    "/navigate_to_pose/_action/status": 2,
+    "/odom": 1891,
+    "/plan": 30,
+    "/received_global_plan": 88,
+    "/simulation/cmd_vel": 758,
+    "/simulation/ground_truth/odom": 1891,
+    "/simulation/track_odom": 1891,
+    "/simulation/track_tf": 1890,
+    "/test/navigation_goal": 1,
+    "/tf": 3778,
+    "/tf_static": 1
+  },
+  "tf_frames": [
+    [
+      "base_link",
+      "left_track"
+    ],
+    [
+      "base_link",
+      "right_track"
+    ],
+    [
+      "map",
+      "odom"
+    ],
+    [
+      "odom",
+      "base_link"
+    ]
+  ],
+  "simulation_clock_range_s": [
+    0.902,
+    38.7
+  ],
+  "navigation_pose_samples": 1753,
+  "analysis_pose_match_fraction": 1.0,
+  "minimum_clearance_from_bag_m": 0.6029716155704696,
+  "checks": {
+    "all_required_topics_have_messages": true,
+    "message_count_matches_metadata": true,
+    "map_odom_base_and_static_tf_present": true,
+    "navigation_goal_matches_scenario": true,
+    "successful_action_status_recorded": true,
+    "simulation_clock_monotonic": true,
+    "navigation_interval_covered": true,
+    "physical_pose_matches_analysis_csv": true,
+    "minimum_clearance_matches_analysis": true
+  }
+}

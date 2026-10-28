@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "stage": "BunkerMini_drive_test",
+  "origin": "Imported result from the completed pre-reorganization run",
+  "source_metrics": "C:\\Ubuntu\\ROS\\reports\\bunker_mini_smoke.json",
+  "source_launch_log": "C:\\Ubuntu\\ROS\\log\\bunker_mini_smoke\\launch.log",
+  "captured_utc": "2026-10-27T21:51:11.7455489Z",
+  "run_start_utc": null,
+  "trajectory_available": false,
+  "note": "Original JSON and log preserved byte-for-byte; the original run did not save a trajectory or source manifest.",
+  "artifact_sha256": {
+    "metrics.json": "7b132354820193a151fc338ae9d4fa3238b79a6cc72e3e48ebb22e65879cd585",
+    "launch.log": "6f6d39600b3b540683eb931ff545f08d0dbf8c313f8b62d9a53b8df5d78ef005"
+  }
+}

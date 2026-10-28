@@ -1,0 +1,106 @@
+{
+  "started_utc": "2026-10-27T22:23:28.739701+00:00",
+  "stage": "Nav2_test",
+  "gui": false,
+  "scenario": {
+    "case": "known_static_obstacle",
+    "map_bounds_m": [
+      -2.0,
+      8.0,
+      -4.0,
+      4.0
+    ],
+    "resolution_m": 0.05,
+    "start": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "goal": [
+      6.0,
+      0.0,
+      0.0
+    ],
+    "obstacle": {
+      "center_m": [
+        3.0,
+        0.0
+      ],
+      "size_m": [
+        1.5,
+        2.0
+      ],
+      "height_m": 1.0
+    },
+    "footprint_m": [
+      [
+        0.36,
+        0.282
+      ],
+      [
+        0.36,
+        -0.282
+      ],
+      [
+        -0.334,
+        -0.282
+      ],
+      [
+        -0.334,
+        0.282
+      ]
+    ],
+    "footprint_padding_m": 0.07,
+    "goal_xy_tolerance_m": 0.15,
+    "goal_yaw_tolerance_rad": 0.15,
+    "minimum_clearance_m": 0.05,
+    "max_navigation_sim_s": 150.0,
+    "localization": "simulator ground-truth map-to-odom correction",
+    "obstacle_source": "known static map; no perception sensor or AMCL"
+  },
+  "ros_distro": "jazzy",
+  "source_sha256": {
+    "Nav2_test/testing_code/README.md": "ca46f720e23e4bd26684a602765c4bb0fbac62216f14d602af2029e21882ade4",
+    "Nav2_test/testing_code/run_nav2.sh": "06e8e2d0efc5d167977fa3a2a9567dfbc17d0d80a5e3bb6c7801df01c70e779b",
+    "Nav2_test/testing_code/run_test.sh": "41af9217b0b953d912458027764e9475038a7452999406e66c1c53e383ccdb1c",
+    "Nav2_test/testing_code/src/well_e_nav2_test/CMakeLists.txt": "ae0f1e62c5f7d32d2cc6625d62fcbf953b60cb7271299e97875c0b352cf3587a",
+    "Nav2_test/testing_code/src/well_e_nav2_test/config/scenario.json": "3a6b4e94ce15cb7d4c3bf2e0b7bd4e4b619c2f342686bd636b4d2d637ea7b847",
+    "Nav2_test/testing_code/src/well_e_nav2_test/launch/nav2_test.launch.py": "b00a207d237841fc9d7306bbb28fa3211647b8df20b999102c6bd6dbd876030c",
+    "Nav2_test/testing_code/src/well_e_nav2_test/package.xml": "7a695d6c83ba486760a8275270a91e40d4b5fa3baa5ab4b88d962d57dd9e356a",
+    "Nav2_test/testing_code/src/well_e_nav2_test/scripts/geometry.py": "0e599ff5f4870959b355f20105a871756786555d0f9ffcb13791052b493a48c7",
+    "Nav2_test/testing_code/src/well_e_nav2_test/scripts/navigation_probe.py": "ed3a2edaef59f861b362f6050679404ed703cde6b9d5f3043839e822d182ed2c",
+    "Nav2_test/testing_code/src/well_e_nav2_test/scripts/truth_localization.py": "6c9af5c91bb9cdc60e667f4830e906f64cae44fa2e3f1de6e725c6536f2aacc7",
+    "Nav2_test/testing_code/tools/run_test.py": "49db03e8a86d03b13deb969663d9c944fa02a402fc278fca6efff2e99c345955",
+    "BunkerMini_drive_test/testing_code/Start-BunkerMini.ps1": "557e2a22b0fe8eddcd4812037edc3ab65b51167614911fdcc2451dc87beb73ad",
+    "BunkerMini_drive_test/testing_code/run_sim.sh": "d0028cedb3f18701833fb240b5b9139ee93d5af646222fa98c86f839bf7df324",
+    "BunkerMini_drive_test/testing_code/run_test.sh": "d36d7f3c3fdcc7d1e8b9647f9323f5837ac5900b05e126724ec235c5747f173e",
+    "BunkerMini_drive_test/testing_code/src/well_e_bunker_sim/CMakeLists.txt": "74324bc7b7994ed34d3698632db3296ddd698e55abb87fc366d99b5b635d1828",
+    "BunkerMini_drive_test/testing_code/src/well_e_bunker_sim/config/bridge.yaml": "c20e7eb620878cb229393e52e4f012df47409f4b0720793ed6cef8f4414e1c55",
+    "BunkerMini_drive_test/testing_code/src/well_e_bunker_sim/config/drive.json": "cbee528b57ff3af0d5bacdbfbab8452ff32646469de1206850b18a83a30e004b",
+    "BunkerMini_drive_test/testing_code/src/well_e_bunker_sim/launch/model.py": "14cc90273b0fd221b714dcefbb93b8d5bffe1b27324d7e55e6a62381e817dfca",
+    "BunkerMini_drive_test/testing_code/src/well_e_bunker_sim/launch/sim.launch.py": "1fc6b96f335df19a182fb9c71483e958156dabae8f9e85856d57e8185f362d42",
+    "BunkerMini_drive_test/testing_code/src/well_e_bunker_sim/package.xml": "06350c6174e1b716efec74d8a1b8ef005cd5e69d7bcd7264a4f89402dec15a35",
+    "BunkerMini_drive_test/testing_code/src/well_e_bunker_sim/scripts/cmd_watchdog.py": "4ee5b96ced551c1dec722b285f3ef9dd32cc7a7f7c35a2036f530bb21b9af0b8",
+    "BunkerMini_drive_test/testing_code/src/well_e_bunker_sim/scripts/odometry_adapter.py": "a348b7dec08c7bf886471a6252d9d6ebccca3229bc0d91354d670f6c7df1ba9d",
+    "BunkerMini_drive_test/testing_code/src/well_e_bunker_sim/scripts/smoke_test.py": "730cc7d44c5011cbfdf6c4ea773dbe852ab467308485345370168415c30ba26a",
+    "BunkerMini_drive_test/testing_code/src/well_e_bunker_sim/scripts/steering_validation.py": "0304eb20025ee618175afcb3930b0cecb821fee50eb172ce8b584dcc265a764f",
+    "BunkerMini_drive_test/testing_code/src/well_e_bunker_sim/scripts/turning_test.py": "52400598f2a366e48f4fbcbddf57fb60de5027c5e7c9a8ac9cf11745e4274c83",
+    "BunkerMini_drive_test/testing_code/tools/fetch_asset.py": "93a1ab2940123f5d65ceea138ae48cf9aed4d0015922504eb285aed544f1e590",
+    "BunkerMini_drive_test/testing_code/tools/run_smoke_test.py": "b84f28a1bf7e7d9fb49dce9877be1be8d8c12cfa8eb71307fa82993fb541eed4"
+  },
+  "gazebo_version": "8.11.0",
+  "status": "failed",
+  "finished_utc": "2026-10-27T22:23:41.573614+00:00",
+  "clean_shutdown": true,
+  "artifact_sha256": {
+    "console.log": "5d0f98f6698314abbd428940c4ed327044aecaa7180fe2cf8e9c200f63075425",
+    "launch.log": "8e990284c3f856e8bf9b35548a6d786a02419b7d7f4ba7ecad012b5f84c3c31e",
+    "map.pgm": "5db09c4a359b559b6257ee69e8d731d4c82713b3a503d3f3b4b54ca2153abab6",
+    "map.yaml": "c8737a07089860595f9102c0cc6ace7d9e82cfca39ec4c873d3195c2bd8d7f3f",
+    "metrics.json": "f2e083d0426c50b23773ab2d1642240cff5443c29105ac7c298c51a740d109d5",
+    "nav2_params.yaml": "9868dd1c214a57ee1e0f4ba60bee88e838c55d9e429dd0b1bbf30243ecdfb559",
+    "planned_path.json": "d0f3d4ff3d1faef49234b33774315283867ae5b2d379390b36df3100a187091c",
+    "trajectory.csv": "6e63e352328bea96ef11a5f4134d5b9e6bd4a5d5c9102f6261e8ac1f100f6e28",
+    "world.sdf": "9875946b0950ea56b9a02420b41f7815b3f0c9cd659de2fb1f9801c3545917dc"
+  }
+}

@@ -1,0 +1,31 @@
+
+Files:             rosbag_0.mcap
+Bag size:          9.6 MiB
+Storage id:        mcap
+ROS Distro:        jazzy
+Duration:          37.818000000s
+Start:             Jan  1 1970 00:00:00.882000000 (0.882000000)
+End:               Jan  1 1970 00:00:38.700000000 (38.700000000)
+Messages:          35012
+Topic information: Topic: /clock | Type: rosgraph_msgs/msg/Clock | Count: 18900 | Serialization Format: cdr
+                   Topic: /cmd_vel | Type: geometry_msgs/msg/Twist | Count: 665 | Serialization Format: cdr
+                   Topic: /global_costmap/costmap | Type: nav_msgs/msg/OccupancyGrid | Count: 64 | Serialization Format: cdr
+                   Topic: /global_costmap/published_footprint | Type: geometry_msgs/msg/PolygonStamped | Count: 379 | Serialization Format: cdr
+                   Topic: /local_costmap/costmap | Type: nav_msgs/msg/OccupancyGrid | Count: 62 | Serialization Format: cdr
+                   Topic: /local_costmap/published_footprint | Type: geometry_msgs/msg/PolygonStamped | Count: 379 | Serialization Format: cdr
+                   Topic: /lookahead_point | Type: geometry_msgs/msg/PointStamped | Count: 664 | Serialization Format: cdr
+                   Topic: /map | Type: nav_msgs/msg/OccupancyGrid | Count: 1 | Serialization Format: cdr
+                   Topic: /navigate_to_pose/_action/feedback | Type: nav2_msgs/action/NavigateToPose_FeedbackMessage | Count: 1677 | Serialization Format: cdr
+                   Topic: /navigate_to_pose/_action/status | Type: action_msgs/msg/GoalStatusArray | Count: 2 | Serialization Format: cdr
+                   Topic: /odom | Type: nav_msgs/msg/Odometry | Count: 1891 | Serialization Format: cdr
+                   Topic: /plan | Type: nav_msgs/msg/Path | Count: 30 | Serialization Format: cdr
+                   Topic: /received_global_plan | Type: nav_msgs/msg/Path | Count: 88 | Serialization Format: cdr
+                   Topic: /simulation/cmd_vel | Type: geometry_msgs/msg/Twist | Count: 758 | Serialization Format: cdr
+                   Topic: /simulation/ground_truth/odom | Type: nav_msgs/msg/Odometry | Count: 1891 | Serialization Format: cdr
+                   Topic: /simulation/track_odom | Type: nav_msgs/msg/Odometry | Count: 1891 | Serialization Format: cdr
+                   Topic: /simulation/track_tf | Type: tf2_msgs/msg/TFMessage | Count: 1890 | Serialization Format: cdr
+                   Topic: /test/navigation_goal | Type: geometry_msgs/msg/PoseStamped | Count: 1 | Serialization Format: cdr
+                   Topic: /tf | Type: tf2_msgs/msg/TFMessage | Count: 3778 | Serialization Format: cdr
+                   Topic: /tf_static | Type: tf2_msgs/msg/TFMessage | Count: 1 | Serialization Format: cdr
+Service:           0
+Service information: 

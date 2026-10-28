@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "stage": "tracked-motion-interface",
+  "checks": {
+    "forward_ground_truth_m": 0.594046073566546,
+    "forward_odometry_m": 0.5967999999999786,
+    "positive_rotation_ground_truth_rad": 0.7436673433863713,
+    "reverse_ground_truth_m": -0.29601120090075106,
+    "watchdog_stopped_drift_m": 0.0,
+    "odom_tf_translation_error_m": 0.0
+  },
+  "simulation_time_s": 14.022
+}

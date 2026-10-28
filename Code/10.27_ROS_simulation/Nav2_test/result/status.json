@@ -1,0 +1,18 @@
+{
+  "stage": "Nav2_test",
+  "status": "passed",
+  "implementation_status": "known_static_obstacle_only",
+  "implemented_checks": [
+    "single_goal",
+    "known_static_obstacle_detour",
+    "physical_footprint_clearance"
+  ],
+  "pending_checks": [
+    "unmapped_obstacle_perception",
+    "ordered_waypoints",
+    "unreachable_goal",
+    "cancel_and_stop"
+  ],
+  "metrics": "run_20261027T224156_726349Z/metrics.json",
+  "recording": "run_20261027T224156_726349Z/rosbag"
+}

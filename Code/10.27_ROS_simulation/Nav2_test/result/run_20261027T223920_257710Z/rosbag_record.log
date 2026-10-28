@@ -1,0 +1,38 @@
+[INFO] [1793140770.562847803] [nav2_test_recorder]: Event publisher thread: Started
+[INFO] [1793140770.569983502] [nav2_test_recorder]: Starting recording to '/workspace/Code/10.27_ROS_simulation/Nav2_test/result/run_20261027T223920_257710Z/rosbag'
+[INFO] [1793140770.584282683] [nav2_test_recorder]: Listening for topics...
+[INFO] [1793140770.584534702] [nav2_test_recorder]: Recording...
+[INFO] [1793140770.584384561] [nav2_test_recorder]: Topics discovery started.
+[INFO] [1793140770.584969029] [nav2_test_recorder]: use_sim_time set, waiting for /clock before starting recording...
+[INFO] [1793140770.657206440] [nav2_test_recorder]: Sim time /clock found, starting recording.
+[INFO] [1793140770.673594827] [nav2_test_recorder]: Subscribed to topic '/odom'
+[WARN] [1793140770.674135522] [rosbag2_cpp]: Message definition for topic '/navigate_to_pose/_action/feedback' with type 'nav2_msgs/action/NavigateToPose_FeedbackMessage' not found. Message definition will be left empty in bag.
+[INFO] [1793140770.680663731] [nav2_test_recorder]: Subscribed to topic '/navigate_to_pose/_action/feedback'
+[WARN] [1793140770.681352310] [rosbag2_cpp]: Message definition for topic '/navigate_to_pose/_action/status' with type 'action_msgs/msg/GoalStatusArray' not found. Message definition will be left empty in bag.
+[INFO] [1793140770.683217414] [nav2_test_recorder]: Subscribed to topic '/navigate_to_pose/_action/status'
+[INFO] [1793140770.684563703] [nav2_test_recorder]: Overriding subscription profile for /map
+[INFO] [1793140770.685193574] [nav2_test_recorder]: Subscribed to topic '/map'
+[INFO] [1793140770.686889173] [nav2_test_recorder]: Subscribed to topic '/lookahead_point'
+[INFO] [1793140770.688053769] [nav2_test_recorder]: Subscribed to topic '/simulation/track_odom'
+[INFO] [1793140770.693258894] [nav2_test_recorder]: Overriding subscription profile for /tf_static
+[INFO] [1793140770.694926348] [nav2_test_recorder]: Subscribed to topic '/tf_static'
+[INFO] [1793140770.695780861] [nav2_test_recorder]: Subscribed to topic '/simulation/ground_truth/odom'
+[INFO] [1793140770.697799232] [nav2_test_recorder]: Subscribed to topic '/simulation/track_tf'
+[INFO] [1793140770.700400639] [nav2_test_recorder]: Overriding subscription profile for /clock
+[INFO] [1793140770.701344804] [nav2_test_recorder]: Subscribed to topic '/clock'
+[INFO] [1793140770.702675714] [nav2_test_recorder]: Subscribed to topic '/tf'
+[INFO] [1793140770.704800318] [nav2_test_recorder]: Subscribed to topic '/simulation/cmd_vel'
+[INFO] [1793140770.707404040] [nav2_test_recorder]: Subscribed to topic '/global_costmap/published_footprint'
+[INFO] [1793140770.711557146] [nav2_test_recorder]: Subscribed to topic '/plan'
+[INFO] [1793140770.713201515] [nav2_test_recorder]: Subscribed to topic '/cmd_vel'
+[INFO] [1793140770.720953984] [nav2_test_recorder]: Subscribed to topic '/global_costmap/costmap'
+[INFO] [1793140770.732154166] [nav2_test_recorder]: Subscribed to topic '/local_costmap/costmap'
+[INFO] [1793140770.746415774] [nav2_test_recorder]: Subscribed to topic '/local_costmap/published_footprint'
+[INFO] [1793140770.763592063] [nav2_test_recorder]: Subscribed to topic '/received_global_plan'
+[INFO] [1793140771.669448589] [nav2_test_recorder]: Overriding subscription profile for /test/navigation_goal
+[INFO] [1793140771.670385873] [nav2_test_recorder]: Subscribed to topic '/test/navigation_goal'
+[INFO] [1793140807.269056710] [nav2_test_recorder]: Topics discovery stopped.
+[INFO] [1793140807.269347340] [nav2_test_recorder]: Pausing recording.
+[INFO] [1793140807.269539773] [rosbag2_cpp]: Writing remaining messages from cache to the bag. It may take a while
+[INFO] [1793140807.293972602] [nav2_test_recorder]: Recording stopped
+[INFO] [1793140807.298697752] [nav2_test_recorder]: Event publisher thread: Exited

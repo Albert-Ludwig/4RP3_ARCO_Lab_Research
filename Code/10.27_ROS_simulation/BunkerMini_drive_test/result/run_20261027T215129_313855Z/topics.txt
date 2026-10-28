@@ -1,0 +1,11 @@
+/clock
+/cmd_vel
+/joint_states
+/odom
+/parameter_events
+/robot_description
+/rosout
+/simulation/cmd_vel
+/simulation/ground_truth/odom
+/tf
+/tf_static

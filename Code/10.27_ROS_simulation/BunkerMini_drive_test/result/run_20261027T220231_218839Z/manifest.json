@@ -1,0 +1,49 @@
+{
+  "run_id": "run_20261027T220231_218839Z",
+  "status": "passed",
+  "started_utc": "2026-10-27T22:02:31.218839+00:00",
+  "stage": "BunkerMini_drive_test",
+  "mode": "simulation",
+  "gui": false,
+  "ros_distro": "jazzy",
+  "gazebo_version": "8.11.0",
+  "python_version": "3.12.3",
+  "ros_domain_id": 71,
+  "gz_partition": "well_e_bunker_mini",
+  "world": "bunker_test",
+  "probe": "turning_test",
+  "units": {
+    "position": "m",
+    "yaw": "rad",
+    "time": "s"
+  },
+  "model_commit": "27633a956c845903ee630538afeb17fe70afdd84",
+  "mesh_sha256": "af09e88d1b29b3a436083443f6030529a8e95b07a91ed23975e58799cf250f52",
+  "source_sha256": {
+    "testing_code/Start-BunkerMini.ps1": "557e2a22b0fe8eddcd4812037edc3ab65b51167614911fdcc2451dc87beb73ad",
+    "testing_code/run_sim.sh": "d0028cedb3f18701833fb240b5b9139ee93d5af646222fa98c86f839bf7df324",
+    "testing_code/run_test.sh": "d36d7f3c3fdcc7d1e8b9647f9323f5837ac5900b05e126724ec235c5747f173e",
+    "testing_code/src/well_e_bunker_sim/CMakeLists.txt": "8248241277a66d5a0ec5a47d39575cb3f76cb6595092c6543f46b4afa9935553",
+    "testing_code/src/well_e_bunker_sim/config/bridge.yaml": "52c548d0529b8fc7c4fd8adf9ab9625bd357b73e156779b05ac495b1174e78e7",
+    "testing_code/src/well_e_bunker_sim/launch/model.py": "d060fb4d490ef2a6971589048df9ed59df0534e374931d8588cc1710e152e77b",
+    "testing_code/src/well_e_bunker_sim/launch/sim.launch.py": "b8d36599ed69ba6a5383934efee1876866a42896a02e19bbc7e35ba24030bc4d",
+    "testing_code/src/well_e_bunker_sim/package.xml": "06350c6174e1b716efec74d8a1b8ef005cd5e69d7bcd7264a4f89402dec15a35",
+    "testing_code/src/well_e_bunker_sim/scripts/cmd_watchdog.py": "4ee5b96ced551c1dec722b285f3ef9dd32cc7a7f7c35a2036f530bb21b9af0b8",
+    "testing_code/src/well_e_bunker_sim/scripts/smoke_test.py": "c73eb53a25d6a016ea5dffa52bb331254aa0f233cff8df4010017d2034b8cb26",
+    "testing_code/src/well_e_bunker_sim/scripts/turning_test.py": "596c75e7764d21b5c945623795110aa7b8a7073a1fe0a80eadb568e8316f9219",
+    "testing_code/tools/fetch_asset.py": "93a1ab2940123f5d65ceea138ae48cf9aed4d0015922504eb285aed544f1e590",
+    "testing_code/tools/run_smoke_test.py": "8f0ddf9f2ddd75dd04372bee2942e55415be4f96a66ff9402bc9807f8637b224"
+  },
+  "finished_utc": "2026-10-27T22:03:11.769110+00:00",
+  "artifact_sha256": {
+    "console.log": "72493a1e96d4aa04aea12a809ab30e2b1059bab3174284c8f1de8ba5abea5e1b",
+    "launch.log": "cd3a91c5e3f8cdde2c51de1df28d428165db57386c0c15474776e97d3d3343d8",
+    "metrics.json": "f5290327eb46650b890863295a6ddeaa32e2d4723ce98e741b9c24902fb25ab9",
+    "model_check.log": "581e1adf70bd048b67b37b74d7e86c4914095ff3f6ca4164e452e18465907d34",
+    "robot.urdf": "fda4c5d6571d3da23821b960f61df4366bba2aa0124f573cc3ec4fd2666e08db",
+    "topics.txt": "2e4620c70cf04dbec4ea67018a0050b7d3591737e5026767dbeb25e06eddda50",
+    "trajectory.csv": "5467521c2accd3ac56726a60ca806315cb63cb933703a3b6d2d037c192b6e7fa",
+    "verification.json": "9f2eeb681daf75a4c7f0766e855401bedda1bca4a5d95d9bcda184190c21ea52",
+    "world.sdf": "03a3132c48c25265bc579240a9dd1d209d3f3e6625601ffea231fc0af3216389"
+  }
+}

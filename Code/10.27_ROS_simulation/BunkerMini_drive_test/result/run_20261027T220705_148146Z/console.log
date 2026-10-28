@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "stage": "tracked-motion-interface",
+  "checks": {
+    "forward_ground_truth_m": 0.5908460741548648,
+    "forward_odometry_m": 0.5915999999999786,
+    "positive_rotation_ground_truth_rad": 1.1850920277560681,
+    "turn_relative_error": 0.012423310203276472,
+    "turn_odometry_error_rad": 0.0018920277559539844,
+    "reverse_ground_truth_m": -0.2936112006942685,
+    "watchdog_stopped_drift_m": 0.0,
+    "odom_tf_translation_error_m": 0.0
+  },
+  "simulation_time_s": 14.022
+}
+Report: /workspace/Code/10.27_ROS_simulation/BunkerMini_drive_test/result/run_20261027T220705_148146Z/metrics.json

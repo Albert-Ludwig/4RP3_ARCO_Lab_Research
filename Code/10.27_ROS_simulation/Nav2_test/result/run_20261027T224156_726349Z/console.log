@@ -1,0 +1,40 @@
+{
+  "status": "passed",
+  "case": "known_static_obstacle",
+  "assumptions": {
+    "known_static_obstacle_map": true,
+    "ground_truth_localization": true
+  },
+  "criteria": {
+    "position_error_max_m": 0.2,
+    "yaw_error_max_rad": 0.2,
+    "minimum_clearance_m": 0.05
+  },
+  "nav2_action_status": 4,
+  "nav2_error_code": 0,
+  "navigation_duration_s": 33.436,
+  "final_pose": [
+    5.89817540369077,
+    0.10864460146985154,
+    -0.14416385097872378
+  ],
+  "final_position_error_m": 0.1489023097271515,
+  "final_yaw_error_rad": 0.14416385097872378,
+  "minimum_footprint_clearance_m": 0.6029150526695662,
+  "sampled_footprint_overlap_count": 0,
+  "actual_path_length_m": 7.46937433713281,
+  "planned_path_length_m": 7.714858008552349,
+  "max_lateral_detour_m": 1.965238342831969,
+  "stopped_after_success": true,
+  "physical_pose_samples": 1747,
+  "checks": {
+    "nav2_succeeded": true,
+    "physical_goal_position": true,
+    "physical_goal_heading": true,
+    "no_sampled_body_overlap": true,
+    "minimum_clearance": true,
+    "body_remained_in_field": true,
+    "detour_executed": true,
+    "stopped_after_success": true
+  }
+}

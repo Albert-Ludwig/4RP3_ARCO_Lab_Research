@@ -1,0 +1,243 @@
+Verified manufacturer Mini mesh: /ros-data/assets/bunker_mini/base_link.STL
+Starting >>> well_e_bunker_sim
+-- Install configuration: ""
+-- Up-to-date: /ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_bunker_sim/share/well_e_bunker_sim/launch
+-- Up-to-date: /ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_bunker_sim/share/well_e_bunker_sim/launch/model.py
+-- Up-to-date: /ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_bunker_sim/share/well_e_bunker_sim/launch/sim.launch.py
+-- Up-to-date: /ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_bunker_sim/share/well_e_bunker_sim/config
+-- Up-to-date: /ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_bunker_sim/share/well_e_bunker_sim/config/bridge.yaml
+-- Up-to-date: /ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_bunker_sim/share/well_e_bunker_sim/config/drive.json
+-- Up-to-date: /ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_bunker_sim/lib/well_e_bunker_sim/cmd_watchdog.py
+-- Up-to-date: /ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_bunker_sim/lib/well_e_bunker_sim/odometry_adapter.py
+-- Up-to-date: /ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_bunker_sim/lib/well_e_bunker_sim/smoke_test.py
+-- Up-to-date: /ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_bunker_sim/lib/well_e_bunker_sim/turning_test.py
+-- Up-to-date: /ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_bunker_sim/lib/well_e_bunker_sim/steering_validation.py
+-- Up-to-date: /ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_bunker_sim/share/ament_index/resource_index/package_run_dependencies/well_e_bunker_sim
+-- Up-to-date: /ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_bunker_sim/share/ament_index/resource_index/parent_prefix_path/well_e_bunker_sim
+-- Up-to-date: /ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_bunker_sim/share/well_e_bunker_sim/environment/ament_prefix_path.sh
+-- Up-to-date: /ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_bunker_sim/share/well_e_bunker_sim/environment/ament_prefix_path.dsv
+-- Up-to-date: /ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_bunker_sim/share/well_e_bunker_sim/environment/path.sh
+-- Up-to-date: /ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_bunker_sim/share/well_e_bunker_sim/environment/path.dsv
+-- Up-to-date: /ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_bunker_sim/share/well_e_bunker_sim/local_setup.bash
+-- Up-to-date: /ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_bunker_sim/share/well_e_bunker_sim/local_setup.sh
+-- Up-to-date: /ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_bunker_sim/share/well_e_bunker_sim/local_setup.zsh
+-- Up-to-date: /ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_bunker_sim/share/well_e_bunker_sim/local_setup.dsv
+-- Installing: /ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_bunker_sim/share/well_e_bunker_sim/package.dsv
+-- Up-to-date: /ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_bunker_sim/share/ament_index/resource_index/packages/well_e_bunker_sim
+-- Up-to-date: /ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_bunker_sim/share/well_e_bunker_sim/cmake/well_e_bunker_simConfig.cmake
+-- Up-to-date: /ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_bunker_sim/share/well_e_bunker_sim/cmake/well_e_bunker_simConfig-version.cmake
+-- Up-to-date: /ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_bunker_sim/share/well_e_bunker_sim/package.xml
+Finished <<< well_e_bunker_sim [1.96s]
+Starting >>> well_e_nav2_test
+-- Install configuration: ""
+-- Up-to-date: /ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_nav2_test/share/well_e_nav2_test/launch
+-- Up-to-date: /ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_nav2_test/share/well_e_nav2_test/launch/nav2_test.launch.py
+-- Up-to-date: /ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_nav2_test/share/well_e_nav2_test/config
+-- Installing: /ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_nav2_test/share/well_e_nav2_test/config/rosbag_qos.yaml
+-- Up-to-date: /ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_nav2_test/share/well_e_nav2_test/config/scenario.json
+-- Up-to-date: /ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_nav2_test/lib/well_e_nav2_test/truth_localization.py
+-- Installing: /ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_nav2_test/lib/well_e_nav2_test/navigation_probe.py
+-- Up-to-date: /ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_nav2_test/lib/well_e_nav2_test/geometry.py
+-- Up-to-date: /ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_nav2_test/share/ament_index/resource_index/package_run_dependencies/well_e_nav2_test
+-- Up-to-date: /ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_nav2_test/share/ament_index/resource_index/parent_prefix_path/well_e_nav2_test
+-- Up-to-date: /ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_nav2_test/share/well_e_nav2_test/environment/ament_prefix_path.sh
+-- Up-to-date: /ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_nav2_test/share/well_e_nav2_test/environment/ament_prefix_path.dsv
+-- Up-to-date: /ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_nav2_test/share/well_e_nav2_test/environment/path.sh
+-- Up-to-date: /ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_nav2_test/share/well_e_nav2_test/environment/path.dsv
+-- Up-to-date: /ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_nav2_test/share/well_e_nav2_test/local_setup.bash
+-- Up-to-date: /ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_nav2_test/share/well_e_nav2_test/local_setup.sh
+-- Up-to-date: /ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_nav2_test/share/well_e_nav2_test/local_setup.zsh
+-- Up-to-date: /ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_nav2_test/share/well_e_nav2_test/local_setup.dsv
+-- Installing: /ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_nav2_test/share/well_e_nav2_test/package.dsv
+-- Up-to-date: /ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_nav2_test/share/ament_index/resource_index/packages/well_e_nav2_test
+-- Up-to-date: /ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_nav2_test/share/well_e_nav2_test/cmake/well_e_nav2_testConfig.cmake
+-- Up-to-date: /ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_nav2_test/share/well_e_nav2_test/cmake/well_e_nav2_testConfig-version.cmake
+-- Up-to-date: /ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_nav2_test/share/well_e_nav2_test/package.xml
+Finished <<< well_e_nav2_test [1.88s]
+
+Summary: 2 packages finished [4.30s]
+[INFO] [launch]: All log files can be found below /ros-data/log/2026-10-27-22-37-09-320776-bunker-jazzy-736
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [gz-1]: process started with pid [834]
+[INFO] [parameter_bridge-2]: process started with pid [835]
+[INFO] [robot_state_publisher-3]: process started with pid [836]
+[INFO] [cmd_watchdog.py-4]: process started with pid [837]
+[INFO] [odometry_adapter.py-5]: process started with pid [838]
+[INFO] [truth_localization.py-6]: process started with pid [839]
+[INFO] [map_server-7]: process started with pid [840]
+[INFO] [planner_server-8]: process started with pid [841]
+[INFO] [controller_server-9]: process started with pid [842]
+[INFO] [behavior_server-10]: process started with pid [843]
+[INFO] [bt_navigator-11]: process started with pid [844]
+[INFO] [lifecycle_manager-12]: process started with pid [845]
+[robot_state_publisher-3] [INFO] [1793140630.553919268] [robot_state_publisher]: Robot initialized
+[lifecycle_manager-12] [INFO] [1793140630.609712065] [lifecycle_manager_nav2_test]: Creating
+[lifecycle_manager-12] [INFO] [1793140630.622100270] [lifecycle_manager_nav2_test]: [34m[1mCreating and initializing lifecycle service clients[0m[0m
+[planner_server-8] [INFO] [1793140630.746542966] [planner_server]: 
+[planner_server-8] 	planner_server lifecycle node launched. 
+[planner_server-8] 	Waiting on external lifecycle transitions to activate
+[planner_server-8] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[controller_server-9] [INFO] [1793140630.848812463] [controller_server]: 
+[controller_server-9] 	controller_server lifecycle node launched. 
+[controller_server-9] 	Waiting on external lifecycle transitions to activate
+[controller_server-9] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[planner_server-8] [INFO] [1793140630.878827015] [planner_server]: Creating
+[planner_server-8] [INFO] [1793140630.886433716] [global_costmap.global_costmap]: 
+[planner_server-8] 	global_costmap lifecycle node launched. 
+[planner_server-8] 	Waiting on external lifecycle transitions to activate
+[planner_server-8] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[planner_server-8] [INFO] [1793140630.903986133] [global_costmap.global_costmap]: Creating Costmap
+[behavior_server-10] [INFO] [1793140630.964521011] [behavior_server]: 
+[behavior_server-10] 	behavior_server lifecycle node launched. 
+[behavior_server-10] 	Waiting on external lifecycle transitions to activate
+[behavior_server-10] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[bt_navigator-11] [INFO] [1793140631.109278457] [bt_navigator]: 
+[bt_navigator-11] 	bt_navigator lifecycle node launched. 
+[bt_navigator-11] 	Waiting on external lifecycle transitions to activate
+[bt_navigator-11] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[controller_server-9] [INFO] [1793140631.175024746] [controller_server]: Creating controller server
+[controller_server-9] [INFO] [1793140631.181620458] [local_costmap.local_costmap]: 
+[controller_server-9] 	local_costmap lifecycle node launched. 
+[controller_server-9] 	Waiting on external lifecycle transitions to activate
+[controller_server-9] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[bt_navigator-11] [INFO] [1793140631.193169333] [bt_navigator]: Creating
+[map_server-7] [INFO] [1793140631.202489917] [map_server]: 
+[map_server-7] 	map_server lifecycle node launched. 
+[map_server-7] 	Waiting on external lifecycle transitions to activate
+[map_server-7] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[map_server-7] [INFO] [1793140631.202827166] [map_server]: Creating
+[lifecycle_manager-12] [INFO] [1793140631.208976367] [lifecycle_manager_nav2_test]: [34m[1mStarting managed nodes bringup...[0m[0m
+[lifecycle_manager-12] [INFO] [1793140631.209083961] [lifecycle_manager_nav2_test]: [34m[1mConfiguring map_server[0m[0m
+[controller_server-9] [INFO] [1793140631.209204786] [local_costmap.local_costmap]: Creating Costmap
+[map_server-7] [INFO] [1793140631.210189459] [map_server]: Configuring
+[map_server-7] [INFO] [1793140631.210253266] [map_io]: Loading yaml file: /ros-data/generated/Nav2_test/map.yaml
+[map_server-7] [INFO] [1793140631.213814776] [map_io]: resolution: 0.05
+[map_server-7] [INFO] [1793140631.213848500] [map_io]: origin[0]: -2
+[map_server-7] [INFO] [1793140631.213854339] [map_io]: origin[1]: -4
+[map_server-7] [INFO] [1793140631.213857180] [map_io]: origin[2]: 0
+[map_server-7] [INFO] [1793140631.213860252] [map_io]: free_thresh: 0.25
+[map_server-7] [INFO] [1793140631.213863008] [map_io]: occupied_thresh: 0.65
+[map_server-7] [INFO] [1793140631.213867411] [map_io]: mode: trinary
+[map_server-7] [INFO] [1793140631.213871603] [map_io]: negate: 0
+[map_server-7] [INFO] [1793140631.218983654] [map_io]: Loading image_file: /ros-data/generated/Nav2_test/map.pgm
+[map_server-7] [INFO] [1793140631.227633522] [map_io]: Read map /ros-data/generated/Nav2_test/map.pgm: 200 X 160 map @ 0.05 m/cell
+[lifecycle_manager-12] [INFO] [1793140631.233299320] [lifecycle_manager_nav2_test]: [34m[1mConfiguring planner_server[0m[0m
+[planner_server-8] [INFO] [1793140631.233627931] [planner_server]: Configuring
+[planner_server-8] [INFO] [1793140631.233660305] [global_costmap.global_costmap]: Configuring
+[planner_server-8] [INFO] [1793140631.237898550] [global_costmap.global_costmap]: Using plugin "static_layer"
+[planner_server-8] [INFO] [1793140631.258286273] [global_costmap.global_costmap]: Subscribing to the map topic (/map) with transient local durability
+[planner_server-8] [INFO] [1793140631.259070265] [global_costmap.global_costmap]: Initialized plugin "static_layer"
+[planner_server-8] [INFO] [1793140631.259095955] [global_costmap.global_costmap]: Using plugin "inflation_layer"
+[planner_server-8] [INFO] [1793140631.259653197] [global_costmap.global_costmap]: Initialized plugin "inflation_layer"
+[planner_server-8] [INFO] [1793140631.282150529] [planner_server]: Created global planner plugin GridBased of type nav2_navfn_planner::NavfnPlanner
+[planner_server-8] [INFO] [1793140631.282208803] [planner_server]: Configuring plugin GridBased of type NavfnPlanner
+[planner_server-8] [INFO] [1793140631.282788398] [planner_server]: Planner Server has GridBased  planners available.
+[lifecycle_manager-12] [INFO] [1793140631.289266612] [lifecycle_manager_nav2_test]: [34m[1mConfiguring controller_server[0m[0m
+[controller_server-9] [INFO] [1793140631.289628092] [controller_server]: Configuring controller interface
+[controller_server-9] [INFO] [1793140631.289656094] [controller_server]: getting progress checker plugins..
+[controller_server-9] [INFO] [1793140631.289763953] [controller_server]: getting goal checker plugins..
+[controller_server-9] [INFO] [1793140631.289827981] [controller_server]: Controller frequency set to 20.0000Hz
+[controller_server-9] [INFO] [1793140631.289879340] [local_costmap.local_costmap]: Configuring
+[controller_server-9] [INFO] [1793140631.293505797] [local_costmap.local_costmap]: Using plugin "static_layer"
+[controller_server-9] [INFO] [1793140631.310024327] [local_costmap.local_costmap]: Subscribing to the map topic (/map) with transient local durability
+[controller_server-9] [INFO] [1793140631.311220092] [local_costmap.local_costmap]: Initialized plugin "static_layer"
+[controller_server-9] [INFO] [1793140631.311243131] [local_costmap.local_costmap]: Using plugin "inflation_layer"
+[controller_server-9] [INFO] [1793140631.311844572] [local_costmap.local_costmap]: Initialized plugin "inflation_layer"
+[controller_server-9] [INFO] [1793140631.337290961] [controller_server]: Created progress_checker : progress_checker of type nav2_controller::SimpleProgressChecker
+[controller_server-9] [INFO] [1793140631.338056253] [controller_server]: Controller Server has progress_checker  progress checkers available.
+[controller_server-9] [INFO] [1793140631.352253279] [controller_server]: Created goal checker : general_goal_checker of type nav2_controller::SimpleGoalChecker
+[controller_server-9] [INFO] [1793140631.352623978] [controller_server]: Controller Server has general_goal_checker  goal checkers available.
+[controller_server-9] [INFO] [1793140631.367015592] [controller_server]: Created controller : FollowPath of type nav2_regulated_pure_pursuit_controller::RegulatedPurePursuitController
+[controller_server-9] [INFO] [1793140631.370666408] [controller_server]: Controller Server has FollowPath  controllers available.
+[lifecycle_manager-12] [INFO] [1793140631.375664751] [lifecycle_manager_nav2_test]: [34m[1mConfiguring behavior_server[0m[0m
+[behavior_server-10] [INFO] [1793140631.376024571] [behavior_server]: Configuring
+[behavior_server-10] [INFO] [1793140631.379513303] [behavior_server]: Creating behavior plugin spin of type nav2_behaviors::Spin
+[behavior_server-10] [INFO] [1793140631.393794715] [behavior_server]: Creating behavior plugin backup of type nav2_behaviors::BackUp
+[behavior_server-10] [INFO] [1793140631.407243236] [behavior_server]: Creating behavior plugin drive_on_heading of type nav2_behaviors::DriveOnHeading
+[behavior_server-10] [INFO] [1793140631.423169099] [behavior_server]: Creating behavior plugin assisted_teleop of type nav2_behaviors::AssistedTeleop
+[behavior_server-10] [INFO] [1793140631.439715642] [behavior_server]: Creating behavior plugin wait of type nav2_behaviors::Wait
+[behavior_server-10] [INFO] [1793140631.458457498] [behavior_server]: Configuring spin
+[behavior_server-10] [INFO] [1793140631.461408022] [behavior_server]: Configuring backup
+[behavior_server-10] [INFO] [1793140631.463140280] [behavior_server]: Configuring drive_on_heading
+[behavior_server-10] [INFO] [1793140631.465453051] [behavior_server]: Configuring assisted_teleop
+[behavior_server-10] [INFO] [1793140631.467912654] [behavior_server]: Configuring wait
+[lifecycle_manager-12] [INFO] [1793140631.470382816] [lifecycle_manager_nav2_test]: [34m[1mConfiguring bt_navigator[0m[0m
+[bt_navigator-11] [INFO] [1793140631.470660756] [bt_navigator]: Configuring
+[bt_navigator-11] [INFO] [1793140631.474802789] [bt_navigator]: Creating navigator id navigate_to_pose of type nav2_bt_navigator::NavigateToPoseNavigator
+[lifecycle_manager-12] [INFO] [1793140631.619741362] [lifecycle_manager_nav2_test]: [34m[1mActivating map_server[0m[0m
+[map_server-7] [INFO] [1793140631.620049330] [map_server]: Activating
+[map_server-7] [INFO] [1793140631.620176067] [map_server]: Creating bond (map_server) to lifecycle manager.
+[controller_server-9] [INFO] [1793140631.722048300] [local_costmap.local_costmap]: StaticLayer: Resizing static layer to 200 X 160 at 0.050000 m/pix
+[planner_server-8] [INFO] [1793140631.722416497] [global_costmap.global_costmap]: StaticLayer: Resizing costmap to 200 X 160 at 0.050000 m/pix
+[lifecycle_manager-12] [INFO] [1793140631.723756112] [lifecycle_manager_nav2_test]: Server map_server connected with bond.
+[lifecycle_manager-12] [INFO] [1793140631.723806424] [lifecycle_manager_nav2_test]: [34m[1mActivating planner_server[0m[0m
+[planner_server-8] [INFO] [1793140631.724264480] [planner_server]: Activating
+[planner_server-8] [INFO] [1793140631.724299070] [global_costmap.global_costmap]: Activating
+[planner_server-8] [INFO] [1793140631.724305881] [global_costmap.global_costmap]: Checking transform
+[planner_server-8] [INFO] [1793140631.724342868] [global_costmap.global_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[gz-1] [1;32m[Msg] [0m[1;32mGazebo Sim Server v[0m[1;32m8.11.0[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mLoading SDF world file[[0m[1;32m/ros-data/generated/Nav2_test/world.sdf[0m[1;32m].[0m
+[gz-1] [1;32m[Msg] [0m[1;32mServing entity system service on [[0m[1;32m/[0m[1;32mentity/system/add[0m[1;32m][0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mCreate[0m[1;32m service on [[0m[1;32m/world/bunker_test/create_multiple[0m[1;32m] (async)[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mCreate[0m[1;32m service on [[0m[1;32m/world/bunker_test/create_multiple/blocking[0m[1;32m] (blocking)[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mRemove[0m[1;32m service on [[0m[1;32m/world/bunker_test/remove[0m[1;32m] (async)[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mRemove[0m[1;32m service on [[0m[1;32m/world/bunker_test/remove/blocking[0m[1;32m] (blocking)[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mPose[0m[1;32m service on [[0m[1;32m/world/bunker_test/set_pose[0m[1;32m] (async)[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mPose[0m[1;32m service on [[0m[1;32m/world/bunker_test/set_pose/blocking[0m[1;32m] (blocking)[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mPose[0m[1;32m service on [[0m[1;32m/world/bunker_test/set_pose_vector[0m[1;32m] (async)[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mPose[0m[1;32m service on [[0m[1;32m/world/bunker_test/set_pose_vector/blocking[0m[1;32m] (blocking)[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mLight configuration[0m[1;32m service on [[0m[1;32m/world/bunker_test/light_config[0m[1;32m] (async)[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mLight configuration[0m[1;32m service on [[0m[1;32m/world/bunker_test/light_config/blocking[0m[1;32m] (blocking)[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mPhysics[0m[1;32m service on [[0m[1;32m/world/bunker_test/set_physics[0m[1;32m] (async)[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mPhysics[0m[1;32m service on [[0m[1;32m/world/bunker_test/set_physics/blocking[0m[1;32m] (blocking)[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mSphericalCoordinates[0m[1;32m service on [[0m[1;32m/world/bunker_test/set_spherical_coordinates[0m[1;32m] (async)[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mSphericalCoordinates[0m[1;32m service on [[0m[1;32m/world/bunker_test/set_spherical_coordinates/blocking[0m[1;32m] (blocking)[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mEnable collision[0m[1;32m service on [[0m[1;32m/world/bunker_test/enable_collision[0m[1;32m] (async)[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mEnable collision[0m[1;32m service on [[0m[1;32m/world/bunker_test/enable_collision/blocking[0m[1;32m] (blocking)[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mDisable collision[0m[1;32m service on [[0m[1;32m/world/bunker_test/disable_collision[0m[1;32m] (async)[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mDisable collision[0m[1;32m service on [[0m[1;32m/world/bunker_test/disable_collision/blocking[0m[1;32m] (blocking)[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mMaterial[0m[1;32m service on [[0m[1;32m/world/bunker_test/visual_config[0m[1;32m] (async)[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mMaterial[0m[1;32m service on [[0m[1;32m/world/bunker_test/visual_config/blocking[0m[1;32m] (blocking)[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mMaterial[0m[1;32m service on [[0m[1;32m/world/bunker_test/wheel_slip[0m[1;32m] (async)[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mMaterial[0m[1;32m service on [[0m[1;32m/world/bunker_test/wheel_slip/blocking[0m[1;32m] (blocking)[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mTrackedVehicle [[0m[1;32mbunker_mini[0m[1;32m] loaded:[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32m- tracks separation: [0m[1;32m0.452[0m[1;32m m[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32m- track height (for odometry): [0m[1;32m0.2[0m[1;32m m[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32m- initial steering efficiency: [0m[1;32m0.624[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32m- subscribing to twist messages on [[0m[1;32m/model/bunker_mini/cmd_vel[0m[1;32m][0m[1;32m[0m
+[planner_server-8] [INFO] [1793140632.225880684] [global_costmap.global_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-8] [INFO] [1793140632.725461452] [global_costmap.global_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[parameter_bridge-2] [INFO] [1793140632.807617544] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/clock (gz.msgs.Clock) -> /clock (rosgraph_msgs/msg/Clock)] (Lazy 0)
+[parameter_bridge-2] [INFO] [1793140632.812051602] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/simulation/cmd_vel (geometry_msgs/msg/Twist) -> /model/bunker_mini/cmd_vel (gz.msgs.Twist)] (Lazy 0)
+[parameter_bridge-2] [INFO] [1793140632.815501886] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/model/bunker_mini/odometry (gz.msgs.Odometry) -> /simulation/track_odom (nav_msgs/msg/Odometry)] (Lazy 0)
+[parameter_bridge-2] [INFO] [1793140632.817091896] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/model/bunker_mini/tf (gz.msgs.Pose_V) -> /simulation/track_tf (tf2_msgs/msg/TFMessage)] (Lazy 0)
+[parameter_bridge-2] [INFO] [1793140632.820163663] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/model/bunker_mini/ground_truth/odometry (gz.msgs.Odometry) -> /simulation/ground_truth/odom (nav_msgs/msg/Odometry)] (Lazy 0)
+[parameter_bridge-2] [INFO] [1793140632.823102682] [ros_gz_bridge]: Passing message from ROS geometry_msgs/msg/Twist to Gazebo gz.msgs.Twist (showing msg only once per type)
+[planner_server-8] [INFO] [1793140633.224422848] [global_costmap.global_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-8] [INFO] [1793140633.724578500] [global_costmap.global_costmap]: start
+[planner_server-8] [INFO] [1793140633.774825761] [planner_server]: Activating plugin GridBased of type NavfnPlanner
+[planner_server-8] [INFO] [1793140633.775415546] [planner_server]: Creating bond (planner_server) to lifecycle manager.
+[lifecycle_manager-12] [INFO] [1793140633.877752595] [lifecycle_manager_nav2_test]: Server planner_server connected with bond.
+[lifecycle_manager-12] [INFO] [1793140633.877822317] [lifecycle_manager_nav2_test]: [34m[1mActivating controller_server[0m[0m
+[controller_server-9] [INFO] [1793140633.878246238] [controller_server]: Activating
+[controller_server-9] [INFO] [1793140633.878280923] [local_costmap.local_costmap]: Activating
+[controller_server-9] [INFO] [1793140633.878292385] [local_costmap.local_costmap]: Checking transform
+[controller_server-9] [INFO] [1793140633.878494817] [local_costmap.local_costmap]: start
+[controller_server-9] [INFO] [1793140633.928677373] [controller_server]: Activating controller: FollowPath of type regulated_pure_pursuit_controller::RegulatedPurePursuitController
+[controller_server-9] [INFO] [1793140633.928756483] [controller_server]: Creating bond (controller_server) to lifecycle manager.
+[lifecycle_manager-12] [INFO] [1793140634.032810386] [lifecycle_manager_nav2_test]: Server controller_server connected with bond.
+[lifecycle_manager-12] [INFO] [1793140634.032880329] [lifecycle_manager_nav2_test]: [34m[1mActivating behavior_server[0m[0m
+[behavior_server-10] [INFO] [1793140634.033429446] [behavior_server]: Activating
+[behavior_server-10] [INFO] [1793140634.033457229] [behavior_server]: Activating spin
+[behavior_server-10] [INFO] [1793140634.033469933] [behavior_server]: Activating backup
+[behavior_server-10] [INFO] [1793140634.033479401] [behavior_server]: Activating drive_on_heading
+[behavior_server-10] [INFO] [1793140634.033487917] [behavior_server]: Activating assisted_teleop
+[behavior_server-10] [INFO] [1793140634.033497064] [behavior_server]: Activating wait
+[behavior_server-10] [INFO] [1793140634.033510279] [behavior_server]: Creating bond (behavior_server) to lifecycle manager.
+[lifecycle_manager-12] [INFO] [1793140634.137350529] [lifecycle_manager_nav2_test]: Server behavior_server connected with bond.
+[lifecycle_manager-12] [INFO] [1793140634.137418357] [lifecycle_manager_nav2_test]: [34m[1mActivating bt_navigator[0m[0m
+[bt_navigator-11] [INFO] [1793140634.137995869] [bt_navigator]: Activating
+[bt_navigator-11] [INFO] [1793140634.163903595] [bt_navigator]: Creating bond (bt_navigator) to lifecycle manager.
+[lifecycle_manager-12] [INFO] [1793140634.268381830] [lifecycle_manager_nav2_test]: Server bt_navigator connected with bond.
+[lifecycle_manager-12] [INFO] [1793140634.268444098] [lifecycle_manager_nav2_test]: [34m[1mManaged nodes are active[0m[0m
+[lifecycle_manager-12] [INFO] [1793140634.268455740] [lifecycle_manager_nav2_test]: [34m[1mCreating bond timer...[0m[0m

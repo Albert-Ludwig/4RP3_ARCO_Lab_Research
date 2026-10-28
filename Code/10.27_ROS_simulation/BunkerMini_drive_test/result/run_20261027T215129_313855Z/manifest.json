@@ -1,0 +1,47 @@
+{
+  "run_id": "run_20261027T215129_313855Z",
+  "status": "passed",
+  "started_utc": "2026-10-27T21:51:29.313855+00:00",
+  "stage": "BunkerMini_drive_test",
+  "mode": "simulation",
+  "gui": false,
+  "ros_distro": "jazzy",
+  "gazebo_version": "8.11.0",
+  "python_version": "3.12.3",
+  "ros_domain_id": 71,
+  "gz_partition": "well_e_bunker_mini",
+  "world": "bunker_test",
+  "units": {
+    "position": "m",
+    "yaw": "rad",
+    "time": "s"
+  },
+  "model_commit": "27633a956c845903ee630538afeb17fe70afdd84",
+  "mesh_sha256": "af09e88d1b29b3a436083443f6030529a8e95b07a91ed23975e58799cf250f52",
+  "source_sha256": {
+    "testing_code/Start-BunkerMini.ps1": "557e2a22b0fe8eddcd4812037edc3ab65b51167614911fdcc2451dc87beb73ad",
+    "testing_code/run_sim.sh": "d0028cedb3f18701833fb240b5b9139ee93d5af646222fa98c86f839bf7df324",
+    "testing_code/run_test.sh": "92b9c7ccd357d26c71092e9574a7a7940d5b05d72d633f0628d5f3c68d8f8303",
+    "testing_code/src/well_e_bunker_sim/CMakeLists.txt": "8248241277a66d5a0ec5a47d39575cb3f76cb6595092c6543f46b4afa9935553",
+    "testing_code/src/well_e_bunker_sim/config/bridge.yaml": "52c548d0529b8fc7c4fd8adf9ab9625bd357b73e156779b05ac495b1174e78e7",
+    "testing_code/src/well_e_bunker_sim/launch/model.py": "d060fb4d490ef2a6971589048df9ed59df0534e374931d8588cc1710e152e77b",
+    "testing_code/src/well_e_bunker_sim/launch/sim.launch.py": "b8d36599ed69ba6a5383934efee1876866a42896a02e19bbc7e35ba24030bc4d",
+    "testing_code/src/well_e_bunker_sim/package.xml": "06350c6174e1b716efec74d8a1b8ef005cd5e69d7bcd7264a4f89402dec15a35",
+    "testing_code/src/well_e_bunker_sim/scripts/cmd_watchdog.py": "4ee5b96ced551c1dec722b285f3ef9dd32cc7a7f7c35a2036f530bb21b9af0b8",
+    "testing_code/src/well_e_bunker_sim/scripts/smoke_test.py": "c73eb53a25d6a016ea5dffa52bb331254aa0f233cff8df4010017d2034b8cb26",
+    "testing_code/tools/fetch_asset.py": "93a1ab2940123f5d65ceea138ae48cf9aed4d0015922504eb285aed544f1e590",
+    "testing_code/tools/run_smoke_test.py": "48bc7d91aa117aa47a6c3a8700bc23cf21d92531203ea2fc715df44febc4d4d2"
+  },
+  "finished_utc": "2026-10-27T21:51:56.838163+00:00",
+  "artifact_sha256": {
+    "console.log": "aa379cbd8e1dbe5dbe4771869e8a846513425c2dc538e41cd618bfdbe44f06a7",
+    "launch.log": "0137754d784620393c8a50402368660d958115501395bbcb63f2727a8741f52a",
+    "metrics.json": "ac1ceb11ed65e3f2c92676d747b05199aebf49e97f872cd6c979d1a787392fd8",
+    "model_check.log": "581e1adf70bd048b67b37b74d7e86c4914095ff3f6ca4164e452e18465907d34",
+    "robot.urdf": "fda4c5d6571d3da23821b960f61df4366bba2aa0124f573cc3ec4fd2666e08db",
+    "topics.txt": "2e4620c70cf04dbec4ea67018a0050b7d3591737e5026767dbeb25e06eddda50",
+    "trajectory.csv": "8f52b4a18be83b5690e0c5a60bdcf8186e4f2847499bf4124d2150f7ad1ef694",
+    "verification.json": "9f2eeb681daf75a4c7f0766e855401bedda1bca4a5d95d9bcda184190c21ea52",
+    "world.sdf": "03a3132c48c25265bc579240a9dd1d209d3f3e6625601ffea231fc0af3216389"
+  }
+}
