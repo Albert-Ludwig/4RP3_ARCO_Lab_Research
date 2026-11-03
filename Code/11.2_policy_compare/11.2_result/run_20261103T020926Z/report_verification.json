@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "executed_code_cells": 6,
+  "error_outputs": 0,
+  "readme_sha256": "c66f8b99bd47ed402c7ccab0aceb4d645903e847079fbe07892ee2338ea1cd3c",
+  "notebook_sha256": "8513bd5a2333ed73ec98c607a1f983ca451fd76b101b3318784721beff430eb3",
+  "report_builder_sha256": "d8b7f7ac80afdc8607ce57287d55b6620ee0f620a1cf7e4c673913dc71d2aace",
+  "figure_sha256": {
+    "comparison.png": "a489b8cf672e52ba96dcc2c75e01a18f8d4341de2165daacd841db19f1db65c8",
+    "routes.png": "3483cfe3ae7b4202eea5500942cd861edb0f1ecb9d57af40f58008864aca1822",
+    "target_predictions.png": "683d1959e1ceac6de85a916d846a4b7fe947ce5c8fb78a348d3157c1d1cc5fe5"
+  }
+}

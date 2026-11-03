@@ -1,0 +1,17 @@
+/home/ubuntu/.venvs/policy-compare/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+Traceback (most recent call last):
+  File "/workspace/Code/11.2_policy_compare/testing_code/run_compare.py", line 231, in <module>
+    worker(args.output, args.worker)
+  File "/workspace/Code/11.2_policy_compare/testing_code/run_compare.py", line 65, in worker
+    summary = controller.run()
+              ^^^^^^^^^^^^^^^^
+  File "/workspace/Code/10.18_Robot_close_loop_system/testing_code/baseline/mission.py", line 51, in run
+    plan = self.planner.plan(self.gp, current, state.elapsed_s, remaining, visited, blocked)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Code/11.2_policy_compare/testing_code/planner.py", line 57, in plan
+    self.event_log("plan_end", call=call, elapsed_s=elapsed, wall_s=wall_s)
+  File "/workspace/Code/11.2_policy_compare/testing_code/run_compare.py", line 33, in write
+    stream.write(json.dumps(dict(event=kind, wall_s=time.time(), **values)) + "\n")
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: dict() got multiple values for keyword argument 'wall_s'

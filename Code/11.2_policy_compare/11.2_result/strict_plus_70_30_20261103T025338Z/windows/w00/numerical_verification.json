@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "cases": [
+    {
+      "online_fixture_events": 0,
+      "mi_error_nats": 7.105427357601002e-15,
+      "emse_error_c2": 3.6637359812630166e-15,
+      "target_variance_error_c2": 4.529709940470639e-14
+    },
+    {
+      "online_fixture_events": 2,
+      "mi_error_nats": 6.006306563222097e-14,
+      "emse_error_c2": 5.0237591864288333e-14,
+      "target_variance_error_c2": 1.9129142714291447e-13
+    }
+  ],
+  "reference": "Direct GPyTorch joint posterior and independent Schur complement, before and after two numerical-fixture observations. No fixture records enter a mission."
+}

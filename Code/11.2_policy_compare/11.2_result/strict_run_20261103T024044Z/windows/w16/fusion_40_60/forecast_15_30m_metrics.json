@@ -1,0 +1,17 @@
+{
+  "rmse_c": 2.7958138337418457,
+  "mae_c": 1.9778118183997118,
+  "coverage_95": 0.8319672131147541,
+  "nlpd": 3.176092251465186,
+  "interval_width_95_c": 5.713594592177772,
+  "z_mean": 0.19472987485699808,
+  "z_std": 1.9306246333382828,
+  "sensor_balanced_rmse_c": 2.5671913820358,
+  "task": "forecast_15_30m",
+  "record_count": 244,
+  "sensor_count": 29,
+  "forecast_origin_h": 88.25,
+  "min_record_h": 88.5001696775,
+  "max_record_h": 88.74998324222223,
+  "mean_latent_variance_c2": 1.1897436804178438
+}

@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "checks": {
+    "training_times_not_after_forecast_origin": true,
+    "no_forecast_conditioning": true,
+    "parameters_not_changed": true
+  },
+  "training_count": 2010,
+  "latest_training_h": 88.23241047750003,
+  "forecast_origin_h": 88.25
+}

@@ -1,0 +1,21 @@
+{
+  "protocol_version": 2,
+  "window_start_hours": [72.0, 80.0, 88.0],
+  "policies": ["mi", "emse", "fusion", "fusion_40_60", "fusion_60_40"],
+  "weights_mi_emse": {
+    "mi": [1.0, 0.0],
+    "emse": [0.0, 1.0],
+    "fusion": [0.5, 0.5],
+    "fusion_40_60": [0.4, 0.6],
+    "fusion_60_40": [0.6, 0.4]
+  },
+  "forecast_lead_bins_min": [[0, 15], [15, 30], [30, 60]],
+  "reconstruction_window_min": 5,
+  "depth": 2,
+  "planning_wall_limit_s": 90,
+  "mission_wall_limit_s": 900,
+  "normalization": "unchanged initial maximum single-event scales; shared by all policies within each window",
+  "emse_target": "unchanged reconstruction target at the 15-minute mission deadline; future prediction is an additional evaluation",
+  "selection": "Preset weights, windows, and lead bins; no kernel refit or weight tuning on evaluation labels.",
+  "scope": "Causally separated forecasting on one fixed dataset with three correlated time windows; no statistical-superiority claim. Computation is reported separately from the original simulated clock."
+}

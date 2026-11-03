@@ -1,0 +1,13 @@
+{
+  "experiment": "paired Intel replay: change route-scoring objective only",
+  "policies": ["mi", "emse", "fusion"],
+  "fusion_weights": {"mi": 0.5, "emse_reduction": 0.5},
+  "depth": 2,
+  "target": "original 0.75 m reachable evaluation grid at the fixed mission deadline",
+  "normalization": "fixed initial maximum single-event gain for each objective; no clipping or label tuning",
+  "planning_wall_limit_s": 90,
+  "mission_wall_limit_s": 900,
+  "simulation_time_model": "unchanged: travel + acquisition waiting + dwell; online computation charged as zero",
+  "historical_baseline_tolerance": 1e-7,
+  "note": "Single fixed recorded dataset; no statistical superiority or ROS deployment claim."
+}

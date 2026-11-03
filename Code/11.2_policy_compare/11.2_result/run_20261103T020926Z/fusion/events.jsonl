@@ -1,0 +1,16 @@
+{"event": "plan_start", "timestamp_s": 1793671822.6086078, "call": 0, "gp_version": 0, "elapsed_s": 0.0}
+{"event": "plan_end", "timestamp_s": 1793671823.569181, "call": 0, "elapsed_s": 0.0, "wall_s": 0.9591711920002126}
+{"event": "plan_start", "timestamp_s": 1793671824.2333808, "call": 1, "gp_version": 1, "elapsed_s": 397.1475350000327}
+{"event": "plan_end", "timestamp_s": 1793671825.145479, "call": 1, "elapsed_s": 397.1475350000327, "wall_s": 0.9107074390012713}
+{"event": "plan_start", "timestamp_s": 1793671825.838205, "call": 2, "gp_version": 2, "elapsed_s": 539.898658000026}
+{"event": "plan_end", "timestamp_s": 1793671826.4381354, "call": 2, "elapsed_s": 539.898658000026, "wall_s": 0.5977461129987205}
+{"event": "plan_start", "timestamp_s": 1793671827.0762851, "call": 3, "gp_version": 3, "elapsed_s": 661.1130100000062}
+{"event": "plan_end", "timestamp_s": 1793671827.3038466, "call": 3, "elapsed_s": 661.1130100000062, "wall_s": 0.22549453299870947}
+{"event": "plan_start", "timestamp_s": 1793671828.0599828, "call": 4, "gp_version": 4, "elapsed_s": 724.9297000000001}
+{"event": "plan_end", "timestamp_s": 1793671828.173182, "call": 4, "elapsed_s": 724.9297000000001, "wall_s": 0.11183662599796662}
+{"event": "plan_start", "timestamp_s": 1793671828.8108861, "call": 5, "gp_version": 5, "elapsed_s": 751.4797040000196}
+{"event": "plan_end", "timestamp_s": 1793671828.8656812, "call": 5, "elapsed_s": 751.4797040000196, "wall_s": 0.05328437800199026}
+{"event": "plan_start", "timestamp_s": 1793671829.5233855, "call": 6, "gp_version": 6, "elapsed_s": 810.3304930000004}
+{"event": "plan_end", "timestamp_s": 1793671829.5323277, "call": 6, "elapsed_s": 810.3304930000004, "wall_s": 0.00707895200321218}
+{"event": "plan_start", "timestamp_s": 1793671830.2354176, "call": 7, "gp_version": 7, "elapsed_s": 870.2592039999777}
+{"event": "plan_end", "timestamp_s": 1793671830.236918, "call": 7, "elapsed_s": 870.2592039999777, "wall_s": 0.00031612000020686537}

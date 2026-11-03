@@ -1,0 +1,279 @@
+[
+  {
+    "iteration": 0,
+    "elapsed_s": 0.0,
+    "route": [
+      0,
+      0,
+      23,
+      27,
+      0
+    ],
+    "arrivals_s": [
+      208.5889549999763,
+      356.35921500000904,
+      627.1132869999974
+    ],
+    "finish_s": 712.8065461060525,
+    "runtime_s": 0.8758071989977907,
+    "evaluations": 2035,
+    "gp_version": 0,
+    "objective_score": 2.208281329482686,
+    "call": 0,
+    "policy": "fusion_60_40",
+    "route_mi_nats": 4.492944034947634,
+    "route_emse_reduction_c2": 19.703334362663096,
+    "normalized_mi": 2.8219962975341453,
+    "normalized_emse": 1.2877088774054972,
+    "plan_wall_s": 0.8759154569997918,
+    "current_mean_target_variance_c2": 21.85803289391924
+  },
+  {
+    "iteration": 1,
+    "elapsed_s": 213.5889549999763,
+    "route": [
+      0,
+      28,
+      26,
+      19,
+      0
+    ],
+    "arrivals_s": [
+      331.82536100002267,
+      446.73427199996354,
+      567.9799500000286
+    ],
+    "finish_s": 632.9799500000286,
+    "runtime_s": 0.9143231549969641,
+    "evaluations": 2033,
+    "gp_version": 1,
+    "objective_score": 1.8065854068790208,
+    "call": 1,
+    "policy": "fusion_60_40",
+    "route_mi_nats": 4.039936745456314,
+    "route_emse_reduction_c2": 10.867844616423929,
+    "normalized_mi": 2.537464622143405,
+    "normalized_emse": 0.7102665839824446,
+    "plan_wall_s": 0.9145365769982163,
+    "current_mean_target_variance_c2": 12.524510517542678
+  },
+  {
+    "iteration": 2,
+    "elapsed_s": 336.8253610000093,
+    "route": [
+      28,
+      19,
+      26,
+      23,
+      0
+    ],
+    "arrivals_s": [
+      447.2975919999669,
+      597.2726529999989,
+      686.7584829999771
+    ],
+    "finish_s": 782.6127397806151,
+    "runtime_s": 0.8016164330001629,
+    "evaluations": 1955,
+    "gp_version": 2,
+    "objective_score": 1.36905788287875,
+    "call": 2,
+    "policy": "fusion_60_40",
+    "route_mi_nats": 3.2310292114286283,
+    "route_emse_reduction_c2": 5.792286019536972,
+    "normalized_mi": 2.0293937340313497,
+    "normalized_emse": 0.3785541061498478,
+    "plan_wall_s": 0.8017008060014632,
+    "current_mean_target_variance_c2": 6.932883352943052
+  },
+  {
+    "iteration": 3,
+    "elapsed_s": 452.297591999983,
+    "route": [
+      19,
+      26,
+      23,
+      11,
+      0
+    ],
+    "arrivals_s": [
+      597.2726529999989,
+      686.7584829999771,
+      776.9521250000196
+    ],
+    "finish_s": 817.4213066067998,
+    "runtime_s": 0.8179365279975173,
+    "evaluations": 1872,
+    "gp_version": 3,
+    "objective_score": 1.0293976543960386,
+    "call": 3,
+    "policy": "fusion_60_40",
+    "route_mi_nats": 2.539126113403547,
+    "route_emse_reduction_c2": 2.7737028357298823,
+    "normalized_mi": 1.59481276313752,
+    "normalized_emse": 0.18127499128383154,
+    "plan_wall_s": 0.8180156300004455,
+    "current_mean_target_variance_c2": 3.6146754102968024
+  },
+  {
+    "iteration": 4,
+    "elapsed_s": 602.2726530000065,
+    "route": [
+      26,
+      2,
+      23,
+      11,
+      0
+    ],
+    "arrivals_s": [
+      631.1461990000225,
+      686.7584829999771,
+      776.9521250000196
+    ],
+    "finish_s": 817.4213066067998,
+    "runtime_s": 0.3581279700010782,
+    "evaluations": 773,
+    "gp_version": 4,
+    "objective_score": 0.616322338348143,
+    "call": 4,
+    "policy": "fusion_60_40",
+    "route_mi_nats": 1.5697843914310183,
+    "route_emse_reduction_c2": 0.9462941643702958,
+    "normalized_mi": 0.9859739418269555,
+    "normalized_emse": 0.0618449331299856,
+    "plan_wall_s": 0.35821289399973466,
+    "current_mean_target_variance_c2": 1.6560118485926112
+  },
+  {
+    "iteration": 5,
+    "elapsed_s": 636.1461990000081,
+    "route": [
+      2,
+      23,
+      11,
+      14,
+      0
+    ],
+    "arrivals_s": [
+      686.7584829999771,
+      776.9521250000196,
+      841.4379029999736
+    ],
+    "finish_s": 863.5807601428307,
+    "runtime_s": 0.29671809100182145,
+    "evaluations": 605,
+    "gp_version": 5,
+    "objective_score": 0.5796359835725607,
+    "call": 5,
+    "policy": "fusion_60_40",
+    "route_mi_nats": 1.4923297669232038,
+    "route_emse_reduction_c2": 0.6595125185642079,
+    "normalized_mi": 0.9373250688635296,
+    "normalized_emse": 0.04310235563603371,
+    "plan_wall_s": 0.2967968729972199,
+    "current_mean_target_variance_c2": 1.308235664596997
+  },
+  {
+    "iteration": 6,
+    "elapsed_s": 691.7584829999532,
+    "route": [
+      23,
+      11,
+      9,
+      8,
+      0
+    ],
+    "arrivals_s": [
+      776.9521250000196,
+      806.4266790000147,
+      836.6777190000391
+    ],
+    "finish_s": 898.8205761428962,
+    "runtime_s": 0.10654975599754835,
+    "evaluations": 156,
+    "gp_version": 6,
+    "objective_score": 0.3857939254708051,
+    "call": 6,
+    "policy": "fusion_60_40",
+    "route_mi_nats": 0.9981946706633048,
+    "route_emse_reduction_c2": 0.36788362034872935,
+    "normalized_mi": 0.6269612180608863,
+    "normalized_emse": 0.02404298658570313,
+    "plan_wall_s": 0.10663018100240151,
+    "current_mean_target_variance_c2": 0.9786354527018195
+  },
+  {
+    "iteration": 7,
+    "elapsed_s": 781.9521250000073,
+    "route": [
+      11,
+      9,
+      8,
+      0
+    ],
+    "arrivals_s": [
+      806.4266790000147,
+      836.6777190000391
+    ],
+    "finish_s": 898.8205761428962,
+    "runtime_s": 0.011312667000311194,
+    "evaluations": 10,
+    "gp_version": 7,
+    "objective_score": 0.16237345006001472,
+    "call": 7,
+    "policy": "fusion_60_40",
+    "route_mi_nats": 0.42399704689840123,
+    "route_emse_reduction_c2": 0.09896585186919699,
+    "normalized_mi": 0.2663104831054601,
+    "normalized_emse": 0.006467900491677884,
+    "plan_wall_s": 0.011407711001083953,
+    "current_mean_target_variance_c2": 0.7097176842222392
+  },
+  {
+    "iteration": 8,
+    "elapsed_s": 811.426679000002,
+    "route": [
+      9,
+      8,
+      0
+    ],
+    "arrivals_s": [
+      836.6777190000391
+    ],
+    "finish_s": 898.8205761428962,
+    "runtime_s": 0.0029508529987651855,
+    "evaluations": 3,
+    "gp_version": 8,
+    "objective_score": 0.06834384469439844,
+    "call": 8,
+    "policy": "fusion_60_40",
+    "route_mi_nats": 0.18010464942294574,
+    "route_emse_reduction_c2": 0.01798381870988369,
+    "normalized_mi": 0.11312285438831689,
+    "normalized_emse": 0.0011753301535729654,
+    "plan_wall_s": 0.003014195001014741,
+    "current_mean_target_variance_c2": 0.6287356510628345
+  },
+  {
+    "iteration": 9,
+    "elapsed_s": 841.6777190000626,
+    "route": [
+      8,
+      0
+    ],
+    "arrivals_s": [],
+    "finish_s": 898.8205761429197,
+    "runtime_s": 0.0002047749985649716,
+    "evaluations": 1,
+    "gp_version": 9,
+    "objective_score": 0.0,
+    "call": 9,
+    "policy": "fusion_60_40",
+    "route_mi_nats": 0.0,
+    "route_emse_reduction_c2": 0.0,
+    "normalized_mi": 0.0,
+    "normalized_emse": 0.0,
+    "plan_wall_s": 0.00023195799803943373,
+    "current_mean_target_variance_c2": 0.6107518323529194
+  }
+]

@@ -1,0 +1,145 @@
+{
+  "baseline_config": {
+    "seed": 18,
+    "map": {
+      "size_m": 30.0,
+      "resolution_m": 0.5,
+      "robot_size_m": [
+        0.6,
+        0.4
+      ],
+      "margin_m": 0.1,
+      "home_m": [
+        1.5,
+        2.0
+      ],
+      "obstacles": [
+        [
+          [
+            9,
+            8
+          ],
+          [
+            12,
+            8.5
+          ],
+          [
+            12.5,
+            10
+          ],
+          [
+            10.5,
+            11
+          ],
+          [
+            8.5,
+            10
+          ]
+        ],
+        [
+          [
+            20,
+            19
+          ],
+          [
+            22.5,
+            18.5
+          ],
+          [
+            23,
+            20.5
+          ],
+          [
+            21,
+            22
+          ],
+          [
+            19.5,
+            21
+          ]
+        ]
+      ]
+    },
+    "mission": {
+      "start_h": 72.0,
+      "budget_s": 900.0,
+      "sample_s": 5.0,
+      "speed_m_s": 0.35,
+      "step_s": 1.0,
+      "candidate_count": 29,
+      "allow_revisit": true,
+      "max_iterations": 200
+    },
+    "history": {
+      "count": 100,
+      "time_h": [
+        0.0,
+        12.0
+      ],
+      "noise_std_c": 0.0
+    },
+    "sensor_noise_std_c": 0.0,
+    "gp": {
+      "threads": 1,
+      "iterations": 300,
+      "learning_rate": 0.04,
+      "initial_lengthscale_scaled": 0.8,
+      "initial_noise_variance_scaled": 0.02
+    },
+    "grg": {
+      "depth": 2,
+      "time_splits": 2
+    },
+    "evaluation": {
+      "resolution_m": 0.75
+    }
+  },
+  "comparison_config": {
+    "depth": 2,
+    "fusion_weights": {
+      "mi": 0.5,
+      "emse_reduction": 0.5
+    }
+  },
+  "weights_mi_emse": {
+    "mi": [
+      1.0,
+      0.0
+    ],
+    "emse": [
+      0.0,
+      1.0
+    ],
+    "fusion": [
+      0.5,
+      0.5
+    ],
+    "fusion_40_60": [
+      0.4,
+      0.6
+    ],
+    "fusion_60_40": [
+      0.6,
+      0.4
+    ]
+  },
+  "catalog": {
+    "event_count": 288,
+    "target_count": 1393,
+    "target_h": 72.25,
+    "target_resolution_m": 0.75,
+    "initial_mean_target_variance_c2": 1.1136543547973123,
+    "mi_scale_nats": 0.5120799655626357,
+    "emse_scale_c2": 0.3220960058511112,
+    "normalization": "Maximum initial single-event gain over the fixed availability catalog. Fixed across policies and replans. Route scores may exceed one; never clipped.",
+    "catalog_precompute_wall_s": 0.42031438699996215
+  },
+  "forecast_origin_h": 72.25,
+  "reconstruction": "Latest held-out actual record per reachable sensor in the final five minutes; retrospective window reconstruction, not simultaneous dense truth.",
+  "forecasting": "Frozen final GP; only actual held-out records strictly after the common deadline; no additional conditioning.",
+  "future_counts": {
+    "forecast_0_15m": 256,
+    "forecast_15_30m": 263,
+    "forecast_30_60m": 526
+  }
+}

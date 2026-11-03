@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "suites": [
+    "test_objectives.py",
+    "test_strict_protocol.py"
+  ]
+}

@@ -1,0 +1,279 @@
+[
+  {
+    "iteration": 0,
+    "elapsed_s": 0.0,
+    "route": [
+      0,
+      2,
+      13,
+      20,
+      0
+    ],
+    "arrivals_s": [
+      206.5378769999768,
+      387.34814100004087,
+      538.8032900000098
+    ],
+    "finish_s": 611.9860358019496,
+    "runtime_s": 0.8191246009992028,
+    "evaluations": 1880,
+    "gp_version": 0,
+    "objective_score": 20.095546922403592,
+    "call": 0,
+    "policy": "emse",
+    "route_mi_nats": 4.104654164590869,
+    "route_emse_reduction_c2": 20.095546922403592,
+    "normalized_mi": 2.578184958236297,
+    "normalized_emse": 1.3134943939102435,
+    "plan_wall_s": 0.8192887680015701,
+    "current_mean_target_variance_c2": 21.85576824599321
+  },
+  {
+    "iteration": 1,
+    "elapsed_s": 211.53787699997557,
+    "route": [
+      2,
+      8,
+      15,
+      21,
+      0
+    ],
+    "arrivals_s": [
+      268.6143990000062,
+      330.6483459999981,
+      509.7922859999869
+    ],
+    "finish_s": 591.6479858188774,
+    "runtime_s": 0.8571401230001356,
+    "evaluations": 2000,
+    "gp_version": 1,
+    "objective_score": 7.562301504619288,
+    "call": 1,
+    "policy": "emse",
+    "route_mi_nats": 3.4028040263999535,
+    "route_emse_reduction_c2": 7.562301504619288,
+    "normalized_mi": 2.137344050169138,
+    "normalized_emse": 0.4942906341256405,
+    "plan_wall_s": 0.8572713249996013,
+    "current_mean_target_variance_c2": 8.706898258188797
+  },
+  {
+    "iteration": 2,
+    "elapsed_s": 273.6143990000206,
+    "route": [
+      8,
+      22,
+      17,
+      13,
+      0
+    ],
+    "arrivals_s": [
+      386.514539000018,
+      445.75622900000553,
+      627.6523479999696
+    ],
+    "finish_s": 657.3862172842336,
+    "runtime_s": 0.8928532179998001,
+    "evaluations": 2036,
+    "gp_version": 2,
+    "objective_score": 5.3880996699373895,
+    "call": 2,
+    "policy": "emse",
+    "route_mi_nats": 2.866232502432977,
+    "route_emse_reduction_c2": 5.3880996699373895,
+    "normalized_mi": 1.8003167205481847,
+    "normalized_emse": 0.35217945237421283,
+    "plan_wall_s": 0.8929682690031768,
+    "current_mean_target_variance_c2": 6.334090584410959
+  },
+  {
+    "iteration": 3,
+    "elapsed_s": 391.5145390000182,
+    "route": [
+      22,
+      19,
+      0,
+      12,
+      0
+    ],
+    "arrivals_s": [
+      475.6267770000363,
+      628.8855260000048,
+      745.4565859999889
+    ],
+    "finish_s": 785.4355593917583,
+    "runtime_s": 0.9005777510028565,
+    "evaluations": 2026,
+    "gp_version": 3,
+    "objective_score": 1.8337243231686289,
+    "call": 3,
+    "policy": "emse",
+    "route_mi_nats": 2.432224399626123,
+    "route_emse_reduction_c2": 1.8337243231686289,
+    "normalized_mi": 1.5277107670278995,
+    "normalized_emse": 0.11985673382064702,
+    "plan_wall_s": 0.9006895349994011,
+    "current_mean_target_variance_c2": 2.659442451546547
+  },
+  {
+    "iteration": 4,
+    "elapsed_s": 480.62677700001757,
+    "route": [
+      19,
+      26,
+      13,
+      0,
+      0
+    ],
+    "arrivals_s": [
+      655.7385130000114,
+      746.1658060000161,
+      779.0832909999949
+    ],
+    "finish_s": 784.0832909999949,
+    "runtime_s": 0.7523118179997255,
+    "evaluations": 1710,
+    "gp_version": 4,
+    "objective_score": 1.0149777152866402,
+    "call": 4,
+    "policy": "emse",
+    "route_mi_nats": 2.0259650533870905,
+    "route_emse_reduction_c2": 1.0149777152866402,
+    "normalized_mi": 1.2725341568637674,
+    "normalized_emse": 0.0663414409232397,
+    "plan_wall_s": 0.752398724998784,
+    "current_mean_target_variance_c2": 1.725100347483527
+  },
+  {
+    "iteration": 5,
+    "elapsed_s": 660.7385130000354,
+    "route": [
+      26,
+      13,
+      7,
+      13,
+      0
+    ],
+    "arrivals_s": [
+      746.1658060000161,
+      810.1925700000152,
+      869.6548669999856
+    ],
+    "finish_s": 899.3887362842496,
+    "runtime_s": 0.20945686900086002,
+    "evaluations": 403,
+    "gp_version": 5,
+    "objective_score": 0.9465054001091334,
+    "call": 5,
+    "policy": "emse",
+    "route_mi_nats": 1.4673815201542317,
+    "route_emse_reduction_c2": 0.9465054001091334,
+    "normalized_mi": 0.921680807092463,
+    "normalized_emse": 0.06186592192039819,
+    "plan_wall_s": 0.20956049899905338,
+    "current_mean_target_variance_c2": 1.5873518056968574
+  },
+  {
+    "iteration": 6,
+    "elapsed_s": 751.1658059999986,
+    "route": [
+      13,
+      0,
+      11,
+      13,
+      0
+    ],
+    "arrivals_s": [
+      779.0832909999949,
+      839.9856559999932,
+      869.6548669999856
+    ],
+    "finish_s": 899.3887362842496,
+    "runtime_s": 0.057994063001387985,
+    "evaluations": 70,
+    "gp_version": 6,
+    "objective_score": 0.18933381144203643,
+    "call": 6,
+    "policy": "emse",
+    "route_mi_nats": 1.1215124573784574,
+    "route_emse_reduction_c2": 0.18933381144203643,
+    "normalized_mi": 0.7044360942832248,
+    "normalized_emse": 0.012375323790243413,
+    "plan_wall_s": 0.05810157999803778,
+    "current_mean_target_variance_c2": 0.8222728467104999
+  },
+  {
+    "iteration": 7,
+    "elapsed_s": 784.0832910000186,
+    "route": [
+      0,
+      11,
+      13,
+      0
+    ],
+    "arrivals_s": [
+      839.9856559999932,
+      869.6548669999856
+    ],
+    "finish_s": 899.3887362842496,
+    "runtime_s": 0.01775017299951287,
+    "evaluations": 15,
+    "gp_version": 7,
+    "objective_score": 0.07718359692854036,
+    "call": 7,
+    "policy": "emse",
+    "route_mi_nats": 0.4627777232731951,
+    "route_emse_reduction_c2": 0.07718359692854036,
+    "normalized_mi": 0.2906765143437403,
+    "normalized_emse": 0.005044909813051246,
+    "plan_wall_s": 0.017852871998911723,
+    "current_mean_target_variance_c2": 0.7101226321970311
+  },
+  {
+    "iteration": 8,
+    "elapsed_s": 844.9856559999967,
+    "route": [
+      11,
+      13,
+      0
+    ],
+    "arrivals_s": [
+      869.6548669999856
+    ],
+    "finish_s": 899.3887362842496,
+    "runtime_s": 0.0028599420002137776,
+    "evaluations": 3,
+    "gp_version": 8,
+    "objective_score": 0.036220902556828215,
+    "call": 8,
+    "policy": "emse",
+    "route_mi_nats": 0.16845602764211426,
+    "route_emse_reduction_c2": 0.036220902556828215,
+    "normalized_mi": 0.10580935181768882,
+    "normalized_emse": 0.0023674873161935615,
+    "plan_wall_s": 0.0029270319973875303,
+    "current_mean_target_variance_c2": 0.6691599378254359
+  },
+  {
+    "iteration": 9,
+    "elapsed_s": 874.6548669999686,
+    "route": [
+      13,
+      0
+    ],
+    "arrivals_s": [],
+    "finish_s": 899.3887362842326,
+    "runtime_s": 0.0001986130009754561,
+    "evaluations": 1,
+    "gp_version": 9,
+    "objective_score": 0.0,
+    "call": 9,
+    "policy": "emse",
+    "route_mi_nats": 0.0,
+    "route_emse_reduction_c2": 0.0,
+    "normalized_mi": 0.0,
+    "normalized_emse": 0.0,
+    "plan_wall_s": 0.0002274489997944329,
+    "current_mean_target_variance_c2": 0.6329390352684942
+  }
+]
