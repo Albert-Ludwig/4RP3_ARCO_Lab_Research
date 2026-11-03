@@ -1,71 +1,61 @@
-# 11.2 - GRG Policy Objective Comparison
+# 11.2 - GP/GRG Policy Comparison
 
-## Purpose
+## Purpose and comparison
 
-Compare MI, target-field EMSE reduction, and normalized 50/50 fusion while retaining the existing GRG search, GP checkpoint, Intel data split, navigation, and measurement rules. This is a Python recorded-data replay in the existing Docker container, not a ROS/Nav2 integration experiment.
+Compare how the GRG route-scoring objective affects temperature-field reconstruction and future prediction while holding the GP, navigation, acquisition rules and budget fixed. This is a Python replay of Intel Lab measurements, separate from ROS 2/Nav2 simulation.
 
-## Controlled protocol
+Sampling policies: **MI, EMSE, MI:EMSE 5:5, MI:EMSE 4:6, MI:EMSE 6:4, MI:EMSE 7:3**. A history-only GP is the no-new-measurement control. MI maximizes conditional information gain; EMSE maximizes average latent-variance reduction over a fixed target grid. Fusion uses `w_MI * MI/s_MI + w_EMSE * EMSE_reduction/s_EMSE`, with shared initial single-event normalizers fixed before sampling.
 
-- Reuse the 10.18 three-day, 2,000-observation GP checkpoint without retraining. Kernel parameters remain fixed; only successful acquisitions update the posterior.
-- Same 29 recorded-sensor candidates, 30 x 30 m simulated map, obstacles, Home at sensor 16, 0.35 m/s speed, 5 s dwell, 900 s budget, depth 2, two time splits, and spatial revisits.
-- Preserve the existing travel + acquisition waiting + dwell clock. Online computation is charged as zero, as in the old baseline; measured wall time is reported separately. All arms compute both objective components.
-- Fixed policy target: 1393 reachable points on the original 0.75 m grid at 72.25 h. Target coordinates and timestamps are public; target temperatures are never supplied to the planner.
-- Preserve the same 28 held-out real reference records. Their individual timestamps lie in the last five minutes of the mission. Evaluation is retrospective reconstruction, not a causal future forecast or a dense measured field.
+| Item | Setting |
+|---|---|
+| Data/model | Intel Lab; 2,000 observations from days 1-3; saved GP with fixed kernel/noise parameters |
+| Missions | Day-four starts at 72, 80 and 88 h; same initial checkpoint per policy/window |
+| Navigation | 29 sensor candidates; synthetic 30 x 30 m map; grid/Dijkstra navigation; GRG depth 2 |
+| Budget | 900 s; 0.35 m/s; 5 s dwell; travel and acquisition waiting included; computation charged zero, wall time saved separately |
+| Reconstruction | Latest held-out record per reachable sensor in the final five minutes; retrospective, at actual record timestamps |
+| Forecast | Freeze final GP at the common deadline; test strictly later records in (0,15], (15,30], (30,60] min; no future updates |
+| Metrics | Mean of three window RMSEs; MAE, sensor-balanced RMSE, coverage and per-window NLPD also saved |
 
-## Objective definitions
+## Dependencies
 
-For a scheduled route S and current observations D:
+Paths below are relative to the repository root. Keep these sibling experiments and data files in place.
 
-- **MI:** `0.5 * logdet(I + posterior_cov(S|D) / noise_variance)`.
-- **EMSE:** maximize the average target latent-variance reduction, `trace(C_QS (C_SS + noise*I)^(-1) C_SQ) / n_Q`. Target uncertainty after sampling is minimized equivalently. This is a model-based expected-error objective, not access to unknown actual reconstruction error.
-- **Fusion:** `0.5 * MI / s_MI + 0.5 * EMSE_reduction / s_EMSE`.
+| File/directory | Required role |
+|---|---|
+| `Code/11.2_policy_compare/testing_code/` | Runners, objective scoring, split rules, verification and the single report builder |
+| `Code/10.18_Robot_close_loop_system/testing_code/baseline/` | GP wrapper, GRG recursion, mission controller, grid navigation and output helpers |
+| `Code/10.18_Robot_close_loop_system/testing_code/intel_lab/` | Intel loading, candidate construction and recorded measurement acquisition |
+| `Code/10.16_GP3D_baseline_test/10.16_testing_code/3D_time&spatial temp field rebuild & prediction/` | Shared GP/scaling/checkpoint loader and evaluation metrics |
+| `Data/Intel_lab_data/processed/three_day_2000/` | `train_2000.csv`, `test_day4.csv`, `split.json` |
+| `Code/10.18_Robot_close_loop_system/10.18_result/baseline/intel_lab/forecast/` | `initial_gp.pt`, `hyperparameters.json` |
+| `Code/10.18_Robot_close_loop_system/10.18_result/baseline/intel_lab/replay/` | Historical MI control for regression verification |
+| [requirements.txt](testing_code/requirements.txt), [requirements-lock.txt](testing_code/requirements-lock.txt) | Pinned numerical/reporting packages; saved runs use Python 3.12 and CPU PyTorch |
 
-Both normalizers are fixed before any policy executes: the maximum initial single-event MI or EMSE gain over the same public acquisition-event catalog. `s_MI=0.512079966` nats and `s_EMSE=0.322096006` C^2. Route scores may exceed one and are not clipped. Equal weights mean equal relative weights under this declared normalization, not equal physical units or a proven optimal trade-off. No test temperatures or outcome metrics choose the scales or weights.
+Use the existing Docker container `bunker-jazzy`, project mount `/workspace`, and Python `/home/ubuntu/.venvs/policy-compare/bin/python`. ROS Python is separate. Git history retains the superseded reports and verifies their original hashes. The local `GP-Planning` reference clone is not a runtime dependency.
 
-The subclass overrides only route scoring. All recursive subproblems use that same dispatch. No new GRG approximation guarantee is asserted for EMSE or fusion.
+## Run
 
-## Results
-
-| Policy | Samples | Held-out RMSE (C) | MAE (C) | Target mean variance (C^2) | Joint MI (nats) | Planning wall time (s) |
-|---|---:|---:|---:|---:|---:|---:|
-| GRG + MI | 7 | 0.546907 | 0.417031 | 0.461534 | 2.152729 | 3.555 |
-| GRG + EMSE | 7 | 0.527523 | 0.362148 | 0.408739 | 1.839464 | 2.253 |
-| GRG + fusion (50/50) | 7 | 0.496601 | 0.379663 | 0.399477 | 2.063027 | 2.866 |
-
-On this single recorded replay, GRG + fusion (50/50) has the lowest held-out RMSE (0.496601 C), while GRG + fusion (50/50) has the lowest target mean variance (0.399477 C^2). These are different quantities. This is one fixed dataset and mission window, not evidence of statistical superiority. No policy lowers RMSE below the history-only GP in this run.
-
-![Objective comparison](11.2_result/run_20261103T020926Z/figures/comparison.png)
-![Executed routes](11.2_result/run_20261103T020926Z/figures/routes.png)
-![Predicted target field](11.2_result/run_20261103T020926Z/figures/target_predictions.png)
-
-## Verification and provenance
-
-Seven analytic objective checks, independent full-target GPyTorch/Schur-complement checks before and after numerical-fixture updates, and historical MI-control reproduction must pass. Every arm checks record uniqueness, held-out separation, frozen parameters, valid posterior updates, route timing, collision freedom, return and budget feasibility. Saved predictions independently reproduce reported metrics. Hashes verify protected old inputs and experiment source files.
-
-The MI control reproduces the old recorded route, acquisition records, trajectory and metrics within 1e-7; machine-dependent wall times are excluded. Precomputed conditional covariance is exact for the unchanged fixed-hyperparameter GP. The initial shared catalog preparation time is reported in `protocol.json`; it is outside the original simulated mission clock.
-
-Previous user experiments compared GRG depths and before/after sampling. They did not perform this three-objective comparison. The reference repo's Notebook 06 changed kernel and objective together and did not forward its custom objective to recursive calls; this new experiment does not reuse that implementation.
-
-## Files
-
-- [Executed Notebook](11.2_test_report.ipynb)
-- [Comparison table](11.2_result/run_20261103T020926Z/comparison.csv)
-- [Fixed protocol](11.2_result/run_20261103T020926Z/protocol.json), [input/source manifest](11.2_result/run_20261103T020926Z/manifest.json)
-- [Overall verification](11.2_result/run_20261103T020926Z/verification.json), [MI baseline reproduction](11.2_result/run_20261103T020926Z/mi_baseline_verification.json), [independent numerical verification](11.2_result/run_20261103T020926Z/numerical_verification.json)
-- `11.2_result/run_20261103T020926Z/mi`, `/emse`, `/fusion`: individual records, paths, scheduled routes, score components, predictions, final GP checkpoints and execution logs.
-- `testing_code/`: scoring, runner, verification, reporting and analytic tests. Original 10.16/10.18/10.27 files are not modified.
-
-## Run in Docker
-
-Use the existing `bunker-jazzy` container with the project mounted at `/workspace` and the isolated GP environment at `/home/ubuntu/.venvs/policy-compare`. It resides on the container Linux filesystem, separate from ROS Python. The exact dependency set is in `testing_code/requirements.txt`; it matches the old numerical package versions. If the container is recreated, recreate this isolated environment from that file.
+From this folder, with Docker Desktop running, reproduce the five-policy comparison and then the 7:3 extension:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\testing_code\Start-PolicyCompare.ps1
+powershell -ExecutionPolicy Bypass -File .\testing_code\Start-StrictCompare.ps1
+powershell -ExecutionPolicy Bypass -File .\testing_code\Start-70-30Compare.ps1
 ```
 
-```bash
-/home/ubuntu/.venvs/policy-compare/bin/python -B /workspace/Code/11.2_policy_compare/testing_code/run_compare.py
-/home/ubuntu/.venvs/policy-compare/bin/python -B /workspace/Code/11.2_policy_compare/testing_code/build_report.py
+Rebuild only the consolidated report from saved results:
+
+```powershell
+docker --context desktop-linux exec -u ubuntu bunker-jazzy /home/ubuntu/.venvs/policy-compare/bin/python -B /workspace/Code/11.2_policy_compare/testing_code/build_report.py
 ```
 
-Each run creates a new timestamped directory. Existing runs are never overwritten. Readiness checks and raw artifacts are preserved when an execution fails. This initial 50/50 test does not tune weights, compare kernels, add edge sampling, or change ROS integration.
+All report commands write only `README.md` and `11.2_test_report.ipynb`. The Notebook analyzes saved artifacts without running missions. The original three-policy runner remains available for regression reproduction.
+
+## Results and records
+
+- [Executed Notebook: results, figures and conclusions](11.2_test_report.ipynb)
+- [Aggregate metrics](11.2_result/strict_plus_70_30_20261103T025338Z/aggregate.csv), [per-window metrics](11.2_result/strict_plus_70_30_20261103T025338Z/evaluation.csv)
+- [Frozen settings](11.2_result/strict_plus_70_30_20261103T025338Z/config_frozen.json), [checks](11.2_result/strict_plus_70_30_20261103T025338Z/verification.json), [provenance](11.2_result/strict_plus_70_30_20261103T025338Z/manifest.json)
+- `11.2_result/latest.json`, `latest_strict.json`, `latest_70_30.json` identify the initial, five-policy and six-policy records. This report uses `strict_plus_70_30_20261103T025338Z`.
+- Raw runs retain measurements, paths, score components, GP checkpoints, predictions, logs and hashes. A failed initial setup attempt is retained for diagnosis. Current figures and report verification are in `11.2_result/report_figures/` and `11.2_result/report_verification.json`.
+
+**Current finding:** EMSE has the lowest mean reconstruction RMSE; 6:4 has the lowest mean RMSE in all three forecast bins. These are exploratory results from three correlated windows of one dataset; 7:3 was added after inspecting earlier results. Separate-day/field validation is needed. Reconstruction covers recorded sensor locations, not dense measured map truth. Historical manifests remain unchanged; superseded report/source hashes are verified against Git history.

@@ -136,7 +136,8 @@ def main(output=None):
     root.mkdir(parents=True, exist_ok=False)
     protected = paths.protected_inputs()
     prior = paths.ROOT / "11.2_result" / json.loads((paths.ROOT / "11.2_result/latest.json").read_text())["run"]
-    for p in list(prior.rglob("*")) + [paths.ROOT / "README.md", paths.ROOT / "11.2_test_report.ipynb", paths.ROOT / "11.2_result/latest.json"]:
+    # Reports are regenerated at one canonical location; protect raw runs instead.
+    for p in list(prior.rglob("*")) + [paths.ROOT / "11.2_result/latest.json"]:
         if p.is_file():
             protected[str(p.relative_to(paths.WORKSPACE))] = paths.sha256(p)
     sources = {str(p.relative_to(paths.ROOT)): paths.sha256(p) for p in paths.HERE.glob("*.py")

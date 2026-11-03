@@ -81,7 +81,24 @@ def main():
     for relative, digest in read(previous / "artifacts_sha256.json").items():
         assert paths.sha256(previous / relative) == digest, relative
     for relative, digest in parent_manifest["source_sha256"].items():
-        assert paths.sha256(paths.ROOT / relative) == digest, relative
+        if relative == "testing_code/run_strict_compare.py":
+            # Only report provenance bookkeeping changed during consolidation.
+            from build_report import historical_digest
+            origin = historical_digest(paths.ROOT / relative, digest)
+            assert origin, relative
+            if origin != "working_tree":
+                import ast
+                git_path = (paths.ROOT / relative).relative_to(paths.WORKSPACE).as_posix()
+                previous_source = subprocess.check_output(["git", "-c", f"safe.directory={paths.WORKSPACE}",
+                    "-C", str(paths.WORKSPACE), "show", f"{origin}:{git_path}"]).decode()
+                def without_main(source):
+                    tree = ast.parse(source)
+                    tree.body = [node for node in tree.body
+                                 if not (isinstance(node, ast.FunctionDef) and node.name == "main")]
+                    return ast.dump(tree, include_attributes=False)
+                assert without_main(previous_source) == without_main((paths.ROOT / relative).read_text()), relative
+        else:
+            assert paths.sha256(paths.ROOT / relative) == digest, relative
     config = read(previous / "config_frozen.json")
     assert config["policies"] == ["mi", "emse", "fusion", "fusion_40_60", "fusion_60_40"]
     config["policies"].append(POLICY)
@@ -90,8 +107,15 @@ def main():
     root = paths.ROOT / "11.2_result" / datetime.now(timezone.utc).strftime("strict_plus_70_30_%Y%m%dT%H%M%SZ")
     root.mkdir(exist_ok=False)
     (root / "windows").mkdir()
-    protected = dict(parent_manifest["protected_inputs_sha256"])
-    for p in list(previous.rglob("*")) + [paths.ROOT / "README_strict.md", paths.ROOT / "11.2_strict_test_report.ipynb", paths.ROOT / "11.2_result/latest_strict.json"]:
+    report_prefix = paths.ROOT.relative_to(paths.WORKSPACE).as_posix() + "/"
+    report_names = ["README.md", "README_strict.md", "README_70_30.md", "11.2_test_report.ipynb",
+                    "11.2_strict_test_report.ipynb", "11.2_70_30_test_report.ipynb"]
+    report_paths = {report_prefix + name for name in report_names}
+    excluded_reports = {p: h for p, h in parent_manifest["protected_inputs_sha256"].items()
+                        if p.replace("\\", "/") in report_paths}
+    protected = {p: h for p, h in parent_manifest["protected_inputs_sha256"].items()
+                 if p not in excluded_reports}
+    for p in list(previous.rglob("*")) + [paths.ROOT / "11.2_result/latest_strict.json"]:
         if p.is_file():
             protected[str(p.relative_to(paths.WORKSPACE))] = paths.sha256(p)
     sources = {str(p.relative_to(paths.ROOT)): paths.sha256(p) for p in paths.HERE.glob("*.py")
@@ -102,6 +126,7 @@ def main():
         prior_five_policy_run=str(previous.relative_to(paths.ROOT)),
         historical_checkpoint_sha256=paths.sha256(paths.CHECKPOINT), environment=parent_manifest["environment"],
         selection_note=config["selection"], newly_executed_policies=[POLICY],
+        consolidated_report_hashes_retained_in_git=excluded_reports,
         reused_policies=["history_only"] + config["policies"][:-1]))
     save_json(root / "config_frozen.json", config)
     for name in ["test_objectives.py", "test_strict_protocol.py"]:

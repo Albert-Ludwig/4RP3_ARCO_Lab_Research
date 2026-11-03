@@ -1,222 +1,270 @@
-"""Build English figures, README, and an executed artifact-verification Notebook."""
+"""Build one concise README and executed Notebook from immutable saved runs."""
 
 import argparse
+import csv
 import hashlib
 import json
 from pathlib import Path
+import subprocess
 import sys
 
 import bootstrap as paths
-import numpy as np
-import matplotlib
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt
-import nbformat as nbf
-from nbclient import NotebookClient
-from jupyter_client import KernelManager
-from experiment import save_json
 
-LABELS = {"mi": "GRG + MI", "emse": "GRG + EMSE", "fusion": "GRG + fusion (50/50)"}
-COLORS = ["#3977ab", "#df8544", "#41917b"]
+LABELS = {"history_only": "History only", "mi": "MI", "emse": "EMSE", "fusion": "MI:EMSE 5:5",
+          "fusion_40_60": "MI:EMSE 4:6", "fusion_60_40": "MI:EMSE 6:4", "fusion_70_30": "MI:EMSE 7:3"}
+TASKS = ["reconstruction", "forecast_0_15m", "forecast_15_30m", "forecast_30_60m"]
+TITLES = ["Reconstruction", "Forecast (0,15] min", "Forecast (15,30] min", "Forecast (30,60] min"]
+COLORS = ["#555555", "#377eb8", "#e58b35", "#41917b", "#a05ab5", "#b74e62", "#82713b"]
 
 
 def read(path):
     return json.loads(Path(path).read_text())
 
 
-def table(rows):
-    lines = ["| Policy | Samples | Held-out RMSE (C) | MAE (C) | Target mean variance (C^2) | Joint MI (nats) | Planning wall time (s) |",
-             "|---|---:|---:|---:|---:|---:|---:|"]
-    for r in rows:
-        lines.append(f"| {LABELS[r['policy']]} | {r['measurements']} | {r['final_rmse_c']:.6f} | {r['final_mae_c']:.6f} | {r['mean_target_variance_c2']:.6f} | {r['executed_joint_mi_nats']:.6f} | {r['measured_plan_wall_s']:.3f} |")
+def historical_digest(path, expected, prefer_git=False):
+    """Verify current bytes or the original Git blob, never substitute a digest."""
+    path = Path(path)
+    if not prefer_git and path.is_file() and paths.sha256(path) == expected:
+        return "working_tree"
+    relative = path.relative_to(paths.WORKSPACE).as_posix()
+    git = ["git", "-c", f"safe.directory={paths.WORKSPACE}", "-C", str(paths.WORKSPACE)]
+    revisions = subprocess.check_output(git + ["log", "--format=%H", "--", relative], text=True).splitlines()
+    for revision in revisions:
+        result = subprocess.run(git + ["show", f"{revision}:{relative}"], capture_output=True)
+        if result.returncode == 0 and hashlib.sha256(result.stdout).hexdigest() == expected:
+            return revision
+    return None
+
+
+def latest_run():
+    for name in ["latest_70_30.json", "latest_strict.json"]:
+        pointer = paths.ROOT / "11.2_result" / name
+        if pointer.exists():
+            return paths.ROOT / "11.2_result" / read(pointer)["run"]
+    raise FileNotFoundError("Run Start-StrictCompare.ps1 before building this report.")
+
+
+def verify_saved_results(root):
+    """Recompute empirical errors and time boundaries without fitting or missions."""
+    import numpy as np
+    checks = read(root / "verification.json")
+    assert checks["passed"]
+    extension = root / "extension_verification.json"
+    if extension.exists():
+        assert read(extension)["passed"]
+    for relative, expected in read(root / "artifacts_sha256.json").items():
+        assert paths.sha256(root / relative) == expected, relative
+    rows = read(root / "evaluation.json")
+    for metric in rows:
+        folder = root / "windows" / metric["window"] / metric["policy"]
+        with (folder / f"{metric['task']}_predictions.csv").open() as stream:
+            prediction = list(csv.DictReader(stream))
+        error = np.array([float(r["predicted_temperature_c"]) - float(r["temperature_c"]) for r in prediction])
+        assert np.isclose(np.sqrt(np.mean(error**2)), metric["rmse_c"], atol=1e-10)
+        if metric["task"].startswith("forecast"):
+            lo, hi = [int(v.rstrip("m")) for v in metric["task"].split("_")[1:]]
+            origin = metric["forecast_origin_h"]
+            assert all(origin + lo/60 < float(r["t_h"]) <= origin + hi/60 for r in prediction)
+    print(f"Verified {len(rows)} metric cases; {len(checks['checks'])} saved execution checks passed.")
+    return len(rows)
+
+
+def summary_table(root):
+    policies = ["history_only"] + read(root / "config_frozen.json")["policies"]
+    values = {(r["policy"], r["task"]): r for r in read(root / "aggregate.json")}
+    lines = ["| Policy | Reconstruction | Forecast (0,15] min | Forecast (15,30] min | Forecast (30,60] min |",
+             "|---|---:|---:|---:|---:|"]
+    for policy in policies:
+        lines.append("| " + LABELS[policy] + " | " + " | ".join(
+            f"{values[policy, task]['mean_window_rmse_c']:.3f}" for task in TASKS) + " |")
     return "\n".join(lines)
 
 
-def plots(root, rows):
-    folder = root / "figures"
-    folder.mkdir(exist_ok=True)
-    labels = [LABELS[r["policy"]] for r in rows]
+def make_figures(root):
+    import numpy as np
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    destination = paths.ROOT / "11.2_result/report_figures"
+    destination.mkdir(exist_ok=True)
+    policies = ["history_only"] + read(root / "config_frozen.json")["policies"]
+    values = {(r["policy"], r["task"]): r for r in read(root / "aggregate.json")}
     fig, axes = plt.subplots(2, 2, figsize=(11, 7), layout="constrained")
-    for ax, key, title, unit in zip(axes.ravel(),
-            ["final_rmse_c", "mean_target_variance_c2", "executed_joint_mi_nats", "measured_plan_wall_s"],
-            ["Held-out real-record reconstruction", "Fixed-deadline target uncertainty", "Executed joint information gain", "Measured planning computation"],
-            ["RMSE (C)", "Mean latent variance (C^2)", "MI (nats)", "Wall time (s)"]):
-        ax.bar(labels, [r[key] for r in rows], color=COLORS)
-        ax.set(title=title, ylabel=unit)
-        ax.tick_params(axis="x", labelsize=8)
+    for ax, task, title in zip(axes.ravel(), TASKS, TITLES):
+        ax.bar(range(len(policies)), [values[p, task]["mean_window_rmse_c"] for p in policies], color=COLORS)
+        ax.set_xticks(range(len(policies)), [LABELS[p].replace("MI:EMSE ", "") for p in policies], rotation=15, fontsize=8)
+        ax.set(title=title, ylabel="Mean window RMSE (C)")
         ax.grid(axis="y", alpha=.2)
-        if key == "final_rmse_c":
-            ax.axhline(rows[0]["initial_rmse_c"], color="black", ls="--", label="History-only GP")
-            ax.legend(fontsize=8)
-    fig.suptitle("One fixed Intel replay; no statistical significance claim")
-    fig.savefig(folder / "comparison.png", dpi=150)
+    fig.savefig(destination / "comparison.png", dpi=140)
     plt.close(fig)
-    config = read(root / "protocol.json")["baseline_config"]
-    candidates = np.genfromtxt(root / "common/candidates.csv", delimiter=",", names=True)
-    fig, axes = plt.subplots(1, 3, figsize=(12, 4), layout="constrained")
-    for ax, r, color in zip(axes, rows, COLORS):
+    values = {(r["window"], r["policy"], r["task"]): r for r in read(root / "evaluation.json")}
+    windows = sorted({w for w, _, _ in values})
+    fig, axes = plt.subplots(1, len(windows), figsize=(12, 3.8), layout="constrained")
+    for ax, window in zip(np.atleast_1d(axes), windows):
+        for policy, color in zip(policies, COLORS):
+            ax.plot(range(3), [values[window, policy, task]["rmse_c"] for task in TASKS[1:]],
+                color=color, marker="o", ls="--" if policy == "history_only" else "-", label=LABELS[policy])
+        ax.set_xticks(range(3), ["(0,15]", "(15,30]", "(30,60]"])
+        ax.set(title=window, xlabel="Forecast lead-time bin (min)", ylabel="RMSE (C)")
+        ax.grid(alpha=.2)
+    np.atleast_1d(axes)[-1].legend(fontsize=7)
+    fig.savefig(destination / "forecast_windows.png", dpi=140)
+    plt.close(fig)
+    selected = [p for p in ["mi", "emse", "fusion_60_40", "fusion_70_30"] if p in policies]
+    window = root / "windows/w16"
+    config = read(window / "protocol.json")["baseline_config"]
+    candidates = np.genfromtxt(window / "common/candidates.csv", delimiter=",", names=True)
+    fig, axes = plt.subplots(1, len(selected), figsize=(12, 3.6), layout="constrained")
+    for ax, policy in zip(np.atleast_1d(axes), selected):
         for polygon in config["map"]["obstacles"]:
             xy = np.asarray(polygon)
             ax.fill(xy[:, 0], xy[:, 1], color="#b8bdc2")
-        trajectory = np.genfromtxt(root / r["policy"] / "robot_trajectory.csv", delimiter=",", names=True)
-        ax.plot(trajectory["x_m"], trajectory["y_m"], color=color, lw=1.5, label="Executed simulated path")
-        ax.scatter(candidates["x_m"], candidates["y_m"], s=13, c="#444444", label="Recorded sensor candidates")
-        home = config["map"]["home_m"]
-        ax.scatter(*home, marker="*", s=100, c="gold", edgecolor="black", zorder=5)
-        ax.set(title=f"{LABELS[r['policy']]}\n{r['measurements']} acquired records", xlabel="x (m)", ylabel="y (m)",
-               xlim=(0, 30), ylim=(0, 30), aspect="equal")
-    axes[0].legend(fontsize=6, loc="upper left")
-    fig.savefig(folder / "routes.png", dpi=150)
+        trajectory = np.genfromtxt(window / policy / "robot_trajectory.csv", delimiter=",", names=True)
+        summary = read(window / policy / "summary.json")
+        ax.plot(trajectory["x_m"], trajectory["y_m"], color=COLORS[policies.index(policy)], lw=1.4)
+        ax.scatter(candidates["x_m"], candidates["y_m"], s=9, c="#333333")
+        ax.scatter(*config["map"]["home_m"], marker="*", s=85, c="gold", edgecolor="black", zorder=5)
+        ax.set(title=f"{LABELS[policy]}\n{summary['measurements']} measurements", xlabel="x (m)", ylabel="y (m)",
+            xlim=(0, 30), ylim=(0, 30), aspect="equal")
+    fig.savefig(destination / "routes_w16.png", dpi=140, bbox_inches="tight")
     plt.close(fig)
-    with np.load(root / "common/objective_catalog.npz") as cache:
-        xx, yy, mask = cache["xx"], cache["yy"], cache["mask"]
-    predictions = []
-    for r in rows:
-        with np.load(root / r["policy"] / "target_predictions.npz") as p:
-            predictions.append((p["final_mean"].copy(), np.sqrt(p["final_variance"])))
-    fig, axes = plt.subplots(2, 3, figsize=(12, 7), layout="constrained")
-    for ri in range(2):
-        low = min(p[ri].min() for p in predictions)
-        high = max(p[ri].max() for p in predictions)
-        for ci, (r, p) in enumerate(zip(rows, predictions)):
-            values = np.full(mask.shape, np.nan)
-            values[mask] = p[ri]
-            artist = axes[ri, ci].pcolormesh(xx, yy, values, shading="auto", vmin=low, vmax=high,
-                                            cmap="coolwarm" if ri == 0 else "viridis")
-            axes[ri, ci].set(title=LABELS[r["policy"]] + (" predicted mean" if ri == 0 else " latent std"),
-                             xlabel="x (m)", ylabel="y (m)", aspect="equal")
-        fig.colorbar(artist, ax=list(axes[ri]), label="C")
-    fig.suptitle("GP predictions at 72.25 h; dense measured ground truth is unavailable")
-    fig.savefig(folder / "target_predictions.png", dpi=150)
-    plt.close(fig)
+    return destination
 
 
-def build(root):
-    assert read(root / "verification.json")["passed"]
-    for relative, digest in read(root / "artifacts_sha256.json").items():
-        if "figures" not in Path(relative).parts and relative != "report_verification.json":
-            assert paths.sha256(root / relative) == digest, relative
+def build(root=None):
+    import nbformat as nbf
+    from nbclient import NotebookClient
+    from jupyter_client import KernelManager
+    root = Path(root or latest_run()).resolve()
+    count = verify_saved_results(root)
+    mutable = {paths.ROOT / name for name in ["README.md", "README_strict.md", "README_70_30.md",
+        "11.2_test_report.ipynb", "11.2_strict_test_report.ipynb", "11.2_70_30_test_report.ipynb",
+        "testing_code/run_strict_compare.py", "testing_code/run_70_30_compare.py"]}
+    archived = {}
     manifest = read(root / "manifest.json")
-    for relative, digest in manifest["protected_inputs_sha256"].items():
-        assert paths.sha256(paths.WORKSPACE / relative) == digest, relative
-    for relative, digest in manifest["source_sha256"].items():
-        assert paths.sha256(paths.ROOT / relative) == digest, relative
-    rows = read(root / "comparison.json")
-    plots(root, rows)
-    protocol = read(root / "protocol.json")
-    rel = root.relative_to(paths.ROOT).as_posix()
-    best = min(rows, key=lambda r: r["final_rmse_c"])
-    var_best = min(rows, key=lambda r: r["mean_target_variance_c2"])
-    conclusion = (f"On this single recorded replay, {LABELS[best['policy']]} has the lowest held-out RMSE "
-                  f"({best['final_rmse_c']:.6f} C), while {LABELS[var_best['policy']]} has the lowest target mean variance "
-                  f"({var_best['mean_target_variance_c2']:.6f} C^2). "
-                  "These are different quantities. This is one fixed dataset and mission window, not evidence of statistical superiority.")
-    improved = [LABELS[r["policy"]] for r in rows if r["final_rmse_c"] < r["initial_rmse_c"]]
-    conclusion += " " + ("Lower RMSE than the history-only GP: " + ", ".join(improved) + "." if improved else "No policy lowers RMSE below the history-only GP in this run.")
-    text = f"""# 11.2 - GRG Policy Objective Comparison
+    entries = [(paths.WORKSPACE / p, h) for p, h in manifest["protected_inputs_sha256"].items()]
+    entries += [(paths.ROOT / p, h) for p, h in manifest["source_sha256"].items()]
+    for path, expected in entries:
+        if path in mutable:
+            origin = historical_digest(path, expected, prefer_git=path.suffix in {".md", ".ipynb"})
+            assert origin, str(path)
+            if origin != "working_tree":
+                archived[str(path.relative_to(paths.WORKSPACE))] = dict(sha256=expected, git_commit=origin)
+        else:
+            assert paths.sha256(path) == expected, str(path)
+    figures = make_figures(root)
+    relative = root.relative_to(paths.ROOT).as_posix()
+    config = read(root / "config_frozen.json")
+    policies = config["policies"]
+    aggregate = read(root / "aggregate.json")
+    conclusions = []
+    for task, title in zip(TASKS, TITLES):
+        best = min((r for r in aggregate if r["task"] == task and r["policy"] != "history_only"),
+                   key=lambda r: r["mean_window_rmse_c"])
+        conclusions.append(f"- **{title}:** {LABELS[best['policy']]} has the lowest mean RMSE among sampling arms ({best['mean_window_rmse_c']:.3f} C).")
+    if "fusion_70_30" in policies:
+        conclusions.append("- **7:3 versus 6:4:** the first two windows acquire identical records; w16 differs and 7:3 is worse on all four aggregate RMSEs.")
+    conclusions += ["- **4:6 and 5:5:** identical acquisitions and results in all three windows.",
+        "- At w00, history only beats all sampling arms; later windows benefit from new measurements. Improvement is not uniform across time.",
+        "- Keep 6:4 as the current prediction-oriented candidate. Separate-day/field tests are needed before claiming general superiority. EMSE still targets the deadline field, not a future forecast horizon."]
+    findings = "\n".join(conclusions)
+    policy_text = ", ".join(LABELS[p] for p in policies)
+    readme = f"""# 11.2 - GP/GRG Policy Comparison
 
-## Purpose
+## Purpose and comparison
 
-Compare MI, target-field EMSE reduction, and normalized 50/50 fusion while retaining the existing GRG search, GP checkpoint, Intel data split, navigation, and measurement rules. This is a Python recorded-data replay in the existing Docker container, not a ROS/Nav2 integration experiment.
+Compare how the GRG route-scoring objective affects temperature-field reconstruction and future prediction while holding the GP, navigation, acquisition rules and budget fixed. This is a Python replay of Intel Lab measurements, separate from ROS 2/Nav2 simulation.
 
-## Controlled protocol
+Sampling policies: **{policy_text}**. A history-only GP is the no-new-measurement control. MI maximizes conditional information gain; EMSE maximizes average latent-variance reduction over a fixed target grid. Fusion uses `w_MI * MI/s_MI + w_EMSE * EMSE_reduction/s_EMSE`, with shared initial single-event normalizers fixed before sampling.
 
-- Reuse the 10.18 three-day, 2,000-observation GP checkpoint without retraining. Kernel parameters remain fixed; only successful acquisitions update the posterior.
-- Same 29 recorded-sensor candidates, 30 x 30 m simulated map, obstacles, Home at sensor 16, 0.35 m/s speed, 5 s dwell, 900 s budget, depth 2, two time splits, and spatial revisits.
-- Preserve the existing travel + acquisition waiting + dwell clock. Online computation is charged as zero, as in the old baseline; measured wall time is reported separately. All arms compute both objective components.
-- Fixed policy target: {protocol['catalog']['target_count']} reachable points on the original 0.75 m grid at 72.25 h. Target coordinates and timestamps are public; target temperatures are never supplied to the planner.
-- Preserve the same 28 held-out real reference records. Their individual timestamps lie in the last five minutes of the mission. Evaluation is retrospective reconstruction, not a causal future forecast or a dense measured field.
+| Item | Setting |
+|---|---|
+| Data/model | Intel Lab; 2,000 observations from days 1-3; saved GP with fixed kernel/noise parameters |
+| Missions | Day-four starts at 72, 80 and 88 h; same initial checkpoint per policy/window |
+| Navigation | 29 sensor candidates; synthetic 30 x 30 m map; grid/Dijkstra navigation; GRG depth 2 |
+| Budget | 900 s; 0.35 m/s; 5 s dwell; travel and acquisition waiting included; computation charged zero, wall time saved separately |
+| Reconstruction | Latest held-out record per reachable sensor in the final five minutes; retrospective, at actual record timestamps |
+| Forecast | Freeze final GP at the common deadline; test strictly later records in (0,15], (15,30], (30,60] min; no future updates |
+| Metrics | Mean of three window RMSEs; MAE, sensor-balanced RMSE, coverage and per-window NLPD also saved |
 
-## Objective definitions
+## Dependencies
 
-For a scheduled route S and current observations D:
+Paths below are relative to the repository root. Keep these sibling experiments and data files in place.
 
-- **MI:** `0.5 * logdet(I + posterior_cov(S|D) / noise_variance)`.
-- **EMSE:** maximize the average target latent-variance reduction, `trace(C_QS (C_SS + noise*I)^(-1) C_SQ) / n_Q`. Target uncertainty after sampling is minimized equivalently. This is a model-based expected-error objective, not access to unknown actual reconstruction error.
-- **Fusion:** `0.5 * MI / s_MI + 0.5 * EMSE_reduction / s_EMSE`.
+| File/directory | Required role |
+|---|---|
+| `Code/11.2_policy_compare/testing_code/` | Runners, objective scoring, split rules, verification and the single report builder |
+| `Code/10.18_Robot_close_loop_system/testing_code/baseline/` | GP wrapper, GRG recursion, mission controller, grid navigation and output helpers |
+| `Code/10.18_Robot_close_loop_system/testing_code/intel_lab/` | Intel loading, candidate construction and recorded measurement acquisition |
+| `Code/10.16_GP3D_baseline_test/10.16_testing_code/3D_time&spatial temp field rebuild & prediction/` | Shared GP/scaling/checkpoint loader and evaluation metrics |
+| `Data/Intel_lab_data/processed/three_day_2000/` | `train_2000.csv`, `test_day4.csv`, `split.json` |
+| `Code/10.18_Robot_close_loop_system/10.18_result/baseline/intel_lab/forecast/` | `initial_gp.pt`, `hyperparameters.json` |
+| `Code/10.18_Robot_close_loop_system/10.18_result/baseline/intel_lab/replay/` | Historical MI control for regression verification |
+| [requirements.txt](testing_code/requirements.txt), [requirements-lock.txt](testing_code/requirements-lock.txt) | Pinned numerical/reporting packages; saved runs use Python 3.12 and CPU PyTorch |
 
-Both normalizers are fixed before any policy executes: the maximum initial single-event MI or EMSE gain over the same public acquisition-event catalog. `s_MI={protocol['catalog']['mi_scale_nats']:.9g}` nats and `s_EMSE={protocol['catalog']['emse_scale_c2']:.9g}` C^2. Route scores may exceed one and are not clipped. Equal weights mean equal relative weights under this declared normalization, not equal physical units or a proven optimal trade-off. No test temperatures or outcome metrics choose the scales or weights.
+Use the existing Docker container `bunker-jazzy`, project mount `/workspace`, and Python `/home/ubuntu/.venvs/policy-compare/bin/python`. ROS Python is separate. Git history retains the superseded reports and verifies their original hashes. The local `GP-Planning` reference clone is not a runtime dependency.
 
-The subclass overrides only route scoring. All recursive subproblems use that same dispatch. No new GRG approximation guarantee is asserted for EMSE or fusion.
+## Run
 
-## Results
-
-{table(rows)}
-
-{conclusion}
-
-![Objective comparison]({rel}/figures/comparison.png)
-![Executed routes]({rel}/figures/routes.png)
-![Predicted target field]({rel}/figures/target_predictions.png)
-
-## Verification and provenance
-
-Seven analytic objective checks, independent full-target GPyTorch/Schur-complement checks before and after numerical-fixture updates, and historical MI-control reproduction must pass. Every arm checks record uniqueness, held-out separation, frozen parameters, valid posterior updates, route timing, collision freedom, return and budget feasibility. Saved predictions independently reproduce reported metrics. Hashes verify protected old inputs and experiment source files.
-
-The MI control reproduces the old recorded route, acquisition records, trajectory and metrics within 1e-7; machine-dependent wall times are excluded. Precomputed conditional covariance is exact for the unchanged fixed-hyperparameter GP. The initial shared catalog preparation time is reported in `protocol.json`; it is outside the original simulated mission clock.
-
-Previous user experiments compared GRG depths and before/after sampling. They did not perform this three-objective comparison. The reference repo's Notebook 06 changed kernel and objective together and did not forward its custom objective to recursive calls; this new experiment does not reuse that implementation.
-
-## Files
-
-- [Executed Notebook](11.2_test_report.ipynb)
-- [Comparison table]({rel}/comparison.csv)
-- [Fixed protocol]({rel}/protocol.json), [input/source manifest]({rel}/manifest.json)
-- [Overall verification]({rel}/verification.json), [MI baseline reproduction]({rel}/mi_baseline_verification.json), [independent numerical verification]({rel}/numerical_verification.json)
-- `{rel}/mi`, `/emse`, `/fusion`: individual records, paths, scheduled routes, score components, predictions, final GP checkpoints and execution logs.
-- `testing_code/`: scoring, runner, verification, reporting and analytic tests. Original 10.16/10.18/10.27 files are not modified.
-
-## Run in Docker
-
-Use the existing `bunker-jazzy` container with the project mounted at `/workspace` and the isolated GP environment at `/home/ubuntu/.venvs/policy-compare`. It resides on the container Linux filesystem, separate from ROS Python. The exact dependency set is in `testing_code/requirements.txt`; it matches the old numerical package versions. If the container is recreated, recreate this isolated environment from that file.
+From this folder, with Docker Desktop running, reproduce the five-policy comparison and then the 7:3 extension:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\\testing_code\\Start-PolicyCompare.ps1
+powershell -ExecutionPolicy Bypass -File .\\testing_code\\Start-StrictCompare.ps1
+powershell -ExecutionPolicy Bypass -File .\\testing_code\\Start-70-30Compare.ps1
 ```
 
-```bash
-/home/ubuntu/.venvs/policy-compare/bin/python -B /workspace/Code/11.2_policy_compare/testing_code/run_compare.py
-/home/ubuntu/.venvs/policy-compare/bin/python -B /workspace/Code/11.2_policy_compare/testing_code/build_report.py
+Rebuild only the consolidated report from saved results:
+
+```powershell
+docker --context desktop-linux exec -u ubuntu bunker-jazzy /home/ubuntu/.venvs/policy-compare/bin/python -B /workspace/Code/11.2_policy_compare/testing_code/build_report.py
 ```
 
-Each run creates a new timestamped directory. Existing runs are never overwritten. Readiness checks and raw artifacts are preserved when an execution fails. This initial 50/50 test does not tune weights, compare kernels, add edge sampling, or change ROS integration.
+All report commands write only `README.md` and `11.2_test_report.ipynb`. The Notebook analyzes saved artifacts without running missions. The original three-policy runner remains available for regression reproduction.
+
+## Results and records
+
+- [Executed Notebook: results, figures and conclusions](11.2_test_report.ipynb)
+- [Aggregate metrics]({relative}/aggregate.csv), [per-window metrics]({relative}/evaluation.csv)
+- [Frozen settings]({relative}/config_frozen.json), [checks]({relative}/verification.json), [provenance]({relative}/manifest.json)
+- `11.2_result/latest.json`, `latest_strict.json`, `latest_70_30.json` identify the initial, five-policy and six-policy records. This report uses `{root.name}`.
+- Raw runs retain measurements, paths, score components, GP checkpoints, predictions, logs and hashes. A failed initial setup attempt is retained for diagnosis. Current figures and report verification are in `11.2_result/report_figures/` and `11.2_result/report_verification.json`.
+
+**Current finding:** EMSE has the lowest mean reconstruction RMSE; 6:4 has the lowest mean RMSE in all three forecast bins. These are exploratory results from three correlated windows of one dataset; 7:3 was added after inspecting earlier results. Separate-day/field validation is needed. Reconstruction covers recorded sensor locations, not dense measured map truth. Historical manifests remain unchanged; superseded report/source hashes are verified against Git history.
 """
-    (paths.ROOT / "README.md").write_text(text, encoding="utf-8")
+    (paths.ROOT / "README.md").write_text(readme, encoding="utf-8")
     md, code = nbf.v4.new_markdown_cell, nbf.v4.new_code_cell
     nb = nbf.v4.new_notebook(cells=[
-        md("# 11.2 - GRG Policy Objective Comparison\n\nExecuted analysis of saved experiments. The three full missions were run separately; this Notebook verifies and visualizes their artifacts without rerunning them."),
-        code(f"from pathlib import Path\nimport json, hashlib\nimport numpy as np\nfrom IPython.display import display, Image, Markdown\nroot = Path.cwd()\nassert (root / 'testing_code/config.json').is_file()\nrun = root / {rel!r}\nread = lambda p: json.loads(p.read_text())\nprotocol = read(run / 'protocol.json')\nprint('Pinned run:', run.name)\nprint('Weights:', protocol['comparison_config']['fusion_weights'])\nprint('Target points:', protocol['catalog']['target_count'])\nprint('Target time (h):', protocol['catalog']['target_h'])"),
-        md("## Hypothesis and fixed protocol\n\nOnly the route-scoring objective changes. GRG depth, timing, history, kernel parameters, navigation and record acquisition stay fixed. EMSE targets mean latent variance over a fixed-deadline reachable grid. The held-out temperature references are separate, nonsimultaneous real observations. Both components are computed in every arm."),
-        md("## Normalized 50/50 fusion\n\n`J = 0.5 * MI / s_MI + 0.5 * EMSE_reduction / s_EMSE`. Each scale is a maximum initial single-event gain, frozen before acquisition. No clipping, outcome-based tuning or optimal-weight claim. All recursive scores use the configured objective."),
-        code("for name in ['unit_tests.json','numerical_verification.json','mi_baseline_verification.json','verification.json']:\n    result = read(run / name)\n    assert result['passed'], name\n    print(name, 'PASSED')\nfor relative, digest in read(run / 'artifacts_sha256.json').items():\n    assert hashlib.sha256((run / relative).read_bytes()).hexdigest() == digest, relative\nprint('All original run artifact hashes match.')"),
-        md("## Measured results\n\nRMSE and MAE use the same 28 held-out measured records; target variance is a model quantity over the fixed grid. These are not interchangeable scores."),
-        code(f"display(Markdown({table(rows)!r}))\ndisplay(Image(filename=str(run / 'figures/comparison.png')))"),
-        md("## Executed simulated paths\n\nOnly the objective changes the selected destinations; the reused grid navigator executes every leg. Temperature values come from distinct recorded sensor rows at their original times."),
-        code("display(Image(filename=str(run / 'figures/routes.png')))"),
-        md("## Fixed-deadline GP predictions\n\nThese are predictions and latent standard deviations, not measured dense-field ground truth. Color scales are shared between policy panels."),
-        code("display(Image(filename=str(run / 'figures/target_predictions.png')))"),
-        md("## Independent replay of saved metrics"),
-        code("for policy in protocol['comparison_config']['policies']:\n    summary = read(run / policy / 'summary.json')\n    with np.load(run / policy / 'reference_predictions.npz') as saved:\n        error = saved['final_mean'] - saved['truth']\n        rmse = float(np.sqrt(np.mean(error**2)))\n        mae = float(np.mean(np.abs(error)))\n    assert np.isclose(rmse, summary['final_metrics']['rmse_c'], atol=1e-10)\n    assert np.isclose(mae, summary['final_metrics']['mae_c'], atol=1e-10)\n    with np.load(run / policy / 'target_predictions.npz') as saved:\n        variance = float(saved['final_variance'].mean())\n    assert np.isclose(variance, summary['final_mean_target_variance_c2'], atol=1e-10)\n    print(policy, 'RMSE:', round(rmse, 6), 'MAE:', round(mae, 6), 'target variance:', round(variance, 6))"),
-        md("## Interpretation\n\n" + conclusion + "\n\nThe original mission clock excludes computation. Wall-time diagnostics are reported separately, so successful replay is not a real-time deployment claim. This comparison does not establish future-forecast accuracy, optimal fusion weights, or a new GRG approximation guarantee. Kernel changes, continuous acquisition and ROS/Nav2 integration are outside this experiment.")])
+        md(f"# 11.2 - GP/GRG Policy Comparison\n\n{len(policies)} sampling objectives, three fixed windows and a shared history-only control. The complete six-policy study includes 18 sampled missions; the 7:3 extension reuses the earlier 15. Same frozen GP and 15-minute budget. This Notebook reads saved results without rerunning missions. See README.md for dependencies and commands."),
+        code(f"from pathlib import Path\nimport sys\nfrom IPython.display import Image, Markdown, display\nroot = Path.cwd()\nif not (root / 'testing_code').is_dir():\n    root = root / 'Code/11.2_policy_compare'\nsys.path.insert(0, str(root / 'testing_code'))\nfrom build_report import verify_saved_results, summary_table\nrun = root / {relative!r}\nprint('Saved run:', run.name)\nverify_saved_results(run)"),
+        md("## Mean window RMSE (C)\n\nLower is better. Each window has equal weight; this is not pooled-record RMSE. Reconstruction uses actual held-out timestamps in the final five minutes. Forecast bins follow the common deadline with the final GP frozen. Other metrics and full per-window results remain in the raw records."),
+        code("display(Markdown(summary_table(run)))\ndisplay(Image(filename=str(root / '11.2_result/report_figures/comparison.png')))"),
+        md("## Forecast variation across time\n\nWindows w00/w08/w16 start at 72/80/88 h. Each resets to the same three-day checkpoint; later windows start with older information. Curves overlap when policies acquire identical records."),
+        code("display(Image(filename=str(root / '11.2_result/report_figures/forecast_windows.png')))"),
+        md("## Representative routes: w16\n\nThis is where 6:4 and 7:3 diverge. Paths use the Python grid navigator. Dots are candidate sensors; the star is Home. Measurement counts, complete trajectories, waiting time and budgeted return are saved per policy."),
+        code("display(Image(filename=str(root / '11.2_result/report_figures/routes_w16.png')))"),
+        md("## Conclusions\n\n" + findings + f"\n\n[Aggregate CSV]({relative}/aggregate.csv) | [Per-window CSV]({relative}/evaluation.csv) | [Checks]({relative}/verification.json)\n\nThese correlated, previously inspected Intel windows support recorded-location reconstruction and future observation prediction; they do not establish dense spatial truth, general optimality or hardware performance.")])
     nb.metadata.kernelspec = dict(name="python3", display_name="Python (policy comparison Docker)", language="python")
     manager = KernelManager(kernel_name="python3")
     manager.kernel_spec.argv = [sys.executable, "-m", "ipykernel_launcher", "-f", "{connection_file}"]
-    NotebookClient(nb, km=manager, timeout=180, resources={"metadata": {"path": str(paths.ROOT)}}).execute()
+    try:
+        NotebookClient(nb, km=manager, timeout=240, resources={"metadata": {"path": str(paths.ROOT)}}).execute()
+    finally:
+        if manager.has_kernel:
+            manager.shutdown_kernel(now=True)
     nbf.validate(nb)
     notebook = paths.ROOT / "11.2_test_report.ipynb"
     nbf.write(nb, notebook)
-    save_json(root / "report_verification.json", dict(passed=True,
-        executed_code_cells=sum(c.cell_type == "code" for c in nb.cells),
-        error_outputs=sum(o.output_type == "error" for c in nb.cells if c.cell_type == "code" for o in c.get("outputs", [])),
+    errors = sum(o.output_type == "error" for c in nb.cells if c.cell_type == "code" for o in c.get("outputs", []))
+    assert errors == 0
+    report = dict(passed=True, source_run=root.name, checked_results=count, executed_code_cells=4,
+        error_outputs=errors, historical_files_verified_in_git=archived,
         readme_sha256=paths.sha256(paths.ROOT / "README.md"), notebook_sha256=paths.sha256(notebook),
-        report_builder_sha256=paths.sha256(Path(__file__)),
-        figure_sha256={p.name: paths.sha256(p) for p in (root / "figures").glob("*.png")}))
-    print("Wrote README and executed Notebook:", notebook, flush=True)
+        builder_sha256=paths.sha256(Path(__file__)), figure_sha256={p.name: paths.sha256(p) for p in figures.glob("*.png")})
+    (paths.ROOT / "11.2_result/report_verification.json").write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+    print("Updated the single README and executed Notebook:", notebook, flush=True)
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--output", type=Path)
-    args = parser.parse_args()
-    output = args.output or paths.ROOT / "11.2_result" / read(paths.ROOT / "11.2_result/latest.json")["run"]
-    build(output)
+    build(parser.parse_args().output)
