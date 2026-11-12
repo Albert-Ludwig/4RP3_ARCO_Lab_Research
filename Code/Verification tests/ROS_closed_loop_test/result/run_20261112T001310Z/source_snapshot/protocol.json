@@ -1,0 +1,63 @@
+{
+  "status": "Lookahead scheduler implementation; latest measured outcome is in result/latest.json.",
+  "extent_m": [
+    97,
+    64
+  ],
+  "obstacles": [],
+  "ground": "flat",
+  "observation_sim_s": 300,
+  "candidate_count": 30,
+  "home_field_xy_m": [
+    48.5,
+    32
+  ],
+  "candidate_rule": "6 x 5 rounded grid spanning x=4..93,y=4..60; all directed pairs checked by Nav2",
+  "sensor_interval_s": 1,
+  "sampling_window": "Ticks 1..299 in [0,300); no fabricated catch-up samples.",
+  "reference_resolution": {
+    "space_m": 0.1,
+    "time_s": 0.5
+  },
+  "scoring_cell_m": 10,
+  "scoring_time_step_s": 2.0,
+  "policy": "adaptive_wivr",
+  "grg_depth": 2,
+  "time_splits": 2,
+  "search_wall_guard_s": 45,
+  "internal_search_horizon": "300 - elapsed simulation time; free endpoint via zero-cost virtual terminal. No return requirement.",
+  "navigation_nominal_speed_m_s": 1.0,
+  "initial_gp": "980 available real observations with fixed saved RBF hyperparameters; translation only; mission starts one second after last recorded time",
+  "localization": "ideal simulator ground-truth TF",
+  "srf": "Existing fixed Matern RandMeth realization and independent noise; Python query node",
+  "language": {
+    "manager": "C++",
+    "planner": "C++/Eigen",
+    "sampler": "C++",
+    "srf_monitor": "Python"
+  },
+  "evaluation": "70 fixed cells at 0,75,150,225,300 s offline",
+  "video": "rosbag physical-pose replay; not a Gazebo GUI screen recording",
+  "acceptance": {
+    "minimum_navigation_segments": 2,
+    "minimum_post_initial_gp_updates": 2,
+    "target_realtime_factor": 0.95
+  },
+  "limitations": [
+    "Temporary map translation is not surveyed real-map registration",
+    "Finite path travel-time model does not explicitly predict turn/acceleration timing",
+    "One scene/seed; guarded GRG search may time out and return best-so-far; check actual route coverage and counts.",
+    "GUI render FPS is not measured",
+    "Lookahead uses the last committed GP. Activation re-scores the candidate with new data but does not repeat complete route selection. Prediction errors and waiting for late plans remain possible."
+  ],
+  "return_home_required": false,
+  "navigation_profile": "testing_code/navigation_profile.json",
+  "scoring_compute_mode": "batched uncached event features; evaluation-grid step configured separately",
+  "feature_batch_columns": 32,
+  "matrix_threads": 4,
+  "matrix_parallelism": "OpenMP linked into both C++ executables; bounded Eigen threads before GP construction; selected by matched 1/2/4-thread check",
+  "execution_mode": "lookahead",
+  "gp_update_mode": "Initial/activation requests seal actual observations; moving lookahead freezes the committed GP and leaves the current-leg data buffered.",
+  "handover_mode": "One active Nav2 goal; future-anchor candidate is checked by request ID and endpoint, then rescored with actual time and updated GP after arrival.",
+  "arrival_estimate": "Nav2 estimated_time_remaining with nominal path-time fallback and distance/speed lower bound; forecast is revalidated at arrival."
+}

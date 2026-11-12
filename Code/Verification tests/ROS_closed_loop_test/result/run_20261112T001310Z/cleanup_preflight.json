@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "prepared_initial_and_candidates_unchanged": true,
+  "prepared_field_parameters_unchanged": true,
+  "gp_and_route_regression_unchanged": true,
+  "eigen_runtime_threads": 4,
+  "handover_state_checks_passed": true,
+  "no_discarded_result_dependency": true,
+  "scope": "Build, input preparation, C++ audit and handover preflight only; the 300 s ROS mission was not rerun during cleanup."
+}

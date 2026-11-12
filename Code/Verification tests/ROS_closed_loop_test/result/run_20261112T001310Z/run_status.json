@@ -1,0 +1,13 @@
+{
+  "failure": null,
+  "post_window_compute_wait_s": 0.0005431099998531863,
+  "processes": {
+    "scene": 0,
+    "bag": 0,
+    "source": 0,
+    "monitor": 0,
+    "sampler": 0,
+    "planner": 0,
+    "manager": 0
+  }
+}

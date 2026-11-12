@@ -1,0 +1,3 @@
+# Preserve raw evidence and frozen-source hashes across platforms.
+result/** -text
+*.sh text eol=lf

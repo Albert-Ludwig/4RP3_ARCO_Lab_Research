@@ -1,0 +1,45 @@
+{
+  "raw_outliers": [
+    {
+      "t": 99.8,
+      "raw_yaw_rad_s": 313.70948165000624,
+      "quaternion_dot_previous": -0.9999898847478049,
+      "pose_dt_s": 0.01999999999999602,
+      "wrapped_pose_yaw_step_rad": -0.008995674181798918,
+      "pose_derived_yaw_rad_s": -0.4497837090900354,
+      "equivalent_quaternion_sign_change": true
+    },
+    {
+      "t": 193.14000000000001,
+      "raw_yaw_rad_s": -313.70948165012953,
+      "quaternion_dot_previous": -0.9999898847478091,
+      "pose_dt_s": 0.020000000000010232,
+      "wrapped_pose_yaw_step_rad": 0.008995674179916424,
+      "pose_derived_yaw_rad_s": 0.4497837089955911,
+      "equivalent_quaternion_sign_change": true
+    },
+    {
+      "t": 259.06,
+      "raw_yaw_rad_s": 313.70948164995673,
+      "quaternion_dot_previous": -0.9999898847478077,
+      "pose_dt_s": 0.020000000000038654,
+      "wrapped_pose_yaw_step_rad": -0.008995674180668267,
+      "pose_derived_yaw_rad_s": -0.44978370903254405,
+      "equivalent_quaternion_sign_change": true
+    },
+    {
+      "t": 298.4,
+      "raw_yaw_rad_s": -313.70948165003085,
+      "quaternion_dot_previous": -0.9999898847478079,
+      "pose_dt_s": 0.01999999999998181,
+      "wrapped_pose_yaw_step_rad": 0.008995674180480863,
+      "pose_derived_yaw_rad_s": 0.44978370902445225,
+      "equivalent_quaternion_sign_change": true
+    }
+  ],
+  "height_range_m": [
+    0.27419685075388167,
+    0.2741969608202515
+  ],
+  "scope": "Raw truth-twist outliers retained; wrapped pose increments and adjacent quaternion dots are independent diagnostics. No dynamics were changed."
+}

@@ -1,0 +1,131 @@
+# Merged into THIS ROS distribution's installed nav2_bringup default YAML.
+# Controller/planner implementations remain the distribution's official defaults.
+amcl:
+  ros__parameters:
+    base_frame_id: base_footprint
+    odom_frame_id: odom
+    global_frame_id: map
+    scan_topic: /scan
+    set_initial_pose: true
+    laser_max_range: 20.0
+    max_particles: 1500
+    min_particles: 500
+    update_min_d: 0.10
+    update_min_a: 0.10
+bt_navigator:
+  ros__parameters:
+    wait_for_service_timeout: 10000
+controller_server:
+  ros__parameters:
+    controller_frequency: 20.0
+    progress_checker:
+      required_movement_radius: 0.25
+      movement_time_allowance: 30.0
+    general_goal_checker:
+      xy_goal_tolerance: 0.18
+      yaw_goal_tolerance: 0.20
+    FollowPath:
+      # MPPI settings shared by Jazzy and Lyrical; no custom controller.
+      vx_max: 1.0
+      vx_min: -0.30
+      vy_max: 0.0
+      wz_max: 1.2
+      ax_max: 1.0
+      ax_min: -2.0
+      az_max: 2.0
+      vx_std: 0.35
+      wz_std: 0.6
+      time_steps: 60
+      batch_size: 1000
+      visualize: false
+      publish_optimal_trajectory: false
+      CostCritic:
+        consider_footprint: true
+        cost_weight: 10.0
+        near_goal_distance: 0.4
+      GoalAngleCritic:
+        # Do not lock final heading while lateral position is still outside the
+        # goal tolerance: a differential-drive base cannot move sideways.
+        threshold_to_consider: 0.18
+      TrajectoryValidator:
+        consider_footprint: true
+        collision_lookahead_time: 2.5
+local_costmap:
+  local_costmap:
+    ros__parameters:
+      update_frequency: 20.0
+      publish_frequency: 5.0
+      width: 8
+      height: 8
+      footprint: '[[0.25, 0.25], [0.25, -0.25], [-0.25, -0.25], [-0.25, 0.25]]'
+      footprint_padding: 0.025
+      resolution: 0.05
+      inflation_layer:
+        inflation_radius: 1.1
+      voxel_layer:
+        publish_voxel_map: false
+        scan:
+          topic: /scan
+          inf_is_valid: true
+          obstacle_max_range: 5.0
+          raytrace_max_range: 6.0
+global_costmap:
+  global_costmap:
+    ros__parameters:
+      update_frequency: 5.0
+      # NavFn uses point-cell checks: use a circle enclosing all square corners.
+      robot_radius: 0.39
+      footprint_padding: 0.0
+      resolution: 0.05
+      inflation_layer:
+        inflation_radius: 1.1
+      obstacle_layer:
+        scan:
+          topic: /scan
+          inf_is_valid: true
+          obstacle_max_range: 5.0
+          raytrace_max_range: 6.0
+waypoint_follower:
+  ros__parameters:
+    stop_on_failure: true
+    waypoint_task_executor_plugin: wait_at_waypoint
+    wait_at_waypoint:
+      plugin: nav2_waypoint_follower::WaitAtWaypoint
+      enabled: true
+      waypoint_pause_duration: 5000
+velocity_smoother:
+  ros__parameters:
+    max_velocity: [1.0, 0.0, 1.2]
+    min_velocity: [-0.30, 0.0, -1.2]
+    max_accel: [1.0, 0.0, 2.0]
+    max_decel: [-2.0, 0.0, -2.0]
+collision_monitor:
+  ros__parameters:
+    enabled: true
+    polygons: ['StopCircle', 'SlowCircle', 'FootprintApproach']
+    StopCircle:
+      type: circle
+      action_type: stop
+      # Distances are from base_footprint, not clearance from the chassis edge.
+      # The padded square's enclosing radius is 0.389 m.
+      radius: 0.60
+      min_points: 2
+      enabled: false
+      visualize: false
+    SlowCircle:
+      type: circle
+      action_type: slowdown
+      radius: 1.15
+      slowdown_ratio: 0.5
+      min_points: 2
+      enabled: false
+      visualize: false
+    FootprintApproach:
+      # Official Nav2 approach protection; fixed circles are disabled above.
+      enabled: true
+      time_before_collision: 2.0
+      min_points: 2
+    scan:
+      enabled: true
+      min_height: 0.0
+      max_height: 2.0

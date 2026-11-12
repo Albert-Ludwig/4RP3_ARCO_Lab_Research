@@ -1,0 +1,145 @@
+{
+  "scope": "C:\\Users\\Administrator\\Documents\\4RP3\\Code\\Verification tests\\ROS_closed_loop_test",
+  "retained_run": "run_20261112T001310Z",
+  "removed_result_items": [
+    {
+      "name": "batch_check_20261111T223425Z",
+      "files": 5,
+      "bytes": 117749
+    },
+    {
+      "name": "batch_check_20261111T225549Z",
+      "files": 5,
+      "bytes": 117746
+    },
+    {
+      "name": "batch_check_20261111T233513Z",
+      "files": 5,
+      "bytes": 119784
+    },
+    {
+      "name": "grid_check_20261111T225745Z",
+      "files": 2,
+      "bytes": 30877
+    },
+    {
+      "name": "handover_check_20261112T001248Z",
+      "files": 1,
+      "bytes": 347
+    },
+    {
+      "name": "matrix_threads_20261111T233347Z",
+      "files": 7,
+      "bytes": 421665
+    },
+    {
+      "name": "nav2_profile_20261111T214412Z",
+      "files": 18,
+      "bytes": 2668714
+    },
+    {
+      "name": "nav2_profile_20261111T214645Z",
+      "files": 18,
+      "bytes": 2698318
+    },
+    {
+      "name": "nav2_profile_20261111T214714Z",
+      "files": 19,
+      "bytes": 23134173
+    },
+    {
+      "name": "nav2_profile_20261111T215007Z",
+      "files": 18,
+      "bytes": 5463394
+    },
+    {
+      "name": "nav2_profile_20261111T215109Z",
+      "files": 36,
+      "bytes": 5494723
+    },
+    {
+      "name": "route_diagnosis_20261111T235651Z",
+      "files": 7,
+      "bytes": 1049075
+    },
+    {
+      "name": "run_20261111T205538Z",
+      "files": 51,
+      "bytes": 141311948
+    },
+    {
+      "name": "run_20261111T211745Z",
+      "files": 47,
+      "bytes": 141477137
+    },
+    {
+      "name": "run_20261111T212025Z",
+      "files": 65,
+      "bytes": 171584493
+    },
+    {
+      "name": "run_20261111T223631Z",
+      "files": 71,
+      "bytes": 169966269
+    },
+    {
+      "name": "run_20261111T230921Z",
+      "files": 76,
+      "bytes": 166188137
+    },
+    {
+      "name": "run_20261111T233622Z",
+      "files": 85,
+      "bytes": 166955401
+    },
+    {
+      "name": "batch_check_latest.json",
+      "files": 1,
+      "bytes": 39
+    },
+    {
+      "name": "cleanup_summary.json",
+      "files": 1,
+      "bytes": 2031
+    },
+    {
+      "name": "grid_check_latest.json",
+      "files": 1,
+      "bytes": 38
+    },
+    {
+      "name": "handover_check_latest.json",
+      "files": 1,
+      "bytes": 42
+    },
+    {
+      "name": "matrix_threads_latest.json",
+      "files": 1,
+      "bytes": 42
+    },
+    {
+      "name": "nav2_profile_latest.json",
+      "files": 1,
+      "bytes": 40
+    },
+    {
+      "name": "route_diagnosis_latest.json",
+      "files": 1,
+      "bytes": 43
+    }
+  ],
+  "removed_live_code": [
+    "check_batch.py",
+    "check_matrix_threads.py",
+    "check_scoring_grid.py",
+    "diagnose_routes.py",
+    "report_diagnosis.py",
+    "verify_route_diagnosis.py",
+    "verify_navigation.py",
+    "src\\route_diagnostics.cpp",
+    "src\\score_benchmark.cpp"
+  ],
+  "deleted_result_bytes": 998802225,
+  "deleted_result_mib": 952.53,
+  "other_experiment_folders_untouched": true
+}

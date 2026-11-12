@@ -1,0 +1,11 @@
+{
+  "configured_window_s": 300.0,
+  "execution_mode": "lookahead",
+  "observation_sim_s": 300.046,
+  "origin": 16.98,
+  "return_home_required": false,
+  "search_outstanding_at_end": false,
+  "segments": 3,
+  "status": "window_completed",
+  "wall_s": 300.052290018999
+}

@@ -1,0 +1,16 @@
+{
+  "experiment": "Code/Verification tests/ROS_closed_loop_test",
+  "dependencies": [
+    "Code/Verification tests/Continuous_sensing_test/testing_code/components.py",
+    "Code/Verification tests/Scoring_policy_test/testing_code/scoring.py",
+    "Code/Verification tests/SRF_test/testing_code/srf_field.py",
+    "Code/Verification tests/Nav2_test/testing_code/src/well_e_nav2_test",
+    "Code/Verification tests/BunkerMini_drive_test/testing_code/src/well_e_bunker_sim",
+    "Code/Verification tests/BunkerMini_drive_test/testing_code/tools/fetch_asset.py",
+    "Data/Real_Data_Integration/result/gp_samples.csv",
+    "Code/ROS_simulation/Trained_Real_Data_Kernel/result/latest.json",
+    "Code/ROS_simulation/Trained_Real_Data_Kernel/result/full_fit_20261105T031701003839Z/hyperparameters.json",
+    "Data/Real_Data_Integration/.gitattributes"
+  ],
+  "scope": "Current experiment and exact runtime dependencies only; no unrelated working-tree changes or older raw collection."
+}

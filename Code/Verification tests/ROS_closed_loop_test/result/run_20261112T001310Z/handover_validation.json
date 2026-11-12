@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "output": "PASS: early/late replies; stale IDs; wrong anchors; no goal preemption.",
+  "source_sha256": {
+    "testing_code/src/handover.hpp": "905b24b46384d20853f15efb67fe1814f924f7022a58fc4e61bebf7c7c966bc0",
+    "testing_code/src/handover_test.cpp": "1bca8a4cba0433e3ebe532917f51ebb6038610f415425e4909434f338a6e6e83"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "eigen_effective": 4,
+  "openmp_dynamic": 0,
+  "openmp_max_threads": 4,
+  "openmp_version": 201511,
+  "requested": 4
+}

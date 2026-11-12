@@ -1,0 +1,17 @@
+{
+  "field_xy_equals_enu_minus": [
+    -5.548686540672139,
+    -31.479575491122965
+  ],
+  "world_xy_equals_field_minus": [
+    48.5,
+    32
+  ],
+  "mission_zero_real_relative_s": 980.67445446,
+  "description": "Temporary planar translation; not surveyed ROS map registration. Historical distances and intervals preserved. Mission follows last real measurement by 1 second.",
+  "history_count": 980,
+  "historical_time_range_s": [
+    -980.0,
+    -1.0
+  ]
+}

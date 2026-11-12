@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "scope": "Single retained lookahead test; report/cleanup/preflight validation, not complete GRG search acceptance.",
+  "retained_run": "run_20261112T001310Z",
+  "only_one_result_directory": true,
+  "readme_and_notebook_only_this_run": true,
+  "executed_notebook_cells": 4,
+  "embedded_videos": 1,
+  "video_full_decode_passed": true,
+  "preserved_byte_identical_evidence_files": 79,
+  "startup_preflight_without_old_results": true,
+  "original_runtime_source_snapshot_preserved": true,
+  "logic_document_unchanged": true,
+  "measured_lookahead_overlap_s": 93.30000000000001,
+  "search_timeouts": 3,
+  "deleted_old_result_mib": 952.53,
+  "current_analysis_sources": {
+    "report.py": "c7cd39a35db2225c0df9f982d821d8c4039dfb18d74f9416148aa4700ba425f2",
+    "audit.py": "06020008ae79368f4317a2a5793050473560347d2ea5227bf5f2a2719404106f",
+    "overlap_metrics.py": "3339ffeaa759f7ac289ff1e0894a629bdc6781720498e42bda8df74e139c59cc"
+  },
+  "english_conclusion_added": true,
+  "lossless_graph_archive": "graph.json.gz",
+  "report_generator_sha256": "c7cd39a35db2225c0df9f982d821d8c4039dfb18d74f9416148aa4700ba425f2",
+  "publication_scope": "Current run and required source/input dependencies only."
+}

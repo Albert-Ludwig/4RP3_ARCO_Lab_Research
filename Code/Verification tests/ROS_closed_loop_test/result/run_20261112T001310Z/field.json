@@ -1,0 +1,76 @@
+{
+  "status": "Functional SRF verification only; not a calibrated real-field simulation or a policy comparison.",
+  "working_extent_m": [
+    97,
+    64
+  ],
+  "mission_interval_s": [
+    0,
+    300
+  ],
+  "area_mask": "Full obstacle-free temporary rectangle; flat scene assumption only, not a registered physical map or a Gazebo world.",
+  "scaled_coordinate_scales_m_m_s": [
+    12,
+    12,
+    180
+  ],
+  "matern_nu": 1.5,
+  "fourier_modes": 1024,
+  "field_seed": 20261109,
+  "mean_and_variance": "Empirical temperature mean and sample variance from the single available aligned run; variance is not a fitted latent-process variance.",
+  "trend_c_per_s": 0,
+  "noise_std_c": 0.03,
+  "noise_seed": 20261110,
+  "calibration_pending": [
+    "Spatial and temporal scales",
+    "Matern smoothness and finite-mode accuracy for the field",
+    "Sensor noise and response",
+    "Independent temporal trend",
+    "Real map registration and mask",
+    "Multi-run calibration"
+  ],
+  "batch_size": 1024,
+  "threads": 4,
+  "absolute_tolerance_c": 1e-10,
+  "relative_tolerance": 1e-12,
+  "query_test_count": 257,
+  "noise_test_count": 5000,
+  "timing_query_count": 200,
+  "benchmark_query_counts": [
+    1000,
+    10000,
+    100000
+  ],
+  "acceptance": {
+    "p95_single_query_ms": 1000,
+    "peak_rss_increment_mib": 512
+  },
+  "reference_resolution": {
+    "space_m": 0.1,
+    "time_s": 0.5
+  },
+  "visualization": {
+    "space_m": 0.1,
+    "snapshot_times_s": [
+      0,
+      150,
+      300
+    ],
+    "time_step_s": 0.5
+  },
+  "history_file": "Data/Real_Data_Integration/result/gp_samples.csv",
+  "history_scope": "Single available 2026-11-03 WELL-E aligned collection; no Dataset 4, Dashboard, Intel, GP checkpoint or GP posterior used.",
+  "reproducibility_scope": "Same saved configuration, GSTools version and runtime; cross-platform/version bitwise identity is not assumed.",
+  "baseline_run": "run_20261110T230239768234Z",
+  "variant_label": "large_flat_300s_open_route",
+  "mean_c": 27.114475924744895,
+  "variance_c2": 0.04039312168957292,
+  "historical_reference": {
+    "file": "Data/Real_Data_Integration/result/gp_samples.csv",
+    "sha256": "c81c0176feeda7a115ec764805f48bd7edb95648c841fb058bcbcc38d22b8f76",
+    "observations": 980,
+    "minimum_c": 26.50966796875,
+    "maximum_c": 27.753779296875003
+  },
+  "extension_note": "Same fixed realization/scales as 120 s baseline; query interval extended to 300 s."
+}

@@ -1,0 +1,10 @@
+{
+  "duration_s": 7.0,
+  "passed": true,
+  "return_edges_available": false,
+  "route": [
+    0,
+    1,
+    2
+  ]
+}

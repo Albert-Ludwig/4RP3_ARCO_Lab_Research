@@ -1,0 +1,128 @@
+{
+  "gp_checks": {
+    "mean_max_error": 0.0,
+    "variance_max_error": 0.0,
+    "open_route_regression": true,
+    "gp_equivalent": true
+  },
+  "returned_route_score_checks": [
+    {
+      "round": 1,
+      "cpp_score": 0.00961636664086355,
+      "python_score": 0.009616366640863553,
+      "absolute_error": 3.469446951953614e-18,
+      "passed": true
+    },
+    {
+      "round": 2,
+      "cpp_score": 0.009463170424299804,
+      "python_score": 0.009463170424299823,
+      "absolute_error": 1.9081958235744878e-17,
+      "passed": true
+    },
+    {
+      "round": 3,
+      "cpp_score": 0.007841007989274677,
+      "python_score": 0.007841007989274656,
+      "absolute_error": 2.0816681711721685e-17,
+      "passed": true
+    },
+    {
+      "round": 4,
+      "cpp_score": 0.007318498146418086,
+      "python_score": 0.007318498146418168,
+      "absolute_error": 8.239936510889834e-17,
+      "passed": true
+    },
+    {
+      "round": 5,
+      "cpp_score": 0.0046400670601711835,
+      "python_score": 0.004640067060171212,
+      "absolute_error": 2.862293735361732e-17,
+      "passed": true
+    },
+    {
+      "round": 6,
+      "cpp_score": 0.002432388398405805,
+      "python_score": 0.0024323883984057925,
+      "absolute_error": 1.2576745200831851e-17,
+      "passed": true
+    },
+    {
+      "round": 7,
+      "cpp_score": 0.0014680392861659483,
+      "python_score": 0.0014680392861659492,
+      "absolute_error": 8.673617379884035e-19,
+      "passed": true
+    },
+    {
+      "round": 8,
+      "cpp_score": 0.0009652923906873059,
+      "python_score": 0.0009652923906873075,
+      "absolute_error": 1.5178830414797062e-18,
+      "passed": true
+    },
+    {
+      "round": 9,
+      "cpp_score": 0.0,
+      "python_score": 0.0,
+      "absolute_error": 0.0,
+      "passed": true
+    }
+  ],
+  "lookahead_checks": {
+    "search_count": 4,
+    "no_uncommitted_observations_used": true,
+    "gp_available_before_search": true
+  },
+  "evaluation": [
+    {
+      "time_s": 0.0,
+      "rmse_c": 0.22535984386319444,
+      "mae_c": 0.18580516617602677,
+      "history_only_rmse_c": 0.22535984386319444,
+      "mean_std_c": 0.23225959478564576,
+      "observations": 980
+    },
+    {
+      "time_s": 75.0,
+      "rmse_c": 0.20793539203004716,
+      "mae_c": 0.16990366827369066,
+      "history_only_rmse_c": 0.21120950613218337,
+      "mean_std_c": 0.24192009598376843,
+      "observations": 1025
+    },
+    {
+      "time_s": 150.0,
+      "rmse_c": 0.186653765322967,
+      "mae_c": 0.1532819029536714,
+      "history_only_rmse_c": 0.18783475792073165,
+      "mean_std_c": 0.24284150305493363,
+      "observations": 1073
+    },
+    {
+      "time_s": 225.0,
+      "rmse_c": 0.183781476703092,
+      "mae_c": 0.14849136354348283,
+      "history_only_rmse_c": 0.18411737955679627,
+      "mean_std_c": 0.24062622045133308,
+      "observations": 1177
+    },
+    {
+      "time_s": 300.0,
+      "rmse_c": 0.19578718346282764,
+      "mae_c": 0.1569386509752918,
+      "history_only_rmse_c": 0.19625998084924437,
+      "mean_std_c": 0.24281591211936943,
+      "observations": 1232
+    }
+  ],
+  "evaluation_scope": "70 fixed cell representatives at five evenly spaced mission times, using the posterior committed by that time; synthetic current-field estimates, not real-field accuracy or a policy ranking.",
+  "pre_assimilation": {
+    "count": 299,
+    "latent_rmse_c": 0.13849793872544952,
+    "observed_rmse_c": 0.14208912155281764,
+    "latent_mae_c": 0.11366481070686547
+  },
+  "audit_source_sha256": "06020008ae79368f4317a2a5793050473560347d2ea5227bf5f2a2719404106f"
+}
