@@ -1,0 +1,2 @@
+call,elapsed_s,route,arrivals_s,finish_s,gain,runtime_s,evaluations,gp_version,sample_events,repeated_events
+0,0,"[0, 0, 0]",[30.021624999977803],35.0216249999778,0.412131587406877,0.003599875002691988,30,0,1,0

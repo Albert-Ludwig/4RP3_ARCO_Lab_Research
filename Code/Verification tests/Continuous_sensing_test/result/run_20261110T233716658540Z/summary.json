@@ -1,0 +1,56 @@
+{
+  "passed": true,
+  "checks": 48,
+  "failed_checks": [],
+  "extent_m": [
+    30,
+    30
+  ],
+  "virtual_duration_s": 120,
+  "sensor_interval_s": 1,
+  "measurements": 120,
+  "batch_sizes": [
+    23,
+    28,
+    32,
+    37
+  ],
+  "gp_updates": 4,
+  "initial_gp_count": 980,
+  "final_gp_count": 1100,
+  "missed_main_ticks": [],
+  "maximum_fixture_speed_m_s": 0.439593048920353,
+  "total_batch_wall_s": 0.05216233400005876,
+  "maximum_batch_wall_s": 0.014874458000122104,
+  "scale_benchmarks": [
+    {
+      "history_count": 980,
+      "batch_count": 120,
+      "final_count": 1100,
+      "initial_factorization_s": 0.007264474000294285,
+      "batch_update_s": 0.008531232999757776,
+      "initialization_sampled_peak_rss_mib": 182.046875,
+      "baseline_rss_mib": 182.04296875,
+      "sampled_peak_rss_mib": 182.046875,
+      "sampled_rss_increment_mib": 0.00390625,
+      "label": "current-count proxy"
+    },
+    {
+      "history_count": 3920,
+      "batch_count": 120,
+      "final_count": 4040,
+      "initial_factorization_s": 0.3338674049996371,
+      "batch_update_s": 0.27309772299986435,
+      "initialization_sampled_peak_rss_mib": 422.015625,
+      "baseline_rss_mib": 309.53515625,
+      "sampled_peak_rss_mib": 558.79296875,
+      "sampled_rss_increment_mib": 249.2578125,
+      "label": "hypothetical 4x-count proxy"
+    }
+  ],
+  "ros_executed": false,
+  "grg_executed": false,
+  "policy_comparison_performed": false,
+  "complete_120s_mission_budget_validated": false,
+  "scope": "Offline functional trace and component timings; no GP hyperparameter fitting or real-map registration."
+}

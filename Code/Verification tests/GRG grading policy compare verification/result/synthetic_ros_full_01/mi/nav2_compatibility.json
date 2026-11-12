@@ -1,0 +1,10 @@
+{
+  "compatible_nodes": [
+    1,
+    2,
+    3
+  ],
+  "total_sensing_nodes": 3,
+  "passed": true,
+  "checked_using": "actual Nav2 path costs and public recorded times"
+}

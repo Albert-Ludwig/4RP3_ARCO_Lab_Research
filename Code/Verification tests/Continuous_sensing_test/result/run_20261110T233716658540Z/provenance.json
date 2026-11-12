@@ -1,0 +1,28 @@
+{
+  "srf_run": "run_20261110T232151653793Z",
+  "references": {
+    "srf_field.py": {
+      "path": "Code/Verification tests/SRF_test/testing_code/srf_field.py",
+      "sha256": "e31457ceaebb2705a34fcbde690974bbd211b8c840b1a446fd2524cf269d4f7e"
+    },
+    "srf_field_config.json": {
+      "path": "Code/Verification tests/SRF_test/result/run_20261110T232151653793Z/field_config.json",
+      "sha256": "d7ab7d4c75d00c6cd9e1aa3cf9865fdd75f1e75aca96d0982004d8c2d6f6f4e0"
+    },
+    "kernel_parameters.json": {
+      "path": "Code/ROS_simulation/Trained_Real_Data_Kernel/result/full_fit_20261105T031701003839Z/hyperparameters.json",
+      "sha256": "c19747e99b071599b8a1d974f3c11738d65b61dcebe2278d13d7aca1288fe3c5"
+    },
+    "nav2_planned_path.json": {
+      "path": "Code/Verification tests/Nav2_test/result/run_20261027T224156_726349Z/planned_path.json",
+      "sha256": "d0f3d4ff3d1faef49234b33774315283867ae5b2d379390b36df3100a187091c"
+    },
+    "reference_gp.py": {
+      "path": "Code/Verification tests/GRG grading policy compare verification/testing_code/nav2_policy/gp.py",
+      "sha256": "3aea98f2dc59ae0d55e3423684f434f771d5cd3440d844d84562f4a1bdadb477"
+    }
+  },
+  "gp_conditioning": "Synthetic SRF observations only; real RBF parameters reused without fitting",
+  "history_note": "Synthetic SRF history sized to the current real training count; no real ENU coordinates are registered or re-used as map coordinates.",
+  "virtual_time_note": "Virtual trajectory time and measured CPU wall time are separate. This test does not certify a complete 120 s ROS mission budget."
+}

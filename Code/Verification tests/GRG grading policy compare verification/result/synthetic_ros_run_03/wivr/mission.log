@@ -1,0 +1,4 @@
+wivr: t=0.6s route=[4, 2, 3, 1, 0] gain=0.14187 gp=0
+wivr: t=31.3s route=[4, 1, 3, 1, 0] gain=0.13989 gp=1
+wivr: t=71.3s route=[4, 3, 1, 2, 0] gain=0.14326 gp=2
+{'status': 'passed', 'policy': 'wivr', 'mode': 'synthetic_fixture', 'error': None, 'stop_reason': 'declared_synthetic_smoke_acquisition_cap', 'successful_measurements': 3, 'planning_decisions': 3, 'gp_updates': 3, 'distance_m': 27.13058534679239, 'duration_s': 148.066, 'return_home_success': True, 'budget_s': 900.0, 'within_budget': True, 'clock_origin_s': 1.06, 'final_pose': [0.10010938588728435, -0.10869138878596034, 0.13362916009218226], 'synthetic_acquisition_cap': 3, 'hidden_data_accessed_online': False, 'initial_parameters_sha256': '6da002028823285c9af92e076f348113811d3f92ea1c1fe2074270e6bc571d5c'}

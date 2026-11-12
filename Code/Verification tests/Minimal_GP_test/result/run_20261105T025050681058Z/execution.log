@@ -1,0 +1,24 @@
+/home/ubuntu/.venvs/policy-compare/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+TASK blocked_reconstruction: train=764, test=196
+  train_mean: RMSE=0.159813 C
+  temporal_gp init=0.3: training negative MLL=-0.075982 (8.0s)
+  temporal_gp init=1.0: training negative MLL=0.688588 (7.9s)
+  temporal_gp init=3.0: training negative MLL=0.689343 (7.8s)
+  temporal_gp: RMSE=0.161945 C
+  spatiotemporal_gp init=0.3: training negative MLL=-0.205427 (8.1s)
+  spatiotemporal_gp init=1.0: training negative MLL=-0.203802 (8.1s)
+  spatiotemporal_gp init=3.0: training negative MLL=-0.195258 (8.4s)
+  spatiotemporal_gp: RMSE=0.132115 C
+TASK forward_prediction: train=686, test=294
+  train_mean: RMSE=0.196343 C
+  last_observation: RMSE=0.139485 C
+  temporal_gp init=0.3: training negative MLL=-0.049151 (4.5s)
+  temporal_gp init=1.0: training negative MLL=0.792578 (4.3s)
+  temporal_gp init=3.0: training negative MLL=0.792558 (4.3s)
+  temporal_gp: RMSE=0.189427 C
+  spatiotemporal_gp init=0.3: training negative MLL=-0.168110 (5.3s)
+  spatiotemporal_gp init=1.0: training negative MLL=-0.167902 (5.0s)
+  spatiotemporal_gp init=3.0: training negative MLL=-0.163364 (5.1s)
+  spatiotemporal_gp: RMSE=0.220608 C
+COMPLETE

@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "run": "run_20261111T001739867850Z",
+  "core_checks": 71,
+  "independent_route_checks": 6,
+  "performance_ready": false,
+  "saved_worker_outputs_preserved": true,
+  "executed_code_cells": 4,
+  "embedded_figures": 3,
+  "notebook_sha256": "981bce11a82af000ef71595b5bbb9c16effe54f667ddcf0016d1a0238b9447fb",
+  "report_builder_sha256": "1a52a98d24eabf95cf249fe3899dae5f2f9c0a1338f05fafdf85305175f51043"
+}

@@ -1,0 +1,47 @@
+[
+  {
+    "policy": "mi",
+    "route": [
+      0,
+      1,
+      3,
+      2,
+      0
+    ],
+    "events": 24,
+    "gain": 11.151222416673079,
+    "finish_s": 24.14213562373095,
+    "objective_calls": 41,
+    "weights_generations": 0
+  },
+  {
+    "policy": "emse",
+    "route": [
+      0,
+      2,
+      3,
+      2,
+      0
+    ],
+    "events": 24,
+    "gain": 0.0041422942869307824,
+    "finish_s": 24.14213562373095,
+    "objective_calls": 41,
+    "weights_generations": 0
+  },
+  {
+    "policy": "wivr",
+    "route": [
+      0,
+      3,
+      1,
+      2,
+      0
+    ],
+    "events": 24,
+    "gain": 0.003106491086860182,
+    "finish_s": 24.14213562373095,
+    "objective_calls": 41,
+    "weights_generations": 1
+  }
+]

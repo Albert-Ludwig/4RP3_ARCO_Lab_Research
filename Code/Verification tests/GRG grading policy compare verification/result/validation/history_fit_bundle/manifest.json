@@ -1,0 +1,14 @@
+{
+  "files": {
+    "preflight.json": "d306b0283bc328f438a31e184d8ea174536b02d640283ae36e4d26ef4fd9410d",
+    "offline/excluded.csv": "2d78b4ddbd4f40fb2785bbfc826f69d7ce7394ad61987723eb859a0e12ef6124",
+    "offline/hidden.csv": "31f5b1319e11a3719087dd6e5a03f9ea9f54a6f032bddd5bb48fb250acd38ea9",
+    "online/acquisition.csv": "ae947aa16b076fb76554152173ad75bfd1a23e6eb799b20ef15763b3fe3e0c0c",
+    "online/config.json": "a0321c21b24e3c835aace222979d5bb0cb4e0fc62162376f05280a72a5e36feb",
+    "online/fit_history.csv": "59375746d59ea20e81959a2ca807319cb66f11473068fd7a1ff99cce904fb119",
+    "online/history.csv": "1c87b34ad5dab45add42571bc6bf2a0cbe934a17e0d7caac6384f94adcf29784",
+    "online/initial_training.pt": "367e818b3239e8125a3026dc7075aee22a6ebc2dc2026779ff7d8bbd557844b6",
+    "online/parameters.json": "d506a5d0e16e1e82f35c5328d5a5124a6a78cbff83b10e384d68b9ec83931428",
+    "online/query.npz": "56b43acb294ae0cbde1a4aa70a9a2d46ee101d1e5cd20fd19dd5250339a53911"
+  }
+}

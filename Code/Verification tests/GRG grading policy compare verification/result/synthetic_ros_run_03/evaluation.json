@@ -1,0 +1,56 @@
+{
+  "mode": "synthetic_fixture",
+  "hidden_count": 1350,
+  "hidden_sha256": "31f5b1319e11a3719087dd6e5a03f9ea9f54a6f032bddd5bb48fb250acd38ea9",
+  "shared_hidden_for_all_methods": true,
+  "retrospective_reconstruction": true,
+  "full_real_comparison_complete": false,
+  "synthetic_fixture": true,
+  "summary": [
+    {
+      "method": "History Only",
+      "time_s": 0.0,
+      "measurements": 0,
+      "rmse_c": 0.6674239140096582,
+      "mae_c": 0.6111654305946048,
+      "distance_m": 0.0,
+      "duration_s": 0.0,
+      "return_home_success": null,
+      "status": "no_navigation_control"
+    },
+    {
+      "method": "MI",
+      "time_s": 156.20600000000002,
+      "measurements": 3,
+      "rmse_c": 0.4995597843907012,
+      "mae_c": 0.4264935314884842,
+      "distance_m": 29.76115082981711,
+      "duration_s": 156.20600000000002,
+      "return_home_success": true,
+      "status": "passed"
+    },
+    {
+      "method": "EMSE",
+      "time_s": 156.302,
+      "measurements": 3,
+      "rmse_c": 0.4995597843907012,
+      "mae_c": 0.4264935314884842,
+      "distance_m": 29.75791447469802,
+      "duration_s": 156.302,
+      "return_home_success": true,
+      "status": "passed"
+    },
+    {
+      "method": "WIVR",
+      "time_s": 148.066,
+      "measurements": 3,
+      "rmse_c": 0.4641856825058151,
+      "mae_c": 0.3945138998576445,
+      "distance_m": 27.13058534679239,
+      "duration_s": 148.066,
+      "return_home_success": true,
+      "status": "passed"
+    }
+  ],
+  "note": "SYNTHETIC integration smoke test, capped at 3 acquisitions; NOT a real-field or full-budget policy ranking."
+}

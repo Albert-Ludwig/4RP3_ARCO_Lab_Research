@@ -1,0 +1,36 @@
+{
+  "synthetic_full_budget_completed": true,
+  "real_data_comparison_completed": false,
+  "notebook_errors": [],
+  "embedded_figure_panels": 7,
+  "executed_code_cells": 5,
+  "recorded_bags": 3,
+  "execution": {
+    "mode": "synthetic_fixture",
+    "runs": [
+      {
+        "policy": "mi",
+        "status": "passed"
+      },
+      {
+        "policy": "emse",
+        "status": "passed"
+      },
+      {
+        "policy": "wivr",
+        "status": "passed"
+      }
+    ],
+    "bundle": "/workspace/Code/ROS_Nav2_policy_compare/result/synthetic_fixture_full/bundle",
+    "all_requested_policies_passed": true
+  },
+  "fairness_passed": true,
+  "math_tests": {
+    "tests": 11,
+    "failures": 0,
+    "errors": 0,
+    "passed": true
+  },
+  "runtime_source_unchanged": true,
+  "legacy_preserved": true
+}

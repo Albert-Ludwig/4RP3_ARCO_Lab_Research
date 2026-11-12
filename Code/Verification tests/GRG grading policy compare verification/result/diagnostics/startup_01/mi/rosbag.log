@@ -1,0 +1,11 @@
+[INFO] [1794258033.001272398] [nav2_test_recorder]: Event publisher thread: Started
+[INFO] [1794258033.004678708] [nav2_test_recorder]: Starting recording to '/workspace/Code/ROS_Nav2_policy_compare/result/synthetic_ros_run_01/mi/rosbag'
+[INFO] [1794258033.024806964] [nav2_test_recorder]: Listening for topics...
+[INFO] [1794258033.024944528] [nav2_test_recorder]: Recording...
+[INFO] [1794258033.024841200] [nav2_test_recorder]: Topics discovery started.
+[INFO] [1794258033.025200727] [nav2_test_recorder]: use_sim_time set, waiting for /clock before starting recording...
+[INFO] [1794258033.325635601] [nav2_test_recorder]: Topics discovery stopped.
+[INFO] [1794258033.326251399] [nav2_test_recorder]: Pausing recording.
+[INFO] [1794258033.326488810] [rosbag2_cpp]: Writing remaining messages from cache to the bag. It may take a while
+[INFO] [1794258033.329256495] [nav2_test_recorder]: Recording stopped
+[INFO] [1794258033.331948301] [nav2_test_recorder]: Event publisher thread: Exited

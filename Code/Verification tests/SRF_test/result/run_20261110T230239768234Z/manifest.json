@@ -1,0 +1,25 @@
+{
+  "created_utc": "2026-11-10T23:03:08.444273+00:00",
+  "python": "3.12.3 (main, Mar 23 2026, 19:04:32) [GCC 13.3.0]",
+  "platform": "Linux-6.6.114.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "packages": {
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "gstools": "1.7.0",
+    "gstools-cython": "1.2.0",
+    "psutil": "7.2.2"
+  },
+  "history_sha256": "c81c0176feeda7a115ec764805f48bd7edb95648c841fb058bcbcc38d22b8f76",
+  "source_hashes": {
+    "build_report.py": "1de8ea0bab204fb27ea25b76c111941aaaf51ee359652d7a3e13c38bba6ea43e",
+    "protocol.json": "23116575f546791d7c1b936966f098cc4480a74df90d7db47243a0aed1d06ef8",
+    "requirements.txt": "96d7c4b53ac79f42e1990ec27074cb98d84f53f92a72d453e6cb2352d9ebf209",
+    "srf_field.py": "e31457ceaebb2705a34fcbde690974bbd211b8c840b1a446fd2524cf269d4f7e",
+    "verify.py": "77580a266b5956e15f5cffc838b294fbee71a5875aab44e139cdfe156d4917c4"
+  },
+  "references": [
+    "https://geostat-framework.readthedocs.io/projects/gstools/en/stable/api/gstools.field.SRF.html",
+    "https://geostat-framework.readthedocs.io/projects/gstools/en/stable/api/gstools.covmodel.Matern.html",
+    "https://geostat-framework.readthedocs.io/projects/gstools/en/stable/api/gstools.field.generator.RandMeth.html"
+  ]
+}

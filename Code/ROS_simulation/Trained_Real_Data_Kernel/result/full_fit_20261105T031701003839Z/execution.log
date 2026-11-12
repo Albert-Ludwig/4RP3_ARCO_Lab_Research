@@ -1,0 +1,6 @@
+/home/ubuntu/.venvs/policy-compare/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+Full-data GP: 980 rows, init=0.3, negative training MLL=-0.169618, 15.6s
+Full-data GP: 980 rows, init=1.0, negative training MLL=-0.169151, 15.0s
+Full-data GP: 980 rows, init=3.0, negative training MLL=-0.165449, 15.1s
+FULL FIT COMPLETE [3.5981501453733227, 21.09391456977396, 21.135642819267993]

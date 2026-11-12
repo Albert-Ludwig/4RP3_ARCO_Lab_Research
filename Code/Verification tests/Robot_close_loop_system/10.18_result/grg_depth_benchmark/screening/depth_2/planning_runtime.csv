@@ -1,0 +1,2 @@
+call,elapsed_s,route,arrivals_s,finish_s,gain,runtime_s,evaluations,gp_version,sampling_waypoints,unique_sampling_nodes,repeated_planned_visits,planned_travel_s,budget_feasible,peak_memory_mb
+0,0,"[0, 3, 2, 14, 0]","[80.34662955302754, 202.52432472108387, 300.4409398072876]",327.21614078888655,9.097864895007657,0.08054408300085925,4372,0,3,3,0,312.21614078888655,True,344.75

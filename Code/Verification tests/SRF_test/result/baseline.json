@@ -1,0 +1,32 @@
+{
+  "run": "run_20261110T230239768234Z",
+  "description": "Frozen 97 x 64 m / 900 s / 0.1 m / 0.5 s baseline",
+  "preserved_file_sha256": {
+    "benchmarks.csv": "f809b2be5d755ed1e5575788b43b002b78f43ac33cd25a5b0831567bfd636f61",
+    "benchmarks.json": "c7647eb2b538e6aa19ea90ecbb70cfac7c92b6760ab8aba277ee624049f206b4",
+    "checks.json": "936dc535b56ef57951e7384631789f4ad772176d1dea7ffbf82d9a49a4655c90",
+    "field_config.json": "6256e2b82aa29c21f05fc1d16c90810864ab0ab93e80480758e16ae05ee4a748",
+    "fresh_process_truth.npy": "fd80cb5f9c2329d27fdba012b21b1b4a3f0b42483d7b0f489153324cdeecd8c9",
+    "manifest.json": "ec5920f2e61bce730f143620ff57591cb3204278e3adeaaede468befffbedd94",
+    "noise_samples.npy": "d10bcef6d37a8f39f3968adaa80781ef91b0c72aa094f90ab5e3648d8446a04d",
+    "protocol.json": "23116575f546791d7c1b936966f098cc4480a74df90d7db47243a0aed1d06ef8",
+    "query_inputs.npy": "be835e6e101e6dde9735a89cc9797c9bd29a6e095c905b1541d85b15b7d7e284",
+    "query_truth.npy": "fd80cb5f9c2329d27fdba012b21b1b4a3f0b42483d7b0f489153324cdeecd8c9",
+    "report_verification.json": "fcb8b4ba28294c2c5d99ce11ed63d244dd1f538e5ae9a1c57184737281a7ca2f",
+    "requirements-lock.txt": "b8eb6a5b183d62ab0e0d487695da7c5999a99d2a24dd7388062d1c2c65b00288",
+    "resolution_benchmarks.json": "43b9355bd0fb169c38aeedd55da0b7efee8623eebe216b6ec0fc2b1d6cd8fe6a",
+    "summary.json": "b9bf6b841e3c32400b0285cd1904304f31f15708f07c50ee31c08ab78a4bce53",
+    "visualization.npz": "dcb6cff3edcc363751b0ad2de659ba1e2f169b725faf57435e60b23b71bf1d36",
+    "figures/performance.png": "2909ba08b727ae071474123bdac679021832913dec8b8cad4f77508660873da3",
+    "figures/spatial_snapshots.png": "883785600627a888ea2fda00cdab9692318748a531d953141a7ee9f5b96356ab",
+    "figures/temporal_and_noise.png": "adbb4bb8dc11bc2b28ed391ec236636042809c3574716e18fee909ba9706ec97"
+  },
+  "source_snapshot_sha256": {
+    "build_report.py": "1de8ea0bab204fb27ea25b76c111941aaaf51ee359652d7a3e13c38bba6ea43e",
+    "protocol.json": "23116575f546791d7c1b936966f098cc4480a74df90d7db47243a0aed1d06ef8",
+    "requirements.txt": "96d7c4b53ac79f42e1990ec27074cb98d84f53f92a72d453e6cb2352d9ebf209",
+    "Run-SRF.ps1": "47aa245931472ec4e0a38a3d81f2a6b58a493ce04971baf4bf7521f1efb059da",
+    "srf_field.py": "e31457ceaebb2705a34fcbde690974bbd211b8c840b1a446fd2524cf269d4f7e",
+    "verify.py": "77580a266b5956e15f5cffc838b294fbee71a5875aab44e139cdfe156d4917c4"
+  }
+}

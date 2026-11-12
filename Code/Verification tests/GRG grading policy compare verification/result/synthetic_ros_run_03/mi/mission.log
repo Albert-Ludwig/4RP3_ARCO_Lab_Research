@@ -1,0 +1,4 @@
+mi: t=0.5s route=[4, 3, 1, 2, 0] gain=6.36128 gp=0
+mi: t=31.2s route=[4, 1, 3, 2, 0] gain=6.39332 gp=1
+mi: t=79.2s route=[4, 3, 1, 2, 0] gain=6.14248 gp=2
+{'status': 'passed', 'policy': 'mi', 'mode': 'synthetic_fixture', 'error': None, 'stop_reason': 'declared_synthetic_smoke_acquisition_cap', 'successful_measurements': 3, 'planning_decisions': 3, 'gp_updates': 3, 'distance_m': 29.76115082981711, 'duration_s': 156.20600000000002, 'return_home_success': True, 'budget_s': 900.0, 'within_budget': True, 'clock_origin_s': 0.9860000000000001, 'final_pose': [0.10001716056996117, -0.10729451627248923, 0.13070023441875445], 'synthetic_acquisition_cap': 3, 'hidden_data_accessed_online': False, 'initial_parameters_sha256': '6da002028823285c9af92e076f348113811d3f92ea1c1fe2074270e6bc571d5c'}

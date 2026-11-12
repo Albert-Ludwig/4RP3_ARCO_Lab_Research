@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "checks": {
+    "Code/ROS_Nav2_policy_compare/testing_code/nav2_policy/gp.py": true,
+    "Code/ROS_Nav2_policy_compare/testing_code/nav2_policy/objectives.py": true,
+    "Code/ROS_Nav2_policy_compare/testing_code/nav2_policy/planner.py": true,
+    "Code/ROS_Nav2_policy_compare/testing_code/nav2_policy/acquisition.py": true,
+    "Code/ROS_Nav2_policy_compare/testing_code/nav2_policy/mission.py": true,
+    "Code/ROS_Nav2_policy_compare/testing_code/nav2_policy/navigation.py": true,
+    "Code/ROS_Nav2_policy_compare/testing_code/nav2_policy/storage.py": true,
+    "Code/ROS_Nav2_policy_compare/testing_code/nav2_policy/prepare.py": true,
+    "Code/ROS_Nav2_policy_compare/testing_code/nav2_policy/runner.py": true,
+    "Code/ROS_Nav2_policy_compare/testing_code/nav2_policy/evaluation.py": true,
+    "Code/ROS_Nav2_policy_compare/testing_code/nav2_policy/fixtures.py": true,
+    "Code/ROS_Nav2_policy_compare/testing_code/nav2_policy/__init__.py": true,
+    "Code/ROS_Nav2_policy_compare/testing_code/simulation.launch.py": true
+  },
+  "scope": "Runtime, scoring, acquisition, data preparation, evaluation and simulation sources unchanged since launch. Offline report/audit enhancements excluded."
+}

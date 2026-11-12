@@ -1,0 +1,72 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "all_expected_real_observations",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_chronological_finite_data",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "initial_0.3:finite_training",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "initial_1.0:finite_training",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "initial_3.0:finite_training",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "all_samples_in_checkpoint",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "all_targets_in_checkpoint",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "full_data_scaler",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "finite_positive_hyperparameters",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "finite_positive_prediction",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "noise_added_once",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "independent_rbf_cholesky_prediction",
+      "passed": true,
+      "detail": {
+        "max_abs_error": 3.836930773104541e-13
+      }
+    },
+    {
+      "name": "checkpoint_reload",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}

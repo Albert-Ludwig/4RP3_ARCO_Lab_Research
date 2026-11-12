@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "policy": "mi",
+  "mode": "synthetic_fixture",
+  "error": null,
+  "stop_reason": "declared_synthetic_smoke_acquisition_cap",
+  "successful_measurements": 3,
+  "planning_decisions": 3,
+  "gp_updates": 3,
+  "distance_m": 29.76115082981711,
+  "duration_s": 156.20600000000002,
+  "return_home_success": true,
+  "budget_s": 900.0,
+  "within_budget": true,
+  "clock_origin_s": 0.9860000000000001,
+  "final_pose": [
+    0.10001716056996117,
+    -0.10729451627248923,
+    0.13070023441875445
+  ],
+  "synthetic_acquisition_cap": 3,
+  "hidden_data_accessed_online": false,
+  "initial_parameters_sha256": "6da002028823285c9af92e076f348113811d3f92ea1c1fe2074270e6bc571d5c"
+}

@@ -1,0 +1,142 @@
+{
+  "blocked_reconstruction": {
+    "temporal_gp": {
+      "kernel": "ScaleKernel(RBF_t); temporal-only baseline on a moving sensor",
+      "lengthscales_scaled": [
+        0.016259051115971514
+      ],
+      "output_variance_c2": 0.033103004257151424,
+      "noise_variance_c2": 0.0008833001540123559,
+      "mean_c": 27.081686879356692,
+      "selected_iteration": 300,
+      "selection": "Fixed 300 Adam steps per initialization; initialization selected by final training marginal likelihood only",
+      "fit_seconds": 8.030049481000333,
+      "scaler": {
+        "x_mean": [
+          0.13615957068333331
+        ],
+        "x_std": [
+          0.0885240995644898
+        ],
+        "y_mean": 27.0863525390625,
+        "y_std": 0.21102869591451667,
+        "fit_source": "training measurements only"
+      },
+      "lengthscale_h": 0.0014393178598143912,
+      "lengthscale_seconds": 5.1815442953318085,
+      "selected_initial_lengthscale_scaled": 0.3,
+      "final_negative_training_mll": -0.07598246231022761
+    },
+    "spatiotemporal_gp": {
+      "kernel": "ScaleKernel(RBF_ARD_xy * RBF_t) == 3D ARD RBF",
+      "lengthscales_scaled": [
+        0.11211203577557856,
+        1.4382402560825296,
+        0.04993907767664513
+      ],
+      "output_variance_c2": 0.05050798121966212,
+      "noise_variance_c2": 0.0008629507203074657,
+      "mean_c": 27.117220321936042,
+      "selected_iteration": 300,
+      "selection": "Fixed 300 Adam steps per initialization; initialization selected by final training marginal likelihood only",
+      "fit_seconds": 8.097555934999946,
+      "scaler": {
+        "x_mean": [
+          47.23904326010079,
+          5.7411736450042685,
+          0.13615957068333331
+        ],
+        "x_std": [
+          29.755609935886206,
+          17.998368997225107,
+          0.0885240995644898
+        ],
+        "y_mean": 27.0863525390625,
+        "y_std": 0.21102869591451667,
+        "fit_source": "training measurements only"
+      },
+      "lengthscales_m_m_h": [
+        3.335962005656235,
+        25.885978835636898,
+        0.004420811884406123
+      ],
+      "lengthscales_m_m_s": [
+        3.335962005656235,
+        25.885978835636898,
+        15.914922783862043
+      ],
+      "selected_initial_lengthscale_scaled": 0.3,
+      "final_negative_training_mll": -0.20542692265694304
+    }
+  },
+  "forward_prediction": {
+    "temporal_gp": {
+      "kernel": "ScaleKernel(RBF_t); temporal-only baseline on a moving sensor",
+      "lengthscales_scaled": [
+        0.025973207499118845
+      ],
+      "output_variance_c2": 0.03328797767594164,
+      "noise_variance_c2": 0.0009334851285295606,
+      "mean_c": 27.152729502580343,
+      "selected_iteration": 300,
+      "selection": "Fixed 300 Adam steps per initialization; initialization selected by final training marginal likelihood only",
+      "fit_seconds": 4.504020881000088,
+      "scaler": {
+        "x_mean": [
+          0.09532623735
+        ],
+        "x_std": [
+          0.05500859220203133
+        ],
+        "y_mean": 27.160678269633745,
+        "y_std": 0.21017457197814698,
+        "fit_source": "training measurements only"
+      },
+      "lengthscale_h": 0.0014287495794977705,
+      "lengthscale_seconds": 5.143498486191974,
+      "selected_initial_lengthscale_scaled": 0.3,
+      "final_negative_training_mll": -0.04915099774998151
+    },
+    "spatiotemporal_gp": {
+      "kernel": "ScaleKernel(RBF_ARD_xy * RBF_t) == 3D ARD RBF",
+      "lengthscales_scaled": [
+        0.1776412049159264,
+        1.1206548953825055,
+        0.08724737941265694
+      ],
+      "output_variance_c2": 0.060888068020690515,
+      "noise_variance_c2": 0.000917631246834125,
+      "mean_c": 27.194834932554215,
+      "selected_iteration": 300,
+      "selection": "Fixed 300 Adam steps per initialization; initialization selected by final training marginal likelihood only",
+      "fit_seconds": 5.327529606000098,
+      "scaler": {
+        "x_mean": [
+          34.97856389847033,
+          6.110672569647634,
+          0.09532623735
+        ],
+        "x_std": [
+          20.30410833833884,
+          18.23586897004339,
+          0.05500859220203133
+        ],
+        "y_mean": 27.160678269633745,
+        "y_std": 0.21017457197814698,
+        "fit_source": "training measurements only"
+      },
+      "lengthscales_m_m_h": [
+        3.6068462699660193,
+        20.436115832833057,
+        0.004799355514806749
+      ],
+      "lengthscales_m_m_s": [
+        3.6068462699660193,
+        20.436115832833057,
+        17.277679853304296
+      ],
+      "selected_initial_lengthscale_scaled": 0.3,
+      "final_negative_training_mll": -0.1681101178037743
+    }
+  }
+}

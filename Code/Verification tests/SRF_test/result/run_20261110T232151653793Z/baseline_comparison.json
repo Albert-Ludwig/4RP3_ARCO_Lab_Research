@@ -1,0 +1,44 @@
+{
+  "baseline_run": "run_20261110T230239768234Z",
+  "current_run": "run_20261110T232151653793Z",
+  "baseline_files_preserved": true,
+  "common_domain_field_check": {
+    "name": "same_field_on_common_baseline_domain",
+    "passed": true,
+    "maximum_absolute_error_c": 0.0
+  },
+  "runs": [
+    {
+      "label": "Baseline",
+      "extent_m": [
+        97,
+        64
+      ],
+      "duration_s": 900,
+      "checks": 37,
+      "passed": true,
+      "points_per_slice": 622411,
+      "mean_slice_s": 7.884576197666665,
+      "point_query_p95_ms": 0.2807812000042986,
+      "sampled_peak_rss_mib": 122.7578125,
+      "hypothetical_dense_queries": 1120962211,
+      "estimated_dense_source_s": 14200.121731997664
+    },
+    {
+      "label": "Reduced domain",
+      "extent_m": [
+        30,
+        30
+      ],
+      "duration_s": 120,
+      "checks": 38,
+      "passed": true,
+      "points_per_slice": 90601,
+      "mean_slice_s": 1.0245902423333366,
+      "point_query_p95_ms": 0.2697016500292193,
+      "sampled_peak_rss_mib": 109.890625,
+      "hypothetical_dense_queries": 21834841,
+      "estimated_dense_source_s": 246.92624840233412
+    }
+  ]
+}

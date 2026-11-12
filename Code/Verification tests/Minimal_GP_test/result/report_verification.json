@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "run": "run_20261105T025050681058Z",
+  "hashed_outputs": 13,
+  "verified_metric_rows": 7,
+  "worker_checks": 43,
+  "checks": [
+    "Saved artifacts match hashes",
+    "Input snapshot matches prepared data digest",
+    "Train/test IDs are disjoint",
+    "GP scaling uses training labels only",
+    "Initialization selection uses training likelihood only",
+    "Every prediction has the correct held-out ID and observed label",
+    "RMSE, MAE, predictive coverage and marginal NLPD recomputed"
+  ]
+}

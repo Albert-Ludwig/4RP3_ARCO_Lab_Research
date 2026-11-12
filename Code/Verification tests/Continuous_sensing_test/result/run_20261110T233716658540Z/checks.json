@@ -1,0 +1,236 @@
+[
+  {
+    "name": "rbf_kernel_matches_existing_implementation",
+    "passed": true,
+    "maximum_absolute_error": 1.0408340855860843e-17,
+    "tolerance": 1e-10
+  },
+  {
+    "name": "initial_mean_matches_existing_implementation",
+    "passed": true,
+    "maximum_absolute_error": 0.0,
+    "tolerance": 1e-08
+  },
+  {
+    "name": "initial_variance_matches_existing_implementation",
+    "passed": true,
+    "maximum_absolute_error": 6.938893903907228e-18,
+    "tolerance": 1e-10
+  },
+  {
+    "name": "synthetic_history_is_past_and_sized_explicitly",
+    "passed": true,
+    "conditioning_source": "SRF synthetic history; actual real observations are not remapped",
+    "future_scale_proxy": 3920
+  },
+  {
+    "name": "uses_saved_nav2_detour_geometry",
+    "passed": true,
+    "path_length_m": 7.7148580085523495,
+    "chord_length_m": 5.9999999701976785
+  },
+  {
+    "name": "planned_events_include_edges_not_only_checkpoints",
+    "passed": true,
+    "planned_event_count": 112,
+    "path_segment_count": 4
+  },
+  {
+    "name": "predicted_junction_events_not_duplicated",
+    "passed": true,
+    "maximum_absolute_error": 0.0,
+    "tolerance": 1e-09
+  },
+  {
+    "name": "predicted_segment_split_preserves_positions",
+    "passed": true,
+    "maximum_absolute_error": 0.0,
+    "tolerance": 1e-09
+  },
+  {
+    "name": "predicted_timing_changes_scheduled_events",
+    "passed": true
+  },
+  {
+    "name": "fixed_query_variance_nonincreasing_batch_1",
+    "passed": true
+  },
+  {
+    "name": "fixed_query_variance_nonincreasing_batch_2",
+    "passed": true
+  },
+  {
+    "name": "fixed_query_variance_nonincreasing_batch_3",
+    "passed": true
+  },
+  {
+    "name": "fixed_query_variance_nonincreasing_batch_4",
+    "passed": true
+  },
+  {
+    "name": "exactly_120_actual_measurements",
+    "passed": true
+  },
+  {
+    "name": "global_phase_survives_noninteger_segment_boundaries",
+    "passed": true
+  },
+  {
+    "name": "measurement_identities_unique",
+    "passed": true
+  },
+  {
+    "name": "recorded_positions_are_actual_positions",
+    "passed": true,
+    "maximum_absolute_error": 0.0,
+    "tolerance": 1e-09
+  },
+  {
+    "name": "actual_measurements_not_replaced_with_predicted_events",
+    "passed": true,
+    "maximum_pose_difference_m": 2.2348137160675576
+  },
+  {
+    "name": "temperatures_queried_at_actual_inputs",
+    "passed": true,
+    "maximum_absolute_error": 0.0,
+    "tolerance": 1e-08
+  },
+  {
+    "name": "physical_positions_not_snapped_to_0_1m_grid",
+    "passed": true
+  },
+  {
+    "name": "stationary_samples_keep_distinct_time_and_identity",
+    "passed": true
+  },
+  {
+    "name": "fixture_speed_within_declared_limit",
+    "passed": true,
+    "maximum_sampled_speed_m_s": 0.439593048920353
+  },
+  {
+    "name": "batch_boundaries_and_counts_correct",
+    "passed": true
+  },
+  {
+    "name": "gp_count_and_version_advance_once_per_batch",
+    "passed": true
+  },
+  {
+    "name": "kernel_hyperparameters_frozen",
+    "passed": true
+  },
+  {
+    "name": "gp_only_contains_history_and_valid_observed_inputs",
+    "passed": true,
+    "maximum_absolute_error": 0.0,
+    "tolerance": 1e-09
+  },
+  {
+    "name": "gp_only_contains_observed_temperature_values",
+    "passed": true,
+    "maximum_absolute_error": 0.0,
+    "tolerance": 1e-08
+  },
+  {
+    "name": "remaining_event_rebuild_preserves_global_clock",
+    "passed": true
+  },
+  {
+    "name": "return_endpoint_is_fixture_home",
+    "passed": true,
+    "scope": "Offline geometry only; not Nav2 return execution"
+  },
+  {
+    "name": "final_batch_mean_matches_existing_gp",
+    "passed": true,
+    "maximum_absolute_error": 7.105427357601002e-15,
+    "tolerance": 1e-08
+  },
+  {
+    "name": "final_batch_variance_matches_existing_gp",
+    "passed": true,
+    "maximum_absolute_error": 2.0122792321330962e-16,
+    "tolerance": 1e-10
+  },
+  {
+    "name": "batch_equals_sequential_mean",
+    "passed": true,
+    "maximum_absolute_error": 0.0,
+    "tolerance": 1e-08
+  },
+  {
+    "name": "batch_equals_sequential_variance",
+    "passed": true,
+    "maximum_absolute_error": 4.163336342344337e-17,
+    "tolerance": 1e-10
+  },
+  {
+    "name": "batch_partition_independent_mean",
+    "passed": true,
+    "maximum_absolute_error": 0.0,
+    "tolerance": 1e-08
+  },
+  {
+    "name": "batch_partition_independent_variance",
+    "passed": true,
+    "maximum_absolute_error": 0.0,
+    "tolerance": 1e-10
+  },
+  {
+    "name": "buffer_rejects_duplicate_before_update",
+    "passed": true
+  },
+  {
+    "name": "buffer_rejects_duplicate_after_update",
+    "passed": true
+  },
+  {
+    "name": "bad_quality_nonfinite_outside_missing_rejected",
+    "passed": true
+  },
+  {
+    "name": "invalid_records_never_enter_gp",
+    "passed": true
+  },
+  {
+    "name": "failed_update_preserves_buffer_and_gp",
+    "passed": true
+  },
+  {
+    "name": "retry_commits_once_and_clears_buffer",
+    "passed": true
+  },
+  {
+    "name": "partial_failed_segment_retains_valid_measurements",
+    "passed": true,
+    "valid_measurements": 42,
+    "partial_batch_count": 19,
+    "failure_t_s": 42.65
+  },
+  {
+    "name": "failure_does_not_fabricate_later_samples",
+    "passed": true
+  },
+  {
+    "name": "late_callbacks_use_actual_timestamps",
+    "passed": true
+  },
+  {
+    "name": "missed_ticks_logged_without_backfill",
+    "passed": true
+  },
+  {
+    "name": "finite_scale_check_980",
+    "passed": true
+  },
+  {
+    "name": "finite_scale_check_3920",
+    "passed": true
+  },
+  {
+    "name": "shared_sources_not_modified",
+    "passed": true
+  }
+]

@@ -1,0 +1,83 @@
+[
+  {
+    "time_s": 0,
+    "query_count": 622411,
+    "spacing_m": 0.1,
+    "elapsed_s": 7.78439052900103,
+    "queries_per_s": 79956.2917201013,
+    "baseline_rss_mib": 108.2734375,
+    "sampled_peak_rss_mib": 113.10546875,
+    "sampled_rss_increment_mib": 4.83203125,
+    "max_query_batch": 1024,
+    "stored_field_names": [],
+    "retained_position_count": 843,
+    "generator_array_shapes": {
+      "_z_1": [
+        1024
+      ],
+      "_z_2": [
+        1024
+      ],
+      "_cov_sample": [
+        3,
+        1024
+      ]
+    },
+    "generator_array_bytes": 40960,
+    "max_evaluated_batch": 1024
+  },
+  {
+    "time_s": 60,
+    "query_count": 622411,
+    "spacing_m": 0.1,
+    "elapsed_s": 7.79302185799861,
+    "queries_per_s": 79867.7344092355,
+    "baseline_rss_mib": 113.10546875,
+    "sampled_peak_rss_mib": 117.859375,
+    "sampled_rss_increment_mib": 4.75390625,
+    "max_query_batch": 1024,
+    "stored_field_names": [],
+    "retained_position_count": 843,
+    "generator_array_shapes": {
+      "_z_1": [
+        1024
+      ],
+      "_z_2": [
+        1024
+      ],
+      "_cov_sample": [
+        3,
+        1024
+      ]
+    },
+    "generator_array_bytes": 40960,
+    "max_evaluated_batch": 1024
+  },
+  {
+    "time_s": 120,
+    "query_count": 622411,
+    "spacing_m": 0.1,
+    "elapsed_s": 7.806459037999957,
+    "queries_per_s": 79730.25887540735,
+    "baseline_rss_mib": 117.85546875,
+    "sampled_peak_rss_mib": 122.625,
+    "sampled_rss_increment_mib": 4.76953125,
+    "max_query_batch": 1024,
+    "stored_field_names": [],
+    "retained_position_count": 843,
+    "generator_array_shapes": {
+      "_z_1": [
+        1024
+      ],
+      "_z_2": [
+        1024
+      ],
+      "_cov_sample": [
+        3,
+        1024
+      ]
+    },
+    "generator_array_bytes": 40960,
+    "max_evaluated_batch": 1024
+  }
+]

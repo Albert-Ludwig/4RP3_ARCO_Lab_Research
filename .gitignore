@@ -1,0 +1,14 @@
+# Third-party reference checkout stays local.
+/GP-Planning/
+/GP-Planning_reference/
+
+# Large raw acquisition databases stay local; keep metadata and derived data versioned.
+/Data/Real_spatialtemporal_data/**/*.db3
+/Data/Real_spatialtemporal_data/**/*.db3-shm
+/Data/Real_spatialtemporal_data/**/*.db3-wal
+
+# Generated local caches and operating-system files.
+.DS_Store
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/

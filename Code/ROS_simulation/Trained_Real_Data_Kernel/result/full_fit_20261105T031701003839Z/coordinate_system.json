@@ -1,0 +1,20 @@
+{
+  "name": "local_enu_at_first_valid_gps",
+  "datum": "WGS84",
+  "origin_latitude_deg": 43.265474,
+  "origin_longitude_deg": -79.928666,
+  "origin_altitude_m": 45.3434,
+  "origin_gps_message_id": 369,
+  "time_origin_utc": "2026-11-03T19:24:15.325545540Z",
+  "time_origin_utc_ns": 1793733855325545540,
+  "axes": "x east, y north, z up",
+  "position_reference": "GPS antenna; HOBO lever arm unknown",
+  "ros_map_transform": "not established",
+  "checkpoint_input_order": [
+    "x_east_m",
+    "y_north_m",
+    "t_h"
+  ],
+  "checkpoint_time_conversion": "t_h = t_s / 3600; preserve the recorded time origin",
+  "accepted_clock_assumption": "User accepts synchronized HOBO/GPS clocks and zero additional offset"
+}

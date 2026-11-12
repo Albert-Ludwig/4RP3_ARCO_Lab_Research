@@ -1,0 +1,56 @@
+{
+  "mode": "synthetic_fixture",
+  "hidden_count": 1350,
+  "hidden_sha256": "31f5b1319e11a3719087dd6e5a03f9ea9f54a6f032bddd5bb48fb250acd38ea9",
+  "shared_hidden_for_all_methods": true,
+  "retrospective_reconstruction": true,
+  "full_real_comparison_complete": false,
+  "synthetic_fixture": true,
+  "summary": [
+    {
+      "method": "History Only",
+      "time_s": 0.0,
+      "measurements": 0,
+      "rmse_c": 0.6674239140096582,
+      "mae_c": 0.6111654305946048,
+      "distance_m": 0.0,
+      "duration_s": 0.0,
+      "return_home_success": null,
+      "status": "no_navigation_control"
+    },
+    {
+      "method": "MI",
+      "time_s": 843.8159999999999,
+      "measurements": 68,
+      "rmse_c": 0.22354690663338864,
+      "mae_c": 0.1151099411351432,
+      "distance_m": 135.4449526142541,
+      "duration_s": 843.8159999999999,
+      "return_home_success": true,
+      "status": "passed"
+    },
+    {
+      "method": "EMSE",
+      "time_s": 843.6179999999999,
+      "measurements": 70,
+      "rmse_c": 0.16369548236189782,
+      "mae_c": 0.07835072190133431,
+      "distance_m": 135.4436893246574,
+      "duration_s": 843.6179999999999,
+      "return_home_success": true,
+      "status": "passed"
+    },
+    {
+      "method": "WIVR",
+      "time_s": 844.174,
+      "measurements": 60,
+      "rmse_c": 0.09967376337128617,
+      "mae_c": 0.046677098318601756,
+      "distance_m": 138.83615290300267,
+      "duration_s": 844.174,
+      "return_home_success": true,
+      "status": "passed"
+    }
+  ],
+  "note": "SYNTHETIC 900-second-budget Nav2 comparison; no acquisition cap; NOT a real-field result."
+}

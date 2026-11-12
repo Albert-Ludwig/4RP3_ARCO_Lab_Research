@@ -1,0 +1,64 @@
+{
+  "passed": true,
+  "checks": 6,
+  "rows": [
+    {
+      "checkpoints": 30,
+      "policy": "mi",
+      "events": 99,
+      "logged_gain": 58.70182141269231,
+      "independent_gain": 58.70182141269226,
+      "absolute_error": 4.973799150320701e-14,
+      "passed": true
+    },
+    {
+      "checkpoints": 30,
+      "policy": "emse",
+      "events": 99,
+      "logged_gain": 0.030725038146708045,
+      "independent_gain": 0.03072503814670805,
+      "absolute_error": 6.938893903907228e-18,
+      "passed": true
+    },
+    {
+      "checkpoints": 30,
+      "policy": "wivr",
+      "events": 98,
+      "logged_gain": 0.031093153168554766,
+      "independent_gain": 0.03109315316855475,
+      "absolute_error": 1.734723475976807e-17,
+      "passed": true
+    },
+    {
+      "checkpoints": 50,
+      "policy": "mi",
+      "events": 99,
+      "logged_gain": 58.70182141269231,
+      "independent_gain": 58.70182141269226,
+      "absolute_error": 4.973799150320701e-14,
+      "passed": true
+    },
+    {
+      "checkpoints": 50,
+      "policy": "emse",
+      "events": 99,
+      "logged_gain": 0.03183634805360873,
+      "independent_gain": 0.03183634805360873,
+      "absolute_error": 0.0,
+      "passed": true
+    },
+    {
+      "checkpoints": 50,
+      "policy": "wivr",
+      "events": 98,
+      "logged_gain": 0.03208852805855855,
+      "independent_gain": 0.03208852805855854,
+      "absolute_error": 1.3877787807814457e-17,
+      "passed": true
+    }
+  ],
+  "maximum_absolute_error": 4.973799150320701e-14,
+  "reference_source_sha256": "3aea98f2dc59ae0d55e3423684f434f771d5cd3440d844d84562f4a1bdadb477",
+  "audit_source_sha256": "96c20e712851b52d85f9beb408cd00da30cd475177bbb5473d7235e5c151f153",
+  "scope": "Uncached independent NumPy conditioning formulas; offline acceptance only, not performance timing or policy ranking."
+}

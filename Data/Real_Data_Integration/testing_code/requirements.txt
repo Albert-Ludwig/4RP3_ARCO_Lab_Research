@@ -1,0 +1,9 @@
+# Extraction: host Python. Tested versions are recorded in result/manifest.json.
+numpy
+openpyxl
+# Reports: may use the existing separate reporting Python environment.
+matplotlib
+nbformat
+nbclient
+ipykernel
+# GPS decoder: ROS 2 Jazzy rclpy + sensor_msgs (existing Docker container).

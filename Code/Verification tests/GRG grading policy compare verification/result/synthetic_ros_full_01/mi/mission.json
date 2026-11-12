@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "policy": "mi",
+  "mode": "synthetic_fixture",
+  "error": null,
+  "stop_reason": "no_feasible_informative_acquisition",
+  "successful_measurements": 68,
+  "planning_decisions": 69,
+  "gp_updates": 68,
+  "distance_m": 135.4449526142541,
+  "duration_s": 843.8159999999999,
+  "return_home_success": true,
+  "budget_s": 900.0,
+  "within_budget": true,
+  "clock_origin_s": 0.758,
+  "final_pose": [
+    0.05343797204608309,
+    0.13560007548184805,
+    -0.13675120226377083
+  ],
+  "synthetic_acquisition_cap": null,
+  "hidden_data_accessed_online": false,
+  "initial_parameters_sha256": "6da002028823285c9af92e076f348113811d3f92ea1c1fe2074270e6bc571d5c"
+}

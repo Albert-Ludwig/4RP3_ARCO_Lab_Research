@@ -1,0 +1,40 @@
+{
+  "blocked_reconstruction": {
+    "train_count": 764,
+    "test_count": 196,
+    "buffer_count": 20,
+    "train_time_range_utc": [
+      "2026-11-03T19:24:16.000000000Z",
+      "2026-11-03T19:40:35.000000000Z"
+    ],
+    "test_time_range_utc": [
+      "2026-11-03T19:30:48.000000000Z",
+      "2026-11-03T19:34:03.000000000Z"
+    ],
+    "nearest_train_distance_m": {
+      "min": 3.5761903361717504,
+      "median": 5.302425025585478,
+      "max": 10.370716885393577
+    },
+    "forecast_horizon_seconds": null
+  },
+  "forward_prediction": {
+    "train_count": 686,
+    "test_count": 294,
+    "buffer_count": 0,
+    "train_time_range_utc": [
+      "2026-11-03T19:24:16.000000000Z",
+      "2026-11-03T19:35:41.000000000Z"
+    ],
+    "test_time_range_utc": [
+      "2026-11-03T19:35:42.000000000Z",
+      "2026-11-03T19:40:35.000000000Z"
+    ],
+    "nearest_train_distance_m": {
+      "min": 1.0729200874996125,
+      "median": 14.8232202387195,
+      "max": 26.620442595274394
+    },
+    "forecast_horizon_seconds": 294.0
+  }
+}

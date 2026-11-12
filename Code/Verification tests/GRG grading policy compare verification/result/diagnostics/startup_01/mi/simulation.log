@@ -1,0 +1,49 @@
+[INFO] [launch]: All log files can be found below /ros-data/log/2026-11-09-21-00-32-802584-bunker-jazzy-823
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [gz-1]: process started with pid [844]
+[INFO] [parameter_bridge-2]: process started with pid [845]
+[INFO] [robot_state_publisher-3]: process started with pid [846]
+[INFO] [cmd_watchdog.py-4]: process started with pid [847]
+[INFO] [odometry_adapter.py-5]: process started with pid [848]
+Task exception was never retrieved
+future: <Task finished name='Task-7' coro=<ExecuteLocal.__execute_process() done, defined at /opt/ros/jazzy/lib/python3.12/site-packages/launch/actions/execute_local.py:544> exception=TypeError("RunningProcessEvent.__init__() missing 1 required keyword-only argument: 'pid'")>
+Traceback (most recent call last):
+  File "/opt/ros/jazzy/lib/python3.12/site-packages/launch/actions/execute_local.py", line 590, in __execute_process
+    await context.emit_event(ProcessStarted(**process_event_args))
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/ros/jazzy/lib/python3.12/site-packages/launch/events/process/process_started.py", line 32, in __init__
+    super().__init__(**kwargs)
+TypeError: RunningProcessEvent.__init__() missing 1 required keyword-only argument: 'pid'
+[INFO] [truth_localization.py-6]: process started with pid [849]
+[INFO] [map_server-7]: process started with pid [850]
+[INFO] [planner_server-8]: process started with pid [851]
+[INFO] [controller_server-9]: process started with pid [852]
+[INFO] [behavior_server-10]: process started with pid [853]
+[INFO] [bt_navigator-11]: process started with pid [854]
+[INFO] [lifecycle_manager-12]: process started with pid [855]
+[WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
+[ERROR] [lifecycle_manager-12]: process has died [pid 855, exit code -2, cmd '/opt/ros/jazzy/lib/nav2_lifecycle_manager/lifecycle_manager --ros-args -r __node:=lifecycle_manager_policy --params-file /tmp/launch_params_2xe053jv'].
+[ERROR] [behavior_server-10]: process has died [pid 853, exit code -2, cmd '/opt/ros/jazzy/lib/nav2_behaviors/behavior_server --ros-args -r __node:=behavior_server --params-file /workspace/Code/ROS_Nav2_policy_compare/result/synthetic_ros_run_01/mi/generated/nav2_params.yaml'].
+[ERROR] [planner_server-8]: process has died [pid 851, exit code -2, cmd '/opt/ros/jazzy/lib/nav2_planner/planner_server --ros-args -r __node:=planner_server --params-file /workspace/Code/ROS_Nav2_policy_compare/result/synthetic_ros_run_01/mi/generated/nav2_params.yaml'].
+[ERROR] [map_server-7]: process has died [pid 850, exit code -2, cmd '/opt/ros/jazzy/lib/nav2_map_server/map_server --ros-args -r __node:=map_server --params-file /workspace/Code/ROS_Nav2_policy_compare/result/synthetic_ros_run_01/mi/generated/nav2_params.yaml'].
+[ERROR] [bt_navigator-11]: process has died [pid 854, exit code -2, cmd '/opt/ros/jazzy/lib/nav2_bt_navigator/bt_navigator --ros-args -r __node:=bt_navigator --params-file /workspace/Code/ROS_Nav2_policy_compare/result/synthetic_ros_run_01/mi/generated/nav2_params.yaml'].
+Exception in callback AsyncSubprocessProtocol.process_exited()
+handle: <Handle AsyncSubprocessProtocol.process_exited()>
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/asyncio/events.py", line 88, in _run
+    self._context.run(self._callback, *self._args)
+  File "/opt/ros/jazzy/lib/python3.12/site-packages/osrf_pycommon/process_utils/async_execute_process.py", line 241, in process_exited
+    retcode = self.transport.get_returncode()
+              ^^^^^^^^^^^^^^
+AttributeError: '__ProcessProtocol' object has no attribute 'transport'
+[ERROR] [controller_server-9]: process has died [pid 852, exit code -2, cmd '/opt/ros/jazzy/lib/nav2_controller/controller_server --ros-args -r __node:=controller_server --params-file /workspace/Code/ROS_Nav2_policy_compare/result/synthetic_ros_run_01/mi/generated/nav2_params.yaml'].
+[ERROR] [parameter_bridge-2]: process has died [pid 845, exit code -2, cmd '/opt/ros/jazzy/lib/ros_gz_bridge/parameter_bridge --ros-args --params-file /tmp/launch_params_qvqnoo8b'].
+[ERROR] [cmd_watchdog.py-4]: process has died [pid 847, exit code -2, cmd '/ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_bunker_sim/lib/well_e_bunker_sim/cmd_watchdog.py --ros-args --params-file /tmp/launch_params_fju1n1uw'].
+[ERROR] [robot_state_publisher-3]: process has died [pid 846, exit code -2, cmd '/opt/ros/jazzy/lib/robot_state_publisher/robot_state_publisher --ros-args --params-file /tmp/launch_params_8vzk2rex'].
+[ERROR] [gz-1]: process has died [pid 844, exit code -2, cmd 'gz sim -r -s -v 3 /workspace/Code/ROS_Nav2_policy_compare/result/synthetic_ros_run_01/mi/generated/world.sdf'].
+[ERROR] [truth_localization.py-6]: process has died [pid 849, exit code -2, cmd '/ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_nav2_test/lib/well_e_nav2_test/truth_localization.py --ros-args --params-file /tmp/launch_params_xipu9434'].
+[INFO] [odometry_adapter.py-5]: sending signal 'SIGINT' to process[odometry_adapter.py-5]
+[ERROR] [odometry_adapter.py-5]: process[odometry_adapter.py-5] failed to terminate '5' seconds after receiving 'SIGINT', escalating to 'SIGTERM'
+[INFO] [odometry_adapter.py-5]: sending signal 'SIGTERM' to process[odometry_adapter.py-5]
+[ERROR] [odometry_adapter.py-5]: process[odometry_adapter.py-5] failed to terminate '10.0' seconds after receiving 'SIGTERM', escalating to 'SIGKILL'
+[INFO] [odometry_adapter.py-5]: sending signal 'SIGKILL' to process[odometry_adapter.py-5]

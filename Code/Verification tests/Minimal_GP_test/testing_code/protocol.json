@@ -1,0 +1,25 @@
+{
+  "experiment": "minimal_gp_real_field",
+  "clock_assumption": "User accepts accurate HOBO/GPS synchronization; additional offset is zero. This is an assumption, not independent verification.",
+  "input_columns": ["x_east_m", "y_north_m", "t_s", "temperature_c"],
+  "time_input_unit": "hours; t_s divided by 3600",
+  "blocked_reconstruction": {"start_fraction": 0.4, "end_fraction": 0.6, "guard_seconds": 10.0},
+  "forward_prediction": {"training_fraction": 0.7, "online_updates": false},
+  "models": ["train_mean", "last_observation", "temporal_gp", "spatiotemporal_gp"],
+  "last_observation_scope": "forward_prediction only",
+  "initial_lengthscales_scaled": [0.3, 1.0, 3.0],
+  "restart_selection": "lowest final negative training marginal log likelihood; no test-label selection",
+  "fit": {
+    "iterations": 300,
+    "learning_rate": 0.05,
+    "threads": 4,
+    "initial_noise_variance_scaled": 0.05,
+    "validation_every": 25
+  },
+  "seed": 0,
+  "dtype": "float64",
+  "device": "cpu",
+  "interval": "95% marginal predictive interval for noisy observations (includes learned likelihood noise)",
+  "metrics": ["rmse_c", "mae_c", "coverage_95", "mean_interval_width_c", "marginal_nlpd"],
+  "scope": "One run, two fixed splits, exploratory validation. No GRG/policy comparison or navigation. No dense-field ground truth or independent daily replication."
+}

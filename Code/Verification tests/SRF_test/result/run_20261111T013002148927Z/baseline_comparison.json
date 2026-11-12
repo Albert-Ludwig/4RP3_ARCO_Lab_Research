@@ -1,0 +1,68 @@
+{
+  "current_run": "run_20261111T013002148927Z",
+  "retained_files_preserved": true,
+  "common_domain_field_check": {
+    "name": "same_field_on_common_baseline_domain",
+    "passed": true,
+    "maximum_absolute_error_c": 0.0
+  },
+  "runs": [
+    {
+      "label": "Large / 900 s baseline",
+      "run": "run_20261110T230239768234Z",
+      "extent_m": [
+        97,
+        64
+      ],
+      "duration_s": 900,
+      "checks": 37,
+      "passed": true,
+      "points_per_slice": 622411,
+      "mean_slice_s": 7.884576197666665,
+      "point_query_p95_ms": 0.2807812000042986,
+      "sampled_peak_rss_mib": 122.7578125,
+      "hypothetical_dense_queries": 1120962211,
+      "hypothetical_dense_float64_gib": 8.351819299161434,
+      "estimated_dense_source_s": 14200.121731997664
+    },
+    {
+      "label": "Small / 120 s",
+      "run": "run_20261110T232151653793Z",
+      "extent_m": [
+        30,
+        30
+      ],
+      "duration_s": 120,
+      "checks": 38,
+      "passed": true,
+      "points_per_slice": 90601,
+      "mean_slice_s": 1.0245902423333366,
+      "point_query_p95_ms": 0.2697016500292193,
+      "sampled_peak_rss_mib": 109.890625,
+      "hypothetical_dense_queries": 21834841,
+      "hypothetical_dense_float64_gib": 0.16268224269151688,
+      "estimated_dense_source_s": 246.92624840233412
+    },
+    {
+      "label": "Large flat / 120 s (current)",
+      "run": "run_20261111T013002148927Z",
+      "extent_m": [
+        97,
+        64
+      ],
+      "duration_s": 120,
+      "checks": 38,
+      "passed": true,
+      "points_per_slice": 622411,
+      "mean_slice_s": 7.794623808333199,
+      "point_query_p95_ms": 0.27102780049972347,
+      "sampled_peak_rss_mib": 122.625,
+      "hypothetical_dense_queries": 150001051,
+      "hypothetical_dense_float64_gib": 1.1175949200987816,
+      "estimated_dense_source_s": 1878.504337808301
+    }
+  ],
+  "dense_cost_estimate_only": true,
+  "complete_volume_executed": false,
+  "previous_srf_runs_also_obstacle_free": true
+}

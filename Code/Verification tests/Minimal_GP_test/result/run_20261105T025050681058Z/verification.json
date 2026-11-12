@@ -1,0 +1,230 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "blocked_reconstruction:disjoint_and_complete",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "blocked_reconstruction:guard",
+      "passed": true,
+      "detail": {
+        "minimum_seconds": 10.999999999999972
+      }
+    },
+    {
+      "name": "forward_prediction:disjoint_and_complete",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "forward_prediction:strict_causality",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "blocked_reconstruction:temporal_gp:init0.3:finite_training",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "blocked_reconstruction:temporal_gp:init1.0:finite_training",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "blocked_reconstruction:temporal_gp:init3.0:finite_training",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "blocked_reconstruction:temporal_gp:train_only_scaler",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "blocked_reconstruction:temporal_gp:finite_positive_prediction",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "blocked_reconstruction:temporal_gp:noise_added_once",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "blocked_reconstruction:temporal_gp:independent_cholesky",
+      "passed": true,
+      "detail": {
+        "max_abs_error": 1.0658141036401503e-14
+      }
+    },
+    {
+      "name": "blocked_reconstruction:temporal_gp:checkpoint_roundtrip",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "blocked_reconstruction:spatiotemporal_gp:init0.3:finite_training",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "blocked_reconstruction:spatiotemporal_gp:init1.0:finite_training",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "blocked_reconstruction:spatiotemporal_gp:init3.0:finite_training",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "blocked_reconstruction:spatiotemporal_gp:train_only_scaler",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "blocked_reconstruction:spatiotemporal_gp:finite_positive_prediction",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "blocked_reconstruction:spatiotemporal_gp:noise_added_once",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "blocked_reconstruction:spatiotemporal_gp:independent_cholesky",
+      "passed": true,
+      "detail": {
+        "max_abs_error": 2.4868995751603507e-14
+      }
+    },
+    {
+      "name": "blocked_reconstruction:spatiotemporal_gp:checkpoint_roundtrip",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "forward_prediction:temporal_gp:init0.3:finite_training",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "forward_prediction:temporal_gp:init1.0:finite_training",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "forward_prediction:temporal_gp:init3.0:finite_training",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "forward_prediction:temporal_gp:train_only_scaler",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "forward_prediction:temporal_gp:finite_positive_prediction",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "forward_prediction:temporal_gp:noise_added_once",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "forward_prediction:temporal_gp:independent_cholesky",
+      "passed": true,
+      "detail": {
+        "max_abs_error": 1.2505552149377763e-12
+      }
+    },
+    {
+      "name": "forward_prediction:temporal_gp:checkpoint_roundtrip",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "forward_prediction:spatiotemporal_gp:init0.3:finite_training",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "forward_prediction:spatiotemporal_gp:init1.0:finite_training",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "forward_prediction:spatiotemporal_gp:init3.0:finite_training",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "forward_prediction:spatiotemporal_gp:train_only_scaler",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "forward_prediction:spatiotemporal_gp:finite_positive_prediction",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "forward_prediction:spatiotemporal_gp:noise_added_once",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "forward_prediction:spatiotemporal_gp:independent_cholesky",
+      "passed": true,
+      "detail": {
+        "max_abs_error": 1.7763568394002505e-13
+      }
+    },
+    {
+      "name": "forward_prediction:spatiotemporal_gp:checkpoint_roundtrip",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "blocked_reconstruction:train_mean:saved_metrics",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "blocked_reconstruction:temporal_gp:saved_metrics",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "blocked_reconstruction:spatiotemporal_gp:saved_metrics",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "forward_prediction:train_mean:saved_metrics",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "forward_prediction:last_observation:saved_metrics",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "forward_prediction:temporal_gp:saved_metrics",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "forward_prediction:spatiotemporal_gp:saved_metrics",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}

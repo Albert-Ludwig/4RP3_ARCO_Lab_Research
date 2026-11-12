@@ -1,0 +1,4 @@
+seed,depth,status,call,elapsed_s,route,arrivals_s,finish_s,gain,runtime_s,evaluations,gp_version,sampling_waypoints,unique_sampling_nodes,repeated_planned_visits,planned_travel_s,budget_feasible,peak_memory_mb,reason,wall_s,returncode,planning_limit_s,mission_limit_s,timed_out_call,timed_out_call_s,elapsed_simulation_s
+18,2,SUCCESS,0,0,"[0, 3, 2, 14, 0]","[80.34662955302754, 202.52432472108387, 300.4409398072876]",327.21614078888655,9.097864895007657,0.08054408300085925,4372,0,3,3,0,312.21614078888655,True,344.75,,,,,,,,
+18,3,SUCCESS,0,0,"[0, 3, 2, 14, 1, 19, 20, 24, 0]","[80.34662955302754, 202.52432472108387, 300.4409398072876, 412.55916274628305, 508.7005768508877, 586.0254582765584, 675.6578021153002]",765.1465672920586,18.980270291795183,20.847414457999548,528665,0,7,7,0,730.1465672920586,True,437.65625,,,,,,,,
+18,5,TIMEOUT,,,,,,,,,,,,,,,,planning_call_limit,92.55939470900012,-9,90,900,0,90.0691725839988,0

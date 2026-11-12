@@ -1,0 +1,32 @@
+[
+  {
+    "time_s": 0.30599999999999994,
+    "measurements": 0,
+    "gp_file": "gp_000.npz",
+    "mean_query_variance_c2": 0.8375618848472931
+  },
+  {
+    "time_s": 31.022000000000002,
+    "measurements": 1,
+    "gp_file": "gp_001.npz",
+    "mean_query_variance_c2": 0.8222788990787518
+  },
+  {
+    "time_s": 79.018,
+    "measurements": 2,
+    "gp_file": "gp_002.npz",
+    "mean_query_variance_c2": 0.7880642071528884
+  },
+  {
+    "time_s": 117.02799999999999,
+    "measurements": 3,
+    "gp_file": "gp_003.npz",
+    "mean_query_variance_c2": 0.7708876225213153
+  },
+  {
+    "time_s": 156.20600000000002,
+    "measurements": 3,
+    "gp_file": "gp_004.npz",
+    "mean_query_variance_c2": 0.7708876225213153
+  }
+]

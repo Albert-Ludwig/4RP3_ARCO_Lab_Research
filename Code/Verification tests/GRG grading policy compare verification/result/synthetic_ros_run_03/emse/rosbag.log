@@ -1,0 +1,41 @@
+[INFO] [1794258281.365834424] [nav2_test_recorder]: Event publisher thread: Started
+[INFO] [1794258281.368037134] [nav2_test_recorder]: Starting recording to '/workspace/Code/ROS_Nav2_policy_compare/result/synthetic_ros_run_03/emse/rosbag'
+[INFO] [1794258281.385428553] [nav2_test_recorder]: Listening for topics...
+[INFO] [1794258281.385578525] [nav2_test_recorder]: Recording...
+[INFO] [1794258281.385497998] [nav2_test_recorder]: Topics discovery started.
+[INFO] [1794258281.385858420] [nav2_test_recorder]: use_sim_time set, waiting for /clock before starting recording...
+[INFO] [1794258284.919737518] [nav2_test_recorder]: Sim time /clock found, starting recording.
+[INFO] [1794258285.279295870] [nav2_test_recorder]: Subscribed to topic '/odom'
+[INFO] [1794258285.302018895] [nav2_test_recorder]: Subscribed to topic '/policy/events'
+[WARN] [1794258285.302195916] [rosbag2_cpp]: Message definition for topic '/navigate_to_pose/_action/feedback' with type 'nav2_msgs/action/NavigateToPose_FeedbackMessage' not found. Message definition will be left empty in bag.
+[INFO] [1794258285.318388354] [nav2_test_recorder]: Subscribed to topic '/navigate_to_pose/_action/feedback'
+[WARN] [1794258285.318651757] [rosbag2_cpp]: Message definition for topic '/navigate_to_pose/_action/status' with type 'action_msgs/msg/GoalStatusArray' not found. Message definition will be left empty in bag.
+[INFO] [1794258285.330184066] [nav2_test_recorder]: Subscribed to topic '/navigate_to_pose/_action/status'
+[INFO] [1794258285.349854934] [nav2_test_recorder]: Overriding subscription profile for /map
+[INFO] [1794258285.361334720] [nav2_test_recorder]: Subscribed to topic '/map'
+[INFO] [1794258285.382796275] [nav2_test_recorder]: Subscribed to topic '/lookahead_point'
+[INFO] [1794258285.394526881] [nav2_test_recorder]: Subscribed to topic '/simulation/track_odom'
+[INFO] [1794258285.434216625] [nav2_test_recorder]: Subscribed to topic '/local_costmap/published_footprint'
+[INFO] [1794258285.446483514] [nav2_test_recorder]: Subscribed to topic '/local_costmap/costmap'
+[INFO] [1794258285.479065853] [nav2_test_recorder]: Overriding subscription profile for /tf_static
+[INFO] [1794258285.490874644] [nav2_test_recorder]: Subscribed to topic '/tf_static'
+[INFO] [1794258285.503298158] [nav2_test_recorder]: Subscribed to topic '/simulation/ground_truth/odom'
+[INFO] [1794258285.503583955] [nav2_test_recorder]: Overriding subscription profile for /robot_description
+[INFO] [1794258285.515123137] [nav2_test_recorder]: Subscribed to topic '/robot_description'
+[INFO] [1794258285.526661087] [nav2_test_recorder]: Subscribed to topic '/simulation/track_tf'
+[INFO] [1794258285.537384910] [nav2_test_recorder]: Subscribed to topic '/tf'
+[INFO] [1794258285.559241034] [nav2_test_recorder]: Subscribed to topic '/simulation/cmd_vel'
+[INFO] [1794258285.572545564] [nav2_test_recorder]: Subscribed to topic '/global_costmap/published_footprint'
+[INFO] [1794258285.602665291] [nav2_test_recorder]: Subscribed to topic '/plan'
+[INFO] [1794258285.614831965] [nav2_test_recorder]: Subscribed to topic '/received_global_plan'
+[INFO] [1794258285.624644522] [nav2_test_recorder]: Overriding subscription profile for /clock
+[INFO] [1794258285.635713829] [nav2_test_recorder]: Subscribed to topic '/clock'
+[INFO] [1794258285.645209865] [nav2_test_recorder]: Overriding subscription profile for /test/navigation_goal
+[INFO] [1794258285.657392310] [nav2_test_recorder]: Subscribed to topic '/test/navigation_goal'
+[INFO] [1794258285.675451790] [nav2_test_recorder]: Subscribed to topic '/cmd_vel'
+[INFO] [1794258285.689093878] [nav2_test_recorder]: Subscribed to topic '/global_costmap/costmap'
+[INFO] [1794258442.564445156] [nav2_test_recorder]: Topics discovery stopped.
+[INFO] [1794258442.564717447] [nav2_test_recorder]: Pausing recording.
+[INFO] [1794258442.564853722] [rosbag2_cpp]: Writing remaining messages from cache to the bag. It may take a while
+[INFO] [1794258442.579706052] [nav2_test_recorder]: Recording stopped
+[INFO] [1794258442.593138406] [nav2_test_recorder]: Event publisher thread: Exited

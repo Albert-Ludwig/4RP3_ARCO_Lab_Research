@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "policy": "wivr",
+  "mode": "synthetic_fixture",
+  "error": null,
+  "stop_reason": "no_feasible_informative_acquisition",
+  "successful_measurements": 60,
+  "planning_decisions": 61,
+  "gp_updates": 60,
+  "distance_m": 138.83615290300267,
+  "duration_s": 844.174,
+  "return_home_success": true,
+  "budget_s": 900.0,
+  "within_budget": true,
+  "clock_origin_s": 1.022,
+  "final_pose": [
+    0.05533547607833854,
+    0.13425587533119226,
+    -0.12530877094611514
+  ],
+  "synthetic_acquisition_cap": null,
+  "hidden_data_accessed_online": false,
+  "initial_parameters_sha256": "6da002028823285c9af92e076f348113811d3f92ea1c1fe2074270e6bc571d5c"
+}

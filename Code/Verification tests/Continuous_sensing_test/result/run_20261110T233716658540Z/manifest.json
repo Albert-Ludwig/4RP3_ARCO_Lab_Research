@@ -1,0 +1,21 @@
+{
+  "created_utc": "2026-11-10T23:37:18.889808+00:00",
+  "python": "3.12.3 (main, Mar 23 2026, 19:04:32) [GCC 13.3.0]",
+  "platform": "Linux-6.6.114.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "packages": {
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "gstools": "1.7.0",
+    "psutil": "7.2.2"
+  },
+  "thread_environment": {
+    "OPENBLAS_NUM_THREADS": "4",
+    "OMP_NUM_THREADS": "4",
+    "MKL_NUM_THREADS": "4"
+  },
+  "source_hashes": {
+    "components.py": "2637f747367a7b7229d5f4971e63c8d938bf69742584cb863be14b1eca089668",
+    "protocol.json": "ed52730557a230fc73a9530a452d64d47160e7b28ed74801459db7e553ce9cec",
+    "verify.py": "61269df1568c4990c9ec69d20b188bd45636186dc87195d66dfef343483d19db"
+  }
+}

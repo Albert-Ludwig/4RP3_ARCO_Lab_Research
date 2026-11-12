@@ -1,0 +1,315 @@
+[
+  {
+    "name": "10m_grid_has_valid_area_and_representatives",
+    "passed": true,
+    "cells": 9,
+    "effective_area_m2": 884.0
+  },
+  {
+    "name": "online_query_times_are_0_5s",
+    "passed": true
+  },
+  {
+    "name": "incomplete_boundary_cell_areas_exact",
+    "passed": true
+  },
+  {
+    "name": "zero_valid_area_cells_excluded",
+    "passed": true
+  },
+  {
+    "name": "5m_sensitivity_grid_area_consistent",
+    "passed": true,
+    "note": "Geometry check only; reconstruction sensitivity comparison remains pending"
+  },
+  {
+    "name": "adaptive_weight_is_effective_area_times_current_variance",
+    "passed": true,
+    "maximum_absolute_error": 0.0
+  },
+  {
+    "name": "higher_variance_has_higher_per_area_importance",
+    "passed": true
+  },
+  {
+    "name": "no_separate_temporal_weighting",
+    "passed": true,
+    "maximum_absolute_error": 0.0
+  },
+  {
+    "name": "weight_snapshot_arrays_are_readonly",
+    "passed": true
+  },
+  {
+    "name": "time_advance_without_gp_update_does_not_refresh_weights",
+    "passed": true
+  },
+  {
+    "name": "refresh_forbidden_inside_frozen_search",
+    "passed": true
+  },
+  {
+    "name": "near_zero_variance_falls_back_to_area",
+    "passed": true
+  },
+  {
+    "name": "mi_matches_independent_direct_matrix_formula",
+    "passed": true,
+    "maximum_absolute_error": 2.6645352591003757e-15
+  },
+  {
+    "name": "mi_event_order_invariant",
+    "passed": true,
+    "maximum_absolute_error": 1.7763568394002505e-15
+  },
+  {
+    "name": "mi_empty_route_zero",
+    "passed": true
+  },
+  {
+    "name": "mi_cached_score_exact",
+    "passed": true,
+    "maximum_absolute_error": 0.0
+  },
+  {
+    "name": "mi_repeated_events_hit_cache",
+    "passed": true
+  },
+  {
+    "name": "emse_matches_independent_direct_matrix_formula",
+    "passed": true,
+    "maximum_absolute_error": 4.336808689942018e-19
+  },
+  {
+    "name": "emse_event_order_invariant",
+    "passed": true,
+    "maximum_absolute_error": 0.0
+  },
+  {
+    "name": "emse_empty_route_zero",
+    "passed": true
+  },
+  {
+    "name": "emse_cached_score_exact",
+    "passed": true,
+    "maximum_absolute_error": 0.0
+  },
+  {
+    "name": "emse_repeated_events_hit_cache",
+    "passed": true
+  },
+  {
+    "name": "wivr_matches_independent_direct_matrix_formula",
+    "passed": true,
+    "maximum_absolute_error": 5.421010862427522e-19
+  },
+  {
+    "name": "wivr_event_order_invariant",
+    "passed": true,
+    "maximum_absolute_error": 0.0
+  },
+  {
+    "name": "wivr_empty_route_zero",
+    "passed": true
+  },
+  {
+    "name": "wivr_cached_score_exact",
+    "passed": true,
+    "maximum_absolute_error": 0.0
+  },
+  {
+    "name": "wivr_repeated_events_hit_cache",
+    "passed": true
+  },
+  {
+    "name": "mi_preserves_joint_redundancy",
+    "passed": true
+  },
+  {
+    "name": "uniform_per_area_wivr_equals_area_emse",
+    "passed": true,
+    "maximum_absolute_error": 0.0
+  },
+  {
+    "name": "weight_normalization_applied_once",
+    "passed": true,
+    "maximum_absolute_error": 2.168404344971009e-19
+  },
+  {
+    "name": "zero_individual_weights_supported",
+    "passed": true,
+    "maximum_absolute_error": 5.421010862427522e-19
+  },
+  {
+    "name": "all_zero_explicit_weights_rejected",
+    "passed": true
+  },
+  {
+    "name": "single_event_wivr_gain_formula",
+    "passed": true,
+    "maximum_absolute_error": 4.336808689942018e-19
+  },
+  {
+    "name": "emse_equals_before_after_posterior_variance",
+    "passed": true,
+    "maximum_absolute_error": 1.0842021724855044e-18
+  },
+  {
+    "name": "gain_independent_of_future_temperature_labels",
+    "passed": true,
+    "maximum_absolute_error": 0.0
+  },
+  {
+    "name": "hypothetical_conditioning_does_not_refresh_live_weights",
+    "passed": true
+  },
+  {
+    "name": "shared_cache_cannot_mix_mi_and_emse",
+    "passed": true,
+    "maximum_absolute_error": 2.6645352591003757e-15
+  },
+  {
+    "name": "shared_cache_cannot_mix_query_grids",
+    "passed": true,
+    "maximum_absolute_error": 0.0
+  },
+  {
+    "name": "shared_cache_cannot_mix_weight_configurations",
+    "passed": true,
+    "maximum_absolute_error": 4.336808689942018e-19
+  },
+  {
+    "name": "feature_and_score_caches_are_bounded",
+    "passed": true
+  },
+  {
+    "name": "gp_update_rejects_stale_scoring_round",
+    "passed": true
+  },
+  {
+    "name": "gp_update_rejects_stale_weight_snapshot",
+    "passed": true
+  },
+  {
+    "name": "weights_refreshed_from_updated_gp",
+    "passed": true,
+    "maximum_absolute_error": 0.0
+  },
+  {
+    "name": "actual_gp_update_creates_new_weight_generation",
+    "passed": true
+  },
+  {
+    "name": "new_round_scores_after_real_update",
+    "passed": true
+  },
+  {
+    "name": "recursive_dispatch_mi",
+    "passed": true
+  },
+  {
+    "name": "recursive_weights_frozen_mi",
+    "passed": true
+  },
+  {
+    "name": "returned_route_gain_recomputes_mi",
+    "passed": true,
+    "maximum_absolute_error": 0.0
+  },
+  {
+    "name": "small_search_feasible_mi",
+    "passed": true
+  },
+  {
+    "name": "recursive_dispatch_emse",
+    "passed": true
+  },
+  {
+    "name": "recursive_weights_frozen_emse",
+    "passed": true
+  },
+  {
+    "name": "returned_route_gain_recomputes_emse",
+    "passed": true,
+    "maximum_absolute_error": 0.0
+  },
+  {
+    "name": "small_search_feasible_emse",
+    "passed": true
+  },
+  {
+    "name": "recursive_dispatch_wivr",
+    "passed": true
+  },
+  {
+    "name": "recursive_weights_frozen_wivr",
+    "passed": true
+  },
+  {
+    "name": "returned_route_gain_recomputes_wivr",
+    "passed": true,
+    "maximum_absolute_error": 0.0
+  },
+  {
+    "name": "small_search_feasible_wivr",
+    "passed": true
+  },
+  {
+    "name": "return_edge_continuously_sampled",
+    "passed": true
+  },
+  {
+    "name": "continuous_schedule_has_no_checkpoint_dwell",
+    "passed": true
+  },
+  {
+    "name": "route_events_are_global_1hz_without_junction_duplicates",
+    "passed": true
+  },
+  {
+    "name": "travel_time_change_invalidates_route_event_cache",
+    "passed": true
+  },
+  {
+    "name": "unreachable_edge_not_replaced_by_straight_line",
+    "passed": true
+  },
+  {
+    "name": "path_geometry_change_invalidates_sampling_events",
+    "passed": true
+  },
+  {
+    "name": "vectorized_events_match_scalar_reference",
+    "passed": true,
+    "cases": 100,
+    "maximum_absolute_error": 0.0
+  },
+  {
+    "name": "scale_search_completed_30_mi",
+    "passed": true
+  },
+  {
+    "name": "scale_search_completed_30_emse",
+    "passed": true
+  },
+  {
+    "name": "scale_search_completed_30_wivr",
+    "passed": true
+  },
+  {
+    "name": "scale_search_completed_50_mi",
+    "passed": true
+  },
+  {
+    "name": "scale_search_completed_50_emse",
+    "passed": true
+  },
+  {
+    "name": "scale_search_completed_50_wivr",
+    "passed": true
+  },
+  {
+    "name": "shared_gp_grg_and_previous_test_files_unchanged",
+    "passed": true
+  }
+]

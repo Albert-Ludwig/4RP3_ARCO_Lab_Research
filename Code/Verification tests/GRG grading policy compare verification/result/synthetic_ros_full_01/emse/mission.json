@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "policy": "emse",
+  "mode": "synthetic_fixture",
+  "error": null,
+  "stop_reason": "no_feasible_informative_acquisition",
+  "successful_measurements": 70,
+  "planning_decisions": 71,
+  "gp_updates": 70,
+  "distance_m": 135.4436893246574,
+  "duration_s": 843.6179999999999,
+  "return_home_success": true,
+  "budget_s": 900.0,
+  "within_budget": true,
+  "clock_origin_s": 1.028,
+  "final_pose": [
+    0.05413571867181108,
+    0.1375132663476476,
+    -0.14370954214822046
+  ],
+  "synthetic_acquisition_cap": null,
+  "hidden_data_accessed_online": false,
+  "initial_parameters_sha256": "6da002028823285c9af92e076f348113811d3f92ea1c1fe2074270e6bc571d5c"
+}

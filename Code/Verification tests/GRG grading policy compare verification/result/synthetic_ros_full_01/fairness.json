@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "checks": {
+    "hidden_pool_disjoint": true,
+    "multiple_updates": true,
+    "within_budget_and_home": true,
+    "original_record_tuples": true,
+    "hidden_not_used_for_update": true,
+    "measurement_tolerances": true,
+    "identical_initial_GP": true,
+    "identical_parameters": true,
+    "physical_rosbag_acceptance": true,
+    "reset_physical_pose_and_clock": true,
+    "independent_bag_return_home": true,
+    "identical_world": true,
+    "identical_map": true,
+    "identical_Nav2_parameters_except_run_path": true,
+    "identical_public_bundle": true,
+    "identical_hidden_inputs_for_all_methods": true
+  },
+  "hidden_sha256": "31f5b1319e11a3719087dd6e5a03f9ea9f54a6f032bddd5bb48fb250acd38ea9",
+  "world_sha256": "da4494a0bda4d5c427c480b4346949650e8cb19042b7f9f0a1f1418740f7a8a8",
+  "normalized_Nav2_parameters_sha256": "ce7a46f36ed5c99be279364f02501f19880f9f17b2a4588adbc1ef13cf6c8fae",
+  "notes": "Audit uses offline saved logs and bag readback. Does not certify sensor synchronization, real-map registration or field policy superiority."
+}

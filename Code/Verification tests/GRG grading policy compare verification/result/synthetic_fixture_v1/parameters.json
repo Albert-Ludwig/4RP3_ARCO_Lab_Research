@@ -1,0 +1,10 @@
+{
+  "lengthscales_m_m_s": [
+    2.5,
+    2.5,
+    180.0
+  ],
+  "output_variance_c2": 1.0,
+  "noise_variance_c2": 0.01,
+  "mean_c": 20.0
+}

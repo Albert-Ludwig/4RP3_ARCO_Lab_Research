@@ -1,0 +1,66 @@
+{
+  "purpose": "Retain previous SRF workloads unchanged and compare with the latest requested variant.",
+  "retained_runs": [
+    {
+      "label": "Large / 900 s baseline",
+      "run": "run_20261110T230239768234Z",
+      "preserved_file_sha256": {
+        "benchmarks.csv": "f809b2be5d755ed1e5575788b43b002b78f43ac33cd25a5b0831567bfd636f61",
+        "benchmarks.json": "c7647eb2b538e6aa19ea90ecbb70cfac7c92b6760ab8aba277ee624049f206b4",
+        "checks.json": "936dc535b56ef57951e7384631789f4ad772176d1dea7ffbf82d9a49a4655c90",
+        "field_config.json": "6256e2b82aa29c21f05fc1d16c90810864ab0ab93e80480758e16ae05ee4a748",
+        "figures/performance.png": "2909ba08b727ae071474123bdac679021832913dec8b8cad4f77508660873da3",
+        "figures/spatial_snapshots.png": "883785600627a888ea2fda00cdab9692318748a531d953141a7ee9f5b96356ab",
+        "figures/temporal_and_noise.png": "adbb4bb8dc11bc2b28ed391ec236636042809c3574716e18fee909ba9706ec97",
+        "fresh_process_truth.npy": "fd80cb5f9c2329d27fdba012b21b1b4a3f0b42483d7b0f489153324cdeecd8c9",
+        "manifest.json": "ec5920f2e61bce730f143620ff57591cb3204278e3adeaaede468befffbedd94",
+        "noise_samples.npy": "d10bcef6d37a8f39f3968adaa80781ef91b0c72aa094f90ab5e3648d8446a04d",
+        "protocol.json": "23116575f546791d7c1b936966f098cc4480a74df90d7db47243a0aed1d06ef8",
+        "query_inputs.npy": "be835e6e101e6dde9735a89cc9797c9bd29a6e095c905b1541d85b15b7d7e284",
+        "query_truth.npy": "fd80cb5f9c2329d27fdba012b21b1b4a3f0b42483d7b0f489153324cdeecd8c9",
+        "report_verification.json": "fcb8b4ba28294c2c5d99ce11ed63d244dd1f538e5ae9a1c57184737281a7ca2f",
+        "requirements-lock.txt": "b8eb6a5b183d62ab0e0d487695da7c5999a99d2a24dd7388062d1c2c65b00288",
+        "resolution_benchmarks.json": "43b9355bd0fb169c38aeedd55da0b7efee8623eebe216b6ec0fc2b1d6cd8fe6a",
+        "source_snapshot/build_report.py": "1de8ea0bab204fb27ea25b76c111941aaaf51ee359652d7a3e13c38bba6ea43e",
+        "source_snapshot/protocol.json": "23116575f546791d7c1b936966f098cc4480a74df90d7db47243a0aed1d06ef8",
+        "source_snapshot/requirements.txt": "96d7c4b53ac79f42e1990ec27074cb98d84f53f92a72d453e6cb2352d9ebf209",
+        "source_snapshot/Run-SRF.ps1": "47aa245931472ec4e0a38a3d81f2a6b58a493ce04971baf4bf7521f1efb059da",
+        "source_snapshot/srf_field.py": "e31457ceaebb2705a34fcbde690974bbd211b8c840b1a446fd2524cf269d4f7e",
+        "source_snapshot/verify.py": "77580a266b5956e15f5cffc838b294fbee71a5875aab44e139cdfe156d4917c4",
+        "summary.json": "b9bf6b841e3c32400b0285cd1904304f31f15708f07c50ee31c08ab78a4bce53",
+        "visualization.npz": "dcb6cff3edcc363751b0ad2de659ba1e2f169b725faf57435e60b23b71bf1d36"
+      }
+    },
+    {
+      "label": "Small / 120 s",
+      "run": "run_20261110T232151653793Z",
+      "preserved_file_sha256": {
+        "baseline_comparison.json": "529c37544f92320be4652beb0cf917bb1d033ef228aab6337caf3eb5f1d25952",
+        "benchmarks.csv": "efd85437f5c9d78273cdb6353bdd0f54f464439969eb8c10577c37f4e78ee0b2",
+        "benchmarks.json": "e194d92e0ad9bd49cc579f3d588c72980f3e43f15880603500972e86e7f4e337",
+        "checks.json": "4816faa9ca6b8065fcc78019c23bdca666d466f4140151864cb8c7bc5f6b8645",
+        "field_config.json": "d7ab7d4c75d00c6cd9e1aa3cf9865fdd75f1e75aca96d0982004d8c2d6f6f4e0",
+        "figures/performance.png": "dde560838aaf11ebae1b3d1728a657f6f14a34fd3724ec910760d3203c6d3928",
+        "figures/spatial_snapshots.png": "98811a3d6d4394833f99c0567033ef8a53d1f4d2c260ea2a128edc487c44729f",
+        "figures/temporal_and_noise.png": "5b24c51af1cf86932b81f4e2406d87af469f7a08c95c43a7ad6440a8ffa22718",
+        "fresh_process_truth.npy": "d82bd996be30490cc5f9b62d69c375c0ed2dffc408c20d5a4f6d6caf8cbaf477",
+        "manifest.json": "a1cd9eeb12e558afec1bcc91ce29be5d3d920498e839cdb757200d699f6b1968",
+        "noise_samples.npy": "d10bcef6d37a8f39f3968adaa80781ef91b0c72aa094f90ab5e3648d8446a04d",
+        "protocol.json": "d17422bf26302e341959f0240cfbc90b91d0b0e40b8af82436224a65e4806f65",
+        "query_inputs.npy": "188d04265e72f3ef40d65809e65e1b0fa19d45c76e5da4c63d478d53e06a2629",
+        "query_truth.npy": "d82bd996be30490cc5f9b62d69c375c0ed2dffc408c20d5a4f6d6caf8cbaf477",
+        "report_verification.json": "c93a3d293961a93e19cc784dbcec59b3f7190f7eb88c7e15ec91919db0a46c3f",
+        "requirements-lock.txt": "b8eb6a5b183d62ab0e0d487695da7c5999a99d2a24dd7388062d1c2c65b00288",
+        "resolution_benchmarks.json": "15da70687a3e0d049869d6c25cfc9b4f61431e60573bf728f48c04792d8fdbfa",
+        "source_snapshot/build_report.py": "75c4e7823fe26fed86af9882e014d9f72051ff02cb40b2ed71e8440d60122376",
+        "source_snapshot/protocol.json": "d7ff619cdc4146fcb4a08c85c7b66f1cb8e35228fb61ff7763fd6b8b508fba07",
+        "source_snapshot/requirements.txt": "96d7c4b53ac79f42e1990ec27074cb98d84f53f92a72d453e6cb2352d9ebf209",
+        "source_snapshot/Run-SRF.ps1": "47aa245931472ec4e0a38a3d81f2a6b58a493ce04971baf4bf7521f1efb059da",
+        "source_snapshot/srf_field.py": "e31457ceaebb2705a34fcbde690974bbd211b8c840b1a446fd2524cf269d4f7e",
+        "source_snapshot/verify.py": "b7d75efcd6e6a62c69bd9ecffe0cf0d653e332b83931e820c5b16b44d1dde94f",
+        "summary.json": "393e70502a4e5d66ebbd53fa4cf840614ac40c06861b9ae022125226e6f18695",
+        "visualization.npz": "f1046d33ab83d4d6f142bbf6e8f51536e231c196d269a79cf7e312cb0dbbb84f"
+      }
+    }
+  ]
+}

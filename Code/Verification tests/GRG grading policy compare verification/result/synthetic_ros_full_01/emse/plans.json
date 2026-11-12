@@ -1,0 +1,1835 @@
+[
+  {
+    "index": 0,
+    "time_s": 0.3639999999999999,
+    "finish_compute_s": 0.558,
+    "route": [
+      4,
+      3,
+      1,
+      2,
+      0
+    ],
+    "arrivals_s": [
+      98.0,
+      212.0,
+      262.0
+    ],
+    "planned_finish_s": 343.1056238608511,
+    "score": 0.1255932181565437,
+    "policy": "emse",
+    "wall_compute_s": 0.19396484999970198,
+    "ros_compute_s": 0.19400000000000017,
+    "evaluations": 25,
+    "gp_version": 0,
+    "objective_calls": 22,
+    "objective_cache_hits": 3
+  },
+  {
+    "index": 1,
+    "time_s": 31.142000000000003,
+    "finish_compute_s": 31.308,
+    "route": [
+      4,
+      1,
+      3,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      154.0,
+      252.0,
+      366.0
+    ],
+    "planned_finish_s": 395.47198015615646,
+    "score": 0.13672189573718152,
+    "policy": "emse",
+    "wall_compute_s": 0.16748645500001658,
+    "ros_compute_s": 0.16599999999999682,
+    "evaluations": 25,
+    "gp_version": 1,
+    "objective_calls": 44,
+    "objective_cache_hits": 6
+  },
+  {
+    "index": 2,
+    "time_s": 79.13,
+    "finish_compute_s": 79.28999999999999,
+    "route": [
+      4,
+      3,
+      1,
+      2,
+      0
+    ],
+    "arrivals_s": [
+      188.0,
+      302.0,
+      352.0
+    ],
+    "planned_finish_s": 433.1056238608511,
+    "score": 0.12444882879771266,
+    "policy": "emse",
+    "wall_compute_s": 0.16056677699998545,
+    "ros_compute_s": 0.1599999999999966,
+    "evaluations": 25,
+    "gp_version": 2,
+    "objective_calls": 66,
+    "objective_cache_hits": 9
+  },
+  {
+    "index": 3,
+    "time_s": 117.136,
+    "finish_compute_s": 117.29599999999999,
+    "route": [
+      4,
+      1,
+      3,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      232.0,
+      330.0,
+      444.0
+    ],
+    "planned_finish_s": 473.47198015615646,
+    "score": 0.12114835692888139,
+    "policy": "emse",
+    "wall_compute_s": 0.16060037599982024,
+    "ros_compute_s": 0.1599999999999966,
+    "evaluations": 25,
+    "gp_version": 3,
+    "objective_calls": 88,
+    "objective_cache_hits": 12
+  },
+  {
+    "index": 4,
+    "time_s": 165.12800000000001,
+    "finish_compute_s": 165.29600000000002,
+    "route": [
+      4,
+      3,
+      1,
+      2,
+      0
+    ],
+    "arrivals_s": [
+      266.0,
+      380.0,
+      430.0
+    ],
+    "planned_finish_s": 511.1056238608511,
+    "score": 0.11784998952482248,
+    "policy": "emse",
+    "wall_compute_s": 0.16799612700015132,
+    "ros_compute_s": 0.16800000000000637,
+    "evaluations": 25,
+    "gp_version": 4,
+    "objective_calls": 110,
+    "objective_cache_hits": 15
+  },
+  {
+    "index": 5,
+    "time_s": 203.12800000000001,
+    "finish_compute_s": 203.322,
+    "route": [
+      4,
+      1,
+      3,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      318.0,
+      416.0,
+      530.0
+    ],
+    "planned_finish_s": 559.4719801561565,
+    "score": 0.11700008236807183,
+    "policy": "emse",
+    "wall_compute_s": 0.194401210000251,
+    "ros_compute_s": 0.1939999999999884,
+    "evaluations": 29,
+    "gp_version": 5,
+    "objective_calls": 135,
+    "objective_cache_hits": 19
+  },
+  {
+    "index": 6,
+    "time_s": 249.13400000000001,
+    "finish_compute_s": 249.306,
+    "route": [
+      4,
+      3,
+      1,
+      2,
+      0
+    ],
+    "arrivals_s": [
+      350.0,
+      464.0,
+      514.0
+    ],
+    "planned_finish_s": 595.1056238608511,
+    "score": 0.11839411668901818,
+    "policy": "emse",
+    "wall_compute_s": 0.1727634929998203,
+    "ros_compute_s": 0.17199999999999704,
+    "evaluations": 25,
+    "gp_version": 6,
+    "objective_calls": 157,
+    "objective_cache_hits": 22
+  },
+  {
+    "index": 7,
+    "time_s": 287.128,
+    "finish_compute_s": 287.328,
+    "route": [
+      4,
+      1,
+      3,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      402.0,
+      500.0,
+      614.0
+    ],
+    "planned_finish_s": 643.4719801561565,
+    "score": 0.11676865495152697,
+    "policy": "emse",
+    "wall_compute_s": 0.20124500700012504,
+    "ros_compute_s": 0.19999999999998863,
+    "evaluations": 29,
+    "gp_version": 7,
+    "objective_calls": 182,
+    "objective_cache_hits": 26
+  },
+  {
+    "index": 8,
+    "time_s": 333.128,
+    "finish_compute_s": 333.304,
+    "route": [
+      4,
+      3,
+      2,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      434.0,
+      480.0,
+      550.0
+    ],
+    "planned_finish_s": 579.4719801561565,
+    "score": 0.11617816068546447,
+    "policy": "emse",
+    "wall_compute_s": 0.1770902000002934,
+    "ros_compute_s": 0.17599999999998772,
+    "evaluations": 25,
+    "gp_version": 8,
+    "objective_calls": 204,
+    "objective_cache_hits": 29
+  },
+  {
+    "index": 9,
+    "time_s": 371.13399999999996,
+    "finish_compute_s": 371.34,
+    "route": [
+      4,
+      1,
+      2,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      486.0,
+      536.0,
+      606.0
+    ],
+    "planned_finish_s": 635.4719801561565,
+    "score": 0.11429102230127525,
+    "policy": "emse",
+    "wall_compute_s": 0.20611547099997551,
+    "ros_compute_s": 0.20600000000001728,
+    "evaluations": 29,
+    "gp_version": 9,
+    "objective_calls": 229,
+    "objective_cache_hits": 33
+  },
+  {
+    "index": 10,
+    "time_s": 419.126,
+    "finish_compute_s": 419.298,
+    "route": [
+      4,
+      3,
+      2,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      520.0,
+      566.0,
+      636.0
+    ],
+    "planned_finish_s": 665.4719801561565,
+    "score": 0.11543474037459392,
+    "policy": "emse",
+    "wall_compute_s": 0.1730429140002343,
+    "ros_compute_s": 0.17200000000002547,
+    "evaluations": 25,
+    "gp_version": 10,
+    "objective_calls": 251,
+    "objective_cache_hits": 36
+  },
+  {
+    "index": 11,
+    "time_s": 457.13399999999996,
+    "finish_compute_s": 457.36199999999997,
+    "route": [
+      4,
+      2,
+      3,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      502.0,
+      548.0,
+      662.0
+    ],
+    "planned_finish_s": 691.4719801561565,
+    "score": 0.1111068544516295,
+    "policy": "emse",
+    "wall_compute_s": 0.2278640570002608,
+    "ros_compute_s": 0.22800000000000864,
+    "evaluations": 33,
+    "gp_version": 11,
+    "objective_calls": 279,
+    "objective_cache_hits": 41
+  },
+  {
+    "index": 12,
+    "time_s": 483.138,
+    "finish_compute_s": 483.382,
+    "route": [
+      4,
+      1,
+      3,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      568.0,
+      666.0,
+      780.0
+    ],
+    "planned_finish_s": 809.4719801561565,
+    "score": 0.10151867212679787,
+    "policy": "emse",
+    "wall_compute_s": 0.24304294800003845,
+    "ros_compute_s": 0.2440000000000282,
+    "evaluations": 33,
+    "gp_version": 12,
+    "objective_calls": 307,
+    "objective_cache_hits": 46
+  },
+  {
+    "index": 13,
+    "time_s": 523.136,
+    "finish_compute_s": 523.36,
+    "route": [
+      4,
+      3,
+      1,
+      2,
+      0
+    ],
+    "arrivals_s": [
+      624.0,
+      738.0,
+      788.0
+    ],
+    "planned_finish_s": 869.1056238608511,
+    "score": 0.1009986621200117,
+    "policy": "emse",
+    "wall_compute_s": 0.22494982699981847,
+    "ros_compute_s": 0.22400000000004638,
+    "evaluations": 32,
+    "gp_version": 13,
+    "objective_calls": 334,
+    "objective_cache_hits": 51
+  },
+  {
+    "index": 14,
+    "time_s": 561.144,
+    "finish_compute_s": 561.374,
+    "route": [
+      4,
+      1,
+      2,
+      3,
+      0
+    ],
+    "arrivals_s": [
+      676.0,
+      726.0,
+      772.0
+    ],
+    "planned_finish_s": 858.8614069897909,
+    "score": 0.08967316160970157,
+    "policy": "emse",
+    "wall_compute_s": 0.22891132399990965,
+    "ros_compute_s": 0.2300000000000182,
+    "evaluations": 32,
+    "gp_version": 14,
+    "objective_calls": 361,
+    "objective_cache_hits": 56
+  },
+  {
+    "index": 15,
+    "time_s": 607.136,
+    "finish_compute_s": 607.326,
+    "route": [
+      4,
+      2,
+      3,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      656.0,
+      702.0,
+      816.0
+    ],
+    "planned_finish_s": 845.4719801561565,
+    "score": 0.07601284266773252,
+    "policy": "emse",
+    "wall_compute_s": 0.19101849699973172,
+    "ros_compute_s": 0.19000000000005457,
+    "evaluations": 26,
+    "gp_version": 15,
+    "objective_calls": 383,
+    "objective_cache_hits": 60
+  },
+  {
+    "index": 16,
+    "time_s": 633.13,
+    "finish_compute_s": 633.318,
+    "route": [
+      4,
+      3,
+      2,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      678.0,
+      724.0,
+      794.0
+    ],
+    "planned_finish_s": 823.4719801561565,
+    "score": 0.05765668361125467,
+    "policy": "emse",
+    "wall_compute_s": 0.18864645899975585,
+    "ros_compute_s": 0.18799999999998818,
+    "evaluations": 28,
+    "gp_version": 16,
+    "objective_calls": 406,
+    "objective_cache_hits": 65
+  },
+  {
+    "index": 17,
+    "time_s": 659.134,
+    "finish_compute_s": 659.302,
+    "route": [
+      4,
+      3,
+      2,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      674.0,
+      720.0,
+      790.0
+    ],
+    "planned_finish_s": 819.4719801561565,
+    "score": 0.042706978107193067,
+    "policy": "emse",
+    "wall_compute_s": 0.1677570899996681,
+    "ros_compute_s": 0.16800000000000637,
+    "evaluations": 24,
+    "gp_version": 17,
+    "objective_calls": 426,
+    "objective_cache_hits": 69
+  },
+  {
+    "index": 18,
+    "time_s": 661.132,
+    "finish_compute_s": 661.316,
+    "route": [
+      4,
+      3,
+      2,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      676.0,
+      722.0,
+      792.0
+    ],
+    "planned_finish_s": 821.4719801561565,
+    "score": 0.04250222321930859,
+    "policy": "emse",
+    "wall_compute_s": 0.18448276699973576,
+    "ros_compute_s": 0.18400000000008276,
+    "evaluations": 24,
+    "gp_version": 18,
+    "objective_calls": 446,
+    "objective_cache_hits": 73
+  },
+  {
+    "index": 19,
+    "time_s": 663.134,
+    "finish_compute_s": 663.3059999999999,
+    "route": [
+      4,
+      3,
+      2,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      678.0,
+      724.0,
+      794.0
+    ],
+    "planned_finish_s": 823.4719801561565,
+    "score": 0.042644298162672935,
+    "policy": "emse",
+    "wall_compute_s": 0.17137038500004564,
+    "ros_compute_s": 0.17199999999991178,
+    "evaluations": 24,
+    "gp_version": 19,
+    "objective_calls": 466,
+    "objective_cache_hits": 77
+  },
+  {
+    "index": 20,
+    "time_s": 665.134,
+    "finish_compute_s": 665.298,
+    "route": [
+      4,
+      3,
+      2,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      680.0,
+      726.0,
+      796.0
+    ],
+    "planned_finish_s": 825.4719801561565,
+    "score": 0.04286635567113832,
+    "policy": "emse",
+    "wall_compute_s": 0.16356408899991948,
+    "ros_compute_s": 0.16399999999998727,
+    "evaluations": 23,
+    "gp_version": 20,
+    "objective_calls": 485,
+    "objective_cache_hits": 81
+  },
+  {
+    "index": 21,
+    "time_s": 667.13,
+    "finish_compute_s": 667.298,
+    "route": [
+      4,
+      3,
+      2,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      682.0,
+      728.0,
+      798.0
+    ],
+    "planned_finish_s": 827.4719801561565,
+    "score": 0.043110811817377755,
+    "policy": "emse",
+    "wall_compute_s": 0.16856665099976453,
+    "ros_compute_s": 0.16800000000000637,
+    "evaluations": 23,
+    "gp_version": 21,
+    "objective_calls": 504,
+    "objective_cache_hits": 85
+  },
+  {
+    "index": 22,
+    "time_s": 669.126,
+    "finish_compute_s": 669.278,
+    "route": [
+      4,
+      3,
+      2,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      684.0,
+      730.0,
+      800.0
+    ],
+    "planned_finish_s": 829.4719801561565,
+    "score": 0.04335625892870203,
+    "policy": "emse",
+    "wall_compute_s": 0.15342823799983307,
+    "ros_compute_s": 0.15200000000004366,
+    "evaluations": 20,
+    "gp_version": 22,
+    "objective_calls": 521,
+    "objective_cache_hits": 88
+  },
+  {
+    "index": 23,
+    "time_s": 671.13,
+    "finish_compute_s": 671.28,
+    "route": [
+      4,
+      3,
+      2,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      686.0,
+      732.0,
+      802.0
+    ],
+    "planned_finish_s": 831.4719801561565,
+    "score": 0.043591807301529235,
+    "policy": "emse",
+    "wall_compute_s": 0.1516083419996903,
+    "ros_compute_s": 0.14999999999997726,
+    "evaluations": 20,
+    "gp_version": 23,
+    "objective_calls": 538,
+    "objective_cache_hits": 91
+  },
+  {
+    "index": 24,
+    "time_s": 673.14,
+    "finish_compute_s": 673.29,
+    "route": [
+      4,
+      3,
+      2,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      688.0,
+      734.0,
+      804.0
+    ],
+    "planned_finish_s": 833.4719801561565,
+    "score": 0.04381083466860192,
+    "policy": "emse",
+    "wall_compute_s": 0.1501871420000498,
+    "ros_compute_s": 0.14999999999997726,
+    "evaluations": 20,
+    "gp_version": 24,
+    "objective_calls": 555,
+    "objective_cache_hits": 94
+  },
+  {
+    "index": 25,
+    "time_s": 675.136,
+    "finish_compute_s": 675.286,
+    "route": [
+      4,
+      3,
+      2,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      690.0,
+      736.0,
+      806.0
+    ],
+    "planned_finish_s": 835.4719801561565,
+    "score": 0.0440090992767475,
+    "policy": "emse",
+    "wall_compute_s": 0.1516307339998093,
+    "ros_compute_s": 0.14999999999997726,
+    "evaluations": 20,
+    "gp_version": 25,
+    "objective_calls": 572,
+    "objective_cache_hits": 97
+  },
+  {
+    "index": 26,
+    "time_s": 677.132,
+    "finish_compute_s": 677.284,
+    "route": [
+      4,
+      3,
+      2,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      692.0,
+      738.0,
+      808.0
+    ],
+    "planned_finish_s": 837.4719801561565,
+    "score": 0.04418411755961815,
+    "policy": "emse",
+    "wall_compute_s": 0.15240566000011313,
+    "ros_compute_s": 0.15200000000004366,
+    "evaluations": 20,
+    "gp_version": 26,
+    "objective_calls": 589,
+    "objective_cache_hits": 100
+  },
+  {
+    "index": 27,
+    "time_s": 679.148,
+    "finish_compute_s": 679.3,
+    "route": [
+      4,
+      3,
+      2,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      694.0,
+      740.0,
+      810.0
+    ],
+    "planned_finish_s": 839.4719801561565,
+    "score": 0.044334923504491974,
+    "policy": "emse",
+    "wall_compute_s": 0.15337085300006947,
+    "ros_compute_s": 0.15199999999992997,
+    "evaluations": 20,
+    "gp_version": 27,
+    "objective_calls": 606,
+    "objective_cache_hits": 103
+  },
+  {
+    "index": 28,
+    "time_s": 681.134,
+    "finish_compute_s": 681.2819999999999,
+    "route": [
+      4,
+      3,
+      2,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      696.0,
+      742.0,
+      812.0
+    ],
+    "planned_finish_s": 841.4719801561565,
+    "score": 0.0444618998411782,
+    "policy": "emse",
+    "wall_compute_s": 0.14961810000022524,
+    "ros_compute_s": 0.14799999999991087,
+    "evaluations": 20,
+    "gp_version": 28,
+    "objective_calls": 623,
+    "objective_cache_hits": 106
+  },
+  {
+    "index": 29,
+    "time_s": 683.132,
+    "finish_compute_s": 683.29,
+    "route": [
+      4,
+      3,
+      2,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      698.0,
+      744.0,
+      814.0
+    ],
+    "planned_finish_s": 843.4719801561565,
+    "score": 0.04456656851701749,
+    "policy": "emse",
+    "wall_compute_s": 0.16019062900022618,
+    "ros_compute_s": 0.15800000000001546,
+    "evaluations": 20,
+    "gp_version": 29,
+    "objective_calls": 640,
+    "objective_cache_hits": 109
+  },
+  {
+    "index": 30,
+    "time_s": 685.126,
+    "finish_compute_s": 685.28,
+    "route": [
+      4,
+      3,
+      2,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      700.0,
+      746.0,
+      816.0
+    ],
+    "planned_finish_s": 845.4719801561565,
+    "score": 0.044651316706663335,
+    "policy": "emse",
+    "wall_compute_s": 0.1546662769997056,
+    "ros_compute_s": 0.15399999999999636,
+    "evaluations": 20,
+    "gp_version": 30,
+    "objective_calls": 657,
+    "objective_cache_hits": 112
+  },
+  {
+    "index": 31,
+    "time_s": 687.138,
+    "finish_compute_s": 687.2819999999999,
+    "route": [
+      4,
+      3,
+      2,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      702.0,
+      748.0,
+      818.0
+    ],
+    "planned_finish_s": 847.4719801561565,
+    "score": 0.044719079765526644,
+    "policy": "emse",
+    "wall_compute_s": 0.14463830300019254,
+    "ros_compute_s": 0.14399999999989177,
+    "evaluations": 19,
+    "gp_version": 31,
+    "objective_calls": 673,
+    "objective_cache_hits": 115
+  },
+  {
+    "index": 32,
+    "time_s": 689.134,
+    "finish_compute_s": 689.2819999999999,
+    "route": [
+      4,
+      3,
+      2,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      704.0,
+      750.0,
+      820.0
+    ],
+    "planned_finish_s": 849.4719801561565,
+    "score": 0.044773021329439104,
+    "policy": "emse",
+    "wall_compute_s": 0.14827870699991763,
+    "ros_compute_s": 0.14799999999991087,
+    "evaluations": 19,
+    "gp_version": 32,
+    "objective_calls": 689,
+    "objective_cache_hits": 118
+  },
+  {
+    "index": 33,
+    "time_s": 691.1279999999999,
+    "finish_compute_s": 691.28,
+    "route": [
+      4,
+      3,
+      2,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      706.0,
+      752.0,
+      822.0
+    ],
+    "planned_finish_s": 851.4719801561565,
+    "score": 0.04481625062668558,
+    "policy": "emse",
+    "wall_compute_s": 0.15232276500000808,
+    "ros_compute_s": 0.15200000000004366,
+    "evaluations": 19,
+    "gp_version": 33,
+    "objective_calls": 705,
+    "objective_cache_hits": 121
+  },
+  {
+    "index": 34,
+    "time_s": 693.134,
+    "finish_compute_s": 693.276,
+    "route": [
+      4,
+      3,
+      2,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      708.0,
+      754.0,
+      824.0
+    ],
+    "planned_finish_s": 853.4719801561565,
+    "score": 0.044851605069998454,
+    "policy": "emse",
+    "wall_compute_s": 0.143732934000127,
+    "ros_compute_s": 0.14199999999993906,
+    "evaluations": 19,
+    "gp_version": 34,
+    "objective_calls": 721,
+    "objective_cache_hits": 124
+  },
+  {
+    "index": 35,
+    "time_s": 695.132,
+    "finish_compute_s": 695.28,
+    "route": [
+      4,
+      3,
+      2,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      710.0,
+      756.0,
+      826.0
+    ],
+    "planned_finish_s": 855.4719801561565,
+    "score": 0.04488150971630383,
+    "policy": "emse",
+    "wall_compute_s": 0.14910260300030131,
+    "ros_compute_s": 0.14800000000002456,
+    "evaluations": 19,
+    "gp_version": 35,
+    "objective_calls": 737,
+    "objective_cache_hits": 127
+  },
+  {
+    "index": 36,
+    "time_s": 697.134,
+    "finish_compute_s": 697.28,
+    "route": [
+      4,
+      3,
+      2,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      712.0,
+      758.0,
+      828.0
+    ],
+    "planned_finish_s": 857.4719801561565,
+    "score": 0.04490791024385065,
+    "policy": "emse",
+    "wall_compute_s": 0.14640433100021255,
+    "ros_compute_s": 0.14599999999995816,
+    "evaluations": 19,
+    "gp_version": 36,
+    "objective_calls": 753,
+    "objective_cache_hits": 130
+  },
+  {
+    "index": 37,
+    "time_s": 699.134,
+    "finish_compute_s": 699.2819999999999,
+    "route": [
+      4,
+      3,
+      2,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      714.0,
+      760.0,
+      830.0
+    ],
+    "planned_finish_s": 859.4719801561565,
+    "score": 0.04493226609463415,
+    "policy": "emse",
+    "wall_compute_s": 0.14988838699991902,
+    "ros_compute_s": 0.14799999999991087,
+    "evaluations": 19,
+    "gp_version": 37,
+    "objective_calls": 769,
+    "objective_cache_hits": 133
+  },
+  {
+    "index": 38,
+    "time_s": 701.138,
+    "finish_compute_s": 701.288,
+    "route": [
+      4,
+      3,
+      2,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      716.0,
+      762.0,
+      832.0
+    ],
+    "planned_finish_s": 861.4719801561565,
+    "score": 0.0449555860864084,
+    "policy": "emse",
+    "wall_compute_s": 0.15072937000013553,
+    "ros_compute_s": 0.14999999999997726,
+    "evaluations": 19,
+    "gp_version": 38,
+    "objective_calls": 785,
+    "objective_cache_hits": 136
+  },
+  {
+    "index": 39,
+    "time_s": 703.134,
+    "finish_compute_s": 703.302,
+    "route": [
+      4,
+      3,
+      2,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      718.0,
+      764.0,
+      834.0
+    ],
+    "planned_finish_s": 863.4719801561565,
+    "score": 0.04497848902499162,
+    "policy": "emse",
+    "wall_compute_s": 0.16947919699987324,
+    "ros_compute_s": 0.16800000000000637,
+    "evaluations": 22,
+    "gp_version": 39,
+    "objective_calls": 803,
+    "objective_cache_hits": 140
+  },
+  {
+    "index": 40,
+    "time_s": 705.144,
+    "finish_compute_s": 705.308,
+    "route": [
+      4,
+      3,
+      2,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      720.0,
+      766.0,
+      836.0
+    ],
+    "planned_finish_s": 865.4719801561565,
+    "score": 0.045001274839944434,
+    "policy": "emse",
+    "wall_compute_s": 0.1644355700000233,
+    "ros_compute_s": 0.16399999999998727,
+    "evaluations": 22,
+    "gp_version": 40,
+    "objective_calls": 821,
+    "objective_cache_hits": 144
+  },
+  {
+    "index": 41,
+    "time_s": 707.14,
+    "finish_compute_s": 707.3299999999999,
+    "route": [
+      4,
+      3,
+      2,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      722.0,
+      768.0,
+      838.0
+    ],
+    "planned_finish_s": 867.4719801561565,
+    "score": 0.04502399583069275,
+    "policy": "emse",
+    "wall_compute_s": 0.1911288629999035,
+    "ros_compute_s": 0.18999999999994088,
+    "evaluations": 22,
+    "gp_version": 41,
+    "objective_calls": 839,
+    "objective_cache_hits": 148
+  },
+  {
+    "index": 42,
+    "time_s": 709.134,
+    "finish_compute_s": 709.312,
+    "route": [
+      4,
+      3,
+      2,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      724.0,
+      770.0,
+      840.0
+    ],
+    "planned_finish_s": 869.4719801561565,
+    "score": 0.045046521559906516,
+    "policy": "emse",
+    "wall_compute_s": 0.18004139799995755,
+    "ros_compute_s": 0.17799999999999727,
+    "evaluations": 22,
+    "gp_version": 42,
+    "objective_calls": 857,
+    "objective_cache_hits": 152
+  },
+  {
+    "index": 43,
+    "time_s": 711.13,
+    "finish_compute_s": 711.3,
+    "route": [
+      4,
+      3,
+      2,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      726.0,
+      772.0,
+      842.0
+    ],
+    "planned_finish_s": 871.4719801561565,
+    "score": 0.045068594143123204,
+    "policy": "emse",
+    "wall_compute_s": 0.17166403700002775,
+    "ros_compute_s": 0.16999999999995907,
+    "evaluations": 22,
+    "gp_version": 43,
+    "objective_calls": 875,
+    "objective_cache_hits": 156
+  },
+  {
+    "index": 44,
+    "time_s": 713.1419999999999,
+    "finish_compute_s": 713.312,
+    "route": [
+      4,
+      3,
+      2,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      728.0,
+      774.0,
+      844.0
+    ],
+    "planned_finish_s": 873.4719801561565,
+    "score": 0.04508987296943602,
+    "policy": "emse",
+    "wall_compute_s": 0.17032484100036527,
+    "ros_compute_s": 0.17000000000007276,
+    "evaluations": 22,
+    "gp_version": 44,
+    "objective_calls": 893,
+    "objective_cache_hits": 160
+  },
+  {
+    "index": 45,
+    "time_s": 715.136,
+    "finish_compute_s": 715.31,
+    "route": [
+      4,
+      3,
+      2,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      730.0,
+      776.0,
+      846.0
+    ],
+    "planned_finish_s": 875.4719801561565,
+    "score": 0.04510996931893903,
+    "policy": "emse",
+    "wall_compute_s": 0.17526145800002269,
+    "ros_compute_s": 0.17399999999997817,
+    "evaluations": 22,
+    "gp_version": 45,
+    "objective_calls": 911,
+    "objective_cache_hits": 164
+  },
+  {
+    "index": 46,
+    "time_s": 717.138,
+    "finish_compute_s": 717.3059999999999,
+    "route": [
+      4,
+      3,
+      2,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      732.0,
+      778.0,
+      848.0
+    ],
+    "planned_finish_s": 877.4719801561565,
+    "score": 0.04512847210395026,
+    "policy": "emse",
+    "wall_compute_s": 0.16800865799996245,
+    "ros_compute_s": 0.16799999999989268,
+    "evaluations": 21,
+    "gp_version": 46,
+    "objective_calls": 928,
+    "objective_cache_hits": 168
+  },
+  {
+    "index": 47,
+    "time_s": 719.134,
+    "finish_compute_s": 719.304,
+    "route": [
+      4,
+      3,
+      2,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      734.0,
+      780.0,
+      850.0
+    ],
+    "planned_finish_s": 879.4719801561565,
+    "score": 0.04514496625778627,
+    "policy": "emse",
+    "wall_compute_s": 0.17162821400006578,
+    "ros_compute_s": 0.16999999999995907,
+    "evaluations": 21,
+    "gp_version": 47,
+    "objective_calls": 945,
+    "objective_cache_hits": 172
+  },
+  {
+    "index": 48,
+    "time_s": 721.132,
+    "finish_compute_s": 721.278,
+    "route": [
+      4,
+      2,
+      2,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      764.0,
+      766.0,
+      836.0
+    ],
+    "planned_finish_s": 865.4719801561565,
+    "score": 0.04432969766586025,
+    "policy": "emse",
+    "wall_compute_s": 0.14666888099964126,
+    "ros_compute_s": 0.14600000000007185,
+    "evaluations": 19,
+    "gp_version": 48,
+    "objective_calls": 960,
+    "objective_cache_hits": 176
+  },
+  {
+    "index": 49,
+    "time_s": 747.134,
+    "finish_compute_s": 747.2139999999999,
+    "route": [
+      4,
+      2,
+      2,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      768.0,
+      770.0,
+      840.0
+    ],
+    "planned_finish_s": 869.4719801561565,
+    "score": 0.029890087366750175,
+    "policy": "emse",
+    "wall_compute_s": 0.08126493999998274,
+    "ros_compute_s": 0.07999999999992724,
+    "evaluations": 11,
+    "gp_version": 49,
+    "objective_calls": 969,
+    "objective_cache_hits": 178
+  },
+  {
+    "index": 50,
+    "time_s": 749.138,
+    "finish_compute_s": 749.2339999999999,
+    "route": [
+      4,
+      2,
+      2,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      770.0,
+      772.0,
+      842.0
+    ],
+    "planned_finish_s": 871.4719801561565,
+    "score": 0.029812629440681027,
+    "policy": "emse",
+    "wall_compute_s": 0.09714498600033039,
+    "ros_compute_s": 0.09599999999988995,
+    "evaluations": 13,
+    "gp_version": 50,
+    "objective_calls": 979,
+    "objective_cache_hits": 181
+  },
+  {
+    "index": 51,
+    "time_s": 751.13,
+    "finish_compute_s": 751.228,
+    "route": [
+      4,
+      2,
+      2,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      772.0,
+      774.0,
+      844.0
+    ],
+    "planned_finish_s": 873.4719801561565,
+    "score": 0.02988894648087865,
+    "policy": "emse",
+    "wall_compute_s": 0.09834763200024099,
+    "ros_compute_s": 0.09799999999995634,
+    "evaluations": 13,
+    "gp_version": 51,
+    "objective_calls": 989,
+    "objective_cache_hits": 184
+  },
+  {
+    "index": 52,
+    "time_s": 753.132,
+    "finish_compute_s": 753.23,
+    "route": [
+      4,
+      2,
+      2,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      774.0,
+      776.0,
+      846.0
+    ],
+    "planned_finish_s": 875.4719801561565,
+    "score": 0.029978702871755455,
+    "policy": "emse",
+    "wall_compute_s": 0.09932685199964908,
+    "ros_compute_s": 0.09800000000007003,
+    "evaluations": 13,
+    "gp_version": 52,
+    "objective_calls": 999,
+    "objective_cache_hits": 187
+  },
+  {
+    "index": 53,
+    "time_s": 755.132,
+    "finish_compute_s": 755.228,
+    "route": [
+      4,
+      2,
+      2,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      776.0,
+      778.0,
+      848.0
+    ],
+    "planned_finish_s": 877.4719801561565,
+    "score": 0.030056381941735637,
+    "policy": "emse",
+    "wall_compute_s": 0.09792114900028537,
+    "ros_compute_s": 0.09600000000000364,
+    "evaluations": 13,
+    "gp_version": 53,
+    "objective_calls": 1009,
+    "objective_cache_hits": 190
+  },
+  {
+    "index": 54,
+    "time_s": 757.158,
+    "finish_compute_s": 757.2339999999999,
+    "route": [
+      4,
+      2,
+      2,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      778.0,
+      780.0,
+      850.0
+    ],
+    "planned_finish_s": 879.4719801561565,
+    "score": 0.030113191849942465,
+    "policy": "emse",
+    "wall_compute_s": 0.07769233999988501,
+    "ros_compute_s": 0.07599999999990814,
+    "evaluations": 10,
+    "gp_version": 54,
+    "objective_calls": 1017,
+    "objective_cache_hits": 192
+  },
+  {
+    "index": 55,
+    "time_s": 759.134,
+    "finish_compute_s": 759.202,
+    "route": [
+      4,
+      1,
+      1,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      844.0,
+      846.0,
+      848.0
+    ],
+    "planned_finish_s": 877.4719801561565,
+    "score": 0.02863712266265334,
+    "policy": "emse",
+    "wall_compute_s": 0.06945460399992953,
+    "ros_compute_s": 0.06799999999998363,
+    "evaluations": 9,
+    "gp_version": 55,
+    "objective_calls": 1024,
+    "objective_cache_hits": 194
+  },
+  {
+    "index": 56,
+    "time_s": 799.144,
+    "finish_compute_s": 799.1759999999999,
+    "route": [
+      4,
+      1,
+      1,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      824.0,
+      826.0,
+      828.0
+    ],
+    "planned_finish_s": 857.4719801561565,
+    "score": 0.0020901976125951576,
+    "policy": "emse",
+    "wall_compute_s": 0.033711883000250964,
+    "ros_compute_s": 0.03199999999992542,
+    "evaluations": 5,
+    "gp_version": 56,
+    "objective_calls": 1028,
+    "objective_cache_hits": 195
+  },
+  {
+    "index": 57,
+    "time_s": 801.134,
+    "finish_compute_s": 801.1659999999999,
+    "route": [
+      4,
+      1,
+      1,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      826.0,
+      828.0,
+      830.0
+    ],
+    "planned_finish_s": 859.4719801561565,
+    "score": 0.002079017326701074,
+    "policy": "emse",
+    "wall_compute_s": 0.03425151699957496,
+    "ros_compute_s": 0.03199999999992542,
+    "evaluations": 5,
+    "gp_version": 57,
+    "objective_calls": 1032,
+    "objective_cache_hits": 196
+  },
+  {
+    "index": 58,
+    "time_s": 803.136,
+    "finish_compute_s": 803.17,
+    "route": [
+      4,
+      1,
+      1,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      828.0,
+      830.0,
+      832.0
+    ],
+    "planned_finish_s": 861.4719801561565,
+    "score": 0.002121710310208251,
+    "policy": "emse",
+    "wall_compute_s": 0.03607046400020408,
+    "ros_compute_s": 0.033999999999991815,
+    "evaluations": 5,
+    "gp_version": 58,
+    "objective_calls": 1036,
+    "objective_cache_hits": 197
+  },
+  {
+    "index": 59,
+    "time_s": 805.136,
+    "finish_compute_s": 805.17,
+    "route": [
+      4,
+      1,
+      1,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      830.0,
+      832.0,
+      834.0
+    ],
+    "planned_finish_s": 863.4719801561565,
+    "score": 0.0021412060382634103,
+    "policy": "emse",
+    "wall_compute_s": 0.03715646699993158,
+    "ros_compute_s": 0.033999999999991815,
+    "evaluations": 5,
+    "gp_version": 59,
+    "objective_calls": 1040,
+    "objective_cache_hits": 198
+  },
+  {
+    "index": 60,
+    "time_s": 807.138,
+    "finish_compute_s": 807.174,
+    "route": [
+      4,
+      1,
+      1,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      832.0,
+      834.0,
+      836.0
+    ],
+    "planned_finish_s": 865.4719801561565,
+    "score": 0.0021302623795658618,
+    "policy": "emse",
+    "wall_compute_s": 0.03757935900011944,
+    "ros_compute_s": 0.03599999999994452,
+    "evaluations": 5,
+    "gp_version": 60,
+    "objective_calls": 1044,
+    "objective_cache_hits": 199
+  },
+  {
+    "index": 61,
+    "time_s": 809.136,
+    "finish_compute_s": 809.17,
+    "route": [
+      4,
+      1,
+      1,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      834.0,
+      836.0,
+      838.0
+    ],
+    "planned_finish_s": 867.4719801561565,
+    "score": 0.0020883331402623178,
+    "policy": "emse",
+    "wall_compute_s": 0.035996959999920364,
+    "ros_compute_s": 0.033999999999991815,
+    "evaluations": 5,
+    "gp_version": 61,
+    "objective_calls": 1048,
+    "objective_cache_hits": 200
+  },
+  {
+    "index": 62,
+    "time_s": 811.134,
+    "finish_compute_s": 811.17,
+    "route": [
+      4,
+      1,
+      1,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      836.0,
+      838.0,
+      840.0
+    ],
+    "planned_finish_s": 869.4719801561565,
+    "score": 0.0020167907113271804,
+    "policy": "emse",
+    "wall_compute_s": 0.03672444500034544,
+    "ros_compute_s": 0.03599999999994452,
+    "evaluations": 5,
+    "gp_version": 62,
+    "objective_calls": 1052,
+    "objective_cache_hits": 201
+  },
+  {
+    "index": 63,
+    "time_s": 813.138,
+    "finish_compute_s": 813.174,
+    "route": [
+      4,
+      1,
+      1,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      838.0,
+      840.0,
+      842.0
+    ],
+    "planned_finish_s": 871.4719801561565,
+    "score": 0.0019186752277225985,
+    "policy": "emse",
+    "wall_compute_s": 0.03775807700003497,
+    "ros_compute_s": 0.03599999999994452,
+    "evaluations": 5,
+    "gp_version": 63,
+    "objective_calls": 1056,
+    "objective_cache_hits": 202
+  },
+  {
+    "index": 64,
+    "time_s": 815.13,
+    "finish_compute_s": 815.164,
+    "route": [
+      4,
+      1,
+      1,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      840.0,
+      842.0,
+      844.0
+    ],
+    "planned_finish_s": 873.4719801561565,
+    "score": 0.0017986448267316366,
+    "policy": "emse",
+    "wall_compute_s": 0.03717421999999715,
+    "ros_compute_s": 0.033999999999991815,
+    "evaluations": 5,
+    "gp_version": 64,
+    "objective_calls": 1060,
+    "objective_cache_hits": 203
+  },
+  {
+    "index": 65,
+    "time_s": 817.136,
+    "finish_compute_s": 817.172,
+    "route": [
+      4,
+      1,
+      1,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      842.0,
+      844.0,
+      846.0
+    ],
+    "planned_finish_s": 875.4719801561565,
+    "score": 0.0016625961478042952,
+    "policy": "emse",
+    "wall_compute_s": 0.03770004500029245,
+    "ros_compute_s": 0.03600000000005821,
+    "evaluations": 5,
+    "gp_version": 65,
+    "objective_calls": 1064,
+    "objective_cache_hits": 204
+  },
+  {
+    "index": 66,
+    "time_s": 819.134,
+    "finish_compute_s": 819.168,
+    "route": [
+      4,
+      1,
+      1,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      844.0,
+      846.0,
+      848.0
+    ],
+    "planned_finish_s": 877.4719801561565,
+    "score": 0.0015170044809699084,
+    "policy": "emse",
+    "wall_compute_s": 0.03572567599985632,
+    "ros_compute_s": 0.033999999999991815,
+    "evaluations": 5,
+    "gp_version": 66,
+    "objective_calls": 1068,
+    "objective_cache_hits": 205
+  },
+  {
+    "index": 67,
+    "time_s": 821.138,
+    "finish_compute_s": 821.182,
+    "route": [
+      4,
+      1,
+      1,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      846.0,
+      848.0,
+      850.0
+    ],
+    "planned_finish_s": 879.4719801561565,
+    "score": 0.0013681789248417655,
+    "policy": "emse",
+    "wall_compute_s": 0.04467136599987498,
+    "ros_compute_s": 0.04399999999998272,
+    "evaluations": 6,
+    "gp_version": 67,
+    "objective_calls": 1072,
+    "objective_cache_hits": 207
+  },
+  {
+    "index": 68,
+    "time_s": 823.1419999999999,
+    "finish_compute_s": 823.1659999999999,
+    "route": [
+      4,
+      1,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      848.0,
+      850.0
+    ],
+    "planned_finish_s": 879.4719801561565,
+    "score": 0.0010887544888333945,
+    "policy": "emse",
+    "wall_compute_s": 0.02513869499989596,
+    "ros_compute_s": 0.02400000000000091,
+    "evaluations": 4,
+    "gp_version": 68,
+    "objective_calls": 1075,
+    "objective_cache_hits": 208
+  },
+  {
+    "index": 69,
+    "time_s": 825.14,
+    "finish_compute_s": 825.15,
+    "route": [
+      4,
+      1,
+      0
+    ],
+    "arrivals_s": [
+      850.0
+    ],
+    "planned_finish_s": 879.4719801561565,
+    "score": 0.0007210180175110134,
+    "policy": "emse",
+    "wall_compute_s": 0.013416486000096484,
+    "ros_compute_s": 0.009999999999990905,
+    "evaluations": 3,
+    "gp_version": 69,
+    "objective_calls": 1077,
+    "objective_cache_hits": 209
+  },
+  {
+    "index": 70,
+    "time_s": 827.138,
+    "finish_compute_s": 827.138,
+    "route": [
+      4,
+      0
+    ],
+    "arrivals_s": [],
+    "planned_finish_s": 861.4491234318057,
+    "score": 0.0,
+    "policy": "emse",
+    "wall_compute_s": 0.0004285939999135735,
+    "ros_compute_s": 0.0,
+    "evaluations": 1,
+    "gp_version": 70,
+    "objective_calls": 1078,
+    "objective_cache_hits": 209
+  }
+]

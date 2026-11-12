@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "run": "run_20261110T230239768234Z",
+  "executed_code_cells": 4,
+  "figure_files": [
+    "performance.png",
+    "spatial_snapshots.png",
+    "temporal_and_noise.png"
+  ],
+  "saved_result_hashes_preserved": true,
+  "notebook_sha256": "344e691571c665ffd2cf601e87136ce99572068de8c10675fecac8100cdf6fd7",
+  "report_builder_sha256": "1de8ea0bab204fb27ea25b76c111941aaaf51ee359652d7a3e13c38bba6ea43e"
+}

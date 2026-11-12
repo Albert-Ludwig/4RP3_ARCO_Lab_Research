@@ -1,0 +1,3 @@
+history_count,batch_count,final_count,initial_factorization_s,batch_update_s,initialization_sampled_peak_rss_mib,baseline_rss_mib,sampled_peak_rss_mib,sampled_rss_increment_mib,label
+980,120,1100,0.007264474000294285,0.008531232999757776,182.046875,182.04296875,182.046875,0.00390625,current-count proxy
+3920,120,4040,0.3338674049996371,0.27309772299986435,422.015625,309.53515625,558.79296875,249.2578125,hypothetical 4x-count proxy

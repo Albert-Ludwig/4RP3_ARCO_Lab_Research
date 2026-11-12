@@ -1,0 +1,13 @@
+task,model,initial_lengthscale_scaled,final_negative_training_mll,fit_seconds,selected
+blocked_reconstruction,temporal_gp,0.3,-0.07598246231022761,8.030049481000333,True
+blocked_reconstruction,temporal_gp,1.0,0.6885880383948784,7.938068885000121,False
+blocked_reconstruction,temporal_gp,3.0,0.689342679138029,7.825517867000144,False
+blocked_reconstruction,spatiotemporal_gp,0.3,-0.20542692265694304,8.097555934999946,True
+blocked_reconstruction,spatiotemporal_gp,1.0,-0.20380217800402384,8.068928163999772,False
+blocked_reconstruction,spatiotemporal_gp,3.0,-0.1952584141368327,8.363943558000301,False
+forward_prediction,temporal_gp,0.3,-0.04915099774998151,4.504020881000088,True
+forward_prediction,temporal_gp,1.0,0.7925775372316242,4.339286849000018,False
+forward_prediction,temporal_gp,3.0,0.7925581415813839,4.258725761999813,False
+forward_prediction,spatiotemporal_gp,0.3,-0.1681101178037743,5.327529606000098,True
+forward_prediction,spatiotemporal_gp,1.0,-0.1679023847023757,5.0422109440000895,False
+forward_prediction,spatiotemporal_gp,3.0,-0.16336440838545002,5.136179031999745,False

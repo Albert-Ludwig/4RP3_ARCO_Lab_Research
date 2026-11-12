@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "scope": "synthetic numerical equivalence, not field-model validation",
+  "maximum_mean_error_c": 3.552713678800501e-15,
+  "maximum_variance_error_c2": 3.400058012914542e-16,
+  "reused_source": "/workspace/Code/GP3D_baseline_test/10.16_testing_code/3D_time&spatial temp field rebuild & prediction/gp_model.py",
+  "time_conversion": "old hours -> new seconds, lengthscale multiplied by 3600"
+}

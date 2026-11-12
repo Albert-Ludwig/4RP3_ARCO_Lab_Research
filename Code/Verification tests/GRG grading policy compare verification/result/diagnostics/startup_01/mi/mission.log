@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/workspace/Code/ROS_Nav2_policy_compare/testing_code/nav2_policy/mission.py", line 8, in <module>
+    import rclpy
+  File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/__init__.py", line 48, in <module>
+    from rclpy.parameter import Parameter
+  File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/parameter.py", line 27, in <module>
+    import yaml
+ModuleNotFoundError: No module named 'yaml'

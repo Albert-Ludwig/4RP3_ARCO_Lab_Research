@@ -1,0 +1,28 @@
+{
+  "input_sha256": "c81c0176feeda7a115ec764805f48bd7edb95648c841fb058bcbcc38d22b8f76",
+  "protocol_source_sha256": "9345a7ff7319e7a414cf9fab10c3f63ae9a5fc97820c90e71c4b062244795bb7",
+  "gp_model_sha256": "82a529b747a17fb001f869acd46548977d6b91efb365f6547570fca65f945f35",
+  "worker_sha256": "b934a2f92768611adfb87a59734530d0f97108178373e07bf369ed1c08e300cc",
+  "runtime": {
+    "python": "3.12.3",
+    "torch": "2.14.1+cpu",
+    "gpytorch": "1.15.2",
+    "numpy": "2.5.4",
+    "scipy": "1.18.1"
+  },
+  "outputs": {
+    "blocked_reconstruction/spatiotemporal_gp.pt": "6b74be24a8605f27096565d93cee459489798f6d185cf40d46f7d964e84f50da",
+    "blocked_reconstruction/temporal_gp.pt": "50233de6ed45803c562e139890cc8fb2d973a0c875e437a931d5801ce0c04d9f",
+    "forward_prediction/spatiotemporal_gp.pt": "5659fa13ed2aadf5a70b8d57fb11ee99bb1de56eae8eb29e5ab15ef1f015f2b9",
+    "forward_prediction/temporal_gp.pt": "5062df2923385b998fa6e64103e593c467f02e35105a2a4b7a011fe7cc77bbf7",
+    "hyperparameters.json": "f048907ff70e94d57cae5847ac869a38732470ab01b1f03d44c8ced2a5622ffc",
+    "initialization_comparison.csv": "942cc2c647493abf33ce5e9c3fbd9de607451982bc9eead30f86f9129a41402d",
+    "metrics.csv": "e43fdab437938950a100ea2cdf75a08258fb1647a1b14813aca297dc96600813",
+    "predictions.csv": "4c8c557e77279bc2f49c19b142412b8dda59f2187fbaa5c9db8abb213b7d2525",
+    "protocol.json": "ad0671b1160108edea2754d60392dd073712e028803340034111d87760a5d75d",
+    "splits.csv": "d6fd2eb9457e47aab6116b236d323fffe06b9d7e43b3873d52b35499d5fe370a",
+    "splits.json": "97790f047a7b35b0f4d0821d7da1a2d31ac84e533c0c9c438614f177d387ccca",
+    "training_history.csv": "eaedee63b78a3e296ac686b730d6e1d10495907401d1dee919faefeb858f74ed",
+    "verification.json": "8bf9618d49c70695839c2a884add3bcb1c9fa1390ab6817b626f599e7c512241"
+  }
+}

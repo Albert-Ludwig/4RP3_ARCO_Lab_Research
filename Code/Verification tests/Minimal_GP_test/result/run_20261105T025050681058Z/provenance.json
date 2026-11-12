@@ -1,0 +1,28 @@
+{
+  "created_at_utc": "2026-11-05T02:52:15.024381+00:00",
+  "sources": {
+    "Code/ROS_simulation/Real_Data_Integration/result/gp_samples.csv": "c81c0176feeda7a115ec764805f48bd7edb95648c841fb058bcbcc38d22b8f76",
+    "Code/GP3D_baseline_test/10.16_testing_code/3D_time&spatial temp field rebuild & prediction/gp_model.py": "82a529b747a17fb001f869acd46548977d6b91efb365f6547570fca65f945f35",
+    "Code/ROS_simulation/Minimal_GP_test/testing_code/protocol.json": "9345a7ff7319e7a414cf9fab10c3f63ae9a5fc97820c90e71c4b062244795bb7",
+    "Code/ROS_simulation/Minimal_GP_test/testing_code/worker.py": "b934a2f92768611adfb87a59734530d0f97108178373e07bf369ed1c08e300cc"
+  },
+  "source_files_unchanged": true,
+  "container_job_directory": "/tmp/minimal_gp_20261105T025050681058Z",
+  "command": [
+    "docker",
+    "--context",
+    "desktop-linux",
+    "exec",
+    "-u",
+    "ubuntu",
+    "-e",
+    "PYTHONDONTWRITEBYTECODE=1",
+    "bunker-jazzy",
+    "/home/ubuntu/.venvs/policy-compare/bin/python",
+    "-B",
+    "/tmp/minimal_gp_20261105T025050681058Z/worker.py"
+  ],
+  "alignment_manifest_sha256": "5a6c77b9e1cd2d0206d04512aeb16ed1ab394b6bcac1aaffea7401d9d37af34b",
+  "accepted_clock_assumption": "Synchronized HOBO/GPS clocks, zero additional offset; accepted by user",
+  "reused_model_source": "Code/GP3D_baseline_test/10.16_testing_code/3D_time&spatial temp field rebuild & prediction/gp_model.py"
+}

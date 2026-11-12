@@ -1,0 +1,19 @@
+{
+  "mode": "synthetic_fixture",
+  "runs": [
+    {
+      "policy": "mi",
+      "status": "passed"
+    },
+    {
+      "policy": "emse",
+      "status": "passed"
+    },
+    {
+      "policy": "wivr",
+      "status": "passed"
+    }
+  ],
+  "bundle": "/workspace/Code/ROS_Nav2_policy_compare/result/synthetic_fixture_full/bundle",
+  "all_requested_policies_passed": true
+}

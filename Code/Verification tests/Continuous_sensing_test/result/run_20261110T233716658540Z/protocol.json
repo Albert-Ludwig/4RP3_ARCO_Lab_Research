@@ -1,0 +1,64 @@
+{
+  "purpose": "Python functional verification of continuous sensing, path-event timing, buffering and fixed-RBF batch conditioning; no policy ranking, GRG execution, ROS motion or real-map validation.",
+  "extent_m": [
+    30,
+    30
+  ],
+  "mission_interval_s": [
+    0,
+    120
+  ],
+  "sensor_interval_s": 1,
+  "first_sample_s": 1,
+  "pose_trace_interval_s": 0.1,
+  "max_fixture_speed_m_s": 1,
+  "actual_segment_end_s": [
+    23.4,
+    51.7,
+    83.2,
+    120
+  ],
+  "nominal_segment_duration_s": [
+    20.8,
+    25.6,
+    29.1,
+    36.5
+  ],
+  "fixture_translation_m": [
+    7.137,
+    7.263
+  ],
+  "path_source": "Code/Verification tests/Nav2_test/result/run_20261027T224156_726349Z/planned_path.json",
+  "obstacle_original_bounds_m": [
+    2.25,
+    3.75,
+    -1,
+    1
+  ],
+  "path_note": "Saved Nav2 detour geometry translated into a temporary domain and traversed out/back twice. Actual progress and pauses are synthetic time profiles, not a new Nav2/physics run.",
+  "history_count": 980,
+  "history_interval_s": [
+    -600,
+    -1
+  ],
+  "history_seed": 20261112,
+  "history_note": "Synthetic SRF history sized to the current real training count; no real ENU coordinates are registered or re-used as map coordinates.",
+  "kernel_parameter_file": "Code/ROS_simulation/Trained_Real_Data_Kernel/result/full_fit_20261105T031701003839Z/hyperparameters.json",
+  "kernel_note": "Reuse frozen physical-unit RBF hyperparameters for computational verification only, not the trained checkpoint conditioning data or a claim of real-field accuracy.",
+  "srf_test_directory": "Code/Verification tests/SRF_test",
+  "failure_time_s": 42.65,
+  "scale_history_counts": [
+    980,
+    3920
+  ],
+  "scale_note": "3920 is a hypothetical 4x-history workload, not four available real datasets.",
+  "scale_batch_count": 120,
+  "mean_tolerance_c": 1e-08,
+  "variance_tolerance_c2": 1e-10,
+  "clock_tolerance_s": 1e-09,
+  "coordinate_tolerance_m": 1e-09,
+  "threads": 4,
+  "scheduling_note": "Virtual trajectory time and measured CPU wall time are separate. This test does not certify a complete 120 s ROS mission budget.",
+  "invalid_record_rule": "Reject bad quality, nonfinite values and out-of-domain inputs. Deduplicate stable measurement IDs, not spatially repeated visits.",
+  "failure_update_rule": "Flush valid buffered observations on interruption; no fabricated measurements after interruption."
+}

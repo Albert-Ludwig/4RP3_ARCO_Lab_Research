@@ -1,0 +1,48 @@
+{
+  "status": "passed",
+  "checks": {
+    "required_topics": true,
+    "clock_monotonic": true,
+    "physical_footprint_in_bounds": true,
+    "physical_minimum_clearance": true
+  },
+  "topics": {
+    "/odom": 7865,
+    "/map": 1,
+    "/simulation/track_odom": 7859,
+    "/tf_static": 1,
+    "/local_costmap/published_footprint": 1571,
+    "/local_costmap/costmap": 262,
+    "/simulation/ground_truth/odom": 7854,
+    "/robot_description": 1,
+    "/simulation/track_tf": 7853,
+    "/tf": 15704,
+    "/simulation/cmd_vel": 3141,
+    "/clock": 78468,
+    "/global_costmap/published_footprint": 1570,
+    "/global_costmap/costmap": 262,
+    "/plan": 174,
+    "/test/navigation_goal": 4,
+    "/navigate_to_pose/_action/status": 8,
+    "/navigate_to_pose/_action/feedback": 7529,
+    "/received_global_plan": 3006,
+    "/lookahead_point": 3006,
+    "/cmd_vel": 3010,
+    "/policy/events": 3
+  },
+  "message_count": 149152,
+  "required_topics": [
+    "/clock",
+    "/tf",
+    "/map",
+    "/simulation/ground_truth/odom",
+    "/cmd_vel",
+    "/test/navigation_goal",
+    "/navigate_to_pose/_action/status",
+    "/policy/events"
+  ],
+  "physical_pose_count": 7854,
+  "minimum_footprint_clearance_m": 0.5966489821659802,
+  "trajectory_distance_m": 29.75791447469802,
+  "clearance_scope": "known central obstacle for synthetic fixture; arbitrary real-map collision auditing not yet validated"
+}

@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "iterations": 300,
+  "history_observations": 312,
+  "runs": [
+    "synthetic-0",
+    "synthetic-1",
+    "synthetic-2",
+    "synthetic-3"
+  ],
+  "checkpoint": "validation/history_fit_bundle/online/initial_training.pt",
+  "scope": "Synthetic historical-fitting preparation check; separate from the fixed-parameter navigation comparison."
+}

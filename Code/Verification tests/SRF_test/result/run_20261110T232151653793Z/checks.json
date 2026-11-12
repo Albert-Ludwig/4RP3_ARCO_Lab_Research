@@ -1,0 +1,225 @@
+[
+  {
+    "name": "same_field_on_common_baseline_domain",
+    "passed": true,
+    "maximum_absolute_error_c": 0.0
+  },
+  {
+    "name": "finite_physical_unit_queries",
+    "passed": true
+  },
+  {
+    "name": "explicit_three_dimensional_temporal_model",
+    "passed": true
+  },
+  {
+    "name": "repeated_queries",
+    "passed": true,
+    "maximum_absolute_error_c": 0.0
+  },
+  {
+    "name": "reverse_query_order",
+    "passed": true,
+    "maximum_absolute_error_c": 0.0
+  },
+  {
+    "name": "shuffled_query_order",
+    "passed": true,
+    "maximum_absolute_error_c": 0.0
+  },
+  {
+    "name": "external_batch_partition_1",
+    "passed": true,
+    "maximum_absolute_error_c": 0.0
+  },
+  {
+    "name": "external_batch_partition_17",
+    "passed": true,
+    "maximum_absolute_error_c": 0.0
+  },
+  {
+    "name": "external_batch_partition_131",
+    "passed": true,
+    "maximum_absolute_error_c": 0.0
+  },
+  {
+    "name": "fresh_generator",
+    "passed": true,
+    "maximum_absolute_error_c": 0.0
+  },
+  {
+    "name": "saved_configuration_reload",
+    "passed": true,
+    "maximum_absolute_error_c": 0.0
+  },
+  {
+    "name": "fresh_process_restart",
+    "passed": true,
+    "maximum_absolute_error_c": 0.0
+  },
+  {
+    "name": "different_seed_changes_field",
+    "passed": true,
+    "rms_difference_c": 0.17470048630523305
+  },
+  {
+    "name": "continuous_off_grid_query_not_snapped",
+    "passed": true,
+    "difference_from_rounded_query_c": 0.0008684428290557378
+  },
+  {
+    "name": "physical_coordinate_scaling",
+    "passed": true,
+    "maximum_absolute_error_c": 0.0
+  },
+  {
+    "name": "temporal_scale_is_explicit_not_independent_redraws",
+    "passed": true,
+    "lags_s": [
+      0.0,
+      1.0,
+      60.0,
+      120.0
+    ],
+    "model_correlations": [
+      1.0,
+      0.9999769565865506,
+      0.9362228852211781,
+      0.802850394605088
+    ]
+  },
+  {
+    "name": "fixed_location_varies_over_time",
+    "passed": true
+  },
+  {
+    "name": "deterministic_mean_and_trend_plumbing",
+    "passed": true,
+    "maximum_absolute_error_c": 5.162537064506978e-15
+  },
+  {
+    "name": "invalid_shape_nonfinite_and_domain_rejected",
+    "passed": true
+  },
+  {
+    "name": "empty_query_supported",
+    "passed": true
+  },
+  {
+    "name": "measurement_identity_replay",
+    "passed": true,
+    "maximum_absolute_error_c": 0.0
+  },
+  {
+    "name": "measurement_noise_query_order",
+    "passed": true,
+    "maximum_absolute_error_c": 0.0
+  },
+  {
+    "name": "offline_truth_queries_do_not_consume_sensor_noise",
+    "passed": true,
+    "maximum_absolute_error_c": 0.0
+  },
+  {
+    "name": "sensor_noise_seed_does_not_change_truth",
+    "passed": true,
+    "maximum_absolute_error_c": 0.0
+  },
+  {
+    "name": "noise_seed_changes_observations",
+    "passed": true
+  },
+  {
+    "name": "distinct_measurement_ids_have_distinct_noise",
+    "passed": true
+  },
+  {
+    "name": "zero_sensor_noise_equals_truth",
+    "passed": true,
+    "maximum_absolute_error_c": 0.0
+  },
+  {
+    "name": "keyed_noise_distribution_sanity",
+    "passed": true,
+    "mean_c": 0.000926455750440887,
+    "sample_std_c": 0.02969651666281656,
+    "note": "Seeded functional sanity check, not real sensor calibration"
+  },
+  {
+    "name": "no_generated_field_stored",
+    "passed": true,
+    "storage": {
+      "stored_field_names": [],
+      "retained_position_count": 257,
+      "generator_array_shapes": {
+        "_z_1": [
+          1024
+        ],
+        "_z_2": [
+          1024
+        ],
+        "_cov_sample": [
+          3,
+          1024
+        ]
+      },
+      "generator_array_bytes": 40960,
+      "max_evaluated_batch": 257
+    }
+  },
+  {
+    "name": "isolated_query_fits_initial_1hz_interval",
+    "passed": true,
+    "median_ms": 0.20559700010380766,
+    "p95_ms": 0.2697016500292193,
+    "maximum_ms": 0.42226599998684833,
+    "note": "Isolated source only; not ROS deadline or sensor-response validation"
+  },
+  {
+    "name": "bounded_sampled_native_memory",
+    "passed": true,
+    "maximum_sampled_rss_increment_mib": 0.02734375,
+    "sampling_period_s": 0.005,
+    "note": "RSS sampled at 5 ms; very short allocation peaks may be missed"
+  },
+  {
+    "name": "no_field_or_query_history_accumulation",
+    "passed": true,
+    "generator_array_bytes": 40960,
+    "max_retained_query_count": 1000
+  },
+  {
+    "name": "streamed_output_matches_direct_queries",
+    "passed": true,
+    "maximum_absolute_error_c": 0.0
+  },
+  {
+    "name": "spatial_reference_resolution_0_1m",
+    "passed": true,
+    "x_points": 301,
+    "y_points": 301,
+    "points_per_slice": 90601,
+    "spacing_m": 0.1
+  },
+  {
+    "name": "fine_grid_batch_memory_bounded",
+    "passed": true,
+    "maximum_sampled_rss_increment_mib": 0.75390625,
+    "direct_queries_total": 271803,
+    "no_spatial_interpolation": true
+  },
+  {
+    "name": "temporal_reference_resolution_0_5s",
+    "passed": true,
+    "points_per_trace": 241,
+    "spacing_s": 0.5
+  },
+  {
+    "name": "visualization_queries_do_not_change_realization",
+    "passed": true
+  },
+  {
+    "name": "historical_source_not_modified",
+    "passed": true
+  }
+]

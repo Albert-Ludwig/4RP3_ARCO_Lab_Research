@@ -1,0 +1,24 @@
+{
+  "experiment": "full_real_data_kernel_fit",
+  "purpose": "Fit one reusable spatiotemporal GP to all available aligned real observations",
+  "expected_observations": 980,
+  "model": "ConstantMean + ScaleKernel(RBF_ARD_xy * RBF_t), GaussianLikelihood",
+  "input_columns": ["x_east_m", "y_north_m", "t_s"],
+  "gp_input_units": ["metres", "metres", "hours (t_s / 3600)"],
+  "target": "temperature_c",
+  "scaling": "Fit input and temperature standardization on all 980 observations",
+  "initial_lengthscales_scaled": [0.3, 1.0, 3.0],
+  "restart_selection": "Lowest final negative training marginal log likelihood",
+  "fit": {
+    "iterations": 300,
+    "learning_rate": 0.05,
+    "threads": 4,
+    "initial_noise_variance_scaled": 0.05,
+    "validation_every": 25
+  },
+  "seed": 0,
+  "dtype": "float64",
+  "device": "cpu",
+  "clock_assumption": "User accepts synchronized HOBO/GPS clocks and zero additional offset",
+  "scope": "Full-data parameter fit only, no independent test set. Previous held-out results remain separate. No Dashboard or Intel observations or pretrained weights are used."
+}

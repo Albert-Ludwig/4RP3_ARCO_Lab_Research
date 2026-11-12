@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "policy": "wivr",
+  "mode": "synthetic_fixture",
+  "error": null,
+  "stop_reason": "declared_synthetic_smoke_acquisition_cap",
+  "successful_measurements": 3,
+  "planning_decisions": 3,
+  "gp_updates": 3,
+  "distance_m": 27.13058534679239,
+  "duration_s": 148.066,
+  "return_home_success": true,
+  "budget_s": 900.0,
+  "within_budget": true,
+  "clock_origin_s": 1.06,
+  "final_pose": [
+    0.10010938588728435,
+    -0.10869138878596034,
+    0.13362916009218226
+  ],
+  "synthetic_acquisition_cap": 3,
+  "hidden_data_accessed_online": false,
+  "initial_parameters_sha256": "6da002028823285c9af92e076f348113811d3f92ea1c1fe2074270e6bc571d5c"
+}

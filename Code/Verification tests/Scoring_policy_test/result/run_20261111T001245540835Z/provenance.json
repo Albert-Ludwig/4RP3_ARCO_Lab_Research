@@ -1,0 +1,27 @@
+{
+  "previous_continuous_run": "run_20261110T233716658540Z",
+  "references": {
+    "continuous_components": {
+      "path": "Code/Verification tests/Continuous_sensing_test/testing_code/components.py",
+      "sha256": "2637f747367a7b7229d5f4971e63c8d938bf69742584cb863be14b1eca089668"
+    },
+    "gp_initial": {
+      "path": "Code/Verification tests/Continuous_sensing_test/result/run_20261110T233716658540Z/gp_initial.npz",
+      "sha256": "d3c2298f937baec8acca36f01569949abb04df18c4fcede8752e7c22a486c87f"
+    },
+    "gp_parameters": {
+      "path": "Code/Verification tests/Continuous_sensing_test/result/run_20261110T233716658540Z/gp_parameters.json",
+      "sha256": "92f52dda80d8830526e2ac69652297a2906eb9f861aeef9484375ae4e3e4463e"
+    },
+    "grg_source": {
+      "path": "Code/Verification tests/Robot_close_loop_system/testing_code/baseline/grg.py",
+      "sha256": "8ce248b538fae0ccaa8ff58d7c1d94b7e084d8e1c39ae1e44dbd30a9cf7e72be"
+    },
+    "legacy_gp": {
+      "path": "Code/Verification tests/GRG grading policy compare verification/testing_code/nav2_policy/gp.py",
+      "sha256": "3aea98f2dc59ae0d55e3423684f434f771d5cd3440d844d84562f4a1bdadb477"
+    }
+  },
+  "geometry_note": "Temporary rectangle visibility-graph paths for Python scoring tests only; not Nav2 navigation or a physical feasibility claim.",
+  "gp_note": "Synthetic initial conditioning from stage 2; frozen physical-unit RBF parameters. No unseen SRF truth queried."
+}

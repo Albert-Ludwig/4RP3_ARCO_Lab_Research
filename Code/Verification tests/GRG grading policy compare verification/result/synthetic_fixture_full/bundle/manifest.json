@@ -1,0 +1,12 @@
+{
+  "files": {
+    "preflight.json": "d306b0283bc328f438a31e184d8ea174536b02d640283ae36e4d26ef4fd9410d",
+    "offline/excluded.csv": "2d78b4ddbd4f40fb2785bbfc826f69d7ce7394ad61987723eb859a0e12ef6124",
+    "offline/hidden.csv": "31f5b1319e11a3719087dd6e5a03f9ea9f54a6f032bddd5bb48fb250acd38ea9",
+    "online/acquisition.csv": "ae947aa16b076fb76554152173ad75bfd1a23e6eb799b20ef15763b3fe3e0c0c",
+    "online/config.json": "2f7c664287f1f1e8fcab539342bc46c2dbb98bf6d409e6bca2f030212dbdec5d",
+    "online/history.csv": "1c87b34ad5dab45add42571bc6bf2a0cbe934a17e0d7caac6384f94adcf29784",
+    "online/parameters.json": "6da002028823285c9af92e076f348113811d3f92ea1c1fe2074270e6bc571d5c",
+    "online/query.npz": "56b43acb294ae0cbde1a4aa70a9a2d46ee101d1e5cd20fd19dd5250339a53911"
+  }
+}

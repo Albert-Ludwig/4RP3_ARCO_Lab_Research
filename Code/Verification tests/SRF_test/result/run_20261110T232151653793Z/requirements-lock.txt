@@ -1,0 +1,14 @@
+emcee==3.1.6
+gstools==1.7.0
+gstools_cython==1.2.0
+hankel==1.2.2
+markdown-it-py==4.2.0
+mdurl==0.1.2
+meshio==5.3.5
+mpmath==1.4.1
+numpy==2.5.4
+psutil==7.2.2
+pyevtk==1.7.0
+Pygments==2.21.0
+rich==15.0.0
+scipy==1.18.1

@@ -1,0 +1,5 @@
+__pycache__/
+*.pyc
+# Large recordings remain local; metadata, numerical outputs and reports are retained.
+*.mcap
+*.mcap.zstd

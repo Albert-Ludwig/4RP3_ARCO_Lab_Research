@@ -1,0 +1,58 @@
+[
+  {
+    "segment": 0,
+    "time_s": 23.4,
+    "batch_count": 23,
+    "before_count": 980,
+    "after_count": 1003,
+    "gp_version": 1,
+    "wall_update_s": 0.014874458000122104,
+    "gp_file": "gp_batch_01.npz",
+    "mean_fixed_query_variance_c2": 0.045624565309938116,
+    "baseline_rss_mib": 122.3359375,
+    "sampled_peak_rss_mib": 137.3828125,
+    "sampled_rss_increment_mib": 15.046875
+  },
+  {
+    "segment": 1,
+    "time_s": 51.7,
+    "batch_count": 28,
+    "before_count": 1003,
+    "after_count": 1031,
+    "gp_version": 2,
+    "wall_update_s": 0.012453075999928842,
+    "gp_file": "gp_batch_02.npz",
+    "mean_fixed_query_variance_c2": 0.04037961558587168,
+    "baseline_rss_mib": 123.21875,
+    "sampled_peak_rss_mib": 131.578125,
+    "sampled_rss_increment_mib": 8.359375
+  },
+  {
+    "segment": 2,
+    "time_s": 83.2,
+    "batch_count": 32,
+    "before_count": 1031,
+    "after_count": 1063,
+    "gp_version": 3,
+    "wall_update_s": 0.011998981000033382,
+    "gp_file": "gp_batch_03.npz",
+    "mean_fixed_query_variance_c2": 0.03663955827013735,
+    "baseline_rss_mib": 124.08984375,
+    "sampled_peak_rss_mib": 132.84375,
+    "sampled_rss_increment_mib": 8.75390625
+  },
+  {
+    "segment": 3,
+    "time_s": 120.0,
+    "batch_count": 37,
+    "before_count": 1063,
+    "after_count": 1100,
+    "gp_version": 4,
+    "wall_update_s": 0.012835818999974435,
+    "gp_file": "gp_batch_04.npz",
+    "mean_fixed_query_variance_c2": 0.03525964018827678,
+    "baseline_rss_mib": 124.9921875,
+    "sampled_peak_rss_mib": 134.5703125,
+    "sampled_rss_increment_mib": 9.578125
+  }
+]

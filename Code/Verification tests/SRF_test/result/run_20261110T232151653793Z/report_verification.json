@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "run": "run_20261110T232151653793Z",
+  "executed_code_cells": 5,
+  "figure_files": [
+    "performance.png",
+    "spatial_snapshots.png",
+    "temporal_and_noise.png"
+  ],
+  "saved_result_hashes_preserved": true,
+  "baseline_files_preserved": true,
+  "baseline_run": "run_20261110T230239768234Z",
+  "notebook_sha256": "464206f189089c92000bb9f187e262f343d7aa99e4b24a5ca4b74ec585bfc13c",
+  "report_builder_sha256": "75c4e7823fe26fed86af9882e014d9f72051ff02cb40b2ed71e8440d60122376"
+}

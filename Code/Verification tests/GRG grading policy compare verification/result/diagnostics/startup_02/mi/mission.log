@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/workspace/Code/ROS_Nav2_policy_compare/testing_code/nav2_policy/mission.py", line 167, in <module>
+    result=run(a.online,a.output,a.policy);print(result,flush=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Code/ROS_Nav2_policy_compare/testing_code/nav2_policy/mission.py", line 32, in run
+    rclpy.init(signal_handler_options=SignalHandlerOptions.NO);nav=Navigation(config,log)
+                                                                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/Code/ROS_Nav2_policy_compare/testing_code/nav2_policy/navigation.py", line 40, in __init__
+    self.executor=MultiThreadedExecutor(num_threads=2);self.executor.add_node(self)
+                                                       ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'add_node'

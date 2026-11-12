@@ -1,0 +1,50 @@
+{
+  "created_at_utc": "2026-11-05T02:24:13.492986+00:00",
+  "inputs": [
+    {
+      "path": "Data/Real_spatialtemporal_data/lawnmower_5m_test_2026-11-03 14_41_39 EST (Data EST).xlsx",
+      "size_bytes": 42852,
+      "sha256": "6f10defa19e03a79720a1121d765152aa2bbebddb0ace73a13f5c364781ecf97"
+    },
+    {
+      "path": "Data/Real_spatialtemporal_data/2026-11-03-welle-baseball-lawnmower/nov-3-baseball-1/nov-3-baseball-1_0.db3",
+      "size_bytes": 25403068416,
+      "sha256": "6c20dbd7318ec37000e233d44d646aaf59320d253a55b38824ff94f24490871e"
+    },
+    {
+      "path": "Data/Real_spatialtemporal_data/2026-11-03-welle-baseball-lawnmower/nov-3-baseball-1/metadata.yaml",
+      "size_bytes": 25230,
+      "sha256": "521f514f9313be9457b171e4d0d826d1830293872b16bdae5ae24fb6ce00e94b"
+    }
+  ],
+  "source_size_and_mtime_unchanged": true,
+  "selected_cdr_sha256": "8a1fd931c813cc52df93d95b3c70631c9206890c998b025defa55147444d87da",
+  "script_sha256": "170c54cda05a381b65aec0e9d1e4501fe102d3baebdbe1f036f8659980193b4d",
+  "runtime": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "openpyxl": "3.1.5",
+    "decoder": "rclpy.serialization.deserialize_message(sensor_msgs.msg.NavSatFix)",
+    "decoder_command": [
+      "docker",
+      "--context",
+      "desktop-linux",
+      "exec",
+      "-i",
+      "-u",
+      "ubuntu",
+      "-e",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "bunker-jazzy",
+      "bash",
+      "-lc",
+      "source /opt/ros/jazzy/setup.bash && exec /usr/bin/python3 -B -"
+    ]
+  },
+  "outputs": {
+    "gp_samples.csv": "c81c0176feeda7a115ec764805f48bd7edb95648c841fb058bcbcc38d22b8f76",
+    "gps.csv": "6a2769565b4d6a921407ac884e6e4956b9bba2c85e8c3096f6a1985975f642a1",
+    "summary.json": "308eff4fd578edbad8de5de972a94ce2d3ca8a0072a6a039e5a6e482bd2d6189",
+    "temperature_alignment.csv": "fd8b39ba259658622d0b2b31f7190211be356dd68a0977d7359ea6827deb28f3"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "failure_time_s": 42.65,
+  "completed_batch_count": 23,
+  "partial_batch_count": 19,
+  "total_retained": 42,
+  "new_gp_count": 1022,
+  "rule": "Flush valid interrupted-edge samples; no backfill after failure."
+}

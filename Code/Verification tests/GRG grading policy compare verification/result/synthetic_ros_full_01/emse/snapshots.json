@@ -1,0 +1,434 @@
+[
+  {
+    "time_s": 0.29600000000000004,
+    "measurements": 0,
+    "gp_file": "gp_000.npz",
+    "mean_query_variance_c2": 0.8375618848472931
+  },
+  {
+    "time_s": 31.03,
+    "measurements": 1,
+    "gp_file": "gp_001.npz",
+    "mean_query_variance_c2": 0.8222788990787518
+  },
+  {
+    "time_s": 79.02,
+    "measurements": 2,
+    "gp_file": "gp_002.npz",
+    "mean_query_variance_c2": 0.7880642071528884
+  },
+  {
+    "time_s": 117.02799999999999,
+    "measurements": 3,
+    "gp_file": "gp_003.npz",
+    "mean_query_variance_c2": 0.7708876225213153
+  },
+  {
+    "time_s": 165.018,
+    "measurements": 4,
+    "gp_file": "gp_004.npz",
+    "mean_query_variance_c2": 0.7445931168405431
+  },
+  {
+    "time_s": 203.018,
+    "measurements": 5,
+    "gp_file": "gp_005.npz",
+    "mean_query_variance_c2": 0.7298237289368669
+  },
+  {
+    "time_s": 249.02200000000002,
+    "measurements": 6,
+    "gp_file": "gp_006.npz",
+    "mean_query_variance_c2": 0.7086930346389597
+  },
+  {
+    "time_s": 287.018,
+    "measurements": 7,
+    "gp_file": "gp_007.npz",
+    "mean_query_variance_c2": 0.6941878122333676
+  },
+  {
+    "time_s": 333.018,
+    "measurements": 8,
+    "gp_file": "gp_008.npz",
+    "mean_query_variance_c2": 0.6723593045803972
+  },
+  {
+    "time_s": 371.022,
+    "measurements": 9,
+    "gp_file": "gp_009.npz",
+    "mean_query_variance_c2": 0.6579231680407498
+  },
+  {
+    "time_s": 419.01599999999996,
+    "measurements": 10,
+    "gp_file": "gp_010.npz",
+    "mean_query_variance_c2": 0.6359343277986303
+  },
+  {
+    "time_s": 457.022,
+    "measurements": 11,
+    "gp_file": "gp_011.npz",
+    "mean_query_variance_c2": 0.621159573036481
+  },
+  {
+    "time_s": 483.02799999999996,
+    "measurements": 12,
+    "gp_file": "gp_012.npz",
+    "mean_query_variance_c2": 0.5763076910011061
+  },
+  {
+    "time_s": 523.026,
+    "measurements": 13,
+    "gp_file": "gp_013.npz",
+    "mean_query_variance_c2": 0.550467420465313
+  },
+  {
+    "time_s": 561.016,
+    "measurements": 14,
+    "gp_file": "gp_014.npz",
+    "mean_query_variance_c2": 0.5334789598045505
+  },
+  {
+    "time_s": 607.024,
+    "measurements": 15,
+    "gp_file": "gp_015.npz",
+    "mean_query_variance_c2": 0.5124568893004912
+  },
+  {
+    "time_s": 633.02,
+    "measurements": 16,
+    "gp_file": "gp_016.npz",
+    "mean_query_variance_c2": 0.48482217550416024
+  },
+  {
+    "time_s": 659.0219999999999,
+    "measurements": 17,
+    "gp_file": "gp_017.npz",
+    "mean_query_variance_c2": 0.47063590248466186
+  },
+  {
+    "time_s": 661.0219999999999,
+    "measurements": 18,
+    "gp_file": "gp_018.npz",
+    "mean_query_variance_c2": 0.46994955020616985
+  },
+  {
+    "time_s": 663.024,
+    "measurements": 19,
+    "gp_file": "gp_019.npz",
+    "mean_query_variance_c2": 0.4696288235590014
+  },
+  {
+    "time_s": 665.0219999999999,
+    "measurements": 20,
+    "gp_file": "gp_020.npz",
+    "mean_query_variance_c2": 0.46939255506324995
+  },
+  {
+    "time_s": 667.018,
+    "measurements": 21,
+    "gp_file": "gp_021.npz",
+    "mean_query_variance_c2": 0.4691771410939498
+  },
+  {
+    "time_s": 669.018,
+    "measurements": 22,
+    "gp_file": "gp_022.npz",
+    "mean_query_variance_c2": 0.46895829751620194
+  },
+  {
+    "time_s": 671.02,
+    "measurements": 23,
+    "gp_file": "gp_023.npz",
+    "mean_query_variance_c2": 0.46872400194636005
+  },
+  {
+    "time_s": 673.03,
+    "measurements": 24,
+    "gp_file": "gp_024.npz",
+    "mean_query_variance_c2": 0.4684677330564223
+  },
+  {
+    "time_s": 675.024,
+    "measurements": 25,
+    "gp_file": "gp_025.npz",
+    "mean_query_variance_c2": 0.4681863174772002
+  },
+  {
+    "time_s": 677.0219999999999,
+    "measurements": 26,
+    "gp_file": "gp_026.npz",
+    "mean_query_variance_c2": 0.4678790992511951
+  },
+  {
+    "time_s": 679.0219999999999,
+    "measurements": 27,
+    "gp_file": "gp_027.npz",
+    "mean_query_variance_c2": 0.4675474930299725
+  },
+  {
+    "time_s": 681.0219999999999,
+    "measurements": 28,
+    "gp_file": "gp_028.npz",
+    "mean_query_variance_c2": 0.4671946020783884
+  },
+  {
+    "time_s": 683.0219999999999,
+    "measurements": 29,
+    "gp_file": "gp_029.npz",
+    "mean_query_variance_c2": 0.4668247983381679
+  },
+  {
+    "time_s": 685.018,
+    "measurements": 30,
+    "gp_file": "gp_030.npz",
+    "mean_query_variance_c2": 0.46644325662769504
+  },
+  {
+    "time_s": 687.028,
+    "measurements": 31,
+    "gp_file": "gp_031.npz",
+    "mean_query_variance_c2": 0.4660554790215433
+  },
+  {
+    "time_s": 689.0219999999999,
+    "measurements": 32,
+    "gp_file": "gp_032.npz",
+    "mean_query_variance_c2": 0.46566685909836925
+  },
+  {
+    "time_s": 691.02,
+    "measurements": 33,
+    "gp_file": "gp_033.npz",
+    "mean_query_variance_c2": 0.4652823290781289
+  },
+  {
+    "time_s": 693.0219999999999,
+    "measurements": 34,
+    "gp_file": "gp_034.npz",
+    "mean_query_variance_c2": 0.4649061149075847
+  },
+  {
+    "time_s": 695.02,
+    "measurements": 35,
+    "gp_file": "gp_035.npz",
+    "mean_query_variance_c2": 0.4645416036448979
+  },
+  {
+    "time_s": 697.024,
+    "measurements": 36,
+    "gp_file": "gp_036.npz",
+    "mean_query_variance_c2": 0.4641913104395623
+  },
+  {
+    "time_s": 699.0219999999999,
+    "measurements": 37,
+    "gp_file": "gp_037.npz",
+    "mean_query_variance_c2": 0.46385692217069585
+  },
+  {
+    "time_s": 701.028,
+    "measurements": 38,
+    "gp_file": "gp_038.npz",
+    "mean_query_variance_c2": 0.46353939156380675
+  },
+  {
+    "time_s": 703.0219999999999,
+    "measurements": 39,
+    "gp_file": "gp_039.npz",
+    "mean_query_variance_c2": 0.4632390576431942
+  },
+  {
+    "time_s": 705.024,
+    "measurements": 40,
+    "gp_file": "gp_040.npz",
+    "mean_query_variance_c2": 0.46295577336664767
+  },
+  {
+    "time_s": 707.026,
+    "measurements": 41,
+    "gp_file": "gp_041.npz",
+    "mean_query_variance_c2": 0.46268902718352223
+  },
+  {
+    "time_s": 709.0219999999999,
+    "measurements": 42,
+    "gp_file": "gp_042.npz",
+    "mean_query_variance_c2": 0.4624380506870446
+  },
+  {
+    "time_s": 711.02,
+    "measurements": 43,
+    "gp_file": "gp_043.npz",
+    "mean_query_variance_c2": 0.462201908820704
+  },
+  {
+    "time_s": 713.03,
+    "measurements": 44,
+    "gp_file": "gp_044.npz",
+    "mean_query_variance_c2": 0.4619795720874472
+  },
+  {
+    "time_s": 715.024,
+    "measurements": 45,
+    "gp_file": "gp_045.npz",
+    "mean_query_variance_c2": 0.461769972040039
+  },
+  {
+    "time_s": 717.028,
+    "measurements": 46,
+    "gp_file": "gp_046.npz",
+    "mean_query_variance_c2": 0.4615720422668902
+  },
+  {
+    "time_s": 719.0219999999999,
+    "measurements": 47,
+    "gp_file": "gp_047.npz",
+    "mean_query_variance_c2": 0.46138474740838953
+  },
+  {
+    "time_s": 721.0219999999999,
+    "measurements": 48,
+    "gp_file": "gp_048.npz",
+    "mean_query_variance_c2": 0.46120710268038495
+  },
+  {
+    "time_s": 747.0219999999999,
+    "measurements": 49,
+    "gp_file": "gp_049.npz",
+    "mean_query_variance_c2": 0.4462121378186161
+  },
+  {
+    "time_s": 749.026,
+    "measurements": 50,
+    "gp_file": "gp_050.npz",
+    "mean_query_variance_c2": 0.44582615777478235
+  },
+  {
+    "time_s": 751.02,
+    "measurements": 51,
+    "gp_file": "gp_051.npz",
+    "mean_query_variance_c2": 0.44565827543080405
+  },
+  {
+    "time_s": 753.0219999999999,
+    "measurements": 52,
+    "gp_file": "gp_052.npz",
+    "mean_query_variance_c2": 0.4455382035784921
+  },
+  {
+    "time_s": 755.0219999999999,
+    "measurements": 53,
+    "gp_file": "gp_053.npz",
+    "mean_query_variance_c2": 0.4454280464153737
+  },
+  {
+    "time_s": 757.03,
+    "measurements": 54,
+    "gp_file": "gp_054.npz",
+    "mean_query_variance_c2": 0.44531321074138297
+  },
+  {
+    "time_s": 759.024,
+    "measurements": 55,
+    "gp_file": "gp_055.npz",
+    "mean_query_variance_c2": 0.44518642972755984
+  },
+  {
+    "time_s": 799.034,
+    "measurements": 56,
+    "gp_file": "gp_056.npz",
+    "mean_query_variance_c2": 0.4181133626664596
+  },
+  {
+    "time_s": 801.024,
+    "measurements": 57,
+    "gp_file": "gp_057.npz",
+    "mean_query_variance_c2": 0.41776778240674545
+  },
+  {
+    "time_s": 803.026,
+    "measurements": 58,
+    "gp_file": "gp_058.npz",
+    "mean_query_variance_c2": 0.41760816130130823
+  },
+  {
+    "time_s": 805.024,
+    "measurements": 59,
+    "gp_file": "gp_059.npz",
+    "mean_query_variance_c2": 0.4174835423473095
+  },
+  {
+    "time_s": 807.026,
+    "measurements": 60,
+    "gp_file": "gp_060.npz",
+    "mean_query_variance_c2": 0.4173603572229211
+  },
+  {
+    "time_s": 809.024,
+    "measurements": 61,
+    "gp_file": "gp_061.npz",
+    "mean_query_variance_c2": 0.41722624949390774
+  },
+  {
+    "time_s": 811.024,
+    "measurements": 62,
+    "gp_file": "gp_062.npz",
+    "mean_query_variance_c2": 0.41707645040050095
+  },
+  {
+    "time_s": 813.028,
+    "measurements": 63,
+    "gp_file": "gp_063.npz",
+    "mean_query_variance_c2": 0.41691045062274207
+  },
+  {
+    "time_s": 815.02,
+    "measurements": 64,
+    "gp_file": "gp_064.npz",
+    "mean_query_variance_c2": 0.4167306815681774
+  },
+  {
+    "time_s": 817.026,
+    "measurements": 65,
+    "gp_file": "gp_065.npz",
+    "mean_query_variance_c2": 0.4165415455995427
+  },
+  {
+    "time_s": 819.024,
+    "measurements": 66,
+    "gp_file": "gp_066.npz",
+    "mean_query_variance_c2": 0.4163484558858967
+  },
+  {
+    "time_s": 821.028,
+    "measurements": 67,
+    "gp_file": "gp_067.npz",
+    "mean_query_variance_c2": 0.41615692797168974
+  },
+  {
+    "time_s": 823.03,
+    "measurements": 68,
+    "gp_file": "gp_068.npz",
+    "mean_query_variance_c2": 0.4159718555527777
+  },
+  {
+    "time_s": 825.028,
+    "measurements": 69,
+    "gp_file": "gp_069.npz",
+    "mean_query_variance_c2": 0.4157970624479497
+  },
+  {
+    "time_s": 827.028,
+    "measurements": 70,
+    "gp_file": "gp_070.npz",
+    "mean_query_variance_c2": 0.4156351388110322
+  },
+  {
+    "time_s": 843.6179999999999,
+    "measurements": 70,
+    "gp_file": "gp_071.npz",
+    "mean_query_variance_c2": 0.4156351388110322
+  }
+]

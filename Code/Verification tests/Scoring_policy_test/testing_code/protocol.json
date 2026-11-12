@@ -1,0 +1,48 @@
+{
+  "purpose": "Exact MI/area-EMSE/Adaptive WIVR functional and CPU verification; no reconstruction-performance ranking or ROS execution.",
+  "extent_m": [
+    30,
+    30
+  ],
+  "mission_budget_s": 120,
+  "motion_search_budget_s": 100,
+  "candidate_base_spacing_m": 1,
+  "candidate_counts": [
+    30,
+    50
+  ],
+  "scoring_cell_m": 10,
+  "scoring_time_step_s": 0.5,
+  "sensor_interval_s": 1,
+  "obstacle_bounds_m": [
+    13,
+    17,
+    13,
+    17
+  ],
+  "path_clearance_m": 0.75,
+  "checkpoint_clearance_m": 1,
+  "home_xy_m": [
+    3,
+    3
+  ],
+  "fixture_speed_m_s": 1,
+  "graph_note": "Temporary rectangle visibility-graph paths for Python scoring tests only; not Nav2 navigation or a physical feasibility claim.",
+  "weights": "effective cell area times current latent GP variance; frozen within each recursive search",
+  "near_zero_variance_c2": 1e-12,
+  "grg_depth": 2,
+  "grg_time_splits": 2,
+  "feature_cache_entries": 4096,
+  "score_cache_entries": 8192,
+  "schedule_cache_entries": 2048,
+  "numerical_absolute_tolerance": 1e-08,
+  "numerical_relative_tolerance": 1e-08,
+  "search_wall_limit_s": 45,
+  "threads": 4,
+  "continuous_test_directory": "Code/Verification tests/Continuous_sensing_test",
+  "grg_source": "Code/Verification tests/Robot_close_loop_system/testing_code/baseline/grg.py",
+  "performance_note": "980 synthetic historical observations from stage 2. Each policy/candidate-size search starts with cold caches and identical GP/grid/geometry. Timings are one run, not statistical performance ranking. No event downsampling, reduced scoring-time resolution or MI fallback is allowed.",
+  "budget_note": "The 100 s motion-only search includes return geometry and leaves 20 s nominally unallocated; actual computation/ROS budget feasibility remains unvalidated.",
+  "previous_timing_run": "run_20261111T001245540835Z",
+  "implementation_note": "Exact vectorized edge interpolation; scalar timing baseline preserved. Objectives, event/scoring resolution, cache sizes, search depth and split count unchanged."
+}

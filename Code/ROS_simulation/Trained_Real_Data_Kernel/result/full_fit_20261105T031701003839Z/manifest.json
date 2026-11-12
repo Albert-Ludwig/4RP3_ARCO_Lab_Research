@@ -1,0 +1,25 @@
+{
+  "input_sha256": "c81c0176feeda7a115ec764805f48bd7edb95648c841fb058bcbcc38d22b8f76",
+  "protocol_source_sha256": "f104a025ccc6d55402ecfe331389b42ae49e1d8234e1a66aee861afefd9dab20",
+  "gp_model_sha256": "82a529b747a17fb001f869acd46548977d6b91efb365f6547570fca65f945f35",
+  "worker_sha256": "ec3696eefa3b9686bc2bce001d8475e8a67f3ba0611f139be06c7516a63edcc6",
+  "shared_worker_sha256": "b934a2f92768611adfb87a59734530d0f97108178373e07bf369ed1c08e300cc",
+  "alignment_summary_sha256": "308eff4fd578edbad8de5de972a94ce2d3ca8a0072a6a039e5a6e482bd2d6189",
+  "runtime": {
+    "python": "3.12.3",
+    "torch": "2.14.1+cpu",
+    "gpytorch": "1.15.2",
+    "numpy": "2.5.4",
+    "scipy": "1.18.1"
+  },
+  "outputs": {
+    "coordinate_system.json": "66b399fefb2e4baa165764142508d8437758c3ae482e19e32952c523ad0db4d4",
+    "hyperparameters.json": "c19747e99b071599b8a1d974f3c11738d65b61dcebe2278d13d7aca1288fe3c5",
+    "initialization_comparison.csv": "dee78f55db83a223d311f1b97073aaa097fb776b06606f9daf0cf47cb02156a6",
+    "protocol.json": "b1348930bf17dfb9c16302f897753123d0267bba0931604b273b1dfdd6ce7f05",
+    "spatiotemporal_gp.pt": "3d26a11229cd85111c3f4f56311fdb51d53752fbb991d6ead698f370e4081fe8",
+    "training_history.csv": "81683efb8f32468c198655c839d3da3d9311dd5f2da7c8ced2bc3ada9177c8f7",
+    "training_summary.json": "b1ba94ef40fabaeacd728ce6aa3e5751e8dd7fae1ef1541798dd5402eacda2ae",
+    "verification.json": "2a6f539d6c0ee6b8410b5a51e2876973ccbff9c31d564a3b4dfb3c8bf6774ac3"
+  }
+}

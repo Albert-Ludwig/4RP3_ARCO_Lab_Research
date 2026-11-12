@@ -1,0 +1,19 @@
+{
+  "status": "blocked_missing_inputs",
+  "missing": [
+    "recorded_epoch_utc",
+    "mission_start_s",
+    "scene",
+    "candidate_xy_m",
+    "query_xy_m",
+    "priority_roi",
+    "Dataset 0",
+    "Dataset 1",
+    "Dataset 2",
+    "Dataset 3",
+    "Dataset 4",
+    "navigation map YAML/image registered to map-frame data"
+  ],
+  "config": "/workspace/Code/ROS_Nav2_policy_compare/config/real.json",
+  "final_real_comparison_complete": false
+}

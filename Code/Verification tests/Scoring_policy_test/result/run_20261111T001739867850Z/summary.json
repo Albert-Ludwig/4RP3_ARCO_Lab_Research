@@ -1,0 +1,29 @@
+{
+  "passed": true,
+  "correctness_passed": true,
+  "checks": 71,
+  "correctness_checks": 64,
+  "failed_checks": [],
+  "extent_m": [
+    30,
+    30
+  ],
+  "grid_cell_m": 10,
+  "scoring_spatial_cells": 9,
+  "scoring_time_step_s": 0.5,
+  "scoring_queries": 2169,
+  "effective_area_m2": 884.0,
+  "history_count": 980,
+  "continuous_events": true,
+  "checkpoint_dwell_s": 0,
+  "completed_searches": 6,
+  "requested_searches": 6,
+  "search_wall_limit_s": 45,
+  "policy_comparison_performed": false,
+  "ros_executed": false,
+  "reconstruction_accuracy_evaluated": false,
+  "complete_mission_budget_validated": false,
+  "performance_ready": false,
+  "maximum_numerical_error": 2.6645352591003757e-15,
+  "scope": "Exact scoring/recursive correctness and single-run component timings with temporary geometry. Performance readiness is only nominal component+motion arithmetic, never full ROS acceptance."
+}
