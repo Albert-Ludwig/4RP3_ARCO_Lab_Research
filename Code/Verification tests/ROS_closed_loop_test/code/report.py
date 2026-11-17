@@ -6,7 +6,8 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import nbformat as nb
-ROOT=Path(__file__).resolve().parents[1];RUN=ROOT/'result'/json.loads((ROOT/'result/latest.json').read_text())['run']
+ROOT=Path(__file__).resolve().parents[1];RUN=ROOT/'results'/json.loads((ROOT/'results/latest.json').read_text())['run']
+CODE=ROOT/'code';MEDIA=ROOT/'recordings'/RUN.name;MEDIA.mkdir(parents=True,exist_ok=True)
 cases=json.loads((RUN/'comparison.json').read_text())['cases'];figdir=RUN/'figures';figdir.mkdir(exist_ok=True)
 def table():
     headers=['Metric','GP + GRG every 1 s','GP + GRG every 5 s']
@@ -20,24 +21,27 @@ def table():
       ('Real-time factor',lambda s:f"{s['real_time_factor']:.5f}"),('Final synthetic RMSE (°C)',lambda s:f"{s['final_reconstruction_rmse_c']:.5f}"),('History Only RMSE (°C)',lambda s:f"{s['history_only_rmse_c']:.5f}"),
       ('All GP+GRG requests met interval deadline',lambda s:s['update_interval_feasible'])]
     return '| '+' | '.join(headers)+' |\n| --- | --- | --- |\n'+'\n'.join('| '+str(label)+' | '+' | '.join(str(fn(s)) for s in cases)+' |' for label,fn in fields)
-metrics=table();colors=['#a00045','#1769aa'];fig,axes=plt.subplots(1,2,figsize=(10,3.6))
-for s,color in zip(cases,colors):
-    dt=s['mission']['update_interval_s'];folder=RUN/f'update_{dt}s';b=np.load(folder/'backlog.npy')
-    axes[0].step(b[:,0],b[:,1],where='post',color=color,label=f'{dt} s updates')
-    p=sorted([json.loads(f.read_text()) for f in folder.glob('plan_*.json')],key=lambda j:j['request']['id'])
-    axes[1].plot([j['completion_t'] for j in p],[j['total_compute_s'] for j in p],color=color,label=f'{dt} s updates')
-axes[0].set(xlabel='Mission time (s)',ylabel='Queued + in-flight GRG requests');axes[1].set(xlabel='Mission time (s)',ylabel='Per-request compute (s)');axes[1].axhline(1,c='#999',ls='--');axes[1].axhline(5,c='#999',ls=':')
-for ax in axes:ax.legend();ax.grid(alpha=.2)
-fig.tight_layout();fig.savefig(figdir/'performance.png',dpi=160);plt.close(fig)
-fig,axes=plt.subplots(1,2,figsize=(9,3.6),sharex=True,sharey=True);cp=np.array(json.loads((RUN/'common/candidates.json').read_text()))
-for ax,s,color in zip(axes,cases,colors):
-    dt=s['mission']['update_interval_s'];t=np.load(RUN/f'update_{dt}s/trajectory.npy');ax.plot(t[:,1],t[:,2],color=color);ax.scatter(cp[1:,0],cp[1:,1],c='#999',s=14);ax.scatter(*cp[0],marker='*',c='#a00045',s=90);ax.set(title=f'GP + GRG every {dt} s',xlim=(0,30),ylim=(0,20),xlabel='Field x (m)',aspect='equal');ax.grid(alpha=.2)
-axes[0].set_ylabel('Field y (m)');fig.tight_layout();fig.savefig(figdir/'trajectories.png',dpi=160);plt.close(fig)
+metrics=table();colors=['#a00045','#1769aa']
+if not all((figdir/name).exists() for name in ('performance.png','trajectories.png')):
+    fig,axes=plt.subplots(1,2,figsize=(10,3.6))
+    for s,color in zip(cases,colors):
+        dt=s['mission']['update_interval_s'];folder=RUN/f'update_{dt}s';b=np.load(folder/'backlog.npy')
+        axes[0].step(b[:,0],b[:,1],where='post',color=color,label=f'{dt} s updates')
+        p=sorted([json.loads(f.read_text()) for f in folder.glob('plan_*.json')],key=lambda j:j['request']['id'])
+        axes[1].plot([j['completion_t'] for j in p],[j['total_compute_s'] for j in p],color=color,label=f'{dt} s updates')
+    axes[0].set(xlabel='Mission time (s)',ylabel='Queued + in-flight GRG requests');axes[1].set(xlabel='Mission time (s)',ylabel='Per-request compute (s)');axes[1].axhline(1,c='#999',ls='--');axes[1].axhline(5,c='#999',ls=':')
+    for ax in axes:ax.legend();ax.grid(alpha=.2)
+    fig.tight_layout();fig.savefig(figdir/'performance.png',dpi=160);plt.close(fig)
+    fig,axes=plt.subplots(1,2,figsize=(9,3.6),sharex=True,sharey=True);cp=np.array(json.loads((RUN/'common/candidates.json').read_text()))
+    for ax,s,color in zip(axes,cases,colors):
+        dt=s['mission']['update_interval_s'];t=np.load(RUN/f'update_{dt}s/trajectory.npy');ax.plot(t[:,1],t[:,2],color=color);ax.scatter(cp[1:,0],cp[1:,1],c='#999',s=14);ax.scatter(*cp[0],marker='*',c='#a00045',s=90);ax.set(title=f'GP + GRG every {dt} s',xlim=(0,30),ylim=(0,20),xlabel='Field x (m)',aspect='equal');ax.grid(alpha=.2)
+    axes[0].set_ylabel('Field y (m)');fig.tight_layout();fig.savefig(figdir/'trajectories.png',dpi=160);plt.close(fig)
+cp=np.array(json.loads((RUN/'common/candidates.json').read_text()))
 def make_replay():
     """Side-by-side 4x MCAP pose replay; not a Gazebo GUI recording."""
     from PIL import Image,ImageDraw,ImageFont
     import imageio_ffmpeg
-    output=RUN/'robot_replay.mp4'
+    output=MEDIA/'robot_replay.mp4'
     if output.exists():return
     font=ImageFont.truetype(str(Path(matplotlib.get_data_path())/'fonts/ttf/DejaVuSans.ttf'),18)
     data=[]
@@ -78,11 +82,30 @@ conclusion='Five-second updates reduce request pressure, but not the intrinsic c
 for s in cases:
     dt=s['mission']['update_interval_s'];conclusion+=f" GP + GRG every {dt} s: deadline acceptance = {s['update_interval_feasible']}; unfinished requests = {s['worker']['unprocessed']}."
 rel=RUN.relative_to(ROOT).as_posix();md=lambda t:nb.v4.new_markdown_cell(t)
-notebook=nb.v4.new_notebook(cells=[md('# GP–GRG update interval performance\n\n'+RUN.name+'\n\n'+cfg),md('## Implementation\n\n'+method+'\n\n'+terminal),md('## Results\n\n'+metrics),md('## Compute and backlog\n\n![]('+rel+'/figures/performance.png)'),md('## Actual Gazebo trajectories\n\n![]('+rel+'/figures/trajectories.png)'),md('## Recorded replay\n\n[Side-by-side robot pose replay, 4× speed]('+rel+'/robot_replay.mp4)\n\nThis animation is generated from recorded MCAP poses; it is not a Gazebo GUI capture.'),md('## Checks and conclusion\n\n'+conclusion+'\n\nChecks use raw MCAP poses, all successful temperature records, exact final-GP input/label equality, reproducible SRF measurements and independent first/middle/last WIVR score audits for each case (atol=rtol=1e-8). RMSE uses the final posterior on the shared 9,150-point 0–300 s synthetic grid (2 m cell centres, 5 s time slices; these do not restrict continuous SRF queries); it is descriptive here. One paired run, ideal localization and a flat map do not establish real-world timing or GUI frame rate.')],metadata={'kernelspec':{'display_name':'Python 3','language':'python','name':'python3'}})
+from IPython.display import Video
+video_path=MEDIA/'robot_replay.mp4'
+video_relative=video_path.relative_to(ROOT).as_posix()
+video_source=("from pathlib import Path\nfrom IPython.display import Video, display\n"
+              +"video = Path("+repr(video_relative)+")\n"
+              +"display(Video(filename=str(video), embed=True, width=1000))")
+video_cell=nb.v4.new_code_cell(source=video_source,execution_count=1,
+    outputs=[nb.v4.new_output('display_data',data={
+        'text/html':Video(filename=str(video_path),embed=True,width=1000)._repr_html_(),
+        'text/plain':'<IPython.core.display.Video object>'})])
+notebook=nb.v4.new_notebook(cells=[
+    md('# GP–GRG update interval performance\n\n'+RUN.name+'\n\n'+cfg),
+    md('## Implementation\n\n'+method+'\n\n'+terminal),
+    md('## Results\n\n'+metrics),
+    md('## Compute and backlog\n\n![]('+rel+'/figures/performance.png)'),
+    md('## Actual Gazebo trajectories\n\n![]('+rel+'/figures/trajectories.png)'),
+    md('## Recorded replay\n\nEmbedded side-by-side replay at 4× speed. The video output is stored inside this notebook and can be played directly. It is generated from recorded MCAP poses, not a Gazebo GUI capture.'),
+    video_cell,
+    md('## Checks and conclusion\n\n'+conclusion+'\n\nChecks use raw MCAP poses, all successful temperature records, exact final-GP input/label equality, reproducible SRF measurements and independent first/middle/last WIVR score audits for each case (atol=rtol=1e-8). RMSE uses the final posterior on the shared 9,150-point 0–300 s synthetic grid (2 m cell centres, 5 s time slices; these do not restrict continuous SRF queries); it is descriptive here. One paired run, ideal localization and a flat map do not establish real-world timing or GUI frame rate.')
+],metadata={'kernelspec':{'display_name':'Python 3','language':'python','name':'python3'}})
 nb.write(notebook,ROOT/'test_report.ipynb')
-files='| File | Purpose |\n| --- | --- |\n| testing_code/protocol.json | Shared configuration; 1 s / 5 s case overrides saved per run |\n| testing_code/src/core.hpp | Exact GP, WIVR, continuous sensing events and depth-2 GRG |\n| testing_code/src/nodes.cpp | Configured GP batching, FIFO GRG worker, goal-epoch checks and arrival-only goal switching |\n| testing_code/prepare.py | Common history, SRF, map, candidates and evaluation grid |\n| testing_code/scene.launch.py, navigation_profile.* | Existing Bunker/Nav2 launch and speed limits |\n| testing_code/srf_monitor.py | Existing Python temperature source and resource monitor |\n| testing_code/run.py, run.sh, Run-ClosedLoop.ps1 | Paired launch, MCAP recording, stop and worker drain |\n| testing_code/evaluate.py, evaluate_case.py | Independent numerical, data and performance checks |\n| testing_code/report.py | Single README and notebook |\n| result/'+RUN.name+' | Common immutable inputs, update_1s/update_5s raw outputs, queued requests, final models and metrics |'
-text='# ROS closed loop: GP–GRG update interval\n\n## Purpose\n\nMeasure the compute cost and feasibility of GP + GRG updates every 1 s versus every 5 s, with **WIVR fixed in both cases**. This replaces the previous test; the unrequested three-policy experiment was removed.\n\n## Configuration and architecture\n\n'+cfg+'\n\n'+method+'\n\n'+terminal+'\n\n## Executed results\n\n'+metrics+'\n\n'+conclusion+'\n\n[Figures and details](test_report.ipynb). [4× MCAP pose replay]('+rel+'/robot_replay.mp4).\n\n## Files and computations\n\n'+files+'\n\n`GP::append/factor/posterior` implements the exact fixed-parameter RBF posterior. `Search::events` places predicted 1 Hz events on Nav2 polylines. `Search::score` computes joint posterior variance reduction, weighted by area × variance from the request GP; weights are fixed during each search. `Search::recurse` performs depth-2 GRG. `Experiment::update_gp` implements the 1/5 s batching; `process_jobs` computes GRG; `dispatch/poll` enforce arrival-only goal switching and remaining-time/Home checks. All actual samples use simulator pose and timestamp.\n\nDependencies: existing Docker bunker-jazzy, Jazzy/Nav2/Gazebo overlay, trained RBF hyperparameters, Nav2_test scene generation, SRF_test TemperatureField, Continuous_sensing_test GP reference and Scoring_policy_test objectives. WELL-E logic is unchanged.\n\n```powershell\npowershell -ExecutionPolicy Bypass -File .\\testing_code\\Run-ClosedLoop.ps1\n```\n'
+files='| File | Purpose |\n| --- | --- |\n| code/protocol.json | Shared configuration; 1 s / 5 s case overrides saved per run |\n| code/src/core.hpp | Exact GP, WIVR, continuous sensing events and depth-2 GRG |\n| code/src/nodes.cpp | Configured GP batching, FIFO GRG worker, goal-epoch checks and arrival-only goal switching |\n| code/prepare.py | Common history, SRF, map, candidates and evaluation grid |\n| code/scene.launch.py, navigation_profile.* | Existing Bunker/Nav2 launch and speed limits |\n| code/srf_monitor.py | Existing Python temperature source and resource monitor |\n| code/run.py, run.sh, Run-ClosedLoop.ps1 | Paired launch, MCAP recording, stop and worker drain |\n| code/evaluate.py, evaluate_case.py | Independent numerical, data and performance checks |\n| code/report.py | Single README and notebook |\n| results/'+RUN.name+' | Runtime inputs, logs, queued requests, final GP models, metrics and figures |\n| code/snapshots/'+RUN.name+' | Original runtime/analysis sources and current report source |\n| recordings/'+RUN.name+' | Video replay and update_1s/update_5s rosbag folders |'
+text='# ROS closed loop: GP–GRG update interval\n\n## Purpose\n\nMeasure the compute cost and feasibility of GP + GRG updates every 1 s versus every 5 s, with **WIVR fixed in both cases**. \n\n## Folder layout\n\n```text\nROS_closed_loop_test/\n  code/          # Source, configuration, launchers and source snapshots\n  results/       # Runtime data, metrics, models and figures\n  recordings/    # MP4 replay and rosbag recordings\n  README.md\n  test_report.ipynb\n```\n\n## Configuration and architecture\n\n'+cfg+'\n\n'+method+'\n\n'+terminal+'\n\n## Executed results\n\n'+metrics+'\n\n'+conclusion+'\n\n[Figures and details](test_report.ipynb). [4× MCAP pose replay]('+video_relative+').\n\n## Files and computations\n\n'+files+'\n\n`GP::append/factor/posterior` implements the exact fixed-parameter RBF posterior. `Search::events` places predicted 1 Hz events on Nav2 polylines. `Search::score` computes joint posterior variance reduction, weighted by area × variance from the request GP; weights are fixed during each search. `Search::recurse` performs depth-2 GRG. `Experiment::update_gp` implements the 1/5 s batching; `process_jobs` computes GRG; `dispatch/poll` enforce arrival-only goal switching and remaining-time/Home checks. All actual samples use simulator pose and timestamp.\n\nDependencies: existing Docker bunker-jazzy, Jazzy/Nav2/Gazebo overlay, trained RBF hyperparameters, Nav2_test scene generation, SRF_test TemperatureField, Continuous_sensing_test GP reference and Scoring_policy_test objectives. WELL-E logic is unchanged.\n\n```powershell\npowershell -ExecutionPolicy Bypass -File .\\code\\Run-ClosedLoop.ps1\n```\n'
 (ROOT/'README.md').write_text(text,encoding='utf8')
-analysis=RUN/'analysis_source_snapshot';analysis.mkdir(exist_ok=True)
-for name in ('evaluate.py','evaluate_case.py','report.py'):shutil.copy2(ROOT/'testing_code'/name,analysis/name)
+analysis=CODE/'snapshots'/RUN.name/'report_source';analysis.mkdir(parents=True,exist_ok=True)
+for name in ('evaluate.py','evaluate_case.py','report.py'):shutil.copy2(CODE/name,analysis/name)
 print(ROOT/'test_report.ipynb')

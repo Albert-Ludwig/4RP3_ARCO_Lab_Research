@@ -18,7 +18,7 @@ Component checks and individual-policy functional runs belong here. The current 
 
 The ROS performance test has its own **30 × 20 m, 10-waypoint + Home, 300 s** configuration and compares **GP + GRG update intervals of 1 s and 5 s**, with WIVR fixed and sensing at 1 Hz. The following shared settings describe earlier Python fixtures.
 
-The Python scoring fixture uses Home (3,3) m, a central box at x,y = [13,17] m, and 1 m/s nominal timing. ROS execution and interval-dependent timing are recorded in the current closed-loop test. See the [ROS verification configuration](ROS_closed_loop_test/testing_code/protocol.json).
+The Python scoring fixture uses Home (3,3) m, a central box at x,y = [13,17] m, and 1 m/s nominal timing. ROS execution and interval-dependent timing are recorded in the current closed-loop test. See the [ROS verification configuration](ROS_closed_loop_test/code/protocol.json).
 
 ## Test folders and status
 

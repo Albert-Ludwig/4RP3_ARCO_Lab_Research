@@ -4,9 +4,9 @@ site.addsitedir('/usr/lib/python3/dist-packages')
 from pathlib import Path
 import importlib.util,sys,os,json,hashlib
 import numpy as np
-ROOT=Path(__file__).resolve().parents[1];REPO=ROOT.parents[2];CODE=ROOT/'testing_code'
+ROOT=Path(__file__).resolve().parents[1];REPO=ROOT.parents[2];CODE=ROOT/'code'
 OUT=Path(os.environ['SP_COMMON']);OUT.mkdir(parents=True,exist_ok=False)
-VER=REPO/'Code/Verification tests';OLD=VER/'ROS_closed_loop_test/testing_code'
+VER=REPO/'Code/Verification tests';OLD=VER/'ROS_closed_loop_test/code'
 sys.path.insert(0,str(VER/'SRF_test/testing_code'));sys.path.insert(0,str(OLD))
 from srf_field import TemperatureField
 from navigation_profile import apply,profile

@@ -1,0 +1,13 @@
+{
+  "code": "code",
+  "results": "results",
+  "recordings": "recordings",
+  "historical_source_locations": {
+    "result/run_20261117T023229Z/source_snapshot": "code/snapshots/run_20261117T023229Z/source_snapshot",
+    "result/run_20261117T023229Z/analysis_source_snapshot": "code/snapshots/run_20261117T023229Z/analysis_source_snapshot",
+    "result/run_20261117T023229Z/robot_replay.mp4": "recordings/run_20261117T023229Z/robot_replay.mp4",
+    "result/run_20261117T023229Z/update_1s/rosbag": "recordings/run_20261117T023229Z/update_1s/rosbag",
+    "result/run_20261117T023229Z/update_5s/rosbag": "recordings/run_20261117T023229Z/update_5s/rosbag"
+  },
+  "note": "Historical manifests and logs preserve original names and recorded bytes. Current launchers and readers use this layout."
+}

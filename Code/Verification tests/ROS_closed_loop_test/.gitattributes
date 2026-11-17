@@ -1,3 +1,5 @@
 # Preserve raw evidence and frozen-source hashes across platforms.
-result/** -text
+results/** -text
+recordings/** -text
+code/snapshots/** -text
 *.sh text eol=lf

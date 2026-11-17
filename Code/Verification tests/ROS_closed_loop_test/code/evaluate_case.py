@@ -39,7 +39,7 @@ if plans:
 import rosbag2_py
 from rclpy.serialization import deserialize_message
 from nav_msgs.msg import Odometry
-reader=rosbag2_py.SequentialReader();reader.open(rosbag2_py.StorageOptions(uri=str(RUN/'rosbag'),storage_id='mcap'),rosbag2_py.ConverterOptions('',''))
+reader=rosbag2_py.SequentialReader();reader.open(rosbag2_py.StorageOptions(uri=str(ROOT/'recordings'/SUITE.name/RUN.name/'rosbag'),storage_id='mcap'),rosbag2_py.ConverterOptions('',''))
 trajectory=[]
 while reader.has_next():
     topic,data,_=reader.read_next()

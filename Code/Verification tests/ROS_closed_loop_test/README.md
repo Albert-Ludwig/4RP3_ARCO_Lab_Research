@@ -2,7 +2,18 @@
 
 ## Purpose
 
-Measure the compute cost and feasibility of GP + GRG updates every 1 s versus every 5 s, with **WIVR fixed in both cases**. This replaces the previous test; the unrequested three-policy experiment was removed.
+Measure the compute cost and feasibility of GP + GRG updates every 1 s versus every 5 s, with **WIVR fixed in both cases**. 
+
+## Folder layout
+
+```text
+ROS_closed_loop_test/
+  code/          # Source, configuration, launchers and source snapshots
+  results/       # Runtime data, metrics, models and figures
+  recordings/    # MP4 replay and rosbag recordings
+  README.md
+  test_report.ipynb
+```
 
 ## Configuration and architecture
 
@@ -47,27 +58,29 @@ At stop, any residual observations are committed to the final GP without request
 
 Five-second updates reduce request pressure, but not the intrinsic cost of a matched GRG search. Late-mission searches have fewer feasible branches as the remaining budget shrinks; the two per-request means summarize different completed request sets and are not an algorithm speedup factor. Computation overlaps navigation and must not be added to mission duration. The results distinguish functional success (sensing, exact GP assimilation, unchanged active goals and Home return) from timing acceptance. A complete search that exceeds its configured update interval is late even without hitting the 180 s guard. This is an implementation performance test of GP/GRG scheduling with one fixed scoring method, not a comparison of MI/EMSE/WIVR or proof about their reconstruction ranking. GP + GRG every 1 s: deadline acceptance = False; unfinished requests = 233. GP + GRG every 5 s: deadline acceptance = False; unfinished requests = 0.
 
-[Figures and details](test_report.ipynb). [4× MCAP pose replay](result/run_20261117T023229Z/robot_replay.mp4).
+[Figures and details](test_report.ipynb). [4× MCAP pose replay](recordings/run_20261117T023229Z/robot_replay.mp4).
 
 ## Files and computations
 
 | File | Purpose |
 | --- | --- |
-| testing_code/protocol.json | Shared configuration; 1 s / 5 s case overrides saved per run |
-| testing_code/src/core.hpp | Exact GP, WIVR, continuous sensing events and depth-2 GRG |
-| testing_code/src/nodes.cpp | Configured GP batching, FIFO GRG worker, goal-epoch checks and arrival-only goal switching |
-| testing_code/prepare.py | Common history, SRF, map, candidates and evaluation grid |
-| testing_code/scene.launch.py, navigation_profile.* | Existing Bunker/Nav2 launch and speed limits |
-| testing_code/srf_monitor.py | Existing Python temperature source and resource monitor |
-| testing_code/run.py, run.sh, Run-ClosedLoop.ps1 | Paired launch, MCAP recording, stop and worker drain |
-| testing_code/evaluate.py, evaluate_case.py | Independent numerical, data and performance checks |
-| testing_code/report.py | Single README and notebook |
-| result/run_20261117T023229Z | Common immutable inputs, update_1s/update_5s raw outputs, queued requests, final models and metrics |
+| code/protocol.json | Shared configuration; 1 s / 5 s case overrides saved per run |
+| code/src/core.hpp | Exact GP, WIVR, continuous sensing events and depth-2 GRG |
+| code/src/nodes.cpp | Configured GP batching, FIFO GRG worker, goal-epoch checks and arrival-only goal switching |
+| code/prepare.py | Common history, SRF, map, candidates and evaluation grid |
+| code/scene.launch.py, navigation_profile.* | Existing Bunker/Nav2 launch and speed limits |
+| code/srf_monitor.py | Existing Python temperature source and resource monitor |
+| code/run.py, run.sh, Run-ClosedLoop.ps1 | Paired launch, MCAP recording, stop and worker drain |
+| code/evaluate.py, evaluate_case.py | Independent numerical, data and performance checks |
+| code/report.py | Single README and notebook |
+| results/run_20261117T023229Z | Runtime inputs, logs, queued requests, final GP models, metrics and figures |
+| code/snapshots/run_20261117T023229Z | Original runtime/analysis sources and current report source |
+| recordings/run_20261117T023229Z | Video replay and update_1s/update_5s rosbag folders |
 
 `GP::append/factor/posterior` implements the exact fixed-parameter RBF posterior. `Search::events` places predicted 1 Hz events on Nav2 polylines. `Search::score` computes joint posterior variance reduction, weighted by area × variance from the request GP; weights are fixed during each search. `Search::recurse` performs depth-2 GRG. `Experiment::update_gp` implements the 1/5 s batching; `process_jobs` computes GRG; `dispatch/poll` enforce arrival-only goal switching and remaining-time/Home checks. All actual samples use simulator pose and timestamp.
 
 Dependencies: existing Docker bunker-jazzy, Jazzy/Nav2/Gazebo overlay, trained RBF hyperparameters, Nav2_test scene generation, SRF_test TemperatureField, Continuous_sensing_test GP reference and Scoring_policy_test objectives. WELL-E logic is unchanged.
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\testing_code\Run-ClosedLoop.ps1
+powershell -ExecutionPolicy Bypass -File .\code\Run-ClosedLoop.ps1
 ```
