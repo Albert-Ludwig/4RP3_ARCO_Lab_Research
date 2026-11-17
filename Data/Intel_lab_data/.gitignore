@@ -1,5 +1,0 @@
-# The complete source is versioned as raw/data.zip.
-/raw/data.txt
-__pycache__/
-*.pyc
-.DS_Store

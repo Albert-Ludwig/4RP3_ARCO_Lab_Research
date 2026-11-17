@@ -1,0 +1,54 @@
+{
+  "working_extent_m": [
+    97,
+    64
+  ],
+  "mission_interval_s": [
+    0,
+    300
+  ],
+  "scaled_coordinate_scales_m_m_s": [
+    12,
+    12,
+    180
+  ],
+  "matern_nu": 1.5,
+  "fourier_modes": 1024,
+  "field_seed": 20261109,
+  "mean_c": 27.114475924744895,
+  "variance_c2": 0.04039312168957292,
+  "trend_c_per_s": 0,
+  "noise_std_c": 0.03,
+  "noise_seed": 20261110,
+  "batch_size": 1024,
+  "threads": 4,
+  "reference_resolution": {
+    "space_m": 0.1,
+    "time_s": 0.5
+  },
+  "visualization": {
+    "space_m": 0.1,
+    "snapshot_times_s": [
+      0,
+      150,
+      300
+    ],
+    "time_step_s": 0.5
+  },
+  "calibration_pending": [
+    "Spatial and temporal scales",
+    "Matern smoothness and finite-mode accuracy for the field",
+    "Sensor noise and response",
+    "Independent temporal trend",
+    "Real map registration and mask",
+    "Multi-run calibration"
+  ],
+  "historical_reference": {
+    "file": "Data/Real_Data_Integration/result/gp_samples.csv",
+    "sha256": "c81c0176feeda7a115ec764805f48bd7edb95648c841fb058bcbcc38d22b8f76",
+    "observations": 980,
+    "minimum_c": 26.50966796875,
+    "maximum_c": 27.753779296875003
+  },
+  "status": "Fixed source for lookahead scheduling verification; field calibration remains pending."
+}

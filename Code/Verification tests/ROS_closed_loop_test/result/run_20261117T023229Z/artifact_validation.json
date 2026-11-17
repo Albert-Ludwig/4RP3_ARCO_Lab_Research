@@ -1,0 +1,15 @@
+{
+  "shared_inputs_equal": {
+    "initial.json": true,
+    "field.json": true,
+    "candidates.json": true,
+    "world.sdf": true,
+    "nav2_params.yaml": true,
+    "navigation_profile.json": true
+  },
+  "graph_identical": true,
+  "notebook_valid": true,
+  "unrequested_comparison_removed": true,
+  "replay_valid": true,
+  "replay_duration_s": 75.1
+}

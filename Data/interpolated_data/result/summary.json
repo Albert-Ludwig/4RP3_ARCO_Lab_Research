@@ -1,0 +1,673 @@
+{
+  "run_id": "nov-3-baseball-1",
+  "status": "prepared_with_unverified_clock_alignment",
+  "temperature_count": 1100,
+  "gps_count": 981,
+  "valid_gps_count": 981,
+  "matched_count": 980,
+  "alignment_counts": {
+    "before_gps": 63,
+    "matched": 980,
+    "after_gps": 57
+  },
+  "temperature_start_utc": "2026-11-03T19:23:13.000000000Z",
+  "temperature_end_utc": "2026-11-03T19:41:32.000000000Z",
+  "gps_start_utc": "2026-11-03T19:24:15.325545540Z",
+  "gps_end_utc": "2026-11-03T19:40:35.325761204Z",
+  "matched_start_utc": "2026-11-03T19:24:16.000000000Z",
+  "matched_end_utc": "2026-11-03T19:40:35.000000000Z",
+  "temperature_interval_s": {
+    "min": 1.0,
+    "median": 1.0,
+    "p95": 1.0,
+    "max": 1.0
+  },
+  "gps_interval_s": {
+    "min": 0.808602775,
+    "median": 0.999998068,
+    "p95": 1.00120156805,
+    "max": 1.188459252
+  },
+  "temperature_c": {
+    "min": 26.0806640625,
+    "median": 27.11027343749999,
+    "p95": 27.410576171875,
+    "max": 27.753779296875003
+  },
+  "gps_bracket_gap_s": {
+    "min": 0.808602775,
+    "median": 0.999998068,
+    "p95": 1.00120156805,
+    "max": 1.188459252
+  },
+  "nearest_gps_time_distance_s": {
+    "min": 0.324345236,
+    "median": 0.32557906049999996,
+    "p95": 0.3263144111,
+    "max": 0.515977788
+  },
+  "receipt_minus_header_s": {
+    "min": 0.000251758,
+    "median": 0.000511059,
+    "p95": 0.001157772,
+    "max": 0.104473569
+  },
+  "gps_status_counts": {
+    "2": 981
+  },
+  "gps_covariance_type_counts": {
+    "3": 981
+  },
+  "gps_frame_ids": [
+    "gps"
+  ],
+  "gps_extent_east_north_m": [
+    97.50907349350528,
+    63.5483863964139
+  ],
+  "horizontal_path_length_m": 1028.370759657246,
+  "horizontal_speed_m_s": {
+    "min": 1.749346489955032e-10,
+    "median": 1.1160330330826889,
+    "p95": 1.2249997730883837,
+    "max": 1.5246375823504867
+  },
+  "coordinate_system": {
+    "name": "local_enu_at_first_valid_gps",
+    "datum": "WGS84",
+    "origin_latitude_deg": 43.265474,
+    "origin_longitude_deg": -79.928666,
+    "origin_altitude_m": 45.3434,
+    "origin_gps_message_id": 369,
+    "time_origin_utc": "2026-11-03T19:24:15.325545540Z",
+    "time_origin_utc_ns": 1793733855325545540,
+    "axes": "x east, y north, z up",
+    "position_reference": "GPS antenna; HOBO lever arm unknown",
+    "ros_map_transform": "not established"
+  },
+  "assumptions": {
+    "temperature_timezone": "Fixed EST UTC-05:00, as declared by workbook",
+    "temperature_offset_s": 0.0,
+    "clock_alignment_verified": false,
+    "gps_time": "NavSatFix header timestamp interpreted as Unix UTC",
+    "max_gps_gap_s": 2.0,
+    "interpolation": "Linear ENU interpolation between consecutive valid fixes; no extrapolation",
+    "sensor_response_delay": "unknown; no correction applied",
+    "common_synchronization_event": "not identified"
+  },
+  "offset_sensitivity": [
+    {
+      "assumed_extra_offset_s": -2.0,
+      "comparable_samples": 978,
+      "horizontal_displacement_m": {
+        "min": 4.798856067567677e-10,
+        "median": 2.2341492765330586,
+        "p95": 2.3125988354047298,
+        "max": 2.404103126811406
+      }
+    },
+    {
+      "assumed_extra_offset_s": -1.0,
+      "comparable_samples": 979,
+      "horizontal_displacement_m": {
+        "min": 1.3947242573147683e-10,
+        "median": 1.1164698966108366,
+        "p95": 1.1675897451165358,
+        "max": 1.225400947416295
+      }
+    },
+    {
+      "assumed_extra_offset_s": 1.0,
+      "comparable_samples": 979,
+      "horizontal_displacement_m": {
+        "min": 1.3947242573147683e-10,
+        "median": 1.1164698966108366,
+        "p95": 1.1675897451165358,
+        "max": 1.225400947416295
+      }
+    },
+    {
+      "assumed_extra_offset_s": 2.0,
+      "comparable_samples": 978,
+      "horizontal_displacement_m": {
+        "min": 4.798856067567677e-10,
+        "median": 2.2341492765330586,
+        "p95": 2.3125988354047298,
+        "max": 2.404103126811406
+      }
+    }
+  ],
+  "limitations": [
+    "Sample phase and bag receipt latency do not establish HOBO/GPS clock synchronization.",
+    "NavSatStatus=2 indicates GBAS; it does not alone establish an RTK fixed solution or centimetre accuracy.",
+    "GPS antenna position is a proxy for temperature sensor position; mounting offset is unmeasured.",
+    "One mobile run confounds spatial and temporal variation. No long-term temporal validation is possible here.",
+    "No temperature detrending, smoothing, calibration, response correction or kernel fitting was performed.",
+    "This trajectory provides sampled locations, not an occupancy or traversability map.",
+    "Only selected GPS messages were deserialized; no whole-bag integrity or image-stream validation."
+  ],
+  "source_workbook_events": [
+    [
+      "#",
+      "Date-Time (EST)",
+      "Host Connected",
+      "End of File",
+      "Started",
+      "Stopped",
+      "Button Up",
+      "Button Down"
+    ],
+    [
+      1,
+      "2026-11-03T14:23:13",
+      null,
+      null,
+      "Logged",
+      null,
+      null,
+      null
+    ],
+    [
+      2,
+      "2026-11-03T14:40:57",
+      null,
+      null,
+      null,
+      null,
+      "Logged",
+      "Logged"
+    ],
+    [
+      3,
+      "2026-11-03T14:41:18",
+      "Logged",
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    [
+      4,
+      "2026-11-03T14:41:32",
+      null,
+      "Logged",
+      null,
+      "Logged",
+      null,
+      null
+    ]
+  ],
+  "source_workbook_details": [
+    [
+      "Details",
+      null,
+      null,
+      null
+    ],
+    [
+      "Devices",
+      null,
+      null,
+      null
+    ],
+    [
+      null,
+      "App Info",
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      "App Name",
+      "HOBOconnect"
+    ],
+    [
+      null,
+      null,
+      "Version",
+      "2.11.1 (1787146363)"
+    ],
+    [
+      null,
+      "Device Info",
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      "Product",
+      "MX2202"
+    ],
+    [
+      null,
+      null,
+      "Serial Number",
+      "22209634"
+    ],
+    [
+      null,
+      null,
+      "Firmware Version",
+      "70.140"
+    ],
+    [
+      null,
+      null,
+      "Manufacturer",
+      "Onset Computer Corporation"
+    ],
+    [
+      null,
+      null,
+      "Device Memory",
+      "176128"
+    ],
+    [
+      null,
+      null,
+      "Header Created",
+      "2026/11/03 14:23:12 EST"
+    ],
+    [
+      null,
+      "Deployment Info",
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      "Name",
+      "22209634"
+    ],
+    [
+      null,
+      null,
+      "Location",
+      "Off"
+    ],
+    [
+      null,
+      null,
+      "Group Name",
+      "NA"
+    ],
+    [
+      null,
+      null,
+      "Deployment Number",
+      "2"
+    ],
+    [
+      null,
+      null,
+      "Never Stop (Overwrites Old Data) Enabled",
+      "No"
+    ],
+    [
+      null,
+      null,
+      "Configure Date",
+      "2026/11/03 14:23:12 EST"
+    ],
+    [
+      null,
+      null,
+      "Logging Interval",
+      "0 hour 0 minutes 1 seconds"
+    ],
+    [
+      null,
+      null,
+      "Logging Mode",
+      "Fixed - Normal"
+    ],
+    [
+      null,
+      null,
+      "Start Logging",
+      "On Save"
+    ],
+    [
+      null,
+      null,
+      "Stop Logging",
+      "Stop When Memory Fills "
+    ],
+    [
+      null,
+      null,
+      "Show Visual Alarms Until",
+      "Sensors In Limits"
+    ],
+    [
+      null,
+      null,
+      "Show LED",
+      "On"
+    ],
+    [
+      null,
+      null,
+      "Bluetooth Always On",
+      "Off"
+    ],
+    [
+      null,
+      null,
+      "Upload Data Via",
+      "Off"
+    ],
+    [
+      "Series : Temperature , °C",
+      null,
+      null,
+      null
+    ],
+    [
+      null,
+      "Alarm Settings",
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      "High Alarm Value",
+      "Not Configured"
+    ],
+    [
+      null,
+      null,
+      "Low Alarm Value",
+      "Not Configured"
+    ],
+    [
+      null,
+      "Series Statistics",
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      "Samples",
+      "1100"
+    ],
+    [
+      null,
+      null,
+      "Max",
+      "27.75"
+    ],
+    [
+      null,
+      null,
+      "Min",
+      "26.08"
+    ],
+    [
+      null,
+      null,
+      "Avg",
+      "27.05"
+    ],
+    [
+      null,
+      null,
+      "Std Dev",
+      ".28"
+    ],
+    [
+      null,
+      null,
+      "First Sample Time",
+      "2026/11/03 14:23:13 EST"
+    ],
+    [
+      null,
+      null,
+      "Last Sample Time",
+      "2026/11/03 14:41:32 EST"
+    ]
+  ],
+  "source_topics": [
+    {
+      "id": 1,
+      "name": "/rosout",
+      "type": "rcl_interfaces/msg/Log",
+      "serialization_format": "cdr"
+    },
+    {
+      "id": 2,
+      "name": "/zed/zed_node/plane_marker",
+      "type": "visualization_msgs/msg/Marker",
+      "serialization_format": "cdr"
+    },
+    {
+      "id": 3,
+      "name": "/client_count",
+      "type": "std_msgs/msg/Int32",
+      "serialization_format": "cdr"
+    },
+    {
+      "id": 4,
+      "name": "/zed/zed_node/odom",
+      "type": "nav_msgs/msg/Odometry",
+      "serialization_format": "cdr"
+    },
+    {
+      "id": 5,
+      "name": "/zed/zed_node/left_gray/image_rect_gray",
+      "type": "sensor_msgs/msg/Image",
+      "serialization_format": "cdr"
+    },
+    {
+      "id": 6,
+      "name": "/zed/zed_node/left_gray/camera_info",
+      "type": "sensor_msgs/msg/CameraInfo",
+      "serialization_format": "cdr"
+    },
+    {
+      "id": 7,
+      "name": "/zed/zed_node/left_cam_imu_transform",
+      "type": "geometry_msgs/msg/TransformStamped",
+      "serialization_format": "cdr"
+    },
+    {
+      "id": 8,
+      "name": "/diagnostics",
+      "type": "diagnostic_msgs/msg/DiagnosticArray",
+      "serialization_format": "cdr"
+    },
+    {
+      "id": 9,
+      "name": "/zed/zed_node/imu/data_raw",
+      "type": "sensor_msgs/msg/Imu",
+      "serialization_format": "cdr"
+    },
+    {
+      "id": 10,
+      "name": "/zed/zed_node/atm_press",
+      "type": "sensor_msgs/msg/FluidPressure",
+      "serialization_format": "cdr"
+    },
+    {
+      "id": 11,
+      "name": "/zed/zed_node/path_odom",
+      "type": "nav_msgs/msg/Path",
+      "serialization_format": "cdr"
+    },
+    {
+      "id": 12,
+      "name": "/odom",
+      "type": "nav_msgs/msg/Odometry",
+      "serialization_format": "cdr"
+    },
+    {
+      "id": 13,
+      "name": "/jtop/diagnostics",
+      "type": "diagnostic_msgs/msg/DiagnosticArray",
+      "serialization_format": "cdr"
+    },
+    {
+      "id": 14,
+      "name": "/zed/zed_node/pose/status",
+      "type": "zed_msgs/msg/PosTrackStatus",
+      "serialization_format": "cdr"
+    },
+    {
+      "id": 15,
+      "name": "/zed/zed_node/pose_with_covariance",
+      "type": "geometry_msgs/msg/PoseWithCovarianceStamped",
+      "serialization_format": "cdr"
+    },
+    {
+      "id": 16,
+      "name": "/zed/zed_node/right_gray/image_rect_gray",
+      "type": "sensor_msgs/msg/Image",
+      "serialization_format": "cdr"
+    },
+    {
+      "id": 17,
+      "name": "/imu/is_calibrated",
+      "type": "std_msgs/msg/Bool",
+      "serialization_format": "cdr"
+    },
+    {
+      "id": 18,
+      "name": "/tf",
+      "type": "tf2_msgs/msg/TFMessage",
+      "serialization_format": "cdr"
+    },
+    {
+      "id": 19,
+      "name": "/zed/zed_node/right_gray/camera_info",
+      "type": "sensor_msgs/msg/CameraInfo",
+      "serialization_format": "cdr"
+    },
+    {
+      "id": 20,
+      "name": "/calian_gnss/gps",
+      "type": "sensor_msgs/msg/NavSatFix",
+      "serialization_format": "cdr"
+    },
+    {
+      "id": 21,
+      "name": "/zed/zed_node/point_cloud/cloud_registered",
+      "type": "sensor_msgs/msg/PointCloud2",
+      "serialization_format": "cdr"
+    },
+    {
+      "id": 22,
+      "name": "/zed/zed_node/pose",
+      "type": "geometry_msgs/msg/PoseStamped",
+      "serialization_format": "cdr"
+    },
+    {
+      "id": 23,
+      "name": "/zed/zed_node/status/health",
+      "type": "zed_msgs/msg/HealthStatusStamped",
+      "serialization_format": "cdr"
+    },
+    {
+      "id": 24,
+      "name": "/zed/zed_node/temperature/imu",
+      "type": "sensor_msgs/msg/Temperature",
+      "serialization_format": "cdr"
+    },
+    {
+      "id": 25,
+      "name": "/zed/zed_node/temperature/right",
+      "type": "sensor_msgs/msg/Temperature",
+      "serialization_format": "cdr"
+    },
+    {
+      "id": 26,
+      "name": "/zed/zed_node/temperature/left",
+      "type": "sensor_msgs/msg/Temperature",
+      "serialization_format": "cdr"
+    },
+    {
+      "id": 27,
+      "name": "/parameter_events",
+      "type": "rcl_interfaces/msg/ParameterEvent",
+      "serialization_format": "cdr"
+    },
+    {
+      "id": 28,
+      "name": "/cmd_vel",
+      "type": "geometry_msgs/msg/Twist",
+      "serialization_format": "cdr"
+    },
+    {
+      "id": 29,
+      "name": "/imu/data_raw",
+      "type": "sensor_msgs/msg/Imu",
+      "serialization_format": "cdr"
+    },
+    {
+      "id": 30,
+      "name": "/zed/zed_node/imu/mag",
+      "type": "sensor_msgs/msg/MagneticField",
+      "serialization_format": "cdr"
+    },
+    {
+      "id": 31,
+      "name": "/imu/mag",
+      "type": "sensor_msgs/msg/MagneticField",
+      "serialization_format": "cdr"
+    },
+    {
+      "id": 32,
+      "name": "/zed/zed_node/path_map",
+      "type": "nav_msgs/msg/Path",
+      "serialization_format": "cdr"
+    },
+    {
+      "id": 33,
+      "name": "/zed/zed_node/plane",
+      "type": "zed_msgs/msg/PlaneStamped",
+      "serialization_format": "cdr"
+    },
+    {
+      "id": 34,
+      "name": "/zed/zed_node/status/heartbeat",
+      "type": "zed_msgs/msg/Heartbeat",
+      "serialization_format": "cdr"
+    },
+    {
+      "id": 35,
+      "name": "/calian_gnss/gps_extended",
+      "type": "calian_gnss_ros2_msg/msg/GnssSignalStatus",
+      "serialization_format": "cdr"
+    },
+    {
+      "id": 36,
+      "name": "/zed/zed_node/imu/data",
+      "type": "sensor_msgs/msg/Imu",
+      "serialization_format": "cdr"
+    },
+    {
+      "id": 37,
+      "name": "/tf_static",
+      "type": "tf2_msgs/msg/TFMessage",
+      "serialization_format": "cdr"
+    },
+    {
+      "id": 38,
+      "name": "/mux/cmd_vel",
+      "type": "geometry_msgs/msg/Twist",
+      "serialization_format": "cdr"
+    },
+    {
+      "id": 39,
+      "name": "/zed/robot_description",
+      "type": "std_msgs/msg/String",
+      "serialization_format": "cdr"
+    }
+  ]
+}

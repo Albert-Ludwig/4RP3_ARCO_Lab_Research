@@ -1,0 +1,20 @@
+{
+  "arrival_wait_s": 0.07600000000001828,
+  "duration_s": 300.008,
+  "goal_preemptions_before_deadline": 0,
+  "gp_updates": 60,
+  "grg_completed_at_stop": 59,
+  "grg_requested": 59,
+  "home_error_m": 0.14835937418426004,
+  "home_returned": true,
+  "measurements": 299,
+  "missed_ticks": 0,
+  "navigation_failures": 0,
+  "origin": 9.194,
+  "pending_sensor_requests": 0,
+  "segments": 11,
+  "stale_pose": 0,
+  "status": "window_completed",
+  "update_interval_s": 5,
+  "wall_s": 300.02275758199994
+}

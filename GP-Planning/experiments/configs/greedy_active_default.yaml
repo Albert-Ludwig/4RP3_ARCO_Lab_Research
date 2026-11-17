@@ -1,0 +1,45 @@
+# Greedy / active GP sampling experiment configuration.
+# Consumed by experiments/run_experiment.py. All keys are echoed (resolved) into
+# the timestamped results/<run>/config.yaml for reproducibility.
+
+field_name: temperature
+noise_std: 0.05
+noise_map_seed: 101
+seed: 11
+
+evaluation_grid_size: 50
+candidate_grid_size: 15
+
+# Lawnmower strides (rows, columns) in candidate-grid index units.
+fine_row_stride: 1
+fine_column_stride: 1
+coarse_row_stride: 2
+coarse_column_stride: 2
+
+# Shared random pilot for greedy / entropy in the MAIN experiment.
+initial_pilot: 5
+# Cold-start experiment: a small number of randomly placed sensors, each giving
+# one measurement, after which the GP samples sequentially "as normal".
+two_sensor_pilot: 2
+
+# Sample budgets (quick is used unless --full is passed).
+quick_budgets: [10, 20, 30, 50, 64]
+full_budgets: [10, 20, 50, 100]
+
+# Min-distance exclusion for sequential active sampling (must exceed grid spacing).
+r_min: 0.08
+
+# Fixed stationary kernel. outputscale_source: 'oracle' uses the true field
+# variance; 'pilot' estimates it from the shared pilot measurements.
+greedy_lengthscale: 0.18
+outputscale_source: oracle
+
+# Evaluation GP mode: 'fixed' | 'constrained' | 'learned'.
+evaluation_gp_mode: fixed
+gp_train_iters: 320
+gp_learning_rate: 0.02
+standardize_targets: false
+
+# Random-baseline Monte Carlo (mean +/- std over seeds).
+random_mc_seeds: 20
+random_mc_seed_base: 1000

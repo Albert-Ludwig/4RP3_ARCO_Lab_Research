@@ -176,7 +176,7 @@ The table reports error against held-out **measured temperature**. Noisy observa
 | [testing_code/run_test.py](testing_code/run_test.py) | Copies only the small input/model/scripts into the existing Docker environment, runs fits and retrieves results |
 | [testing_code/worker.py](testing_code/worker.py) | Reuses GP fitting, creates splits, evaluates models and checks numerical correctness |
 | [testing_code/build_report.py](testing_code/build_report.py) | Verifies saved data and rebuilds the single README/Notebook |
-| [Prepared data](../Real_Data_Integration/result/gp_samples.csv) | Input from the completed temperature/GPS alignment |
+| [Prepared data](../../../Data/interpolated_data/result/gp_samples.csv) | Input from the completed temperature/GPS alignment |
 | [Existing GP model]({model_link}) | Reused unchanged model, scaler, fit and persistence functions; source SHA-256 recorded |
 | [result/{run.name}](result/{run.name}) | Input snapshot, frozen protocol, splits, all predictions, metrics, training histories, selected checkpoints and provenance |
 

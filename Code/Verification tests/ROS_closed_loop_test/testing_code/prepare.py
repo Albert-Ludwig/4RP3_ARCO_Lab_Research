@@ -1,45 +1,40 @@
+"""Freeze a shared synthetic history, RBF parameters, scene and evaluation grid."""
 import site
 site.addsitedir('/usr/lib/python3/dist-packages')
-"""Freeze real-data mapping, source configuration and the obstacle-free scene."""
 from pathlib import Path
-import csv,json,importlib.util,os,sys
+import importlib.util,sys,os,json,hashlib
 import numpy as np
-ROOT=Path(__file__).resolve().parents[1]; REPO=ROOT.parents[2]
-OUT=Path(os.environ["CL_OUTPUT"]); OUT.mkdir(parents=True,exist_ok=True)
-def save(name,value): (OUT/name).write_text(json.dumps(value,indent=2)+"\n")
-rows=list(csv.DictReader((REPO/"Data/Real_Data_Integration/result/gp_samples.csv").open()))
-x=np.array([[float(r["x_east_m"]),float(r["y_north_m"]),float(r["t_s"])] for r in rows])
-offset=x[:,:2].min(axis=0); epoch=x[:,2].max()+1
-x[:,:2]-=offset; x[:,2]-=epoch
-y=np.array([float(r["temperature_c"]) for r in rows])
-kroot=REPO/"Code/ROS_simulation/Trained_Real_Data_Kernel/result"
-hp=json.loads((kroot/json.loads((kroot/"latest.json").read_text())["run"]/"hyperparameters.json").read_text())
-save("initial.json",dict(x=x.tolist(),y=y.tolist(),length=hp["lengthscales_m_m_s"],variance=hp["output_variance_c2"],noise=hp["noise_variance_c2"],mean=hp["mean_c"]))
-save("mapping.json",dict(field_xy_equals_enu_minus=offset.tolist(),world_xy_equals_field_minus=[48.5,32],mission_zero_real_relative_s=epoch,
-description="Temporary planar translation; not surveyed ROS map registration. Historical distances and intervals preserved. Mission follows last real measurement by 1 second.",
-history_count=len(y),historical_time_range_s=[x[:,2].min(),x[:,2].max()]))
-cfg=json.loads((ROOT/"testing_code/field_config.json").read_text())
-save("field.json",cfg)
-protocol=json.loads((ROOT/"testing_code/protocol.json").read_text())
-from navigation_profile import profile
-protocol["navigation_nominal_speed_m_s"]=profile()["nominal_speed_m_s"]
-save("protocol.json",protocol)
-points=[[48.5,32]]+[[float(round(v)),float(round(w))] for v in np.linspace(4,93,6) for w in np.linspace(4,60,5)]
-save("candidates.json",points)
-nav=ROOT.parent/"Nav2_test/testing_code/src/well_e_nav2_test"
-spec=importlib.util.spec_from_file_location("nav_launch",nav/"launch/nav2_test.launch.py"); mod=importlib.util.module_from_spec(spec); spec.loader.exec_module(mod)
-scenario=json.loads((nav/"config/scenario.json").read_text())
-scenario.update(map_bounds_m=[-48.5,48.5,-32,32])
-scenario["obstacle"].update(center_m=[-100,-100])
+ROOT=Path(__file__).resolve().parents[1];REPO=ROOT.parents[2];CODE=ROOT/'testing_code'
+OUT=Path(os.environ['SP_COMMON']);OUT.mkdir(parents=True,exist_ok=False)
+VER=REPO/'Code/Verification tests';OLD=VER/'ROS_closed_loop_test/testing_code'
+sys.path.insert(0,str(VER/'SRF_test/testing_code'));sys.path.insert(0,str(OLD))
+from srf_field import TemperatureField
+from navigation_profile import apply,profile
+def save(n,v):(OUT/n).write_text(json.dumps(v,indent=2)+'\n')
+p=json.loads((CODE/'protocol.json').read_text());save('protocol.json',p)
+f=json.loads((OLD/'field_config.json').read_text());f.update(working_extent_m=p['extent_m'],mission_interval_s=[p['history_interval_s'][0],300],field_seed=p['field_seeds'][0])
+f['status']='Controlled synthetic comparison; common SRF history and online truth; field scales uncalibrated'
+save('field.json',f);field=TemperatureField(f)
+kroot=REPO/'Code/ROS_simulation/Trained_Real_Data_Kernel/result'
+kernel_file=kroot/json.loads((kroot/'latest.json').read_text())['run']/'hyperparameters.json'
+hp=json.loads(kernel_file.read_text())
+initial=dict(length=hp['lengthscales_m_m_s'],variance=hp['output_variance_c2'],noise=hp['noise_variance_c2'],mean=hp['mean_c'])
+rng=np.random.default_rng(p['history_seed']);x=rng.random((p['history_count'],3));x[:,:2]*=p['extent_m'];lo,hi=p['history_interval_s'];x[:,2]=lo+(hi-lo)*x[:,2]
+y=field.measure(x,[f'history-{i}' for i in range(len(x))]);initial.update(x=x.tolist(),y=y.tolist());save('initial.json',initial)
+points=[p['home_m']]+[[a,b] for a in (3,9,15,21,27) for b in (4,16)];save('candidates.json',points)
+xy=np.array([[x,y] for x in np.arange(1,30,2) for y in np.arange(1,20,2)])
+q=np.vstack([np.column_stack((xy,np.full(len(xy),t))) for t in np.arange(0,301,5)])
+np.savez_compressed(OUT/'evaluation_grid.npz',queries=q,truth=field.truth(q))
+nav=VER/'Nav2_test/testing_code/src/well_e_nav2_test'
+spec=importlib.util.spec_from_file_location('nav_scene',nav/'launch/nav2_test.launch.py');mod=importlib.util.module_from_spec(spec);spec.loader.exec_module(mod)
+scenario=json.loads((nav/'config/scenario.json').read_text());scenario.update(map_bounds_m=[-15,15,-10,10]);scenario['obstacle'].update(center_m=[-100,-100])
 from ament_index_python.packages import get_package_share_directory
-mod.generate_scene(Path(get_package_share_directory("well_e_bunker_sim")),OUT,scenario)
-mod.generate_parameters(OUT,scenario)
-# The original fixture adds an out-of-area obstacle to use its generator; remove it entirely.
+mod.generate_scene(Path(get_package_share_directory('well_e_bunker_sim')),OUT,scenario);mod.generate_parameters(OUT,scenario)
 import xml.etree.ElementTree as ET
-tree=ET.parse(OUT/"world.sdf"); world=tree.getroot().find("world")
-world.remove(world.find("model[@name='central_obstacle']")); tree.write(OUT/"world.sdf")
-from navigation_profile import apply, profile
-apply(OUT,scenario)
-scenario["navigation_profile"]="Capstone-derived limits/smoother, Bunker RPP at up to 1 m/s"
-save("scene.json",scenario)
-print("Prepared",len(y),"real observations and",len(points)-1,"candidates",flush=True)
+tree=ET.parse(OUT/'world.sdf');world=tree.getroot().find('world');world.remove(world.find("model[@name='central_obstacle']"));tree.write(OUT/'world.sdf')
+apply(OUT,scenario);save('scene.json',scenario)
+save('provenance.json',dict(conditioning='980 synthetic past observations of the SAME SRF, not interpolated real temperatures',
+  hyperparameter_source=str(kernel_file),hyperparameter_source_sha256=hashlib.sha256(kernel_file.read_bytes()).hexdigest(),
+  generator='GSTools Matérn finite-mode SRF',kernel='Fixed real-data-fitted ARD RBF; no MLL refit in this experiment',
+  history_interval_s=p['history_interval_s'],evaluation_queries=len(q),common_files_sha256={n:hashlib.sha256((OUT/n).read_bytes()).hexdigest() for n in ('initial.json','field.json','candidates.json','evaluation_grid.npz')}))
+print('Prepared shared synthetic history and',len(q),'independent space-time evaluation queries',flush=True)

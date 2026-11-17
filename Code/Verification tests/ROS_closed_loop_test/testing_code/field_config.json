@@ -44,7 +44,7 @@
     "Multi-run calibration"
   ],
   "historical_reference": {
-    "file": "Data/Real_Data_Integration/result/gp_samples.csv",
+    "file": "Data/interpolated_data/result/gp_samples.csv",
     "sha256": "c81c0176feeda7a115ec764805f48bd7edb95648c841fb058bcbcc38d22b8f76",
     "observations": 980,
     "minimum_c": 26.50966796875,

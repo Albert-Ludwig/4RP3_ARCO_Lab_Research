@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "tests_run": 8,
+  "test_names": [
+    "test_actual_coordinate_scale_against_local_ellipsoid_differential",
+    "test_actual_counts_and_source_temperature_preservation",
+    "test_actual_interpolation_against_numpy_and_bracket_provenance",
+    "test_enu_against_analytic_equator_geometry",
+    "test_est_conversion_and_offset_sign",
+    "test_invalid_fix_and_gap_are_not_bridged",
+    "test_nanosecond_precision_and_exact_boundaries",
+    "test_output_hashes_and_unverified_clock_flag"
+  ],
+  "failures": [],
+  "errors": [],
+  "scope": "Processing and consistency checks only. Independent sensor clock synchronization remains unverified."
+}

@@ -1,0 +1,8 @@
+# Minimal dependencies to regenerate figures/tables from saved result CSVs.
+# Does NOT include torch/gpytorch: scripts/make_paper_figures.py and
+# scripts/make_paper_tables.py read only the CSVs in results/<run>/, so anyone
+# can reproduce the paper figures without the heavy GP stack or re-running sims.
+numpy
+pandas
+matplotlib
+pyyaml

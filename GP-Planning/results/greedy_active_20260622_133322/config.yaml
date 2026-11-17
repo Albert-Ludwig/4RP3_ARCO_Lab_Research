@@ -1,0 +1,50 @@
+field_name: temperature
+noise_std: 0.05
+noise_map_seed: 101
+seed: 11
+evaluation_grid_size: 50
+candidate_grid_size: 15
+fine_row_stride: 1
+fine_column_stride: 1
+coarse_row_stride: 2
+coarse_column_stride: 2
+initial_pilot: 5
+two_sensor_pilot: 2
+quick_budgets:
+- 10
+- 20
+- 30
+- 50
+- 64
+full_budgets:
+- 10
+- 20
+- 50
+- 100
+r_min: 0.08
+greedy_lengthscale: 0.18
+outputscale_source: oracle
+evaluation_gp_mode: fixed
+gp_train_iters: 320
+gp_learning_rate: 0.02
+standardize_targets: false
+random_mc_seeds: 20
+random_mc_seed_base: 1000
+timestamp: '20260622_133322'
+budgets_used:
+- 10
+- 20
+- 30
+- 50
+- 64
+coarse_capacity: 64
+kernel_lengthscale: 0.18
+kernel_outputscale: 0.0621765360999392
+kernel_noise_variance: 0.0025000000000000005
+eval_points: 2500
+candidate_points: 225
+two_sensor_pilot_points:
+- - 1.0
+  - 0.8571428571428571
+- - 0.42857142857142855
+  - 0.9285714285714285

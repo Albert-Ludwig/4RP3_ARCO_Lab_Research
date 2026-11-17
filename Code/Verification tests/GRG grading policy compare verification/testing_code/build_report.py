@@ -98,7 +98,7 @@ Shared sources retained unchanged:
 - `Code/Robot_close_loop_system/testing_code/baseline/grg.py`
 - `Code/ROS_simulation/BunkerMini_drive_test/testing_code/src/well_e_bunker_sim/`
 - `Code/ROS_simulation/Nav2_test/testing_code/src/well_e_nav2_test/` and `testing_code/tools/rosbag_capture.py`
-- Existing aligned real input: `Data/Real_Data_Integration/result/gp_samples.csv`. Its ENU coordinates still require registration to the navigation map; do not treat GPS trajectory points as an occupancy map.
+- Existing aligned real input: `Data/interpolated_data/result/gp_samples.csv`. Its ENU coordinates still require registration to the navigation map; do not treat GPS trajectory points as an occupancy map.
 
 The old `Code/Policy_compare/` Intel replay and its results are preserved and marked legacy.
 

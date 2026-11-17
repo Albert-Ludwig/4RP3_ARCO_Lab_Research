@@ -1,0 +1,6 @@
+Experiment,Strategy,BorderFraction
+main,Random,0.15625
+main,Greedy information,0.171875
+main,Entropy,0.390625
+two_sensor,Entropy (2-sensor),0.34375
+two_sensor,Greedy information (2-sensor),0.15625

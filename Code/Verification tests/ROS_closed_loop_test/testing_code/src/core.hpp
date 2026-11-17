@@ -115,6 +115,8 @@ struct Edge {
 };
 struct Search {
   GP &gp;
+  std::string policy;
+  int home = 0;
   std::vector<std::vector<Edge>> &edges;
   M q, qfeatures;
   V weights;
@@ -130,40 +132,28 @@ struct Search {
   std::map<std::array<double, 3>, Feature> cache;
   std::vector<int> best;
   double best_gain = 0;
-  Search(GP &g, std::vector<std::vector<Edge>> &e, double t, double horizon,
-         double evaluation_step = .5)
-      : gp(g), edges(e), elapsed(t), cap(horizon), eval_step(evaluation_step) {
-    started = wall();
-    deadline = started + 45;
-    if (!(std::isfinite(eval_step) && eval_step > 0 && eval_step <= WINDOW_S) ||
-        std::abs(std::round(WINDOW_S / eval_step) * eval_step - WINDOW_S) >
-            1e-8)
-      throw std::runtime_error(
-          "Scoring time step must divide the mission window");
-    // 70 exact-area cells, including clipped right/top boundary cells.
-    M spatial(70, 3);
-    V areas(70);
-    int i = 0;
-    for (int x = 0; x < 97; x += 10)
-      for (int y = 0; y < 64; y += 10) {
-        double w = std::min(10, 97 - x), h = std::min(10, 64 - y);
-        spatial.row(i) << x + w / 2, y + h / 2, t;
-        areas(i++) = w * h;
-      }
-    V u = gp.posterior(spatial).second;
-    V w = areas.cwiseProduct(u);
-    if (u.maxCoeff() <= 1e-12)
-      w = areas;
-    const int nt = int(std::round(WINDOW_S / eval_step)) + 1;
-    q.resize(70 * nt, 3);
-    weights.resize(q.rows());
-    for (int k = 0; k < nt; k++)
-      for (int j = 0; j < 70; j++) {
-        q.row(k * 70 + j) << spatial(j, 0), spatial(j, 1), k * eval_step;
-        weights(k * 70 + j) = w(j);
-      }
-    qfeatures = gp.features(q);
-    weights /= weights.sum();
+  Search(GP &g, std::vector<std::vector<Edge>> &e, const J &cfg, const std::string &method, double start_t=0, double weight_t=0)
+      : gp(g), policy(method), edges(e), elapsed(start_t), cap(std::max(0.,double(cfg["navigation_budget_s"])-start_t)),
+        eval_step(cfg["scoring_time_step_s"]) {
+    started = wall(); deadline = started + double(cfg["search_guard_s"]);
+    if (policy != "mi" && policy != "emse" && policy != "wivr") throw std::runtime_error("Unknown policy");
+    double width=cfg["extent_m"][0], height=cfg["extent_m"][1], cell=cfg["scoring_cell_m"];
+    std::vector<Eigen::Vector3d> cells; std::vector<double> area;
+    for(double x=0;x<width;x+=cell) for(double y=0;y<height;y+=cell) {
+      double w=std::min(cell,width-x), h=std::min(cell,height-y);
+      cells.push_back({x+w/2,y+h/2,weight_t});area.push_back(w*h);
+    }
+    M spatial(cells.size(),3); V areas(cells.size());
+    for(int i=0;i<spatial.rows();i++){spatial.row(i)=cells[i].transpose();areas(i)=area[i];}
+    V w=areas;
+    if(policy=="wivr") {V u=gp.posterior(spatial).second;if(u.maxCoeff()>1e-12)w=areas.cwiseProduct(u);}
+    int nt=int(std::round(WINDOW_S/eval_step))+1;
+    q.resize(spatial.rows()*nt,3);weights.resize(q.rows());
+    for(int k=0;k<nt;k++)for(int j=0;j<spatial.rows();j++){
+      int i=k*spatial.rows()+j;q.row(i)<<spatial(j,0),spatial(j,1),k*eval_step;weights(i)=w(j);
+    }
+    weights/=weights.sum();
+    if(policy!="mi") qfeatures=gp.features(q);
   }
   double finish(const std::vector<int> &r) const {
     double t = elapsed;
@@ -219,7 +209,7 @@ struct Search {
     if (!a.rows())
       return scores[r] = 0;
     calls++;
-    M z(gp.x.rows(), a.rows()), cross(q.rows(), a.rows());
+    M z(gp.x.rows(), a.rows()), cross(policy=="mi"?0:q.rows(), a.rows());
     double feature_start = wall();
     // Copy cached columns first: later eviction must not invalidate a hit.
     std::vector<int> missing;
@@ -243,8 +233,8 @@ struct Search {
       for (int k = 0; k < count; ++k)
         points.row(k) = a.row(missing[offset + k]);
       M features = gp.features(points);
-      M conditional = gp.kernel(q, points);
-      conditional.noalias() -= qfeatures.transpose() * features;
+      M conditional(0,count);
+      if(policy!="mi") {conditional=gp.kernel(q,points);conditional.noalias()-=qfeatures.transpose()*features;}
       ++feature_batches;
       feature_misses += count;
       for (int k = 0; k < count; ++k) {
@@ -265,17 +255,20 @@ struct Search {
     Eigen::LLT<M> chol(covariance);
     if (chol.info() != Eigen::Success)
       throw std::runtime_error("Event Cholesky failed");
-    M solved = chol.matrixL().solve(cross.transpose());
-    V reduction = solved.array().square().colwise().sum().transpose();
-    double value = weights.dot(reduction);
+    double value;
+    if(policy=="mi") {
+      value=chol.matrixL().toDenseMatrix().diagonal().array().log().sum()-.5*a.rows()*std::log(gp.noise);
+    } else {
+      M solved=chol.matrixL().solve(cross.transpose());
+      V reduction=solved.array().square().colwise().sum().transpose();value=weights.dot(reduction);
+    }
     if (!std::isfinite(value) || value < -1e-8)
       throw std::runtime_error("Invalid score");
     objective_seconds += wall() - objective_start;
     double accepted = std::max(0., value);
     scores[r] = accepted;
-    // Every fully scored prefix is a feasible open route. Preserve it before
-    // deeper recursion can hit the wall guard (not only after a root branch).
-    if (accepted > best_gain && finish(r) <= elapsed + cap + 1e-8) {
+    // Preserve only complete, budget-feasible Home-return routes.
+    if (accepted > best_gain && r.size()>1 && r.back()==home && finish(r) <= elapsed + cap + 1e-8) {
       best = r;
       best_gain = accepted;
     }
@@ -294,6 +287,7 @@ struct Search {
     auto choice = base;
     double gain = score(base);
     for (int v = 0; v < int(edges.size()); v++) {
+      if(v==start || v==end) continue;
       auto p = prefix;
       p.push_back(v);
       if (depth == 1) {
@@ -333,10 +327,9 @@ struct Search {
   }
   J run(int current) {
     best = {current};
-    // A virtual terminal (-1) is reachable at zero cost from any checkpoint.
-    // It is never a navigation goal or a sensing event.
+    // Closed route: start and finish at Home. Offline search only.
     try {
-      auto completed = recurse({current}, -1, elapsed + cap, 2);
+      auto completed = recurse({current}, home, elapsed + cap, 2);
       if (!completed.empty()) {
         double value = score(completed);
         if (value >= best_gain) {
@@ -348,10 +341,11 @@ struct Search {
       if (std::string(e.what()) != "search_timeout")
         throw;
     }
-    if (!best.empty() && best.back() == -1)
-      best.pop_back();
+    // A late-time search may have no nontrivial budget-feasible route. Return it explicitly.
     return J{{"route", best},
              {"score", best_gain},
+             {"policy", policy},
+             {"predicted_navigation_s", finish(best)},
              {"timeout", timed_out},
              {"calls", calls},
              {"cache_hits", hits},

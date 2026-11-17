@@ -1,0 +1,19 @@
+# Core dependencies
+torch
+gpytorch
+networkx
+rasterio
+geopandas
+openpyxl
+numpy
+scipy
+matplotlib
+pandas
+pyyaml
+tqdm
+scikit-learn
+ipykernel
+
+# Optional (useful for visualization/export)
+plotly
+imageio

@@ -58,7 +58,7 @@
     ],
     "time_step_s": 0.5
   },
-  "history_file": "Data/Real_Data_Integration/result/gp_samples.csv",
+  "history_file": "Data/interpolated_data/result/gp_samples.csv",
   "history_scope": "Single available 2026-11-03 WELL-E aligned collection; no Dataset 4, Dashboard, Intel, GP checkpoint or GP posterior used.",
   "reproducibility_scope": "Same saved configuration, GSTools version and runtime; cross-platform/version bitwise identity is not assumed.",
   "baseline_run": "run_20261110T230239768234Z",

@@ -2,7 +2,7 @@
 
 Component checks and individual-policy functional runs belong here. The current stage verifies correctness and integration readiness; it does not rank reconstruction performance. Final experiments and trained real-data kernels remain in [ROS_simulation](../ROS_simulation/README.md).
 
-## Shared configuration
+## Shared Python-fixture configuration
 
 | Item                  | Setting                                                                                                                                                                       |
 | --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -16,7 +16,9 @@ Component checks and individual-policy functional runs belong here. The current 
 | Scoring               | MI, area-averaged EMSE, Adaptive WIVR. A separate 10 m scoring grid uses 0.5 s scoring times. WIVR weights refresh after GP updates and freeze within each search.            |
 | GRG                   | Recursive depth 2; time-split parameter 2.                                                                                                                                    |
 
-The Python scoring fixture uses Home (3,3) m, a central box at x,y = [13,17] m, and 1 m/s nominal timing. Actual ROS velocity, Nav2 path costs and mission timing remain to be verified. See the [ROS verification configuration](ROS_closed_loop_test/testing_code/protocol.json).
+The ROS performance test has its own **30 × 20 m, 10-waypoint + Home, 300 s** configuration and compares **GP + GRG update intervals of 1 s and 5 s**, with WIVR fixed and sensing at 1 Hz. The following shared settings describe earlier Python fixtures.
+
+The Python scoring fixture uses Home (3,3) m, a central box at x,y = [13,17] m, and 1 m/s nominal timing. ROS execution and interval-dependent timing are recorded in the current closed-loop test. See the [ROS verification configuration](ROS_closed_loop_test/testing_code/protocol.json).
 
 ## Test folders and status
 
@@ -31,4 +33,4 @@ The Python scoring fixture uses Home (3,3) m, a central box at x,y = [13,17] m, 
 | [SRF_test](SRF_test/README.md)                                                                 | Completed: 38 checks for the added obstacle-free 97 x 64 m / 120 s workload; 97 x 64 m / 900 s and 30 x 30 m / 120 s results retained. This source workload variant does not change the shared integration configuration above. |
 | [Continuous_sensing_test](Continuous_sensing_test/README.md)                                   | Completed: 48 moving-sampling, buffering and batch GP checks.                                                                                                                                                                   |
 | [Scoring_policy_test](Scoring_policy_test/README.md)                                           | Completed: 71 core checks and 6 independent route-score audits. All 30/50-point searches finished; 50-point EMSE/WIVR has a nominal 120 s budget limitation.                                                                    |
-| [ROS_closed_loop_test](ROS_closed_loop_test/README.md)                                         | Remaining fourth stage: separate functional runs for MI, EMSE and Adaptive WIVR using 30 candidates. Configuration exists; implementation and execution are pending.                                                            |
+| [ROS_closed_loop_test](ROS_closed_loop_test/README.md) | Executed: fixed WIVR, 30 × 20 m, ten waypoints + Home, 300 s; GP/GRG update every 1 s versus 5 s, with unchanged 1 Hz sampling. See recorded backlog, deadlines and navigation results. |

@@ -1,0 +1,29 @@
+{
+  "created_at_utc": "2026-11-17T01:37:24.080858+00:00",
+  "status": "complete_original_full_recording_deleted",
+  "original_recording": {
+    "path": "Data/Real_spatialtemporal_data/2026-11-03-welle-baseball-lawnmower/nov-3-baseball-1/nov-3-baseball-1_0.db3",
+    "size_bytes": 25403068416,
+    "sha256": "6c20dbd7318ec37000e233d44d646aaf59320d253a55b38824ff94f24490871e"
+  },
+  "retained_recording": {
+    "path": "Data/Real_spatialtemporal_data/2026-11-03-welle-baseball-lawnmower/nov-3-baseball-1/gps_only.db3",
+    "size_bytes": 196608,
+    "sha256": "7a1ece1294c2b0c6f03b38d117638cbc569c1e500dfe7d88fd6223c796f6edc5"
+  },
+  "topic": "/calian_gnss/gps",
+  "messages_retained": 981,
+  "selected_cdr_sha256": "8a1fd931c813cc52df93d95b3c70631c9206890c998b025defa55147444d87da",
+  "checks": {
+    "full_original_sha256_matches": true,
+    "all_gps_cdr_bytes_ids_times_equal": true,
+    "gps_csv_ids_receipt_times_equal": true,
+    "sqlite_integrity_ok": true,
+    "protected_data_and_kernel_hashes_unchanged": true
+  },
+  "removed_scope": "Only the original full ROS bag: all topics except /calian_gnss/gps are no longer retained locally.",
+  "preserved_scope": "Original temperature workbook, route image, original metadata, complete raw GPS messages, all alignment products and trained kernel.",
+  "historical_manifests": "Existing result manifests refer to the full original recording and remain unchanged; this file records the retained subset.",
+  "recovery": "Obtain the complete recording again from the colleague or original ARCO-Lab-Datasets SharePoint folder if other topics are needed.",
+  "bytes_freed_net": 25402846578
+}
