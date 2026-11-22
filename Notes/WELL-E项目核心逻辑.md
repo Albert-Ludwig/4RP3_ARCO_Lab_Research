@@ -1,648 +1,309 @@
 # WELL-E 项目核心逻辑
 
-> 当前研究设计：采用 **Continuous Edge Sensing**，机器人沿 Nav2 路径运动时持续获取温度。GP 表示时空温度场，MI、EMSE、Adaptive WIVR 评价整条路线沿途预计产生的时空测量信息，GRG 优化有序 Checkpoint Route，Mission Manager 协调导航、测量缓冲、分段批量 GP 更新、重规划和返航。
->
-> 状态边界：本文更新研究逻辑与实验计划。已有节点采样、Python 回放和 ROS 2 合成测试保留为历史记录；Adaptive WIVR 权重设计已确定（Design Defined）；连续沿边采样、GSTools SRF 和动态权重计算仍需实现和验证（Implementation Pending）。§0–9 用中文解释逻辑，§10 用英文说明实验设计。
+## 0. 算法的输入与输出
 
-## 0. 系统总流程与反馈关系
+目标是在给定起点、终点和时间预算的条件下，选择一条路线，使沿途预计取得的温度测量对时空场最有价值。算法的输入包括初始观测、时空 GP 模型、可行路径及其时间参数化、采样时钟，以及选定的信息目标。输出包括预算内的路线与时间安排，以及加入实际测量后的温度场后验。
 
-```mermaid
-flowchart TD
-    History["真实历史 Lawnmower 数据：Dataset 0–3（可用时）"] --> GP["Initial GP / GP posterior"]
-    History --> Calibration["仿真场统计与趋势标定：Pending"]
-    Calibration --> SRF["独立 GSTools SRF：固定 realization"]
-    MapPose["真实工作区域 2D map + localization"] --> Checkpoints["1 m 基础网格 → 过滤 → 初始 30 个候选 Checkpoints（可调整）"]
-    Checkpoints --> Global["Nav2 Global Planner"]
-    Global --> Paths["可行路径几何 + Travel-Time Estimator"]
-    Paths --> GRG["GRG Planner"]
-    GRG -->|candidate route| Events["沿路径预测位置与采样时刻 → sampling events"]
-    Paths --> Events
-    GP -->|posterior covariance| Objective["MI / EMSE：联合事件评分"]
-    GP --> Variance["当前 GP Posterior Variance"]
-    WeightGrid["固定 10 m 评分网格：有效单元代表点与面积"] --> WeightCalc["Adaptive Weight Calculator：段末 GP 更新后刷新；轮内冻结"]
-    Variance --> WeightCalc
-    WeightCalc --> WIVR["Adaptive WIVR Scoring"]
-    GP -->|posterior covariance| WIVR
-    Events --> WIVR
-    WIVR -->|route score| GRG
-    Events --> Objective
-    Objective -->|route score| GRG
-    GRG -->|selected Checkpoint Route| Manager["Mission Manager"]
-    Manager -->|next path segment| Nav["Nav2 navigation + Bunker Mini motion"]
-    Nav -->|实际位姿与时间；运动期间持续采样| Sensor["Continuous temperature sensing：初步每 1 s 一次"]
-    SRF -->|仅仿真测温源；不向规划器开放全场真值| Sensor
-    Sensor --> Buffer["有效离散时空测量缓冲区"]
-    Nav -->|segment result / failure / recovery| Manager
-    Manager -->|段末初步触发| Batch["Batch GP update + GRG replanning"]
-    Buffer --> Batch
-    Batch --> GP
-    Manager -->|实际已用时间 + 返航约束 + 路径更新| GRG
-```
-
-总体架构仍为 **GP–GRG–Nav2–Mission Manager**。Adaptive Weight Calculator 查询固定 10 m 空间评分网格上的当前 GP 后验方差，结合有效单元面积生成 WIVR 权重；初始化与每次实际 Batch GP Update 后计算，在一轮 GRG 搜索内冻结。MI 和 EMSE 不经过该权重模块。Checkpoint 是高层路线优化与分段执行的参考位置，不再等同于必须停车取得一条温度记录的位置。传感器在导航期间持续产生数据，初步在每段 Checkpoint-to-Checkpoint 路径完成后，批量更新 GP 并重新运行 GRG；实际更新频率和目标切换方式仍为 Pending。
-
-规划阶段只使用 GP 后验、地图、可行路径和预计采样事件。仿真中的温度由独立的 $T_{\mathrm{sim}}(x,y,t)$ 按实际仿真位姿和时间查询，真实传感器则直接产生观测。模拟场真值只能通过测温接口返回当前允许取得的测量，以及供离线评价使用，不能让 GRG 直接读取未测位置的真值。
-
-已有节点式 ROS 2 原型中的到点采样、固定驻留和记录查询流程属于历史实验。删除文档中的固定驻留，不代表当前代码已经完成连续采样、无停顿目标切换或 SRF 集成。
-
----
-
-## 1. 温度场与连续采样产生的离散含噪观测
-
-未知真实温度场统一写为
+整个计算链可以写成：
 
 $$
-T:\mathbb R^3\rightarrow\mathbb R,
-\qquad
-\mathbf z=[x,y,t]^\top.
+\text{已有观测}
+\longrightarrow \text{GP 后验}
+\longrightarrow \text{候选路线的时空采样事件}
+\longrightarrow \text{信息收益}
+\longrightarrow \text{GRG 路线搜索}.
 $$
 
-本文使用以下温度符号，避免将空间坐标 $y$ 与温度观测混用：
+执行时，实际观测进入下一次 GP 更新。路线评分所需的是候选测量的时空输入与噪声方差。实际测得的温度值在更新后验均值时才进入计算。
 
-| 符号 | 含义 |
-| --- | --- |
-| $T(\mathbf z)$ | 真实环境的潜在温度 |
-| $T_{\mathrm{sim}}(\mathbf z;\eta)$ | 随机场种子/实现标识 $\eta$ 对应的模拟温度真值 |
-| $\widetilde T_i$ | 传感器取得的含噪温度，日志中对应 `temperature_c` |
-| $\mu(\mathbf z),\sigma^2(\mathbf z)$ | GP 对潜在温度的后验均值与方差 |
+## 1. 温度场与离散观测
 
-Continuous Sensing 表示运动期间持续获取数据，不表示保存无限多个连续值。初步设定传感间隔 $\Delta t_s=1\,\mathrm{s}$，形成有限离散观测：
+设 $\mathcal W\subseteq\mathbb R^2$ 为空间区域，$\mathcal T\subseteq\mathbb R$ 为时间区间，重建域为 $\Omega=\mathcal W\times\mathcal T$。用 $T(\mathbf z)$ 表示未知的潜在温度，输入为 $\mathbf z=(x,y,t)^\top\in\Omega$。沿轨迹运动时，传感器在离散时刻取样。若第 $i$ 次测量发生在 $t_i$，轨迹在该时刻的位置为 $(x_i,y_i)$，则模型为
 
 $$
-\mathcal D=\{(\mathbf z_i,\widetilde T_i)\}_{i=1}^{N},
-\qquad
-\widetilde T_i=T(\mathbf z_i)+\epsilon_i,
-\qquad
-\epsilon_i\sim\mathcal N(0,\sigma_n^2).
+\mathbf z_i=(x_i,y_i,t_i)^\top,\qquad
+\widetilde T_i=T(\mathbf z_i)+\epsilon_i,\qquad
+\epsilon_i\overset{\mathrm{iid}}{\sim}\mathcal N(0,\sigma_n^2),
+\quad \sigma_n^2>0.
 $$
 
-仿真时，相应的观测模型为
+假定测量噪声与潜在场独立。因此，观测误差之间独立，潜在温度之间仍可通过 GP kernel 相关。两次独立测量可以拥有相同的输入，此时它们共享该输入处的潜在温度，各自带有独立噪声。以观测身份区分记录，使用 $X=(\mathbf z_i)_{i=1}^N$ 和 $\widetilde{\mathbf T}_X=(\widetilde T_i)_{i=1}^N$ 表示已观测的数据 $\mathcal D$。
+
+## 2. GP 先验、核函数与超参数学习
+
+### 2.1 GP 先验的有限维含义
+
+GP 先验 $T\sim\mathcal{GP}(m,k)$ 的含义是，对任意有限输入列表 $U=(\mathbf u_i)_{i=1}^p$，潜在温度向量 $\mathbf T_U=(T(\mathbf u_i))_{i=1}^p$ 服从联合高斯分布：
 
 $$
-\widetilde T_i^{\mathrm{sim}}
-=T_{\mathrm{sim}}(\mathbf z_i;\eta)+\epsilon_i^{\mathrm{sim}}.
+\mathbf T_U\sim\mathcal N(\mathbf m_U,K_{UU}),\qquad
+[\mathbf m_U]_i=m(\mathbf u_i),\qquad
+[K_{UV}]_{ij}=k(\mathbf u_i,\mathbf v_j).
 $$
 
-每条日志保留实际位置、实际时间戳、温度、记录身份和质量状态；实际时空输入来自定位与任务时钟，不使用预计 Checkpoint 到达时间替代。传感器沿两节点之间的路径测量，因此每个 Checkpoint 对应的沿途测量数不固定，样本数也不等于访问的 Checkpoint 数。
+对任意输入 $\mathbf z,\mathbf z'$，$m(\mathbf z)=\mathbb E[T(\mathbf z)]$，$k(\mathbf z,\mathbf z')=\operatorname{Cov}(T(\mathbf z),T(\mathbf z'))$。前者给出条件化前的温度基线，可以取常数 $m_0$。后者给出潜在温度如何共同变化，也确定任意两个输入列表 $U,V$ 之间的交叉协方差矩阵 $K_{UV}$。
 
-1 s 是拟采用的采样间隔，不是每个 Checkpoint 的停车测量时长。真实传感器响应时间、时钟对齐、有效 1 Hz 测量能力及噪声统计仍为 Pending；当前独立高斯噪声只是建模假设。相邻时空测量的场相关性与冗余由 GP 联合协方差处理，不能把每秒取得的数据都视为独立信息。
+### 2.2 三维 ARD RBF kernel
 
-## 2. GP 先验与 3D ARD RBF Kernel
-
-对未知函数设置 GP 先验：
+对两个空间坐标和一个时间坐标分别设置长度尺度：
 
 $$
-T(\mathbf z)\sim
-\mathcal{GP}\!\left(m(\mathbf z),k(\mathbf z,\mathbf z')\right).
-$$
-
-WELL-E 使用的三维 ARD RBF kernel 为
-
-$$
-\boxed{
 k(\mathbf z,\mathbf z')=
-\sigma_f^2
-\exp\!\left[
--\frac12\left(
-\frac{(x-x')^2}{\ell_x^2}
-+\frac{(y-y')^2}{\ell_y^2}
-+\frac{(t-t')^2}{\ell_t^2}
-\right)
-\right]
-}
+\sigma_f^2\exp\!\left[-\frac12
+\left(
+\frac{(x-x')^2}{\ell_x^2}+
+\frac{(y-y')^2}{\ell_y^2}+
+\frac{(t-t')^2}{\ell_t^2}
+\right)\right].
 $$
 
-其超参数可记为
+$\ell_x,\ell_y,\ell_t>0$ 分别与对应坐标具有相同单位，故指数中的三项均无量纲。若两点只在某一维相差该维的一个长度尺度，先验相关系数为 $e^{-1/2}$。长度尺度越大，固定间隔下相关性越强。$\sigma_f^2>0$ 等于 $k(\mathbf z,\mathbf z)$，是潜在温度的先验方差。$\sigma_n^2$ 来自观测模型，单次含噪观测的先验方差为 $\sigma_f^2+\sigma_n^2$。训练代码沿用 GP-Planning 的空间 ARD RBF 与时间 RBF 相乘的写法。两个指数相乘等于指数内的空间项和时间项相加，正好得到上式。
+
+### 2.3 从初始观测估计超参数
+
+仓库采用常数均值 $m(\mathbf z)=m_0$，以训练集的各输入维度均值和标准差标准化坐标，并对观测温度作同样的变换。本节暂以 $X$ 表示拟合所用的 $N$ 个训练输入。设 $\theta=(m_0,\sigma_f^2,\ell_x,\ell_y,\ell_t,\sigma_n^2)$。根据独立高斯噪声模型，积分消去 $\mathbf T_X$ 与计算两个独立高斯向量的和等价，得到 $\widetilde{\mathbf T}_X\mid X,\theta\sim\mathcal N(\mathbf m_X,C_\theta)$，其中 $C_\theta=K_{XX}+\sigma_n^2 I_N$。令 $\mathbf r=\widetilde{\mathbf T}_X-\mathbf m_X$ 为观测相对先验均值的残差。将高斯密度取自然对数，得到
 
 $$
-\boldsymbol\theta=
-\{\sigma_f^2,\ell_x,\ell_y,\ell_t,\sigma_n^2\}.
+\log p(\widetilde{\mathbf T}_X\mid X,\theta)=
+-\tfrac12\mathbf r^\top C_\theta^{-1}\mathbf r
+-\tfrac12\log\det C_\theta-\tfrac N2\log(2\pi).
 $$
 
-- $\sigma_f^2$ 控制潜在温度场的信号方差；
-- $\ell_x,\ell_y,\ell_t$ 分别控制两个空间方向和时间方向的相关尺度；
-- ARD 允许三个方向具有不同变化速率。
+第一项衡量残差在协方差尺度下的大小，第二项来自高斯密度的归一化因子，第三项只随样本数变化。若 $C_\theta=LL^\top$ 是 Cholesky 分解，解 $L\mathbf b=\mathbf r$ 后即可用 $\mathbf b^\top\mathbf b$ 计算二次型，用 $2\sum_i\log L_{ii}$ 计算对数行列式。训练代码对负边缘对数似然做自动微分，以 Adam 更新均值和受正值约束的 kernel、噪声参数。
 
-Kernel 的关键含义是
+把拟合结果转换回物理单位时，各长度尺度乘以对应输入的训练标准差，信号和噪声方差乘以训练温度标准差的平方。均值乘训练温度标准差再加训练温度均值。这些变换使同一个模型可以在物理坐标和温度单位下直接用于路线评分。在线阶段可加载已拟合好的参数，再以初始观测 $\mathcal D_0$ 做条件化。拟合数据负责估计参数，$\mathcal D_0$ 决定规划开始时的后验。后续步骤固定已拟合的参数。
 
-$$
-k(\mathbf z,\mathbf z')
-=\operatorname{Cov}\!\left(T(\mathbf z),T(\mathbf z')\right).
-$$
+## 3. 从联合高斯推出 GP 后验
 
-因此，它不仅决定某个测量如何影响邻近位置的预测均值，也决定测量后其他位置的不确定性下降多少。它还是后续 MI 的基础：两个高度相关的采样点通常存在信息冗余。
-
-GP conditioning 与超参数学习是两个步骤：固定 $\boldsymbol\theta$ 时，新观测通过后验公式更新预测；若需要重新学习相关尺度和噪声参数，则另行优化 $\boldsymbol\theta$。
-
-## 3. GP 后验均值与协方差
-
-令训练输入为 $X=[\mathbf z_1,\ldots,\mathbf z_N]^\top$，观测向量为 $\widetilde{\mathbf T}$，查询集合为 $Z_*$。定义
+取任意查询输入 $U$，并记 $C=K_{XX}+\sigma_n^2 I_N$。独立观测噪声只进入观测块，因此
 
 $$
-C=K_{XX}+\sigma_n^2I.
+\begin{bmatrix}\widetilde{\mathbf T}_X\\\mathbf T_U\end{bmatrix}
+\sim\mathcal N\!\left(
+\begin{bmatrix}\mathbf m_X\\\mathbf m_U\end{bmatrix},
+\begin{bmatrix} C&K_{XU}\\K_{UX}&K_{UU}\end{bmatrix}
+\right).
 $$
 
-GP conditioning 给出潜在温度场的后验均值：
+把查询温度写成一项由观测线性预测的量和一项剩余量。令 $G=K_{UX}C^{-1}$ 及 $\mathbf e=\mathbf T_U-\mathbf m_U-G(\widetilde{\mathbf T}_X-\mathbf m_X)$。于是 $\operatorname{Cov}(\mathbf e,\widetilde{\mathbf T}_X)=K_{UX}-GC=0$。两者联合高斯，零交叉协方差给出独立性。固定观测值之后，剩余量仍为零均值，其协方差为 $K_{UU}-K_{UX}C^{-1}K_{XU}$。因此，后验均值和任意两个查询列表间的后验协方差为
 
 $$
-\boxed{
-\boldsymbol\mu_*
-=\mathbf m_*+K_{*X}C^{-1}(\widetilde{\mathbf T}-\mathbf m_X)
-}
+\begin{aligned}
+\boldsymbol\mu_{\mathcal D}(U)
+&=\mathbf m_U+K_{UX}C^{-1}(\widetilde{\mathbf T}_X-\mathbf m_X),\\
+\Sigma_{\mathcal D}(U,V)
+&=K_{UV}-K_{UX}C^{-1}K_{XV}.
+\end{aligned}
 $$
 
-以及后验协方差：
+第二式可由对拼接列表 $(U,V)$ 计算后验再取对应块得到。记 $v_{\mathcal D}(q)=\Sigma_{\mathcal D}(q,q)$。它给出潜在温度的后验方差，$\sqrt{v_{\mathcal D}(q)}$ 是后验标准差。若预测一批新的含噪读数，则其协方差为 $\Sigma_{\mathcal D}(U,U)+\sigma_n^2 I$。
+
+计算时复用 $C=LL^\top$。先解 $L\mathbf b=\widetilde{\mathbf T}_X-\mathbf m_X$，再对查询列表解 $LB_U=K_{XU}$。这样均值是 $\mathbf m_U+B_U^\top\mathbf b$，协方差是 $K_{UV}-B_U^\top B_V$。后验协方差由输入位置、时间和固定超参数决定。后验均值还取决于观测残差。
+
+## 4. 同一批候选测量如何产生三种路线收益
+
+### 4.1 候选事件的条件协方差与方差下降
+
+记 $S=S(P)$ 为候选路线 $P$ 的预计采样事件列表，构造方法见 §5.2。取固定时空评价列表 $Q$。若 $S$ 为空，三种目标的收益均为零。其他情况下，在同一个当前后验下定义
 
 $$
-\boxed{
-\Sigma_*
-=K_{**}-K_{*X}C^{-1}K_{X*}
-}
+M_S=\Sigma_{\mathcal D}(S,S)+\sigma_n^2 I_{|S|},\qquad
+H=\Sigma_{\mathcal D}(Q,S).
 $$
 
-即
+$M_S$ 是未来含噪读数的联合协方差，非对角元素表示事件之间的相关性。$H$ 的第 $q,s$ 项表示评价点与候选事件的潜在温度如何共同变化。未来观测噪声独立，故它也等于 $\mathbf T_Q$ 与未来读数 $\widetilde{\mathbf T}_S$ 的条件交叉协方差。
+
+将 §3 的条件高斯公式再用一次，以当前后验为起点，以未来读数为条件。更新后的 $Q$ 上协方差等于当前协方差减去
 
 $$
-T(Z_*)\mid\mathcal D
-\sim\mathcal N(\boldsymbol\mu_*,\Sigma_*).
+\Delta_Q(S\mid\mathcal D)=H M_S^{-1}H^\top.
 $$
 
-这里 $\operatorname{diag}(\Sigma_*)$ 是**潜在温度场**的 posterior variance；未来含噪观测的 predictive covariance 则为 $\Sigma_*+\sigma_n^2I$。固定时间 $t$ 后，$\mu(x,y,t)$ 形成预测温度图，$\sigma^2(x,y,t)$ 形成不确定性图。
+因为 $\sigma_n^2>0$，$M_S$ 正定。令 $M_S=L_SL_S^\top$，解 $L_S Z=H^\top$，便得到 $\Delta_Q=Z^\top Z$。所以每个评价点 $q$ 的方差下降量 $d_q(S)=[\Delta_Q]_{qq}=\sum_j Z_{jq}^2\ge 0$。这个量对所有可能的未来读数都相同，可以在采样前直接算出。
 
-实际计算中应通过 Cholesky 分解或线性方程求解实现上述表达式，而不是显式构造 $C^{-1}$。
-
-## 4. 路线评分：MI、EMSE 与 WIVR
-
-三种目标共用 GP 后验协方差。MI 衡量联合信息量，EMSE 衡量固定时空评价域内的平均预期误差降低，Adaptive WIVR 对相同评价域的方差降低加入当前 GP 不确定性驱动的空间权重，不额外定义时间重要性函数。GRG 每次选择其中一种评分函数；新设计的评分对象统一为**沿整条路线预计产生的测量事件集合**。
-
-### 4.1 从 Checkpoint Route 构造沿路径采样事件
-
-高层路线仍写为
+只有一个候选事件 $s$ 时，矩阵式退化为
 
 $$
-P=[v_0,v_1,\ldots,v_M],
+d_q(\{s\})=
+\frac{\Sigma_{\mathcal D}(q,s)^2}{v_{\mathcal D}(s)+\sigma_n^2}.
 $$
 
-但 Nav2 为相邻 Checkpoints 提供的是路径 $\pi_{ij}$，而非仅一条直线。将这些路径、预计运动速度/转弯行为和预计时间安排连接起来，得到预计运动轨迹 $\widehat{\mathbf p}_P(\tau)$。在共同采样时钟的预计采样时刻 $\tau_r$ 上构造
+分子表示事件对目标位置的关联强度，分母是该事件含噪读数的方差。若有多个事件，联合矩阵 $M_S$ 同时处理它们之间的冗余。
+
+### 4.2 MI：沿途测量提供多少联合信息
+
+MI（Mutual Information）衡量未来含噪读数 $\widetilde{\mathbf T}_S$ 对同一批事件上的潜在温度 $\mathbf T_S$ 提供多少信息。由条件互信息定义，
 
 $$
-S(P;t_k)=\left\{
-\begin{bmatrix}
-\widehat x_P(\tau_r)\\
-\widehat y_P(\tau_r)\\
-t_k+\tau_r
-\end{bmatrix}
-\right\}_{r=1}^{N(P)}.
+J_{\mathrm{MI}}(S\mid\mathcal D)
+=h(\widetilde{\mathbf T}_S\mid\mathcal D)
+-h(\widetilde{\mathbf T}_S\mid\mathbf T_S,\mathcal D).
 $$
 
-这里 $N(P)$ 是预计测量数，并不等于 Checkpoint 数 $M$。初步使用 1 s 的采样间隔；采样相位应跨路径段连续维护，在段连接处避免重复计入同一事件。规划和等待引起的时间偏移必须反映在后续事件的绝对时间中。返航属于导航运动，拟按同一规则持续采样；规划暂停、等待与恢复期间的采样/缓冲规则需在实验前固定并验证。
-
-MI、EMSE 和 WIVR 都评价 $S(P;t_k)$，不能仍只评价 Checkpoint 坐标，也不能把各段独立信息收益直接相加。跨段测量之间同样存在相关性；联合评分或等价的条件增益计算必须避免重复计算信息。事件过密时的计算近似、缓存或压缩若需要采用，应单独说明并验证误差，不得无说明地退回节点式评分。
-
-给定当前数据 $\mathcal D$，预计事件上的潜在温度后验协方差为
+对 $m$ 维高斯向量，微分熵为 $\tfrac12\log((2\pi e)^m\det\Sigma)$。上式第一项的协方差是 $M_S$。给定 $\mathbf T_S$ 后，第二项的协方差只剩 $\sigma_n^2 I_m$，其中 $m=|S|$。相减后公共常数抵消：
 
 $$
-\Sigma_{SS\mid\mathcal D}
-=K_{SS}-K_{SX}
-(K_{XX}+\sigma_n^2I)^{-1}K_{XS}.
+J_{\mathrm{MI}}(S\mid\mathcal D)
+=\tfrac12\bigl[\log\det M_S-m\log\sigma_n^2\bigr]
+=\tfrac12\log\det\!\bigl(I_m+\sigma_n^{-2}\Sigma_{\mathcal D}(S,S)\bigr).
 $$
 
-固定 kernel 和噪声参数时，协方差依赖已有测量的位置、时间及预计事件输入，不需要知道未来温度值。执行后加入 GP 的是实际测得的时空输入与温度，不能用预计轨迹生成的事件冒充实际记录。
+其中 $\sigma_n^{-2}=1/\sigma_n^2$。直接复用 $L_S$ 的对角元素即可计算对数行列式。协方差的每个特征值 $\lambda_j$ 对 MI 贡献 $\tfrac12\log(1+\lambda_j/\sigma_n^2)$，故相关性通过联合矩阵进入评分，收益以 nats 计。
 
-### 4.2 MI：最大化联合信息增益
+原 GP-Planning 在固定候选节点全集 $V$ 上计算 $I(\widetilde{\mathbf T}_S;\mathbf T_V\mid\mathcal D)$，即观测前后 $\mathbf T_V$ 的熵差。若 $S$ 的潜在输入全都包含在 $V$ 内，则给定 $\mathbf T_V$ 已知 $\mathbf T_S$，读数的条件熵只由独立测量噪声决定，因此两种写法等价。沿边事件可以落在任意位置与时刻，当前 MI 直接使用 $\mathbf T_S$ 作为目标变量。EMSE 和 WIVR 使用固定的评价列表 $Q$。
 
-MI（Mutual Information，互信息）衡量测量前后不确定性的熵差。采样事件的联合条件互信息可写为：
+### 4.3 EMSE：评价域的平均平方误差期望下降多少
 
-$$
-\boxed{
-J(P\mid\mathcal D)
-=I\!\left(
-\widetilde{\mathbf T}_{S(P)};
-\mathbf T_{S(P)}\mid\mathcal D
-\right)
-=\frac12\log\det\!\left(
-I+\frac{1}{\sigma_n^2}
-\Sigma_{S(P)S(P)\mid\mathcal D}
-\right)
-}
-$$
-
-其中 $\widetilde{\mathbf T}_S$ 是未来含噪观测，$\mathbf T_S$ 是相同事件上的潜在真实场。MI 同时考虑事件自身的不确定性，以及多个事件之间的相关性：两个高度相关的点即使各自方差很大，联合收益也会因信息冗余而折减。时空模型中，路线几何与速度安排影响沿途的采样位置和时间，所以同一空间位置在不同时间可以具有不同价值。
-
-若 $\lambda_j$ 是 $\Sigma_{SS\mid\mathcal D}$ 的特征值，则
+对查询点 $q$，任取预测值 $a$。把 $T(q)-a$ 拆成 $T(q)-\mu_{\mathcal D}(q)$ 和 $\mu_{\mathcal D}(q)-a$。展开平方后，由于 $\mathbb E[T(q)-\mu_{\mathcal D}(q)\mid\mathcal D]=0$，交叉项消失，于是
 
 $$
-J(P\mid\mathcal D)
-=\frac12\sum_j
-\log\!\left(1+\frac{\lambda_j}{\sigma_n^2}\right).
+\mathbb E[(T(q)-a)^2\mid\mathcal D]
+=v_{\mathcal D}(q)+(\mu_{\mathcal D}(q)-a)^2.
 $$
 
-这说明 MI 累计的是各个相关模式的信息增益，不能用各点方差的简单求和替代。
+取 $a=\mu_{\mathcal D}(q)$ 可最小化期望平方误差，其最小值为后验方差。采样后使用更新后的后验均值，最小期望平方误差的下降量就是 §4.1 的 $d_q(S)$。
 
-GP-Planning 的 `src/planners.py::gp_mutual_information` 将目标写成全候选场 $V$ 的熵降低。给定已承诺观测集合 $C$，新增采样集合 $A$ 的收益为：
-
-$$
-\boxed{
-F_{\mathrm{MI}}(A\mid C)
-=I(\widetilde{\mathbf T}_A;\mathbf T_V\mid\widetilde{\mathbf T}_C)
-=\frac12\left[
-\log\det\Sigma_{V\mid C}
--\log\det\Sigma_{V\mid C\cup A}
-\right]
-}
-$$
-
-当 $A\subseteq V$、kernel 与独立观测噪声一致时，这与采样点上的 $\frac12\log\det(I+\sigma_n^{-2}\Sigma_{AA\mid C})$ 理论等价；代码中的 jitter 会产生数值近似差异。静态节点规划按集合评分，同一集合的顺序不改变 MI，但会改变旅行时间；时空事件规划还需根据路线重新计算采样时间。
-
-连续事件未必是固定评价网格 $Q$ 的子集，因此不能把上述静态参考条件直接套用到任意 $Q$。当前 MI 基线保留对事件集合自身的联合信息增益定义，新的实现需把其中 $S(P)$ 替换为沿路径事件。
-
-### 4.3 EMSE：降低全场平均预测方差
-
-EMSE（Expected Mean Squared Error，期望均方误差）以 GP 后验均值作为预测。模型成立时，对潜在场 $T(q)$ 有：
+为计算时空域的平均下降量，将空间域划分为有效面积 $a_i>0$ 的单元，用 $\mathbf p_i$ 代表第 $i$ 个单元。在相同的 $L$ 个等间隔评价时刻 $t_\ell^Q$ 上，用 $q_{i\ell}=(\mathbf p_i,t_\ell^Q)$ 构成 $Q$。用代表点近似空间积分，并以等权近似时间平均，得到
 
 $$
-\mathbb E\!\left[(T(q)-\mu(q))^2\mid\mathcal D\right]
-=\sigma^2(q\mid\mathcal D).
+J_{\mathrm{EMSE}}(S\mid\mathcal D)
+=\frac{\sum_i a_i\sum_{\ell=1}^L d_{q_{i\ell}}(S)}
+       {L\sum_i a_i}.
 $$
 
-这直接来自方差的定义：以分布的均值作为估计，其期望平方误差就是方差。例如 $T(A)\mid\mathcal D\sim\mathcal N(20,0.5^2)$，取 $20\,{}^{\circ}\mathrm{C}$ 为估计，则预期平方误差为 $0.25\,({}^{\circ}\mathrm{C})^2$；某次真实温度对应的实际平方误差仍取决于真实值。这一等式在 GP 后验分布内成立；它是否准确反映真实误差，取决于模型是否符合实际。
+单位面积的重要性相同，边界单元按其有效面积参与平均。若所有单元等面积，该式就是 $\operatorname{tr}(\Delta_Q)/|Q|$。路线搜索最大化 EMSE 的下降量，等价于在同一当前后验与同一评价域下最小化采样后的剩余 EMSE。这里的期望由 GP 后验定义。
 
-因此，在固定时空评价集合 $Q\subset\mathcal W_{\mathrm{map}}\times[t_{\mathrm{start}},t_{\mathrm{end}}]$ 上，平均后验方差就是模型内的 EMSE：
+GP-Planning 的单事件 EMSE 公式对条件方差下降求和。评价列表固定且等权时，除以评价点数只改变分值的比例。按有效面积加权则对应不同面积单元对空间平均的贡献。
 
-$$
-\operatorname{EMSE}(C)
-=\frac1{|Q|}\operatorname{tr}(\Sigma_{Q\mid C}).
-$$
+### 4.4 WIVR：带空间重要性的方差下降量
 
-新方案取 $A=S(P;t_k)$，规划最大化沿整条路线加入这些事件后的降低量：
+WIVR（Weighted Integrated Variance Reduction）在同一个 $Q$ 上为每个评价点指定非负权重 $w_{i\ell}$。只要权重总和为正，归一化收益就是
 
 $$
-\boxed{
-F_{\mathrm{EMSE}}(A\mid C)
-=\frac1{|Q|}\operatorname{tr}\!\left(
-\Sigma_{Q\mid C}-\Sigma_{Q\mid C\cup A}
-\right)
-}
+J_{\mathrm{WIVR}}(S\mid\mathcal D;w)=
+\frac{\sum_{i,\ell} w_{i\ell}\,d_{q_{i\ell}}(S)}
+     {\sum_{i,\ell} w_{i\ell}}.
 $$
 
-例如，三个评价位置的方差从 $(1,2,3)$ 降为采样后的 $(0.1,1.5,2.8)$，则平均方差从 $2$ 降为约 $1.467$，该采样方案的 EMSE 收益为 $0.533\,({}^{\circ}\mathrm{C})^2$。固定 kernel 时，方差更新不需要未来温度值，因此 GRG 可以提前比较各条可行路线的预期收益。方差降低表示模型认为误差会减小，实际误差是否改善需分别用固定模拟真值和独立真实测量验证，不能用模型内的方差下降代替 RMSE。
+权重加在希望减少误差的评价点上。一个候选事件即使位于低权重区域，也可以通过与高权重区域的后验交叉协方差取得较大的收益。取 $w_{i\ell}=a_i$ 时，公式与 §4.3 的面积平均 EMSE 相同。两种收益都具有温度平方的单位。
 
-单点收益最容易看出选点逻辑。设 $B$ 为已有观测集合，$j$ 为候选采样点，定义：
-
-$$
-c_{qj\mid B}
-=K_{qj}-K_{qB}(K_{BB}+\sigma_n^2I)^{-1}K_{Bj},
-\qquad
-s_{j\mid B}
-=K_{jj}+\sigma_n^2-K_{jB}(K_{BB}+\sigma_n^2I)^{-1}K_{Bj}.
-$$
-
-测量 $j$ 后，评价事件 $q$ 的潜在方差下降量为：
+GP-Planning 的 WIVR 使用按距池边距离衰减的固定空间权重。Adaptive WIVR 保留同样的加权方差下降结构，在第 $k$ 轮开始时使用当前数据 $\mathcal D_k$ 与权重参考时刻 $t_k$ 计算
 
 $$
-\Delta\sigma_q^2(j\mid B)
-=\frac{c_{qj\mid B}^2}{s_{j\mid B}},
-\qquad
-\Delta_{\mathrm{EMSE}}(j\mid B)
-=\frac1{|Q|}\sum_{q\in Q}\frac{c_{qj\mid B}^2}{s_{j\mid B}}.
+u_i^{(k)}=v_{\mathcal D_k}((\mathbf p_i,t_k)),\qquad
+w_{i\ell}^{(k)}=a_i u_i^{(k)} \quad (\ell=1,\dots,L).
 $$
 
-候选点不仅要自身不确定，还要与许多评价位置保持较强的条件相关性，才能有效降低全场误差。分母包含观测噪声，噪声越大，同一次采样带来的方差降低越小。
+$u_i^{(k)}$ 是该空间单元的单位面积重要性，乘 $a_i$ 后得到离散积分中的总权重。同一空间单元在各评价时刻共享这个权重，方差下降 $d_{q_{i\ell}}(S)$ 仍通过 GP 随评价时间变化。如果所有 $u_i^{(k)}$ 都低于数值容差，使用 $w_{i\ell}=a_i$。本轮所有候选路线及递归子问题使用同一份权重。实际 GP 更新后可用新后验计算下一轮权重。
 
-Notebook 06 的 `emse_gain` 使用方差降低量之和，省略固定常数 $1/|Q|$，不影响同一次规划内的排序。`emse_obj` 逐点加入集合并累计条件收益，等价于整条路线的总方差降低。指标表中的 EMSE 是剩余平均方差，越低越好；规划使用的是 EMSE 降低量，越高越好。
+### 4.5 条件增益怎样在子路线之间传递
 
-为与下节 10 m 网格的边界面积处理一致，新设计拟在在线评分中采用相同的固定 $Q=Q_s\times\mathcal T_Q$。令 $a_i$ 为第 $i$ 个单元在有效工作区域内的面积，$\mathcal T_Q=\{t_1,\ldots,t_L\}$ 为预先固定、等间隔的评分时刻集合，则面积平均形式为
+设 $A$ 是已经排入候选前缀的事件，$B$ 是拟追加的事件，两者按事件身份去重。用 $\Sigma_{\mathcal D\mid A}$ 表示对 $A$ 的假设读数作条件化后的协方差。它由 §4.1 的公式算得，所需输入只有事件位置、时间和噪声方差。定义追加收益 $J(B\mid\mathcal D;A)=J(A\cup B\mid\mathcal D)-J(A\mid\mathcal D)$。这个差值可直接用 $\Sigma_{\mathcal D\mid A}$ 给 $B$ 评分。
 
-$$
-F_{\mathrm{EMSE}}^{\mathrm{area}}(A\mid C)
-=\frac{\sum_{i=1}^{M}a_i\sum_{\ell=1}^{L}
-\left[\sigma^2((\mathbf p_i,t_\ell)\mid C)
--\sigma^2((\mathbf p_i,t_\ell)\mid C\cup A)\right]}
-{L\sum_{i=1}^{M}a_i}.
-$$
-
-等面积单元时，该式退化为上面的普通算术平均；不完整边界单元则按有效面积参与同一空间域的积分近似。EMSE 与 WIVR 共用同一网格、有效区域 mask、评分时刻和面积处理，避免将边界离散差异误当作目标函数差异。
-
-### 4.4 WIVR：按当前 GP 不确定性动态空间加权
-
-WIVR（Weighted Integrated Variance Reduction）在与 EMSE 相同的固定时空集合 $Q$ 上设置非负权重 $w(q)$，且 $\sum_{q\in Q}w(q)>0$。本文采用归一化的加权方差降低：
+对 MI，联合熵按链式法则拆成前缀读数的熵与给定前缀后的后缀读数条件熵，独立观测噪声的熵也按批次相加。对 EMSE 和固定权重的 WIVR，采样前后方差之差可先减去前缀更新后的方差，再加上它与最终方差之差，因此逐点相消。三种目标都满足
 
 $$
-\boxed{
-F_{\mathrm{WIVR}}(A\mid C)
-=\frac{
-\sum_{q\in Q}w(q)
-\left[\sigma^2(q\mid C)-\sigma^2(q\mid C\cup A)\right]
-}{\sum_{q\in Q}w(q)}
-}
+J(A\cup B\mid\mathcal D)
+=J(A\mid\mathcal D)+J(B\mid\mathcal D;A).
 $$
 
-其中 $A=S(P;t_k)$ 是沿路径事件集合；$C$ 在本节集合记号中表示已经纳入条件的观测，与 §3 的矩阵 $C$ 不同。对应的单事件收益为
+这一步让递归搜索按前缀已有的信息评估后缀的新增价值。Adaptive WIVR 在整轮冻结权重，才可使用同一组权重得到上述相消关系。
+
+## 5. 从路径几何到时空采样事件
+
+### 5.1 路线、边代价与预算
+
+设候选 Checkpoints 与 Home 构成顶点集合 $V$，有序路线为 $P=(v_0,\dots,v_M)$。路径规划器为可达的有向边 $(i,j)$ 提供路径折线 $g_{ij}$。对路径顶点 $\mathbf a_0,\ldots,\mathbf a_m$，令 $s_0=0$，逐段计算累计弧长 $s_r=s_{r-1}+\|\mathbf a_r-\mathbf a_{r-1}\|$，末项 $s_m=L_{ij}$ 即路径总长。当前沿边实现用名义速度 $v_{\mathrm{nom}}$ 和边时间补偿 $\delta_{ij}$ 估计运动耗时：
 
 $$
-\Delta_{\mathrm{WIVR}}(j\mid B)
-=\frac{1}{\sum_{q\in Q}w(q)}
-\sum_{q\in Q}w(q)\frac{c_{qj\mid B}^2}{s_{j\mid B}}.
+d_{ij}=\frac{L_{ij}}{v_{\mathrm{nom}}}+\delta_{ij}.
 $$
 
-固定权重时，是否除以权重总和只改变固定比例；等面积离散下所有 $w(q)$ 相同，归一化 WIVR 与普通 EMSE 降低量相同。采用有效面积修正时，“Uniform Spatial Weighting”指单位面积重要性相同、$w(q)=a_i$，此时 WIVR 与 §4.3 的面积平均 EMSE 数值一致。权重作用于希望改善的评价事件 $q$，采样位置本身未必就在高权重区域。
+$d_{ij}$ 与路径几何共同构成边数据。出发时刻为 $t_0^P$ 时，第 $j$ 个 Checkpoint 的预计到达时刻为 $t_j^P=t_0^P+\sum_{r=1}^j d_{v_{r-1},v_r}$。路线须在搜索截止时刻 $t_{\max}^P$ 前到达 Home $h$，亦即 $v_M=h$ 且 $t_M^P\le t_{\max}^P$。$t_{\max}^P-t_0^P$ 是本次可用于导航搜索的预算。在这些约束下，GRG 近似最大化 $J(S(P)\mid\mathcal D)$。实际执行时另以任务时钟检查剩余时间和返航裕度。
 
-保留两个历史示例以解释权重含义：原 GP-Planning Notebook 06 的土壤/池塘场景采用 $w(q)=\exp[-d_{\mathrm{edge}}(q)/(8\,\mathrm m)]$，池边、距离 8 m 和 16 m 的权重约为 1、0.37、0.14；此前节点式合成 Nav2 测试使用过上方区域 3、其他区域 1 的人工空间权重。它们分别属于原参考场景和已完成的节点原型，均不构成本次 WELL-E 连续采样设计的既定权重或已验证最优设置。
+### 5.2 同一个采样时钟如何跨边运行
 
-**Adaptive Spatial Weighting — Design Defined**
+固定采样时钟原点 $\phi$ 与间隔 $\Delta_s>0$，全局 tick 为 $\tau_n=\phi+n\Delta_s$。沿每条正耗时边，只取满足 $t_{j-1}^P<\tau_n\le t_j^P$ 且处于采样窗口内的 tick。这样交界时刻只归属于上一段，每轮从规划起点之后的首个 tick 开始，跨边连续使用同一相位。
 
-新方案仅替换权重来源，保留上面的 Weighted Integrated Variance Reduction 目标和单事件收益结构：
-
-```text
-历史参考：Distance-Based Fixed Weights → WIVR Objective → GRG
-当前设计：GP Posterior Variance-Based Adaptive Weights → Same WIVR Objective → GRG
-```
-
-物理范围初步为约 **97 × 64 m**，须由已配准地图和有效工作区域 mask 确认；该范围是外包尺寸，不代表整个矩形均可作业。将其划分为 **10 × 10 m** 空间单元，完整外包矩形约有 $\lceil97/10\rceil\lceil64/10\rceil=70$ 个单元。与有效区域相交后，仅保留 $a_i>0$ 的有效单元；实际数量与面积由 mask 决定。每个有效单元设置一个位于有效区域内的代表点，记为
+对某个落在边 $(i,j)$ 上的 tick，把已走时间比例映射为弧长 $\widehat s=L_{ij}(\tau_n-t_{\mathrm{edge}})/d_{ij}$。其中 $t_{\mathrm{edge}}$ 为该边的预计起始时刻。找出包围 $\widehat s$ 的两项 $s_{r-1},s_r$，在对应非零长度线段内插值：
 
 $$
-Q_s=\{\mathbf p_1,\ldots,\mathbf p_M\},
-\qquad
-a_i=\operatorname{Area}(\text{cell}_i\cap\mathcal W_{\mathrm{valid}}).
+\beta=\frac{\widehat s-s_{r-1}}{s_r-s_{r-1}},\qquad
+\widehat{\mathbf p}_P(\tau_n)=(1-\beta)\mathbf a_{r-1}+\beta\mathbf a_r.
 $$
 
-评分时空集合 $Q=Q_s\times\mathcal T_Q$ 的几何、mask、代表点及评价时刻事先固定，不随 Policy 路径或权重变化；具体配准结果与时刻设置仍须记录。第 $k$ 轮规划时，用当前实际数据 $\mathcal D_k$ 在当前时间 $t_k$ 查询：
+最终将 $(\widehat x_P(\tau_n),\widehat y_P(\tau_n),\tau_n)^\top$ 加入 $S(P)$。这个过程为整条路线生成预计输入，沿途与返航边遵循相同规则。路径形状、预计边耗时和出发时刻都会影响 $S(P)$。执行阶段的采样器按实际位姿与实际时间戳生成观测，可以在运动或等待期间取得读数。GP 输入与预计事件、实际记录、评价时刻共用同一时间基准和单位。
+
+## 6. GRG 如何递归找路线
+
+### 6.1 子问题和预算分割
+
+固定一次搜索的 GP 快照、起始时刻 $t_0^P$、路径图、评分目标和所需权重。递归子问题记为 $\operatorname{Search}(R,g,b,d)$，其中 $R$ 是已经排定的路线前缀，$s=R[-1]$ 是前缀末端，$g$ 是本层目标，$b$ 是到达 $g$ 的截止时刻，$d$ 是剩余递归深度。前缀的完成时刻 $t(R)$ 根据 §5.1 从同一个 $t_0^P$ 累加得到。
+
+先检查直接把 $g$ 接到 $R$ 的路线能否满足 $b$。当前递归以该路线作为可行性入口和基准。当 $d=0$ 时返回基准路线。当 $d=1$ 时，比较直接结束和插入一个可行中间点的路线，保留本层得分最高的可行候选。
+
+当 $d>1$ 时，枚举中间点 $v$，利用两条直达边估计分割时刻的可行区间：
 
 $$
-u_i^{(k)}=\sigma_{\mathcal D_k}^{2}(\mathbf p_i,t_k),
-\qquad
-\boxed{w_i^{(k)}=a_i u_i^{(k)}}.
+b_{\mathrm{lo}}=t(R)+d_{sv},\qquad
+b_{\mathrm{hi}}=b-d_{vg}.
 $$
 
-$u_i^{(k)}$ 是代表点的潜在温度后验方差；$a_i$ 修正边界处不足 $100\,\mathrm m^2$ 的有效单元。使用代表点方差，不增加区域内方差平均算法。高方差点得到更高的单位面积重要性 $w_i^{(k)}/a_i$；不同面积单元的总权重不能仅按方差大小比较。WIVR 分母已除以权重总和，不需再次归一化。
+下界是直接从前缀末端到 $v$ 的预计时刻。上界为 $v$ 后至少预留一段直达 $g$ 的时间。若下界超过上界，当前搜索跳过该中间点。其余情况在区间内取 $m$ 个等间隔分割时刻 $b'_j=b_{\mathrm{lo}}+\tfrac{j}{m+1}(b_{\mathrm{hi}}-b_{\mathrm{lo}})$，其中 $j=1,\ldots,m$。对每个 $b'=b'_j$，先计算 $R_1=\operatorname{Search}(R,v,b',d-1)$，再计算 $R_2=\operatorname{Search}(R_1,g,b,d-1)$。第二次调用携带完整的 $R_1$，从 $t(R_1)$ 接续。$b'$ 只约束前段最迟结束的时间。路线事件仍按各边实际分配的预计耗时计算。
 
-同一空间单元在所有评分时刻使用相同权重：
+### 6.2 前缀条件化如何体现在整条路线的评分中
 
-$$
-w^{(k)}((\mathbf p_i,t_\ell))=w_i^{(k)},
-\qquad t_\ell\in\mathcal T_Q.
-$$
+对某个固定 $R_1$，将所有候选后缀与它拼成整条路线，再按 $J(S(R_2)\mid\mathcal D)$ 比较。§4.5 表明，这个总分等于固定前缀分数加上后缀的条件收益，所以给整条路线联合评分就能实现对后缀的条件比较。连接点在传递前缀时已经存在，后续只追加新边，并在同一时钟上计算该边的事件。
 
-**不增加独立 Temporal Weighting。** GP 输入仍是 $(x,y,t)$；路线事件仍带预计采样时间；预期方差降低仍在时空集合 $Q$ 上计算。权重仅由当前 $t_k$ 的空间后验方差生成，不按各未来评分时刻分别重新赋权。若全部当前方差均接近零，退回 $w_i^{(k)}=a_i$ 的面积加权；接近零的数值阈值与稳定性检查属于实现细节，须在实验前确定并验证。
+对子路线的选择是贪心的。每个分割先保留一个前段，再用它递归搜索后段，最后将完整路线与直接路线及其他分割的候选比较。根调用以当前位置或当前目标的预计到达位置为起点，以 Home 为终点。有限递归深度、分割离散化和前段贪心选择共同限制了搜索空间，因此返回的是近似路线。
 
-**Weight Update Rule**
+在固定的可选事件全集、固定当前 GP 与独立观测噪声下，MI 具有边际收益递减性质：单事件的条件增益为 $\tfrac12\log(1+v_{\mathcal D\mid A}(s)/\sigma_n^2)$，随已条件化的事件集扩大，方差只会减小。EMSE 和固定权重 WIVR 具有单调性，因为各评价点的方差下降非负。一般 GP 的方差降低目标可能出现互补性，单调性本身不足以证明次模性或推出 GRG 的近似保证。分割与递归结构参考 [Binney、Krause 和 Sukhatme, 2013](https://doi.org/10.1177/0278364913488427)。
 
-$$
-\mathcal D_k
-\longrightarrow \sigma_{\mathcal D_k}^{2}
-\longrightarrow w_i^{(k)}
-\longrightarrow \mathrm{WIVR}
-\longrightarrow \mathrm{GRG}.
-$$
+## 7. 用实际测量批量更新 GP
 
-初始化时计算首轮权重；每次实际 Batch GP Update 后，用新后验和当前时间生成下一轮权重。同一次 GRG 搜索中，所有候选路线、递归子问题与条件增益累计均使用同一份冻结的 $w^{(k)}$；不得根据候选路线的假设观测重新计算权重，也不在递归过程中改变目标。仅由实际测量加入 GP、后验更新后触发权重刷新。
-
-WIVR 权重表达评分的重要性，kernel 表达相关结构；当前重要性来自 GP 不确定性，不来自 SRF 未测真值、离线 RMSE 或 Dataset 4 标签。这里冻结的是权重生成规则与网格配置，运行中权重按已定义规则更新，不意味着整次任务固定权重。
-
-**Adaptive WIVR weighting design has been defined. Implementation and experimental validation remain pending.**
-
-原参考 Notebook 06 中，Gibbs kernel 用池边较短、高地较长的 lengthscale 描述非平稳相关性，WIVR 则表达池边区域的任务重要性。这一历史示例用于解释两者的区别；当前规划 GP 仍保留 RBF，新的 Matérn 候选模型用于独立模拟场生成。
-
-### 4.5 接入 GRG 与滚动重规划
-
-| 评分函数 | 衡量什么 | 新设计中的评分输入 |
-| --- | --- | --- |
-| MI | 联合熵降低，包含连续测量冗余 | 沿整条路线的时空事件联合协方差 |
-| EMSE 降低量 | 固定时空域的平均后验方差下降 | 同一沿途事件集合及共同评价集合 $Q$ |
-| Adaptive WIVR | 按当前 GP 不确定性动态空间加权的方差下降 | 同一事件集合、同一 $Q$、面积修正及本轮冻结的 $w^{(k)}$ |
-
-三者共享 GP、GRG、候选 Checkpoints、路径事件构造规则和预算；EMSE 与 Adaptive WIVR 还共用评分域、时刻及边界面积处理。每次实际 GP 更新后，Adaptive WIVR 刷新权重；同一次规划内权重固定，所有 GRG 递归层级使用同一目标与权重配置，禁止自定义 WIVR 在递归中意外退回默认 MI。Nav2 不计算信息收益；Mission Manager 执行下一段导航并缓冲沿途观测，段末批量更新 GP 后再规划。相同 Checkpoint Route 经过不同绕行路径或在不同时间执行时，会产生不同事件集合，因此仅缓存节点 ID 或旅行时间并不足以复用评分。
-
-### 4.6 仓库实现与结论边界
-
-- 原始 GP-Planning 参考仓库中的 `src/planners.py` 与 Notebook 06 用于理解 `gp_mutual_information`、`grg_plan`、`emse_gain`、`wivr_gain` 等计算。旧检查曾发现其递归 `objective_fn` 传递和共享缓存存在目标混用问题；这是原参考实现的历史观察，不应套用为当前所有 GRG 适配代码的结论。
-- 已有 `Code/ROS_Nav2_policy_compare/` 节点式原型已保存目标递归传递、数值等价和导航闭环测试结果；其评分输入仍是节点事件，不能据此认定新的沿路径事件评分已经实现。
-- 新实现必须在所有递归层级使用选定目标，并对 GP 版本、事件坐标/时间、目标函数、评价网格与权重配置、相关路径/时间安排正确区分缓存。连续事件构造与高密度事件的计算成本仍待验证。
-- 方差降低具有单调性，但一般 GP 下不保证次模；采用 GRG 的理论近似保证前需要核对相应假设，有限数值检查不能代替证明。
-- MI、EMSE 和 WIVR 是模型内规划目标。GP 与模拟场或真实环境不匹配时，模型收益与实际 RMSE 可能不同，必须分别报告。
-
-## 5. GRG：Checkpoint Route、沿边信息收益与时间预算
-
-### 5.1 基础网格与候选 Checkpoints
-
-在与真实 WELL-E 工作区域对应的二维地图上建立间距为 **1 m** 的均匀基础网格。排除工作区域外、障碍物内部、机器人足迹及安全距离不满足要求、或无法通过 Nav2 到达的节点；同时确认任务起点与 Home 的连通性。
-
-最终实验初始采用 **30 个候选 Checkpoints，另设独立 Home，Home 不计入这 30 个候选点**。候选点数量为暂定设置，后续可能根据空间覆盖、Nav2 可达性、路线事件数量及 GP／GRG 的计算耗时和内存开销调整；具体子集选择规则与数量是否合理仍需验证。正式 Policy 比较前固定候选点数量及集合，所有 Policy 使用相同配置。1 m 是基础网格间距；从中筛选候选点后，保留节点之间不一定仍相隔 1 m，不能将 30 个候选点视为整场均以 1 m 间距覆盖的证明。
-
-Checkpoint 用于组合路线搜索与分段执行，不要求停车测温，也不要求每条路线访问全部候选点。初始 30 个候选点不意味着只有 30 条观测：1 Hz 连续采样可能产生更多事件，需要同时测试 Checkpoint 数量、沿途事件数量、GP 数据规模和 GRG 计算成本。
-
-**10 m WIVR Evaluation Grid 与 1 m Checkpoint Base Grid 相互独立。** Checkpoints 决定可选路线节点；评分网格决定哪些空间位置的方差降低纳入 EMSE/WIVR，不要求代表点与 Checkpoints 重合。SRF 的 0.1 m 空间 / 0.5 s 时间参考分辨率用于可视化或离线评价，既不是 Checkpoint 间距，也不是在线 WIVR 评分分辨率。
-
-### 5.2 导航路径、旅行时间与路线收益
-
-设候选 Checkpoint 集合为 $V$。Nav2 Global Planner 返回路径 $\pi_{ij}$，Travel-Time Estimator 据此估计
+设当前数据为 $\mathcal D_k$，新到的一批有效观测为 $\mathcal B_k$。记它们的实际输入为 $B$，读数为 $\widetilde{\mathbf T}_B$。定义这批观测的预测误差和含噪协方差：
 
 $$
-TT=[tt_{ij}],\qquad
-tt_{ij}=\text{沿可行路径从 }v_i\text{ 到 }v_j\text{ 的预计运动时间}.
+\mathbf r_B=\widetilde{\mathbf T}_B-\boldsymbol\mu_{\mathcal D_k}(B),\qquad
+M_B=\Sigma_{\mathcal D_k}(B,B)+\sigma_n^2 I_{|B|}.
 $$
 
-路径长度除以名义速度可作为初步近似，但转弯、速度限制和导航实际行为可能影响误差，需通过日志校准。保留路径几何和预计进度随时间的变化：$TT$ 只描述代价，单靠矩阵无法知道沿途在哪些位置采样。不可达路径应标为不可用，不能以直线连接替代。
-
-GRG 仍输出有序的 $P=[v_0,\ldots,v_M]$，并通过 §4 的 $S(P;t_k)$ 评价整条路线沿途的信息。矩阵、路径和事件预测在当前位姿、地图、可达性或预计时间安排变化时更新。
-
-### 5.3 900 s 任务预算
-
-任务总耗时定义为
+将 §3 的条件高斯公式应用于当前后验，得到
 
 $$
-\boxed{
-\tau_{\mathrm{motion}}
-+\tau_{\mathrm{planning}}
-+\tau_{\mathrm{other}}
-\leq 900\,\mathrm{s}
-}
+\begin{aligned}
+\boldsymbol\mu_{\mathcal D_{k+1}}(U)
+&=\boldsymbol\mu_{\mathcal D_k}(U)
++\Sigma_{\mathcal D_k}(U,B)M_B^{-1}\mathbf r_B,\\
+\Sigma_{\mathcal D_{k+1}}(U,V)
+&=\Sigma_{\mathcal D_k}(U,V)
+-\Sigma_{\mathcal D_k}(U,B)M_B^{-1}\Sigma_{\mathcal D_k}(B,V).
+\end{aligned}
 $$
 
-- $\tau_{\mathrm{motion}}$：实际运动时间，包含采样路线和返航；运动期间同步测温，不额外加一次 sensing time。
-- $\tau_{\mathrm{planning}}$：实际占用任务时间的在线 GP 批量更新、Adaptive WIVR 权重计算（适用时）与 GRG 等规划计算。
-- $\tau_{\mathrm{other}}$：必要的额外等待、目标切换、恢复等未与上述过程重叠的耗时。
+第一式用新测量相对旧预测的残差修正均值。第二式从当前协方差扣除已取得的信息。固定模型参数和噪声模型时，先后对 $\mathcal D_k$ 和 $\mathcal B_k$ 条件化，等价于将新记录追加到 $\mathcal D_k$ 后一次条件化。仓库的批量更新采用后一种计算方式：拼接实际输入与读数，重新分解加入噪声的训练协方差。以记录身份判断一条读数是否已纳入，保留具有相同输入的独立读数。
 
-三项按不重复的时间区间计费，实际已用任务时间以共同 ROS 仿真时钟为准。如果以后采用边走边计算，需区分总计算延迟与暴露在任务关键路径上的非重叠计算时间，不能把与运动重叠的计算或测温再次加到预算中。并行执行能力目前为 Pending。
+## 8. 后验更新与路线更新怎样衔接
 
-取消固定 Per-Checkpoint Sensing Dwell。分段导航可能产生减速、目标切换或计算暂停，这些实际耗时仍须记录；取消驻留并不证明机器人已实现无停顿穿越所有 Checkpoints。
+系统使用采样时钟取得离散观测。仓库的沿边闭环按配置的间隔触发 GP 更新，将缓冲区内已收到的观测合并为一批，并用更新后的 GP 快照发起搜索。WIVR 的权重参考时刻 $t_k$ 取本批最后一条测量的时刻。如果机器人正向某个目标运动，下一次搜索从该目标及其预计到达时刻 $t_0^P$ 开始。$t_k$ 决定空间权重，$t_0^P$ 决定预计样本的时间安排。
 
-规划问题相应写为
+新的候选路线在当前路径段结束后才进入下一段的选择。选用前核对路线是否对应当前目标、是否已有完成的搜索结果，再用实际任务时间检查下一段与返航是否仍能放进预算。若 $t_{\mathrm{now}}$ 为当前实际时刻，拟执行 $s\to v$，至少需要为
 
 $$
-P^*\approx\arg\max_{P\in\mathcal P}J(S(P;t_k)\mid\mathcal D),
-\qquad
-v_M=\mathrm{Home},
-\qquad
-\widehat\tau_{\mathrm{mission}}(P)\le\tau_{\mathrm{remaining}}.
+t_{\mathrm{now}}+d_{sv}+d_{vh}+r_{\mathrm{home}}
 $$
 
-进入下一段前至少预留该段运动、实际占用时间的下一次 GP/GRG 更新、返航、必要额外开销与安全裕度。返航后最后一批在线更新若计入最终 GP，也须纳入相同预算与预留规则。不得等到 900 s 耗尽后才开始返航；超时或返航失败必须如实报告。
+保留时间，其中 $r_{\mathrm{home}}$ 是额外返航裕度。超出任务截止时刻或触发返航规则时，执行返航分支。导航边代价属于预测量，实际耗时由任务时钟更新。GP 批处理触发、下一段路线启用和采样时钟分别决定何时吸收读数、何时改变路线和何时取得读数。
 
-GRG 仍通过 $P_{s\to g}=P_{s\to v}\oplus P_{v\to g}$ 和 $B_1+B_2\le B$ 递归分配子路线预算，但连接处的采样相位、共享事件、跨段信息冗余和计算开销都需一致处理。这部分属于新连续采样实现的待验证内容。
+## 9. 端到端计算顺序
 
-## 6. Nav2 的双向作用与组件职责
+1. 加载拟合得到的常数均值、RBF 参数和噪声，以初始观测构造 GP 后验及其 Cholesky 分解。
+2. 固定当前 GP 快照，读取边的路径几何、预计耗时与剩余导航预算。对 Adaptive WIVR，计算并冻结本轮评价权重。
+3. GRG 递归枚举中间点与时间分割。对每条可行候选路线，用同一采样时钟生成 $S(P)$，计算联合事件协方差，再用当前选定目标评分。
+4. 启用可执行的路径段，同时缓冲带实际位置、时间与温度的观测。到达 GP 更新触发条件时，批量加入有效读数。
+5. 需要重规划时，从更新后的 GP 快照开始步骤 2，并按当前目标和剩余时间启用下一段。执行结束后，将剩余有效观测纳入最终后验。
 
-### 6.1 规划前：路径同时决定预计行驶时间与采样位置
-
-Nav2 Global Planner 根据地图、机器人足迹和位姿提供相关 Checkpoints 之间的可行路径。Travel-Time Estimator 估算路径的运动时间与沿路径进度，供 GRG 构造预计采样事件。绕行不仅改变旅行时间，还改变机器人会测到的空间位置，因此信息评分必须使用路径几何与时间安排，不能只用节点坐标和 $TT$。
-
-定位系统提供实际位姿；理想仿真真值定位、AMCL 或其他状态估计方案的使用范围需明确记录。已有理想定位测试不代表真实定位误差、障碍物感知或实体机器人导航已经验证。
-
-### 6.2 规划后：执行路径段，运动期间持续测量
-
-Mission Manager 从 Checkpoint Route 中取下一路径段目标，通过配置的 Nav2 目标接口执行 Bunker Mini 导航；Local Controller 生成运动指令并使用已配置的避障和恢复功能。导航运行期间，独立采样过程按初步 1 s 间隔读取实际位姿、时间和温度，写入测量缓冲区。
-
-到达结果是初步的“本段结束、触发批量更新与 GRG 重规划”条件，不是开始温度测量的条件。目标接口、段间切换与计算调度是否允许连续运动仍需验证；不把取消固定驻留直接描述成已有的无停顿导航能力。
-
-### 6.3 两种重规划：改变 Checkpoint Route 与改变实际路径
-
-| 层级 | 触发条件 | 决策与影响 |
-| --- | --- | --- |
-| GRG 任务层 | 批量 GP 更新、剩余预算、目标可达性或旅行代价变化 | 选择后续 Checkpoint Route 或返航 |
-| Nav2 导航层 | 路径或导航环境变化 | 更新到同一目标的可行路径及运动指令，因而也可能改变预计采样位置和时间 |
-
-Nav2 同一目标的路径改变后，实际记录仍以真实执行轨迹为准。若改变显著影响事件分布、信息收益或返航预算，Mission Manager 应刷新路径、代价和后续事件预测，并按预先规定的规则触发任务层重规划。
-
-### 6.4 职责与接口汇总
-
-| 组件 | 主要职责 | 输出或交互对象 |
-| --- | --- | --- |
-| GP | 表示时空温度及相关不确定性 | 后验均值、联合协方差；接收有效观测批次 |
-| Adaptive Weight Calculator | 当前 GP 后验 → 固定 10 m 网格方差与有效面积 → 本轮冻结权重 | 仅提供给 Adaptive WIVR；初始化和实际批量更新后刷新 |
-| MI / EMSE / Adaptive WIVR | 评价沿路线的预计测量信息 | 给 GRG 的路线收益 |
-| GRG | 选择预算内有序 Checkpoint Route | 给 Mission Manager 的下一路径段目标 |
-| Nav2 Global Planner | 计算可行路径 | 路径几何，供时间估计与事件构造使用 |
-| Travel-Time Estimator / 事件构造 | 估算运动时间与采样位置/时刻 | $TT$、预计轨迹及 $S(P;t_k)$ |
-| Nav2 Local Controller | 执行路径、处理配置范围内的避障 | 运动指令与执行反馈 |
-| 定位与任务时钟 | 提供实际位姿和时间基准 | 测量对齐与预算更新 |
-| 温度传感器 / 仿真测温接口 | 运动期间持续测量；仿真查询固定 SRF | 有效离散时空观测 |
-| 测量缓冲与 Batch GP Update | 去重、质量检查、按批次更新后验 | $\mathcal D_{k+1}$ 与更新日志 |
-| Mission Manager | 协调导航、采样、批量更新、重规划、失败与返航 | 统一闭环与非重复时间账本 |
-
-## 7. Continuous Sensing、批量 GP 更新与滚动重规划
-
-### 7.1 沿路径采样与段末批量更新
-
-导航开始后，机器人沿执行路径持续测温。初步在每完成一段 Checkpoint-to-Checkpoint 路径后，将本段已通过质量检查的观测组成批次
-
-$$
-\mathcal B_k=\{(\mathbf z_r^{\mathrm{actual}},\widetilde T_r)\}_{r\in I_k},
-\qquad
-\boxed{\mathcal D_{k+1}=\mathcal D_k\cup\mathcal B_k}.
-$$
-
-在冻结 kernel 超参数的任务内，批量 conditioning 更新 $(\mu_k,\Sigma_k)$，而不是每次收到温度就重新拟合超参数。随后 Adaptive WIVR 在固定 10 m 评分网格上重新计算权重，再更新实际已用时间、当前位置及相关路径/事件预测，运行 GRG 并执行下一段。采样、GP 更新与 GRG 重规划是三个不同的频率：当前仅初步设置采样间隔 1 s、更新与重规划发生在段末，均须通过实验检查延迟与效果。
-
-采样时钟不因经过 Checkpoint 而重新开始，记录以实际时空输入为准。重复经过同一空间位置可形成新的时间观测；同一条记录不能在相邻批次重复加入。返航段的有效观测按相同记录规则保存，最后一批纳入最终 GP 的时机与开销需按统一预算规则执行。
-
-设计中的执行顺序为：
-
-1. Nav2 执行下一路径段。
-2. 机器人沿途连续测温。
-3. 有效测量进入 Buffer。
-4. 段末执行 Batch GP Update。
-5. Adaptive WIVR 根据更新后的 GP，重新计算固定 10 m 网格上的权重。
-6. GRG 使用新后验与本轮冻结的新权重重新规划；MI/EMSE 不经过动态权重模块。
-7. Nav2 执行下一段或返回 Home。
-
-动态权重仅影响 WIVR 评分，不改变 GP conditioning、Nav2 Controller 或初步 1 Hz Continuous Sensing 规则。此闭环为 Design Defined，相关连续采样与权重实现仍为 Implementation Pending。
-
-### 7.2 完整闭环与异常分支
-
-1. **初始化：** 使用可用的真实 Dataset 0–3 建立 Initial GP，加载共同地图、候选 Checkpoints、Home、采样时钟与 900 s 预算；仿真场在任务前固定参数和 realization。
-2. **规划输入：** Nav2 提供可行路径，估计运动时间并构造整条候选路线的预计采样事件。
-3. **GRG 评分：** 通过 MI、EMSE 或 Adaptive WIVR 的联合事件评分选择路线；WIVR 使用本轮冻结的动态权重，并预留返航与在线计算开销。
-4. **连续测量：** 执行下一路径段，按实际位姿与时间获取真实传感器数据或按需 SRF 温度；合格记录进入缓冲区。
-5. **批量更新与重规划：** 段末初步触发 GP 更新，刷新 Adaptive WIVR 权重，检查预算，再运行 GRG；非 WIVR 策略跳过权重计算。
-6. **返航与收尾：** 不再有满足预算的路线时，实际执行返回 Home，按协议处理最后一批数据，并保存任务结束状态。
-
-导航成功与观测有效性分开判断。路径段中途失败、取消或恢复时，此前已经取得的有效测量仍是实际观测，不因“未到 Checkpoint”而全部作废；它们何时批量纳入 GP，应由异常处理协议规定并验证。缺失温度、无效定位或时间戳不可靠的记录不进入 GP，也不补造数据。
-
-失败、等待、恢复、目标切换和计算延迟均计入实际任务时间；相应路径、事件预测和返航可行性需要重查。GP 在规划暂停时是否继续接收采样流、缓冲区何时清空及异常批次更新频率仍为 Pending。
-
-## 8. 评价指标及三类结果的区分
-
-### 8.1 Synthetic Reconstruction：主要仿真指标
-
-在预先固定的时空评价集合 $Q_{\mathrm{eval}}$ 上，将最终 GP 后验均值与同一 SRF realization 的无噪真值比较：
-
-$$
-\operatorname{RMSE}_{\mathrm{syn}}
-=\sqrt{\frac{1}{|Q_{\mathrm{eval}}|}
-\sum_{q\in Q_{\mathrm{eval}}}
-\left[\mu_{\mathrm{final}}(q)-T_{\mathrm{sim}}(q;\eta)\right]^2}.
-$$
-
-同时可报告对应 MAE、潜在后验方差与分时段误差。所有 Policy 与 History Only 使用同一 Initial GP、相同 SRF realization、相同评价位置和共同时间范围。评价域由真实工作区域及预先固定的地图 mask 决定，不由机器人访问位置的凸包或各 Policy 的数据分布决定。
-
-0.1 m 空间分辨率、0.5 s 时间分辨率是可视化、离散评价或输出的初步参考，不限制 SRF 在实际 $(x,y,t)$ 上查询。即使固定评价网格很大，也按索引分批生成查询、取得真值和累计误差，不预存整个三维温度数组。报告评价域、实际使用的分辨率、样本数和分批设置。
-
-明确区分两套评价输入：
-
-| 用途 | 网格与信息来源 | 使用边界 |
-| --- | --- | --- |
-| Online Scoring Grid | 固定 10 m 空间单元代表点 × 共同评分时刻；GP 后验协方差；Adaptive WIVR 使用当前方差生成权重 | 用于 GRG 路线收益；不读取 SRF 未测真值 |
-| Offline Reconstruction Evaluation Grid | 固定、可更密集的时空评价点及无噪 SRF Ground Truth | 所有 Policy 与 History Only 共用；仅用于重建 RMSE/MAE |
-
-在线 $Q$ 与离线 $Q_{\mathrm{eval}}$ 均需事先固定并分别记录。EMSE/WIVR 的在线空间域、mask、评价时刻及边界有效面积处理一致，使单位面积 Uniform Weighting 与 EMSE 形成数值一致的对照。动态权重只读取 GP，不读取模拟真值；离线 RMSE 不参与选点、权重调整或在线停止条件。
-
-### 8.2 Independent Real-Data Reconstruction / Interpolation：独立验证
-
-本学期目标是时空温度场**重建／插值，而非未来温度预测**。保留 Dataset 4 作为独立真实数据来源：不参与 Initial GP 训练、归一化、超参数或权重规则选择，也不用于 SRF 标定或仿真测温。独立验证模型仅由预先划定的真实训练观测 conditioning，不混入模拟观测。
-
-验证前必须检查真实 $(x,y,t)$ 的空间支持、训练观测的时间覆盖及留出规则，预先固定可进行插值的评价子集，再查询冻结模型并报告 $\operatorname{RMSE}_{\mathrm{real}}$、MAE 和有效范围。若 Dataset 4 整轮位于训练时间范围之后，不能仅因它是第五轮数据就称为插值，也不能压缩或平移日期制造时间覆盖；当前独立重建／插值验证应标记 **Pending**，待有时间覆盖的真实留出协议与数据后再执行，不自动转为 future forecasting 任务。
-
-Synthetic Reconstruction RMSE、独立真实数据重建／插值验证及未来实体机器人结果分别报告。Synthetic RMSE 不等于真实场重建精度，文档修订也不构成任何新实机验证。
-
-### 8.3 信息、导航与系统指标
-
-- MI（nats）、EMSE 降低量、归一化 Adaptive WIVR：作为模型内收益分别报告，不与真实误差混为一谈；不同轮次权重不同，WIVR 数值不应直接当作固定目标的跨轮次增益比较。
-- 每轮 10 m 网格方差、有效面积、动态权重、冻结版本、近零回退触发及权重计算开销。
-- 连续采样有效记录数、唯一空间覆盖、时间重复观测数、丢失/无效记录与实际采样间隔。
-- GP 批量大小、更新延迟、GRG 规划延迟、路线事件数、缓存与内存开销。
-- Nav2 实际路径、预计/实际行驶时间、路径变化、导航失败、恢复与碰撞检查。
-- 实际任务时间及其非重叠分项、返航结果、预算超限与停止原因。
-- 多随机场种子的成对比较结果与变异情况；不能把单次模拟场的最优方法当作普遍结论。
-
-若报告 95% 区间覆盖率，需要区分潜在温度区间的 $\sigma^2(\mathbf z)$ 与含噪测量区间的 $\sigma^2(\mathbf z)+\sigma_n^2$。
-
-## 9. 最终逻辑
-
-新的信息规划链为：
-
-```text
-Real Lawnmower Data → Initial Spatiotemporal RBF GP
-                              ↓
-                   GP Posterior Mean / Covariance
-                              ↓
-      Adaptive Weight Calculation（仅 WIVR；固定 10 m 评分网格）
-                              ↓
-              MI / EMSE / Adaptive WIVR Scoring
-                              ↓
-                    GRG Route Optimization
-                              ↓
-           Nav2 Navigation + Continuous Sensing（初步 1 Hz）
-                              ↓
-                     Measurement Buffer
-                              ↓
-                       Batch GP Update
-                              ↓
-                Weight Update + GRG Replanning
-                              ↓
-                  Continue Sampling / Return Home
-```
-
-真实工作区域地图经 1 m 基础网格与 Nav2 可达性过滤，初始选取 30 个候选 Checkpoints，另设独立 Home；数量可能根据覆盖和计算性能验证调整，正式 Policy 比较前统一固定。候选路线结合 Nav2 路径几何与预计时间构造沿途事件。MI/EMSE 跳过动态权重计算；Adaptive WIVR 初始化及每次实际批量更新后刷新权重，同次 GRG 搜索内保持固定。
-
-温度来源与评价另外分工：
-
-- 真实 Lawnmower 历史数据用于 Initial GP 和模拟场统计标定；保留共同坐标及真实时间信息。
-- 独立的 Matérn SRF 候选生成器拟提供按需查询的 $T_{\mathrm{sim}}(x,y,t)$，规划 GP 仍使用 RBF，不将 GP Posterior Mean 作为模拟真值。
-- 模拟场提供仿真机器人的连续观测，并在固定时空网格上提供离线 Synthetic Ground Truth；所有 Policy 配对使用相同场实现和实验条件。
-- Dataset 4 保留用于独立真实数据重建／插值验证；时间覆盖或空间支持不足时标记 Pending，不转为本学期的未来预测任务。未来实体机器人结果另行报告。
-
-已有节点式测试只支持原有设计的结论。新的沿边事件构造、连续采样缓冲、批量更新调度、SRF 参数与一致性、已确定的 Adaptive WIVR 权重实现和完整集成均需后续验证；具体英文实验计划与 Pending 项列于 §10。
+原方法可对照 [GP-Planning 的 GRG 与 MI](../GP-Planning/src/planners.py) 和 [时空 GP 与方差下降目标](../GP-Planning/notebooks/06_temporal_nonstationary.ipynb)。训练过程见 [GP 模型与拟合代码](../Code/ROS_simulation/Trained_Real_Data_Kernel/testing_code/gp_model.py)。[沿边搜索核心](../Code/Verification%20tests/ROS_closed_loop_test/code/src/core.hpp) 提供 MI、EMSE 与 WIVR 三种目标，[闭环调度](../Code/Verification%20tests/ROS_closed_loop_test/code/src/nodes.cpp) 使用 Adaptive WIVR。
 
 ---
 
