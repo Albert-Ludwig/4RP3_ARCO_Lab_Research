@@ -139,6 +139,7 @@ struct Experiment:rclcpp::Node {
       {"peak_queue",peak_queue},{"coalesced_state_signals",coalesced},{"pending_state_at_stop",rest.size()}});
   }
   void dispatch(int id,int plan_id){
+    if((id==Search::home)!=returning)throw std::runtime_error("Home is reserved for final return");
     if(nav_active)throw std::runtime_error("Attempt to switch a moving goal");
     // Preserve only the unexecuted sampling tail.
     if(retained_route.size()>1&&retained_route[0]==current&&retained_route[1]==id)
@@ -183,12 +184,12 @@ struct Experiment:rclcpp::Node {
   }
   double budget() const {return cfg["navigation_budget_s"];}
   bool can_sample_next(int id,double t) const {
-    if(id==current||id<0||id>=points.rows())return false;
+    if(id==current||id<=Search::home||id>=points.rows())return false;
     double duration=edges[current][id].duration;
     return std::isfinite(duration)&&duration>0&&t+duration<=budget()+1e-8;
   }
   bool has_sampling_leg(double t) const {
-    for(int id=0;id<points.rows();++id)if(can_sample_next(id,t))return true;
+    for(int id=Search::home+1;id<points.rows();++id)if(can_sample_next(id,t))return true;
     return false;
   }
   void cancel_sampling_goal(){

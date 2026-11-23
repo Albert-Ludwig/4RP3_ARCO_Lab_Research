@@ -29,6 +29,8 @@ assert len(plans)+worker['unprocessed']==m['grg_requested']
 initial_plan=read(RUN/'initial_plan.json')
 policy,=read(RUN/'protocol.json')['policies']
 assert plans and all(p['policy']==policy for p in [initial_plan,*plans])
+# Node 0 can anchor the first leg; each subsequent node must be a sensing candidate.
+assert all(all(0<node<=10 for node in p['route'][1:]) for p in [initial_plan,*plans])
 audits=[]
 grid=Grid([30,20],5,None,np.arange(0,301,2))
 selected=[(0,0,initial_plan)]
@@ -57,6 +59,10 @@ while reader.has_next():
     p=deserialize_message(data,Odometry);t=p.header.stamp.sec+p.header.stamp.nanosec/1e9-m['origin']
     if 0<=t<=m['duration_s']:trajectory.append([t,p.pose.pose.position.x+15,p.pose.pose.position.y+10])
 trajectory=np.array(trajectory);np.save(RUN/'trajectory.npy',trajectory)
+home_xy=np.array(read(RUN/'candidates.json')[0])
+assert np.array_equal(home_xy,read(RUN/'protocol.json')['home_m'])
+spawn_offset_m=float(np.linalg.norm(trajectory[0,1:3]-home_xy))
+spawn_verified=bool(trajectory[0,0]<=.20 and spawn_offset_m<=.30)
 resources=lines(RUN/'resources.jsonl');cpu_deltas=[]
 for before,after in zip(resources,resources[1:]):
     prior={p['pid']:p['cpu_s'] for p in before['processes']};dt=after['wall']-before['wall']
@@ -83,13 +89,14 @@ checks=dict(sensing_complete=[r['id'] for r in samples]==[r['id'] for r in queri
     no_silent_request_drops=len(plans)+worker['unprocessed']==m['grg_requested'],
     sampled_completed_route_scores_audited=all(x['passed'] for x in audits),
     no_navigation_preemptions=m['goal_preemptions_before_deadline']==0,
+    spawned_near_home=spawn_verified,
     configured_policy_used=True,no_search_timeouts=all(not p["timeout"] for p in [initial_plan,*plans]),
     no_navigation_failures=m["navigation_failures"]==0,
     returned_home=m['home_returned'] and m['home_error_m']<=.3,
     within_sampling_budget=0<m['sampling_duration_s']<=m['sampling_budget_s']
         and all(0<=e['t']<m['sampling_budget_s'] for e in samples))
 arrival_choices=[e for e in events if e['event']=='arrival_selection']
-summary=dict(policy=policy,initial_route=initial_plan["route"],mission=m,worker=worker,checks=checks,score_audits=audits,
+summary=dict(policy=policy,home_xy_m=home_xy.tolist(),first_recorded_pose=trajectory[0].tolist(),spawn_offset_m=spawn_offset_m,initial_route=initial_plan["route"],mission=m,worker=worker,checks=checks,score_audits=audits,
     diagnostic_all_searches_within_1s=worker['completed_total']==m['grg_requested'] and deadline_success==m['grg_requested'],
     diagnostic_searches_within_1s=deadline_success,grg_completed_during_window=m['grg_completed_at_stop'],
     grg_compute_s=stats([p['total_compute_s'] for p in plans]),grg_search_s=stats([p['seconds'] for p in plans]),
@@ -136,10 +143,12 @@ for e in events:
 [sampling_stop]=[e for e in events if e['event']=='sampling_finished']
 [return_start]=[e for e in events if e['event']=='return_started']
 no_edge_fits=all(sampling_stop['event_t']+cost>m['sampling_budget_s']
-                 for (a,b),cost in edge_cost.items() if a==sampling_stop['last_waypoint'] and a!=b)
+                 for (a,b),cost in edge_cost.items() if a==sampling_stop['last_waypoint'] and a!=b and b!=0)
 [return_goal]=[e for e in events if e['event']=='nav_goal' and e['returning']]
+sampling_goals=[e for e in events if e['event']=='nav_goal' and not e['returning']]
 summary['checks'].update(arrival_only_from_event_trace=bool(arrival_only),
  matching_route_anchor_and_epoch=bool(matching),sampling_legs_fit_budget=bool(budget_ok),
+ home_excluded_from_search_and_sampling_goals=bool(sampling_goals) and all(0<e['target']<=10 for e in sampling_goals),
  sampling_plan_cost_matches_executed_prefix=all(
      abs(p['predicted_navigation_s']-p.get('request',{}).get('planning_start_t',0)
          -sum(edge_cost[a,b] for a,b in zip(p['route'],p['route'][1:])))<=1e-8

@@ -31,7 +31,8 @@ class TemperatureField:
             z = z.reshape(1, 3)
         if z.ndim != 2 or z.shape[1] != 3 or not np.isfinite(z).all():
             raise ValueError("Expected finite (N,3) physical x_m, y_m, t_s")
-        lower = np.array([0., 0., self.config["mission_interval_s"][0]])
+        lower = np.array([*self.config.get("working_origin_m", [0., 0.]),
+                          self.config["mission_interval_s"][0]])
         upper = np.array([*self.config["working_extent_m"], self.config["mission_interval_s"][1]])
         if np.any(z < lower) or np.any(z > upper):
             raise ValueError("Query outside declared temporary domain/time interval")

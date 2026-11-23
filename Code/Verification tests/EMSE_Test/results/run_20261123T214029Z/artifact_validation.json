@@ -1,0 +1,18 @@
+{
+  "shared_fixture_checks": {
+    "initial.json": true,
+    "field.json": true,
+    "map.yaml": true,
+    "map.pgm": true,
+    "evaluation_grid.npz": true,
+    "candidates.json": true,
+    "scene.json": true,
+    "world.sdf": true,
+    "graph.json": true,
+    "spawned_at_new_home": true,
+    "navigation_profile.json": true,
+    "nav2_settings": true
+  },
+  "mission_acceptance": true,
+  "policy": "emse"
+}

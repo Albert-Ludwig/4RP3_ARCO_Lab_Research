@@ -1,0 +1,21 @@
+{
+  "reference": "WIVR_test/results/run_20261120T145549Z",
+  "home_m": [
+    0,
+    0
+  ],
+  "fixture_builder_sha256": "0c157406f03f2917d43bc5fd7cf1e464d761abecc0dd4922d89f0b9aa7a4be0a",
+  "home_clearance_m": 1.25,
+  "graph_source": "computed with Nav2 for this run",
+  "inputs_sha256": {
+    "initial.json": "7f747d15a22494c7a20306fcd3505fa79a5066aa7862e5d721ea89d55598546e",
+    "candidates.json": "98a85abf5e0095307bbe76c09b95465047242449ab7b3ac6db0d0a0da00f2060",
+    "field.json": "35e1da53851e3302c683917ecfc59fbacdf7e283c589547b0e45e06d03b692e8",
+    "world.sdf": "3c705f3e1e05fd7bb6b60080c999583a5cb13a56c396e67b9213ba12d583f99e",
+    "scene.json": "23f8018a41760d2f88cd5fa2b6b8185f30a406c786a669d8db6c032bf4d24cc7",
+    "map.yaml": "4a8891bf4a18009dab8d3ce7e59c032a280d68f686b837bb707ec65c3bbac721",
+    "map.pgm": "f35f85222efe3a75a0da6a38a67ed5c33068d443106ead26d0532cc837c5dc1e",
+    "graph.json": "2799b675c213a8e957d028d0738cf996f54c9f039903b1cfef05611c16faf0ac"
+  },
+  "evaluation_grid_sha256": "45fc3bcba10abedcdae7698717ad88b280eae3cc357b27033c48e1938ce37de2"
+}

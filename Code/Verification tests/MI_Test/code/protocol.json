@@ -4,8 +4,8 @@
     20
   ],
   "home_m": [
-    15,
-    10
+    0,
+    0
   ],
   "candidate_count": 10,
   "policies": [
@@ -39,7 +39,7 @@
   "reconstruction": "Retrospective final posterior over the common full [0,300] domain; not a forecasting test",
   "gp_update": "Every 1 s; all observations retained; fixed kernel hyperparameters",
   "grg_update": "Single worker, one replaceable latest-state signal, no FIFO; current search completes, next search starts with latest offered GP/context",
-  "goal_switch": "Switch sampling goals only at arrival; persist the sampling route tail. Home can be a sampling waypoint.",
+  "goal_switch": "Switch sampling goals only at arrival and retain the sampling route tail. Home is reserved for spawn and final return.",
   "execution_mode": "Latest-GP background MI scheduling; retained route with arrival-only handoff",
   "update_intervals_s": [
     1
@@ -47,5 +47,7 @@
   "update_interval_s": 1,
   "terminal_residual": "Keep all timely measurements. Do not request sampling or planning during final return.",
   "freshness_limit_s": null,
-  "reference_fixture_run": "run_20261120T145549Z"
+  "reference_fixture_run": "run_20261120T145549Z",
+  "home_clearance_m": 1.25,
+  "home_used_for_sampling": false
 }

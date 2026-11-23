@@ -1,0 +1,18 @@
+{
+  "conditioning": "980 synthetic past observations of the SAME SRF, not interpolated real temperatures",
+  "hyperparameter_source": "/workspace/Code/ROS_simulation/Trained_Real_Data_Kernel/result/full_fit_20261105T031701003839Z/hyperparameters.json",
+  "hyperparameter_source_sha256": "c19747e99b071599b8a1d974f3c11738d65b61dcebe2278d13d7aca1288fe3c5",
+  "generator": "GSTools Mat\u00e9rn finite-mode SRF",
+  "kernel": "Fixed real-data-fitted ARD RBF; no MLL refit in this experiment",
+  "history_interval_s": [
+    -180,
+    -1
+  ],
+  "evaluation_queries": 9150,
+  "common_files_sha256": {
+    "initial.json": "7f747d15a22494c7a20306fcd3505fa79a5066aa7862e5d721ea89d55598546e",
+    "field.json": "e0a5448b81f0fb80b580a143beab687d55f976db16ffa0542ebe469b36bfd84a",
+    "candidates.json": "e51075e7d139ae2e1c376a70ab24c3794362ba5c8ae4949b636b768184078401",
+    "evaluation_grid.npz": "45fc3bcba10abedcdae7698717ad88b280eae3cc357b27033c48e1938ce37de2"
+  }
+}

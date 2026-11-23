@@ -1,0 +1,179 @@
+{
+  "policy": "wivr",
+  "home_xy_m": [
+    0,
+    0
+  ],
+  "first_recorded_pose": [
+    0.013999999999999346,
+    0.0,
+    0.0
+  ],
+  "spawn_offset_m": 0.0,
+  "initial_route": [
+    0,
+    10,
+    1,
+    10
+  ],
+  "mission": {
+    "arrival_wait_s": 1.9259999999999593,
+    "duration_s": 290.96000000000004,
+    "goal_preemptions_before_deadline": 0,
+    "gp_updates": 290,
+    "grg_completed_at_stop": 144,
+    "grg_requested": 144,
+    "home_error_m": 0.13657958810527795,
+    "home_returned": true,
+    "measurements": 290,
+    "missed_ticks": 0,
+    "navigation_failures": 0,
+    "origin": 8.986,
+    "pending_sensor_requests": 0,
+    "return_duration_s": 0.07000000000005002,
+    "return_navigation_wall_s": 0.07381753899971955,
+    "return_started_t": 290.89,
+    "sampling_budget_s": 300.0,
+    "sampling_duration_s": 290.88,
+    "sampling_stop_node": 0,
+    "sampling_stop_reason": "no_sampling_leg_fits",
+    "sampling_wall_s": 290.8886711310006,
+    "segments": 11,
+    "stale_pose": 0,
+    "status": "window_completed",
+    "update_interval_s": 1,
+    "wall_s": 290.9686659020008
+  },
+  "worker": {
+    "coalesced_state_signals": 157,
+    "completed_total": 144,
+    "peak_queue": 1,
+    "pending_state_at_stop": 0,
+    "unprocessed": 0
+  },
+  "checks": {
+    "sensing_complete": true,
+    "all_samples_assimilated": true,
+    "no_silent_request_drops": true,
+    "sampled_completed_route_scores_audited": true,
+    "no_navigation_preemptions": true,
+    "spawned_near_home": true,
+    "configured_policy_used": true,
+    "no_search_timeouts": true,
+    "no_navigation_failures": true,
+    "returned_home": true,
+    "within_sampling_budget": true,
+    "single_pending_state": true,
+    "fresh_snapshot_when_offered": true,
+    "all_started_jobs_recorded": true,
+    "retained_route_handoff": true,
+    "arrival_only_from_event_trace": true,
+    "matching_route_anchor_and_epoch": true,
+    "sampling_legs_fit_budget": true,
+    "sampling_plan_cost_matches_executed_prefix": true,
+    "stop_reason_verified": true,
+    "return_after_sampling": true
+  },
+  "score_audits": [
+    {
+      "id": 0,
+      "absolute_error": 6.591949208711867e-17,
+      "passed": true
+    },
+    {
+      "id": 1,
+      "absolute_error": 3.8163916471489756e-17,
+      "passed": true
+    },
+    {
+      "id": 73,
+      "absolute_error": 1.1275702593849246e-17,
+      "passed": true
+    },
+    {
+      "id": 144,
+      "absolute_error": 0.0,
+      "passed": true
+    }
+  ],
+  "diagnostic_all_searches_within_1s": false,
+  "diagnostic_searches_within_1s": 76,
+  "grg_completed_during_window": 144,
+  "grg_compute_s": {
+    "mean": 1.7268205436110533,
+    "p95": 4.8071241163498595,
+    "max": 5.567086793000271
+  },
+  "grg_search_s": {
+    "mean": 1.685321545222286,
+    "p95": 4.778853680550401,
+    "max": 5.536451888000556
+  },
+  "grg_queue_wait_s": {
+    "mean": 0.20435161550002098,
+    "p95": 0.8579842575499697,
+    "max": 0.9818246909999289
+  },
+  "grg_latency_s": {
+    "mean": 1.9311761500346987,
+    "p95": 5.3505804778000305,
+    "max": 6.197491132000323
+  },
+  "grg_timeouts": 0,
+  "consumed_plan_age_s": {
+    "mean": 4.671800000000006,
+    "p95": 8.214500000000019,
+    "max": 8.570000000000036
+  },
+  "gp_update_total_s": 10.781738393999149,
+  "grg_compute_total_s": 248.66215827999167,
+  "gp_update_s": {
+    "mean": 0.03717840825516948,
+    "p95": 0.04683770704978087,
+    "max": 0.05772588400031964
+  },
+  "initial_plan_s": 3.4814839600003324,
+  "sampled_process_peak_mib": 1334.58984375,
+  "sampled_aggregate_cpu_peak_percent": 545.9476740443749,
+  "sampled_aggregate_cpu_mean_percent": 437.4853963144955,
+  "srf_source_ms": {
+    "mean": 0.7091210344916707,
+    "p95": 0.9765576504378259,
+    "max": 1.236101000358758
+  },
+  "sensor_roundtrip_ms": {
+    "mean": 1.7260707655027387,
+    "p95": 2.688005149775563,
+    "max": 7.365946999925654
+  },
+  "distance_m": 233.92394443233567,
+  "real_time_factor": 0.9999702170610918,
+  "final_reconstruction_rmse_c": 0.07040594335587333,
+  "history_only_rmse_c": 0.09072630041237979,
+  "arrival_route_sources": {
+    "fresh_completed": 10,
+    "retained_tail": 0
+  },
+  "interpretation": "One replaceable latest-state signal; GRG starts with latest offered GP and navigation context, never restarts for each GP update. Retain the executable sampling tail; switch only at arrival during sampling. Final return begins after sampling stops. No hard GP age rejection. All observations assimilated at 1 Hz. Actual started jobs have contiguous IDs; coalesced state signals are explicitly counted. Initial planning precedes mission. Final in-flight search may complete after 300 s.",
+  "sampling_distance_m": 233.90763499801636,
+  "sampling_intermediate_home_visits": 2,
+  "sampling_stop": {
+    "event": "sampling_finished",
+    "event_t": 290.88,
+    "has_feasible_next_leg": false,
+    "last_waypoint": 0,
+    "reason": "no_sampling_leg_fits",
+    "sampling_duration_s": 290.88,
+    "sim": 299.866,
+    "wall": 6597.985627196
+  },
+  "grg_snapshot_age_at_start_s": {
+    "mean": 0.2573099488333635,
+    "p95": 0.9036949549500192,
+    "max": 1.0218246909999493
+  },
+  "grg_feature_total_s": 156.76831746605149,
+  "grg_objective_total_s": 43.22497284096153,
+  "empty_event_searches": 41,
+  "scheduler_acceptance": true
+}

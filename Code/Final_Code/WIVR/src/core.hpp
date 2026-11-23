@@ -116,6 +116,7 @@ struct Edge {
 struct Search {
   GP &gp;
   std::string policy;
+  static constexpr int home = 0;
   // Virtual terminal adds zero travel and no sampling events.
   static constexpr int terminal = -1;
   std::vector<std::vector<Edge>> &edges;
@@ -268,7 +269,7 @@ struct Search {
     objective_seconds += wall() - objective_start;
     double accepted = std::max(0., value);
     scores[r] = accepted;
-    // Preserve only complete, budget-feasible Home-return routes.
+    // Preserve complete routes to the virtual sampling terminal.
     if ((best.size()<2 || accepted>best_gain) && r.size()>2 && r.back()==terminal && finish(r)<=elapsed+cap+1e-8) {
       best = r;
       best_gain = accepted;
@@ -287,7 +288,7 @@ struct Search {
       return base;
     auto choice = base;
     double gain = score(base);
-    for (int v = 0; v < int(edges.size()); v++) {
+    for (int v = home + 1; v < int(edges.size()); v++) {
       if(v==start || v==end) continue;
       auto p = prefix;
       p.push_back(v);

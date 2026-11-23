@@ -1,0 +1,693 @@
+[INFO] [launch]: All log files can be found below /ros-data/log/2026-11-23-21-34-47-713049-bunker-jazzy-9072
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [gz-1]: process started with pid [9075]
+[INFO] [parameter_bridge-2]: process started with pid [9076]
+[INFO] [robot_state_publisher-3]: process started with pid [9077]
+[INFO] [cmd_watchdog.py-4]: process started with pid [9078]
+[INFO] [odometry_adapter.py-5]: process started with pid [9079]
+[INFO] [truth_localization.py-6]: process started with pid [9080]
+[INFO] [map_server-7]: process started with pid [9081]
+[INFO] [planner_server-8]: process started with pid [9082]
+[INFO] [controller_server-9]: process started with pid [9083]
+[INFO] [behavior_server-10]: process started with pid [9084]
+[INFO] [bt_navigator-11]: process started with pid [9085]
+[INFO] [velocity_smoother-12]: process started with pid [9086]
+[INFO] [lifecycle_manager-13]: process started with pid [9087]
+[robot_state_publisher-3] [INFO] [1795469688.454061041] [robot_state_publisher]: Robot initialized
+[velocity_smoother-12] [INFO] [1795469688.645070107] [velocity_smoother]: 
+[velocity_smoother-12] 	velocity_smoother lifecycle node launched. 
+[velocity_smoother-12] 	Waiting on external lifecycle transitions to activate
+[velocity_smoother-12] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[lifecycle_manager-13] [INFO] [1795469688.777044124] [closed_loop_lifecycle]: Creating
+[lifecycle_manager-13] [INFO] [1795469688.785439612] [closed_loop_lifecycle]: [34m[1mCreating and initializing lifecycle service clients[0m[0m
+[planner_server-8] [INFO] [1795469688.911969151] [planner_server]: 
+[planner_server-8] 	planner_server lifecycle node launched. 
+[planner_server-8] 	Waiting on external lifecycle transitions to activate
+[planner_server-8] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[bt_navigator-11] [INFO] [1795469689.023290949] [bt_navigator]: 
+[bt_navigator-11] 	bt_navigator lifecycle node launched. 
+[bt_navigator-11] 	Waiting on external lifecycle transitions to activate
+[bt_navigator-11] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[planner_server-8] [INFO] [1795469689.039800873] [planner_server]: Creating
+[planner_server-8] [INFO] [1795469689.046990187] [global_costmap.global_costmap]: 
+[planner_server-8] 	global_costmap lifecycle node launched. 
+[planner_server-8] 	Waiting on external lifecycle transitions to activate
+[planner_server-8] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[planner_server-8] [INFO] [1795469689.059058745] [global_costmap.global_costmap]: Creating Costmap
+[controller_server-9] [INFO] [1795469689.125038419] [controller_server]: 
+[controller_server-9] 	controller_server lifecycle node launched. 
+[controller_server-9] 	Waiting on external lifecycle transitions to activate
+[controller_server-9] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[bt_navigator-11] [INFO] [1795469689.129175373] [bt_navigator]: Creating
+[behavior_server-10] [INFO] [1795469689.216511749] [behavior_server]: 
+[behavior_server-10] 	behavior_server lifecycle node launched. 
+[behavior_server-10] 	Waiting on external lifecycle transitions to activate
+[behavior_server-10] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[map_server-7] [INFO] [1795469689.289754609] [map_server]: 
+[map_server-7] 	map_server lifecycle node launched. 
+[map_server-7] 	Waiting on external lifecycle transitions to activate
+[map_server-7] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[map_server-7] [INFO] [1795469689.289994994] [map_server]: Creating
+[lifecycle_manager-13] [INFO] [1795469689.295963863] [closed_loop_lifecycle]: [34m[1mStarting managed nodes bringup...[0m[0m
+[lifecycle_manager-13] [INFO] [1795469689.296009329] [closed_loop_lifecycle]: [34m[1mConfiguring map_server[0m[0m
+[map_server-7] [INFO] [1795469689.296215205] [map_server]: Configuring
+[map_server-7] [INFO] [1795469689.296263236] [map_io]: Loading yaml file: /workspace/Code/Verification tests/MI_Test/results/run_20261123T213446Z/latest_gp/map.yaml
+[map_server-7] [INFO] [1795469689.297639722] [map_io]: resolution: 0.05
+[map_server-7] [INFO] [1795469689.297657806] [map_io]: origin[0]: -15
+[map_server-7] [INFO] [1795469689.297661904] [map_io]: origin[1]: -10
+[map_server-7] [INFO] [1795469689.297664469] [map_io]: origin[2]: 0
+[map_server-7] [INFO] [1795469689.297667184] [map_io]: free_thresh: 0.25
+[map_server-7] [INFO] [1795469689.297670019] [map_io]: occupied_thresh: 0.65
+[map_server-7] [INFO] [1795469689.297674027] [map_io]: mode: trinary
+[map_server-7] [INFO] [1795469689.297676862] [map_io]: negate: 0
+[map_server-7] [INFO] [1795469689.300704939] [map_io]: Loading image_file: /workspace/Code/Verification tests/MI_Test/results/run_20261123T213446Z/latest_gp/map.pgm
+[map_server-7] [INFO] [1795469689.311493523] [map_io]: Read map /workspace/Code/Verification tests/MI_Test/results/run_20261123T213446Z/latest_gp/map.pgm: 600 X 400 map @ 0.05 m/cell
+[lifecycle_manager-13] [INFO] [1795469689.316425511] [closed_loop_lifecycle]: [34m[1mConfiguring planner_server[0m[0m
+[planner_server-8] [INFO] [1795469689.316594561] [planner_server]: Configuring
+[planner_server-8] [INFO] [1795469689.316621682] [global_costmap.global_costmap]: Configuring
+[planner_server-8] [INFO] [1795469689.320372175] [global_costmap.global_costmap]: Using plugin "static_layer"
+[planner_server-8] [INFO] [1795469689.331264114] [global_costmap.global_costmap]: Subscribing to the map topic (/map) with transient local durability
+[planner_server-8] [INFO] [1795469689.331988554] [global_costmap.global_costmap]: Initialized plugin "static_layer"
+[planner_server-8] [INFO] [1795469689.332016297] [global_costmap.global_costmap]: Using plugin "inflation_layer"
+[planner_server-8] [INFO] [1795469689.333007491] [global_costmap.global_costmap]: Initialized plugin "inflation_layer"
+[planner_server-8] [INFO] [1795469689.348533365] [planner_server]: Created global planner plugin GridBased of type nav2_navfn_planner::NavfnPlanner
+[planner_server-8] [INFO] [1795469689.348571217] [planner_server]: Configuring plugin GridBased of type NavfnPlanner
+[planner_server-8] [INFO] [1795469689.349330733] [planner_server]: Planner Server has GridBased  planners available.
+[lifecycle_manager-13] [INFO] [1795469689.354869097] [closed_loop_lifecycle]: [34m[1mConfiguring controller_server[0m[0m
+[controller_server-9] [INFO] [1795469689.445614296] [controller_server]: Creating controller server
+[controller_server-9] [INFO] [1795469689.456710625] [local_costmap.local_costmap]: 
+[controller_server-9] 	local_costmap lifecycle node launched. 
+[controller_server-9] 	Waiting on external lifecycle transitions to activate
+[controller_server-9] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[controller_server-9] [INFO] [1795469689.482192788] [local_costmap.local_costmap]: Creating Costmap
+[controller_server-9] [INFO] [1795469689.486634028] [controller_server]: Configuring controller interface
+[controller_server-9] [INFO] [1795469689.486663965] [controller_server]: getting progress checker plugins..
+[controller_server-9] [INFO] [1795469689.486862701] [controller_server]: getting goal checker plugins..
+[controller_server-9] [INFO] [1795469689.487047530] [controller_server]: Controller frequency set to 20.0000Hz
+[controller_server-9] [INFO] [1795469689.487070253] [local_costmap.local_costmap]: Configuring
+[controller_server-9] [INFO] [1795469689.490914985] [local_costmap.local_costmap]: Using plugin "static_layer"
+[controller_server-9] [INFO] [1795469689.503559669] [local_costmap.local_costmap]: Subscribing to the map topic (/map) with transient local durability
+[controller_server-9] [INFO] [1795469689.504339133] [local_costmap.local_costmap]: Initialized plugin "static_layer"
+[controller_server-9] [INFO] [1795469689.504367357] [local_costmap.local_costmap]: Using plugin "inflation_layer"
+[controller_server-9] [INFO] [1795469689.505373950] [local_costmap.local_costmap]: Initialized plugin "inflation_layer"
+[controller_server-9] [INFO] [1795469689.526539159] [controller_server]: Created progress_checker : progress_checker of type nav2_controller::SimpleProgressChecker
+[controller_server-9] [INFO] [1795469689.527291772] [controller_server]: Controller Server has progress_checker  progress checkers available.
+[controller_server-9] [INFO] [1795469689.534393053] [controller_server]: Created goal checker : general_goal_checker of type nav2_controller::SimpleGoalChecker
+[controller_server-9] [INFO] [1795469689.535008627] [controller_server]: Controller Server has general_goal_checker  goal checkers available.
+[controller_server-9] [INFO] [1795469689.543954636] [controller_server]: Created controller : FollowPath of type nav2_regulated_pure_pursuit_controller::RegulatedPurePursuitController
+[controller_server-9] [INFO] [1795469689.551616554] [controller_server]: Controller Server has FollowPath  controllers available.
+[lifecycle_manager-13] [INFO] [1795469689.556518617] [closed_loop_lifecycle]: [34m[1mConfiguring behavior_server[0m[0m
+[behavior_server-10] [INFO] [1795469689.556906922] [behavior_server]: Configuring
+[behavior_server-10] [INFO] [1795469689.560743205] [behavior_server]: Creating behavior plugin spin of type nav2_behaviors::Spin
+[behavior_server-10] [INFO] [1795469689.567072708] [behavior_server]: Creating behavior plugin backup of type nav2_behaviors::BackUp
+[behavior_server-10] [INFO] [1795469689.573799811] [behavior_server]: Creating behavior plugin drive_on_heading of type nav2_behaviors::DriveOnHeading
+[behavior_server-10] [INFO] [1795469689.583270162] [behavior_server]: Creating behavior plugin assisted_teleop of type nav2_behaviors::AssistedTeleop
+[behavior_server-10] [INFO] [1795469689.593226683] [behavior_server]: Creating behavior plugin wait of type nav2_behaviors::Wait
+[behavior_server-10] [INFO] [1795469689.604186310] [behavior_server]: Configuring spin
+[behavior_server-10] [INFO] [1795469689.608097126] [behavior_server]: Configuring backup
+[behavior_server-10] [INFO] [1795469689.610997952] [behavior_server]: Configuring drive_on_heading
+[behavior_server-10] [INFO] [1795469689.613784933] [behavior_server]: Configuring assisted_teleop
+[behavior_server-10] [INFO] [1795469689.616595098] [behavior_server]: Configuring wait
+[lifecycle_manager-13] [INFO] [1795469689.619417676] [closed_loop_lifecycle]: [34m[1mConfiguring bt_navigator[0m[0m
+[bt_navigator-11] [INFO] [1795469689.619630990] [bt_navigator]: Configuring
+[bt_navigator-11] [INFO] [1795469689.624429113] [bt_navigator]: Creating navigator id navigate_to_pose of type nav2_bt_navigator::NavigateToPoseNavigator
+[lifecycle_manager-13] [INFO] [1795469689.743481933] [closed_loop_lifecycle]: [34m[1mConfiguring velocity_smoother[0m[0m
+[velocity_smoother-12] [INFO] [1795469689.743681841] [velocity_smoother]: Configuring velocity smoother
+[lifecycle_manager-13] [INFO] [1795469689.748080229] [closed_loop_lifecycle]: [34m[1mActivating map_server[0m[0m
+[map_server-7] [INFO] [1795469689.748231405] [map_server]: Activating
+[map_server-7] [INFO] [1795469689.749672210] [map_server]: Creating bond (map_server) to lifecycle manager.
+[planner_server-8] [INFO] [1795469689.750191803] [global_costmap.global_costmap]: StaticLayer: Resizing costmap to 600 X 400 at 0.050000 m/pix
+[controller_server-9] [INFO] [1795469689.750198696] [local_costmap.local_costmap]: StaticLayer: Resizing static layer to 600 X 400 at 0.050000 m/pix
+[gz-1] [1;32m[Msg] [0m[1;32mGazebo Sim Server v[0m[1;32m8.11.0[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mLoading SDF world file[[0m[1;32m/workspace/Code/Verification tests/MI_Test/results/run_20261123T213446Z/latest_gp/world.sdf[0m[1;32m].[0m
+[gz-1] [1;32m[Msg] [0m[1;32mServing entity system service on [[0m[1;32m/[0m[1;32mentity/system/add[0m[1;32m][0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mCreate[0m[1;32m service on [[0m[1;32m/world/bunker_test/create_multiple[0m[1;32m] (async)[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mCreate[0m[1;32m service on [[0m[1;32m/world/bunker_test/create_multiple/blocking[0m[1;32m] (blocking)[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mRemove[0m[1;32m service on [[0m[1;32m/world/bunker_test/remove[0m[1;32m] (async)[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mRemove[0m[1;32m service on [[0m[1;32m/world/bunker_test/remove/blocking[0m[1;32m] (blocking)[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mPose[0m[1;32m service on [[0m[1;32m/world/bunker_test/set_pose[0m[1;32m] (async)[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mPose[0m[1;32m service on [[0m[1;32m/world/bunker_test/set_pose/blocking[0m[1;32m] (blocking)[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mPose[0m[1;32m service on [[0m[1;32m/world/bunker_test/set_pose_vector[0m[1;32m] (async)[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mPose[0m[1;32m service on [[0m[1;32m/world/bunker_test/set_pose_vector/blocking[0m[1;32m] (blocking)[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mLight configuration[0m[1;32m service on [[0m[1;32m/world/bunker_test/light_config[0m[1;32m] (async)[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mLight configuration[0m[1;32m service on [[0m[1;32m/world/bunker_test/light_config/blocking[0m[1;32m] (blocking)[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mPhysics[0m[1;32m service on [[0m[1;32m/world/bunker_test/set_physics[0m[1;32m] (async)[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mPhysics[0m[1;32m service on [[0m[1;32m/world/bunker_test/set_physics/blocking[0m[1;32m] (blocking)[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mSphericalCoordinates[0m[1;32m service on [[0m[1;32m/world/bunker_test/set_spherical_coordinates[0m[1;32m] (async)[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mSphericalCoordinates[0m[1;32m service on [[0m[1;32m/world/bunker_test/set_spherical_coordinates/blocking[0m[1;32m] (blocking)[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mEnable collision[0m[1;32m service on [[0m[1;32m/world/bunker_test/enable_collision[0m[1;32m] (async)[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mEnable collision[0m[1;32m service on [[0m[1;32m/world/bunker_test/enable_collision/blocking[0m[1;32m] (blocking)[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mDisable collision[0m[1;32m service on [[0m[1;32m/world/bunker_test/disable_collision[0m[1;32m] (async)[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mDisable collision[0m[1;32m service on [[0m[1;32m/world/bunker_test/disable_collision/blocking[0m[1;32m] (blocking)[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mMaterial[0m[1;32m service on [[0m[1;32m/world/bunker_test/visual_config[0m[1;32m] (async)[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mMaterial[0m[1;32m service on [[0m[1;32m/world/bunker_test/visual_config/blocking[0m[1;32m] (blocking)[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mMaterial[0m[1;32m service on [[0m[1;32m/world/bunker_test/wheel_slip[0m[1;32m] (async)[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mMaterial[0m[1;32m service on [[0m[1;32m/world/bunker_test/wheel_slip/blocking[0m[1;32m] (blocking)[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mTrackedVehicle [[0m[1;32mbunker_mini[0m[1;32m] loaded:[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32m- tracks separation: [0m[1;32m0.452[0m[1;32m m[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32m- track height (for odometry): [0m[1;32m0.2[0m[1;32m m[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32m- initial steering efficiency: [0m[1;32m0.624[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32m- subscribing to twist messages on [[0m[1;32m/model/bunker_mini/cmd_vel[0m[1;32m][0m[1;32m[0m
+[lifecycle_manager-13] [INFO] [1795469689.852950465] [closed_loop_lifecycle]: Server map_server connected with bond.
+[lifecycle_manager-13] [INFO] [1795469689.852996513] [closed_loop_lifecycle]: [34m[1mActivating planner_server[0m[0m
+[planner_server-8] [INFO] [1795469689.853200208] [planner_server]: Activating
+[planner_server-8] [INFO] [1795469689.853230094] [global_costmap.global_costmap]: Activating
+[planner_server-8] [INFO] [1795469689.853240233] [global_costmap.global_costmap]: Checking transform
+[planner_server-8] [INFO] [1795469689.853272845] [global_costmap.global_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-8] [INFO] [1795469690.353350968] [global_costmap.global_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[parameter_bridge-2] [INFO] [1795469690.681181029] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/clock (gz.msgs.Clock) -> /clock (rosgraph_msgs/msg/Clock)] (Lazy 0)
+[parameter_bridge-2] [INFO] [1795469690.685587716] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/simulation/cmd_vel (geometry_msgs/msg/Twist) -> /model/bunker_mini/cmd_vel (gz.msgs.Twist)] (Lazy 0)
+[parameter_bridge-2] [INFO] [1795469690.688606335] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/model/bunker_mini/odometry (gz.msgs.Odometry) -> /simulation/track_odom (nav_msgs/msg/Odometry)] (Lazy 0)
+[parameter_bridge-2] [INFO] [1795469690.690745681] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/model/bunker_mini/tf (gz.msgs.Pose_V) -> /simulation/track_tf (tf2_msgs/msg/TFMessage)] (Lazy 0)
+[parameter_bridge-2] [INFO] [1795469690.694283542] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/model/bunker_mini/ground_truth/odometry (gz.msgs.Odometry) -> /simulation/ground_truth/odom (nav_msgs/msg/Odometry)] (Lazy 0)
+[parameter_bridge-2] [INFO] [1795469690.730341046] [ros_gz_bridge]: Passing message from ROS geometry_msgs/msg/Twist to Gazebo gz.msgs.Twist (showing msg only once per type)
+[planner_server-8] [INFO] [1795469690.853347769] [global_costmap.global_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-8] [INFO] [1795469691.353365671] [global_costmap.global_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Invalid frame ID "map" passed to canTransform argument target_frame - frame does not exist
+[planner_server-8] [INFO] [1795469691.853570033] [global_costmap.global_costmap]: start
+[planner_server-8] [INFO] [1795469691.903772577] [planner_server]: Activating plugin GridBased of type NavfnPlanner
+[planner_server-8] [INFO] [1795469691.904725237] [planner_server]: Creating bond (planner_server) to lifecycle manager.
+[lifecycle_manager-13] [INFO] [1795469692.007108366] [closed_loop_lifecycle]: Server planner_server connected with bond.
+[lifecycle_manager-13] [INFO] [1795469692.007154817] [closed_loop_lifecycle]: [34m[1mActivating controller_server[0m[0m
+[controller_server-9] [INFO] [1795469692.007344968] [controller_server]: Activating
+[controller_server-9] [INFO] [1795469692.007375508] [local_costmap.local_costmap]: Activating
+[controller_server-9] [INFO] [1795469692.007384776] [local_costmap.local_costmap]: Checking transform
+[controller_server-9] [INFO] [1795469692.007582041] [local_costmap.local_costmap]: start
+[controller_server-9] [INFO] [1795469692.057749836] [controller_server]: Activating controller: FollowPath of type regulated_pure_pursuit_controller::RegulatedPurePursuitController
+[controller_server-9] [INFO] [1795469692.057806106] [controller_server]: Creating bond (controller_server) to lifecycle manager.
+[lifecycle_manager-13] [INFO] [1795469692.160463495] [closed_loop_lifecycle]: Server controller_server connected with bond.
+[lifecycle_manager-13] [INFO] [1795469692.160509635] [closed_loop_lifecycle]: [34m[1mActivating behavior_server[0m[0m
+[behavior_server-10] [INFO] [1795469692.160728612] [behavior_server]: Activating
+[behavior_server-10] [INFO] [1795469692.160748141] [behavior_server]: Activating spin
+[behavior_server-10] [INFO] [1795469692.160757068] [behavior_server]: Activating backup
+[behavior_server-10] [INFO] [1795469692.160763641] [behavior_server]: Activating drive_on_heading
+[behavior_server-10] [INFO] [1795469692.160770384] [behavior_server]: Activating assisted_teleop
+[behavior_server-10] [INFO] [1795469692.160776947] [behavior_server]: Activating wait
+[behavior_server-10] [INFO] [1795469692.160808408] [behavior_server]: Creating bond (behavior_server) to lifecycle manager.
+[lifecycle_manager-13] [INFO] [1795469692.263171482] [closed_loop_lifecycle]: Server behavior_server connected with bond.
+[lifecycle_manager-13] [INFO] [1795469692.263218213] [closed_loop_lifecycle]: [34m[1mActivating bt_navigator[0m[0m
+[bt_navigator-11] [INFO] [1795469692.263392563] [bt_navigator]: Activating
+[bt_navigator-11] [INFO] [1795469692.289705595] [bt_navigator]: Creating bond (bt_navigator) to lifecycle manager.
+[lifecycle_manager-13] [INFO] [1795469692.392475282] [closed_loop_lifecycle]: Server bt_navigator connected with bond.
+[lifecycle_manager-13] [INFO] [1795469692.392549046] [closed_loop_lifecycle]: [34m[1mActivating velocity_smoother[0m[0m
+[velocity_smoother-12] [INFO] [1795469692.392805036] [velocity_smoother]: Activating
+[velocity_smoother-12] [INFO] [1795469692.392858500] [velocity_smoother]: Creating bond (velocity_smoother) to lifecycle manager.
+[lifecycle_manager-13] [INFO] [1795469692.495266562] [closed_loop_lifecycle]: Server velocity_smoother connected with bond.
+[lifecycle_manager-13] [INFO] [1795469692.495315467] [closed_loop_lifecycle]: [34m[1mManaged nodes are active[0m[0m
+[lifecycle_manager-13] [INFO] [1795469692.495324495] [closed_loop_lifecycle]: [34m[1mCreating bond timer...[0m[0m
+[bt_navigator-11] [INFO] [1795469697.351435583] [bt_navigator]: Begin navigating from current location (-12.00, -6.00) to (12.00, 6.00)
+[controller_server-9] [INFO] [1795469697.393557969] [controller_server]: Received a goal, begin computing control effort.
+[controller_server-9] [WARN] [1795469697.393629069] [controller_server]: No goal checker was specified in parameter 'current_goal_checker'. Server will use only plugin loaded general_goal_checker . This warning will appear once.
+[controller_server-9] [WARN] [1795469697.393642355] [controller_server]: No progress checker was specified in parameter 'current_progress_checker'. Server will use only plugin loaded progress_checker . This warning will appear once.
+[controller_server-9] [INFO] [1795469698.493985460] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469699.493964948] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469700.593973524] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469701.643966969] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469702.693993648] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469703.693936812] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469704.793944303] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469705.793963166] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469706.893997600] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469707.893980121] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469708.993962974] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469709.993962800] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469711.094007190] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469712.093963459] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469713.193986367] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469714.193964627] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469715.293962277] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469716.342511802] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469717.392511625] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469718.392501550] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469719.492504291] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469720.492503967] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469721.592503301] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469722.592506032] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469723.642622054] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469724.692508219] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469725.042545844] [controller_server]: Reached the goal!
+[bt_navigator-11] [INFO] [1795469725.090404117] [bt_navigator]: Goal succeeded
+[bt_navigator-11] [INFO] [1795469725.093031361] [bt_navigator]: Begin navigating from current location (11.87, 5.91) to (-12.00, -6.00)
+[controller_server-9] [INFO] [1795469725.134127616] [controller_server]: Received a goal, begin computing control effort.
+[controller_server-9] [INFO] [1795469726.234309217] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469727.234308239] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469728.334311477] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469729.334311582] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469730.434319318] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469731.434308431] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469732.534311309] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469733.534315562] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469734.634310688] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469735.634336354] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469736.734316527] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469737.734315562] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469738.834315824] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469739.834313276] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469740.934309811] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469741.934312172] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469743.034311659] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469744.034327935] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469745.134310936] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469746.183175633] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469747.233175207] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469748.233214170] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469749.283192312] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469750.333180462] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469751.383180376] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469752.433200669] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469753.433185524] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469754.533206298] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469755.583180152] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469756.633185145] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469757.633182715] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469758.383201531] [controller_server]: Reached the goal!
+[bt_navigator-11] [INFO] [1795469758.432210480] [bt_navigator]: Goal succeeded
+[bt_navigator-11] [INFO] [1795469758.442026335] [bt_navigator]: Begin navigating from current location (-11.87, -5.91) to (12.00, 6.00)
+[controller_server-9] [INFO] [1795469758.483165347] [controller_server]: Received a goal, begin computing control effort.
+[controller_server-9] [INFO] [1795469759.583371185] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469760.583398196] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469761.683373655] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469762.683357612] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469763.783387567] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469764.783366144] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469765.883396399] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469766.883364979] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469767.983393317] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469768.983379294] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469770.083391541] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469771.083351296] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469772.183389685] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469773.183365804] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469774.283375995] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469775.283381286] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469776.382126397] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469777.382070058] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469778.482068798] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469779.482076213] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469780.582132435] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469781.582061037] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469782.682070179] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469783.682098298] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469784.782058428] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469785.782041469] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469786.882102312] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469787.882067272] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469788.982093491] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469789.982054119] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469791.082070583] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469791.682111552] [controller_server]: Reached the goal!
+[bt_navigator-11] [INFO] [1795469791.741108556] [bt_navigator]: Goal succeeded
+[bt_navigator-11] [INFO] [1795469791.750840282] [bt_navigator]: Begin navigating from current location (11.88, 5.91) to (-12.00, -6.00)
+[controller_server-9] [INFO] [1795469791.791895133] [controller_server]: Received a goal, begin computing control effort.
+[controller_server-9] [INFO] [1795469792.892114745] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469793.892098612] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469794.992099336] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469795.992101088] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469797.092127763] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469798.092111500] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469799.192092625] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469800.192099733] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469801.242116048] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469802.292091502] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469803.342107105] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469804.392094874] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469805.442096811] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469806.490480658] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469807.540464616] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469808.590478812] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469809.590428876] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469810.690469030] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469811.690468781] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469812.790472674] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469813.790461965] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469814.890471039] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469815.890472544] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469816.990469929] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469817.990462416] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469819.090470071] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469820.090468337] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469821.190469941] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469822.190485462] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469823.290468698] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469824.290465980] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469825.190497516] [controller_server]: Reached the goal!
+[bt_navigator-11] [INFO] [1795469825.249518760] [bt_navigator]: Goal succeeded
+[bt_navigator-11] [INFO] [1795469825.258862084] [bt_navigator]: Begin navigating from current location (-11.88, -5.91) to (12.00, 6.00)
+[controller_server-9] [INFO] [1795469825.299904045] [controller_server]: Received a goal, begin computing control effort.
+[controller_server-9] [INFO] [1795469826.400085770] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469827.400098642] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469828.500080746] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469829.500062868] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469830.600084925] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469831.600089290] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469832.700079615] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469833.700085144] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469834.800084026] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469835.800086819] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469836.898583101] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469837.898580242] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469838.998589405] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469840.048586054] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469841.098589707] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469842.098588123] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469843.198592843] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469844.198590890] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469845.298590890] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469846.298619133] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469847.398593056] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469848.398598259] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469849.498583863] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469850.498614708] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469851.598575343] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469852.598629993] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469853.698595949] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469854.698593210] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469855.798586798] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469856.798588706] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469857.898596051] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469858.648615109] [controller_server]: Reached the goal!
+[bt_navigator-11] [INFO] [1795469858.697788767] [bt_navigator]: Goal succeeded
+[bt_navigator-11] [INFO] [1795469858.707777342] [bt_navigator]: Begin navigating from current location (11.88, 5.91) to (-12.00, -6.00)
+[controller_server-9] [INFO] [1795469858.749341163] [controller_server]: Received a goal, begin computing control effort.
+[controller_server-9] [INFO] [1795469859.849535172] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469860.849539282] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469861.949535368] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469862.949532644] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469864.049531336] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469865.049527665] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469866.148669368] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469867.148642252] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469868.248664562] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469869.248649861] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469870.348655559] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469871.348639223] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469872.398644657] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469873.448662864] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469874.448645200] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469875.548670078] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469876.548646571] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469877.648661279] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469878.648645204] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469879.748652121] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469880.748660254] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469881.848665068] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469882.848647843] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469883.948649882] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469884.948661456] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469886.048653055] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469887.048646290] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469888.148649589] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469889.148644949] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469890.248646504] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469891.248647847] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469892.048675253] [controller_server]: Reached the goal!
+[bt_navigator-11] [INFO] [1795469892.107227111] [bt_navigator]: Goal succeeded
+[bt_navigator-11] [INFO] [1795469892.116590785] [bt_navigator]: Begin navigating from current location (-11.88, -5.91) to (12.00, -6.00)
+[controller_server-9] [INFO] [1795469892.157671079] [controller_server]: Received a goal, begin computing control effort.
+[controller_server-9] [INFO] [1795469893.257849011] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469894.257854652] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469895.357858882] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469896.406622164] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469897.456615293] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469898.456614227] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469899.556616575] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469900.556630461] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469901.656619285] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469902.656611703] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469903.756614815] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469904.756609676] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469905.856618279] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469906.856620061] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469907.956618383] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469908.956620300] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469910.056637937] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469911.056613959] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469912.156617226] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469913.156623075] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469914.206614837] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469915.256618965] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469916.256618398] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469917.356614274] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469918.356628929] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469919.456622514] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469920.456619525] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469921.556622494] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469921.906632369] [controller_server]: Reached the goal!
+[bt_navigator-11] [INFO] [1795469921.955752638] [bt_navigator]: Goal succeeded
+[bt_navigator-11] [INFO] [1795469921.965437174] [bt_navigator]: Begin navigating from current location (11.85, -5.97) to (-12.00, 6.00)
+[controller_server-9] [INFO] [1795469922.006474777] [controller_server]: Received a goal, begin computing control effort.
+[controller_server-9] [INFO] [1795469923.106657269] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469924.156655600] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469925.206653064] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469926.255026641] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469927.305020262] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469928.355015585] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469929.405021226] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469930.455020865] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469931.505023891] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469932.505030514] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469933.605011337] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469934.605017516] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469935.705016994] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469936.755016319] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469937.805018845] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469938.805018193] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469939.905018455] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469940.905046647] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469942.005029295] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469943.005028882] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469944.105042473] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469945.105079404] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469946.205041894] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469947.205032657] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469948.305038831] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469949.305037853] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469950.405035383] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469951.405034316] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469952.505030116] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469953.505030746] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469954.555370407] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469955.605047676] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469956.005059564] [controller_server]: Reached the goal!
+[bt_navigator-11] [INFO] [1795469956.062960517] [bt_navigator]: Goal succeeded
+[bt_navigator-11] [INFO] [1795469956.072694708] [bt_navigator]: Begin navigating from current location (-11.88, 5.91) to (0.00, 0.00)
+[controller_server-9] [INFO] [1795469956.113696301] [controller_server]: Received a goal, begin computing control effort.
+[controller_server-9] [INFO] [1795469957.213942279] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469958.213928859] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469959.313944095] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469960.313940695] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469961.413921188] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469962.413919470] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469963.513900685] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469964.513901512] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469965.613945529] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469966.613951864] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469967.713918665] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469968.713923412] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469969.813944509] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469970.813955948] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469971.913953639] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469972.913910964] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469973.963927252] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469975.013900176] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469975.864009981] [controller_server]: Reached the goal!
+[bt_navigator-11] [INFO] [1795469975.912998807] [bt_navigator]: Goal succeeded
+[bt_navigator-11] [INFO] [1795469976.532697889] [bt_navigator]: Begin navigating from current location (-0.11, 0.08) to (0.00, 6.00)
+[controller_server-9] [INFO] [1795469976.573401464] [controller_server]: Received a goal, begin computing control effort.
+[controller_server-9] [INFO] [1795469977.673577362] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469978.673565461] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469979.773568660] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469980.773586067] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469981.873573079] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469982.873579361] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469983.973562553] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469984.973572896] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469986.071785163] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469987.071778714] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469987.371822921] [controller_server]: Reached the goal!
+[bt_navigator-11] [INFO] [1795469987.431252969] [bt_navigator]: Goal succeeded
+[bt_navigator-11] [INFO] [1795469987.480491327] [bt_navigator]: Begin navigating from current location (-0.03, 5.86) to (-12.00, -6.00)
+[controller_server-9] [INFO] [1795469987.521316845] [controller_server]: Received a goal, begin computing control effort.
+[controller_server-9] [INFO] [1795469988.621489288] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469989.621478798] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469990.721479833] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469991.721486340] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469992.821497433] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469993.821491884] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469994.921484150] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469995.921482128] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469997.021506957] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469998.021489673] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795469999.121515996] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795470000.121487478] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795470001.221501180] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795470002.221515565] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795470003.321508587] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795470004.321500389] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795470005.421490926] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795470006.421489520] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795470007.521496109] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795470008.521490352] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795470009.621488570] [controller_server]: Passing new path to controller.
+[controller_server-9] [INFO] [1795470010.071506921] [controller_server]: Reached the goal!
+[bt_navigator-11] [INFO] [1795470010.120888146] [bt_navigator]: Goal succeeded
+[WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
+[lifecycle_manager-13] [INFO] [1795470013.386272150] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[lifecycle_manager-13] [INFO] [1795470013.386404568] [closed_loop_lifecycle]: Running Nav2 LifecycleManager rcl preshutdown (closed_loop_lifecycle)
+[lifecycle_manager-13] [INFO] [1795470013.386444426] [closed_loop_lifecycle]: [34m[1mTerminating bond timer...[0m[0m
+[velocity_smoother-12] [INFO] [1795470013.386282748] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[velocity_smoother-12] [INFO] [1795470013.386413182] [velocity_smoother]: Running Nav2 LifecycleNode rcl preshutdown (velocity_smoother)
+[velocity_smoother-12] [INFO] [1795470013.386459031] [velocity_smoother]: Deactivating
+[velocity_smoother-12] [INFO] [1795470013.386487507] [velocity_smoother]: Destroying bond (velocity_smoother) to lifecycle manager.
+[bt_navigator-11] [INFO] [1795470013.386292379] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[bt_navigator-11] [INFO] [1795470013.386358068] [bt_navigator]: Running Nav2 LifecycleNode rcl preshutdown (bt_navigator)
+[bt_navigator-11] [INFO] [1795470013.386403356] [bt_navigator]: Deactivating
+[bt_navigator-11] [INFO] [1795470013.386422163] [bt_navigator]: Destroying bond (bt_navigator) to lifecycle manager.
+[planner_server-8] [INFO] [1795470013.386333991] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[planner_server-8] [INFO] [1795470013.386392645] [planner_server]: Running Nav2 LifecycleNode rcl preshutdown (planner_server)
+[planner_server-8] [INFO] [1795470013.386448324] [planner_server]: Deactivating
+[planner_server-8] [INFO] [1795470013.386509423] [global_costmap.global_costmap]: Deactivating
+[robot_state_publisher-3] [INFO] [1795470013.386356755] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[INFO] [parameter_bridge-2]: process has finished cleanly [pid 9076]
+[behavior_server-10] [INFO] [1795470013.386355843] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[behavior_server-10] [INFO] [1795470013.386414237] [behavior_server]: Running Nav2 LifecycleNode rcl preshutdown (behavior_server)
+[behavior_server-10] [INFO] [1795470013.386450438] [behavior_server]: Deactivating
+[behavior_server-10] [INFO] [1795470013.386486909] [behavior_server]: Destroying bond (behavior_server) to lifecycle manager.
+[parameter_bridge-2] [INFO] [1795470013.386356545] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[controller_server-9] [INFO] [1795470013.386332959] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[controller_server-9] [INFO] [1795470013.386420269] [controller_server]: Running Nav2 LifecycleNode rcl preshutdown (controller_server)
+[controller_server-9] [INFO] [1795470013.386463954] [controller_server]: Deactivating
+[controller_server-9] [INFO] [1795470013.386481729] [controller_server]: Deactivating controller: FollowPath of type regulated_pure_pursuit_controller::RegulatedPurePursuitController
+[controller_server-9] [INFO] [1795470013.386497289] [local_costmap.local_costmap]: Deactivating
+[INFO] [lifecycle_manager-13]: sending signal 'SIGINT' to process[lifecycle_manager-13]
+[INFO] [velocity_smoother-12]: sending signal 'SIGINT' to process[velocity_smoother-12]
+[INFO] [bt_navigator-11]: sending signal 'SIGINT' to process[bt_navigator-11]
+[INFO] [behavior_server-10]: sending signal 'SIGINT' to process[behavior_server-10]
+[INFO] [controller_server-9]: sending signal 'SIGINT' to process[controller_server-9]
+[INFO] [planner_server-8]: sending signal 'SIGINT' to process[planner_server-8]
+[INFO] [map_server-7]: sending signal 'SIGINT' to process[map_server-7]
+[INFO] [truth_localization.py-6]: sending signal 'SIGINT' to process[truth_localization.py-6]
+[INFO] [odometry_adapter.py-5]: sending signal 'SIGINT' to process[odometry_adapter.py-5]
+[INFO] [cmd_watchdog.py-4]: sending signal 'SIGINT' to process[cmd_watchdog.py-4]
+[INFO] [robot_state_publisher-3]: sending signal 'SIGINT' to process[robot_state_publisher-3]
+[INFO] [gz-1]: sending signal 'SIGINT' to process[gz-1]
+[map_server-7] [INFO] [1795470013.386531656] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[map_server-7] [INFO] [1795470013.386605340] [map_server]: Running Nav2 LifecycleNode rcl preshutdown (map_server)
+[map_server-7] [INFO] [1795470013.386645628] [map_server]: Deactivating
+[map_server-7] [INFO] [1795470013.386665798] [map_server]: Destroying bond (map_server) to lifecycle manager.
+[controller_server-9] [INFO] [1795470013.394106452] [controller_server]: Destroying bond (controller_server) to lifecycle manager.
+[behavior_server-10] [INFO] [1795470013.396727555] [behavior_server]: Cleaning up
+[velocity_smoother-12] [INFO] [1795470013.396727275] [velocity_smoother]: Cleaning up
+[velocity_smoother-12] [INFO] [1795470013.396759077] [velocity_smoother]: Destroying bond (velocity_smoother) to lifecycle manager.
+[map_server-7] [INFO] [1795470013.396879752] [map_server]: Cleaning up
+[map_server-7] [INFO] [1795470013.396912496] [map_server]: Destroying bond (map_server) to lifecycle manager.
+[bt_navigator-11] [INFO] [1795470013.396901004] [bt_navigator]: Cleaning up
+[behavior_server-10] [INFO] [1795470013.399601963] [behavior_server]: Destroying bond (behavior_server) to lifecycle manager.
+[controller_server-9] [INFO] [1795470013.404481632] [controller_server]: Cleaning up
+[controller_server-9] [INFO] [1795470013.404510098] [controller_server]: Cleaning up controller: FollowPath of type regulated_pure_pursuit_controller::RegulatedPurePursuitController
+[controller_server-9] [INFO] [1795470013.404564674] [local_costmap.local_costmap]: Cleaning up
+[velocity_smoother-12] [INFO] [1795470013.410015939] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[behavior_server-10] [INFO] [1795470013.413480336] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[map_server-7] [INFO] [1795470013.417500749] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[robot_state_publisher-3] [INFO] [1795470013.423818143] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[planner_server-8] [INFO] [1795470013.440091980] [planner_server]: Deactivating plugin GridBased of type NavfnPlanner
+[planner_server-8] [INFO] [1795470013.440159271] [planner_server]: Destroying bond (planner_server) to lifecycle manager.
+[gz-1] [1;32m[Msg] [0m[1;32m- subscribing to steering efficiency messages on [[0m[1;32m/model/bunker_mini/steering_efficiency[0m[1;32m][0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32m- publishing odometry on [[0m[1;32m/model/bunker_mini/odometry[0m[1;32m][0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32m- publishing TF on [[0m[1;32m/model/bunker_mini/tf[0m[1;32m][0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mOdometryPublisher publishing odometry on [[0m[1;32m/model/bunker_mini/ground_truth/odometry[0m[1;32m][0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mOdometryPublisher publishing odometry with covariance on [[0m[1;32m/model/bunker_mini/odometry_with_covariance[0m[1;32m][0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mOdometryPublisher publishing Pose_V (TF) on [[0m[1;32m/model/bunker_mini/ground_truth/tf[0m[1;32m][0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mLoaded level [[0m[1;32mdefault[0m[1;32m][0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mServing world controls on [[0m[1;32m/world/bunker_test[0m[1;32m/control], [[0m[1;32m/world/bunker_test[0m[1;32m/control/state] and [[0m[1;32m/world/bunker_test[0m[1;32m/playback/control][0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mServing GUI information on [[0m[1;32m/world/bunker_test[0m[1;32m/[0m[1;32mgui/info[0m[1;32m][0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mWorld [[0m[1;32mbunker_test[0m[1;32m] initialized with [[0m[1;32mdefault[0m[1;32m] physics profile.[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mServing world SDF generation service on [[0m[1;32m/world/bunker_test[0m[1;32m/[0m[1;32mgenerate_world_sdf[0m[1;32m][0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mServing world names on [[0m[1;32m/gazebo/worlds[0m[1;32m][0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mResource path add service on [[0m[1;32m/gazebo/resource_paths/add[0m[1;32m].[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mResource path get service on [[0m[1;32m/gazebo/resource_paths/get[0m[1;32m].[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mResource path resolve service on [[0m[1;32m/gazebo/resource_paths/resolve[0m[1;32m].[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mResource paths published on [[0m[1;32m/gazebo/resource_paths[0m[1;32m].[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mServer control service on [[0m[1;32m/server_control[0m[1;32m].[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mFound no publishers on /stats, adding root stats topic[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mFound no publishers on /clock, adding root clock topic[0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mEnabled contact surface customization for world entity [[0m[1;32m1[0m[1;32m][0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mEnabling contact surface customization for collision [[0m[1;32mtrack_contact[0m[1;32m][0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mEnabling contact surface customization for collision [[0m[1;32mtrack_contact[0m[1;32m][0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mServing scene information on [[0m[1;32m/world/bunker_test[0m[1;32m/[0m[1;32mscene/info[0m[1;32m][0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mServing graph information on [[0m[1;32m/world/bunker_test[0m[1;32m/[0m[1;32mscene/graph[0m[1;32m][0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mServing full state on [[0m[1;32m/world/bunker_test[0m[1;32m/[0m[1;32mstate[0m[1;32m][0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mServing full state (async) on [[0m[1;32m/world/bunker_test[0m[1;32m/[0m[1;32mstate_async[0m[1;32m][0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mPublishing scene information on [[0m[1;32m/world/bunker_test/scene/info[0m[1;32m][0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mPublishing entity deletions on [[0m[1;32m/world/bunker_test/scene/deletion[0m[1;32m][0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mPublishing state changes on [[0m[1;32m/world/bunker_test/state[0m[1;32m][0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mPublishing pose messages on [[0m[1;32m/world/bunker_test[0m[1;32m/[0m[1;32mpose/info[0m[1;32m][0m[1;32m[0m
+[gz-1] [1;32m[Msg] [0m[1;32mPublishing dynamic pose messages on [[0m[1;32m/world/bunker_test[0m[1;32m/[0m[1;32mdynamic_pose/info[0m[1;32m][0m[1;32m[0m
+[planner_server-8] [INFO] [1795470013.450336144] [planner_server]: Cleaning up
+[controller_server-9] [INFO] [1795470013.451268092] [controller_server]: Destroying bond (controller_server) to lifecycle manager.
+[controller_server-9] [INFO] [1795470013.456028950] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[INFO] [gz-1]: process has finished cleanly [pid 9075]
+[planner_server-8] [INFO] [1795470013.467937400] [global_costmap.global_costmap]: Cleaning up
+[truth_localization.py-6] Traceback (most recent call last):
+[truth_localization.py-6]   File "/ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_nav2_test/lib/well_e_nav2_test/truth_localization.py", line 61, in <module>
+[planner_server-8] [INFO] [1795470013.475003251] [planner_server]: Cleaning up plugin GridBased of type NavfnPlanner
+[planner_server-8] [INFO] [1795470013.475229172] [planner_server]: Destroying plugin GridBased of type NavfnPlanner
+[truth_localization.py-6]     main()
+[truth_localization.py-6]   File "/ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_nav2_test/lib/well_e_nav2_test/truth_localization.py", line 55, in main
+[truth_localization.py-6]     node.destroy_node()
+[truth_localization.py-6]   File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/node.py", line 1956, in destroy_node
+[truth_localization.py-6]     self.destroy_publisher(self._publishers[0])
+[truth_localization.py-6]   File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/node.py", line 1836, in destroy_publisher
+[truth_localization.py-6]     publisher.destroy()
+[truth_localization.py-6]   File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/publisher.py", line 105, in destroy
+[truth_localization.py-6]     self.__publisher.destroy_when_not_in_use()
+[truth_localization.py-6] KeyboardInterrupt
+[bt_navigator-11] [INFO] [1795470013.488714531] [bt_navigator]: Completed Cleaning up
+[bt_navigator-11] [INFO] [1795470013.488780169] [bt_navigator]: Destroying bond (bt_navigator) to lifecycle manager.
+[bt_navigator-11] [INFO] [1795470013.490216609] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[odometry_adapter.py-5] Traceback (most recent call last):
+[odometry_adapter.py-5]   File "/ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_bunker_sim/lib/well_e_bunker_sim/odometry_adapter.py", line 79, in <module>
+[planner_server-8] [INFO] [1795470013.501027110] [planner_server]: Destroying bond (planner_server) to lifecycle manager.
+[planner_server-8] [INFO] [1795470013.503624237] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[odometry_adapter.py-5]     main()
+[odometry_adapter.py-5]   File "/ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_bunker_sim/lib/well_e_bunker_sim/odometry_adapter.py", line 73, in main
+[odometry_adapter.py-5]     node.destroy_node()
+[odometry_adapter.py-5]   File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/node.py", line 1956, in destroy_node
+[odometry_adapter.py-5]     self.destroy_publisher(self._publishers[0])
+[odometry_adapter.py-5]   File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/node.py", line 1836, in destroy_publisher
+[odometry_adapter.py-5]     publisher.destroy()
+[odometry_adapter.py-5]   File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/publisher.py", line 105, in destroy
+[odometry_adapter.py-5]     self.__publisher.destroy_when_not_in_use()
+[odometry_adapter.py-5] KeyboardInterrupt
+[map_server-7] [INFO] [1795470013.538212040] [map_server]: Destroying
+[controller_server-9] [INFO] [1795470013.549354666] [local_costmap.local_costmap]: Destroying
+[behavior_server-10] [INFO] [1795470013.550246837] [behavior_server]: Destroying
+[bt_navigator-11] [INFO] [1795470013.580634166] [bt_navigator]: Destroying
+[controller_server-9] [INFO] [1795470013.581513962] [controller_server]: Destroying
+[velocity_smoother-12] [INFO] [1795470013.582180362] [velocity_smoother]: Destroying
+[planner_server-8] [INFO] [1795470013.598533674] [global_costmap.global_costmap]: Destroying
+[planner_server-8] [INFO] [1795470013.630402082] [planner_server]: Destroying
+[lifecycle_manager-13] [INFO] [1795470013.635189969] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[lifecycle_manager-13] [INFO] [1795470013.645024267] [closed_loop_lifecycle]: Destroying closed_loop_lifecycle
+[cmd_watchdog.py-4] Traceback (most recent call last):
+[cmd_watchdog.py-4]   File "/ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_bunker_sim/lib/well_e_bunker_sim/cmd_watchdog.py", line 59, in <module>
+[cmd_watchdog.py-4]     main()
+[cmd_watchdog.py-4]   File "/ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_bunker_sim/lib/well_e_bunker_sim/cmd_watchdog.py", line 53, in main
+[cmd_watchdog.py-4]     node.destroy_node()
+[cmd_watchdog.py-4]   File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/node.py", line 1956, in destroy_node
+[cmd_watchdog.py-4]     self.destroy_publisher(self._publishers[0])
+[cmd_watchdog.py-4]   File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/node.py", line 1836, in destroy_publisher
+[cmd_watchdog.py-4]     publisher.destroy()
+[cmd_watchdog.py-4]   File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/publisher.py", line 105, in destroy
+[cmd_watchdog.py-4]     self.__publisher.destroy_when_not_in_use()
+[cmd_watchdog.py-4] KeyboardInterrupt
+[INFO] [robot_state_publisher-3]: process has finished cleanly [pid 9077]
+[ERROR] [truth_localization.py-6]: process has died [pid 9080, exit code -2, cmd '/ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_nav2_test/lib/well_e_nav2_test/truth_localization.py --ros-args --params-file /tmp/launch_params_vbac_yh1'].
+[ERROR] [odometry_adapter.py-5]: process has died [pid 9079, exit code -2, cmd '/ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_bunker_sim/lib/well_e_bunker_sim/odometry_adapter.py --ros-args -p max_linear_m_s:=1.0 -p max_angular_rad_s:=0.6 --params-file /tmp/launch_params_ggej1x9i'].
+[INFO] [map_server-7]: process has finished cleanly [pid 9081]
+[INFO] [behavior_server-10]: process has finished cleanly [pid 9084]
+[INFO] [velocity_smoother-12]: process has finished cleanly [pid 9086]
+[INFO] [bt_navigator-11]: process has finished cleanly [pid 9085]
+[INFO] [controller_server-9]: process has finished cleanly [pid 9083]
+[INFO] [planner_server-8]: process has finished cleanly [pid 9082]
+[INFO] [lifecycle_manager-13]: process has finished cleanly [pid 9087]
+[ERROR] [cmd_watchdog.py-4]: process has died [pid 9078, exit code -2, cmd '/ros-data/build/10.27_ROS_simulation/Nav2_test/install/well_e_bunker_sim/lib/well_e_bunker_sim/cmd_watchdog.py --ros-args -p max_linear_m_s:=1.0 -p max_angular_rad_s:=0.6 --params-file /tmp/launch_params_k9h9emj5'].

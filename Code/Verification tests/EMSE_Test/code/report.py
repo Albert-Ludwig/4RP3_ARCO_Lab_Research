@@ -3,6 +3,7 @@ from pathlib import Path
 import hashlib
 import json
 import shutil
+import sys
 
 from IPython.display import Video
 import matplotlib
@@ -26,7 +27,8 @@ policy=s['policy']
 label=policy.upper()
 m=s['mission']
 w=s['worker']
-reference=ROOT.parent/read(RUN/'fixture.json')['reference']
+fixture=read(RUN/'fixture.json')
+reference=ROOT.parent/fixture['reference']
 events=[json.loads(line) for line in (CASE/'events.jsonl').read_text().splitlines()]
 cp=np.array(read(CASE/'candidates.json'))
 trajectory=np.load(CASE/'trajectory.npy')
@@ -35,11 +37,24 @@ assert plans and all(p['policy']==policy for p in plans)
 def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
+snapshot=ROOT/'code/snapshots'/RUN.name/'source_snapshot'
+builder=snapshot/'sampling_fixture.py'
+assert digest(builder)==fixture['fixture_builder_sha256']
+sys.path.insert(0,str(snapshot))
+from sampling_fixture import home_inputs
+
 checks=dict()
-for name in ('initial.json','candidates.json','field.json','world.sdf','map.yaml','map.pgm'):
+for name in ('initial.json',):
     checks[name]=digest(CASE/name)==digest(reference/'common'/name)
 checks['evaluation_grid.npz']=digest(RUN/'common/evaluation_grid.npz')==digest(reference/'common/evaluation_grid.npz')
-checks['graph.json']=read(CASE/'graph.json')==read(reference/'latest_gp/graph.json')
+for name,expected in home_inputs(reference,fixture['home_m'],fixture['home_clearance_m']).items():
+    checks[name]=(CASE/name).read_bytes()==expected
+checks['saved_graph_hash']=digest(CASE/'graph.json')==fixture['inputs_sha256']['graph.json']
+graph=read(CASE/'graph.json')
+n=len(cp)
+checks['complete_directed_graph']={(e['from'],e['to']) for e in graph}=={(a,b) for a in range(n) for b in range(n) if a!=b}
+checks['original_candidate_coordinates']=read(CASE/'candidates.json')[1:]==read(reference/'common/candidates.json')[1:]
+checks['spawned_at_new_home']=s['checks']['spawned_near_home']
 checks['navigation_profile.json']=digest(CASE/'navigation_profile.json')==digest(reference/'common/navigation_profile.json')
 def nav_settings(path):
     return [line for line in path.read_text().splitlines() if 'yaml_filename:' not in line]
@@ -55,7 +70,9 @@ ax.plot(sensing_trace[:,1],sensing_trace[:,2],color='#1769aa',lw=1.4,label='Samp
 ax.plot(return_trace[:,1],return_trace[:,2],color='#d26620',lw=1.8,label='Final return')
 ax.scatter(cp[1:,0],cp[1:,1],s=18,c='gray',label='Candidates')
 ax.scatter(*cp[0],marker='*',s=110,c='#a00045',label='Home')
-ax.set(xlim=(0,30),ylim=(0,20),aspect='equal',xlabel='Field x (m)',ylabel='Field y (m)',title='Recorded Gazebo trajectory')
+ax.set(xlim=(-1.25,30),ylim=(-1.25,20),aspect='equal',xlabel='Field x (m)',ylabel='Field y (m)',title='Recorded Gazebo trajectory')
+ax.axvline(0,color='#aaaaaa',lw=.7,ls=':')
+ax.axhline(0,color='#aaaaaa',lw=.7,ls=':')
 ax.legend(loc='lower right')
 ax=axes[1]
 ax.plot([p['completion_t'] for p in plans],[p['total_compute_s'] for p in plans],color='#1769aa',lw=1)
@@ -83,7 +100,9 @@ if not video.exists():
         def at(x,y): return 75+x*21,110+(20-y)*21
         for x in range(0,31,5):draw.line([at(x,0),at(x,20)],fill='#eeeeee')
         for y in range(0,21,5):draw.line([at(0,y),at(30,y)],fill='#eeeeee')
-        draw.rectangle([at(0,20),at(30,0)],outline='#888888')
+        clearance=fixture['home_clearance_m']
+        draw.rectangle([at(-clearance,20),at(30,-clearance)],outline='#666666')
+        draw.rectangle([at(0,20),at(30,0)],outline='#bcbcbc')
         for i,(x,y) in enumerate(cp):
             px,py=at(x,y);draw.ellipse((px-4,py-4,px+4,py+4),fill='#a00045' if i==0 else '#888888')
             draw.text((px+5,py-5),'H' if i==0 else str(i),font=font,fill='#444444')
@@ -97,7 +116,7 @@ if not video.exists():
     writer.close()
 
 
-config="""30 × 20 m arena, 10 candidate waypoints plus Home, Bunker Mini in Gazebo with Nav2, and up to 300 s for sampling and planning. Both policies use the saved map, directed path graph, Matérn SRF realization, 980 synthetic history samples, fixed real-data-fitted RBF hyperparameters, 1 Hz sampling and GP updates, and 9,150 common evaluation queries. GRG uses depth 2 and two time splits."""
+config="""30 × 20 m arena, Home and spawn at the field origin (0, 0) m, all 10 original candidate waypoints, Bunker Mini in Gazebo with Nav2, and up to 300 s for sampling and planning. The three policies share the origin-Home map, directed Nav2 path graph, Matérn SRF realization, 980 synthetic history samples, fixed real-data-fitted RBF hyperparameters, 1 Hz sampling and GP updates, and 9,150 common evaluation queries. The west and south simulator walls are 1.25 m outside the field, providing clearance for the robot. The temperature model and evaluation grid retain their original coordinates. The same random field also supplies samples within the clearance if needed. Nav2 generates the graph for this arena. GRG uses depth 2 and two time splits."""
 
 objective={
     'emse':'EMSE scores the expected reduction in GP posterior variance over the common space-time grid. It averages the reduction using fixed cell-area weights, repeated at each evaluation time.',
@@ -106,18 +125,41 @@ objective={
 }[policy]
 method=(objective+" Each search uses a fixed GP snapshot. The worker takes the latest pending snapshot when it is ready for another search. "
        "At each waypoint, the next sampling leg must fit within the remaining budget. The GRG route ends at any feasible waypoint. "
-       "A visit to Home during sampling follows the same rules as any other waypoint. Once no next sampling leg fits, or the budget reaches 300 s, "
+       "Home is reserved for the initial pose and the final return. Once no next sampling leg fits, or the budget reaches 300 s, "
        "the robot stops sampling and starts a separate return to Home. The return has its own timing and supplies no samples to reconstruction.")
 
 audit=s['score_audits']
+previous_run_id={
+    'mi':'run_20261123T220640Z',
+    'emse':'run_20261123T221211Z',
+    'wivr':'run_20261123T221750Z',
+}[policy]
+previous_rel=f'results/{previous_run_id}/latest_gp/summary.json'
+previous=read(ROOT/previous_rel)
+previous_fixture=read(ROOT/'results'/previous_run_id/'fixture.json')
+assert previous_fixture['inputs_sha256']==fixture['inputs_sha256']
+assert previous_fixture['evaluation_grid_sha256']==fixture['evaluation_grid_sha256']
+previous_m=previous['mission']
+comparison_rows=[
+    ('Sampling duration (s)',previous_m['sampling_duration_s'],m['sampling_duration_s'],3),
+    ('Final return duration (s)',previous_m['return_duration_s'],m['return_duration_s'],3),
+    ('Valid samples',previous_m['measurements'],m['measurements'],0),
+    ('Sampling distance (m)',previous['sampling_distance_m'],s['sampling_distance_m'],2),
+    ('Single-search GRG P95 (s)',previous['grg_compute_s']['p95'],s['grg_compute_s']['p95'],3),
+    ('Reconstruction RMSE (°C)',previous['final_reconstruction_rmse_c'],s['final_reconstruction_rmse_c'],5),
+]
+comparison=("| Metric | Home eligible for sampling | Home reserved for return |\n| --- | --- | --- |\n"
+    +"\n".join(f"| {name} | {before:.{digits}f} | {after:.{digits}f} |"
+               for name,before,after,digits in comparison_rows))
+comparison+="\n\nBoth runs use Home (0, 0) m and the same origin fixture.\n\n[Previous origin run summary]("+previous_rel+")."
 stop=s['sampling_stop']
 finish_node=stop['last_waypoint']
-shortest=min(e['duration_s'] for e in read(CASE/'graph.json') if e['from']==finish_node and e['to']!=finish_node)
+shortest=min(e['duration_s'] for e in read(CASE/'graph.json') if e['from']==finish_node and e['to'] not in (0,finish_node))
 remaining=m['sampling_budget_s']-m['sampling_duration_s']
 stop_note=(f"The robot stopped sampling at {m['sampling_duration_s']:.2f} s near waypoint {finish_node}. "
            f"At that point, {remaining:.2f} s remained and the shortest next leg was estimated at {shortest:.2f} s. "
            f"The final return started at {m['return_started_t']:.2f} s. "
-           f"The sampling route reached Home {s['sampling_intermediate_home_visits']} time(s).")
+           f"Sampling arrivals at Home {s['sampling_intermediate_home_visits']} time(s).")
 metrics=[
     ('Sampling duration / budget (s)',f"{m['sampling_duration_s']:.3f} / {m['sampling_budget_s']:.0f}"),
     ('Sampling stop reason',m['sampling_stop_reason']),
@@ -162,12 +204,12 @@ files="""| Location | Contents |
 rel=RUN.relative_to(ROOT).as_posix()
 vrel=video.relative_to(ROOT).as_posix()
 root_md=(f"# {label} closed-loop verification\n\nValidate the existing {label} objective in the shared latest-GP ROS 2 simulation, with the final return outside the sampling budget.\n\n"
-         f"## Configuration\n\n{config}\n\n{method}\n\n## Results\n\n{table}\n\n{result}\n\n{stop_note}\n\n"
+         f"## Configuration\n\n{config}\n\n{method}\n\n## Results\n\n{table}\n\n{result}\n\n{stop_note}\n\n## Effect of reserving Home for return\n\n{comparison}\n\n"
          f"[Notebook with plots and embedded replay](test_report.ipynb) · [Run summary]({rel}/latest_gp/summary.json)\n\n"
          f"## Files and dependencies\n\n{files}\n"
          "The runner uses the existing `bunker-jazzy` Docker container with the ROS 2 Jazzy/Nav2/Bunker Mini overlay and the SRF verification Python environment. "
-         "Its fixture is read from the saved [WIVR run](../WIVR_test/results/run_20261120T145549Z/). "
-         "The Python evaluator uses the repository's GP, scoring and SRF reference modules.\n\n"
+         "Historical inputs are read from the saved [WIVR run](../WIVR_test/results/run_20261120T145549Z/). "
+         "The Python evaluator uses the repository's GP, scoring and SRF reference modules. The shared sampling_fixture.py creates the origin Home, spawn and clearance geometry.\n\n"
          f"With the container running, invoke `docker exec bunker-jazzy bash '/workspace/Code/Verification tests/{ROOT.name}/code/run.sh'`. "
          "Run `code/report.py` with the reporting Python environment to refresh the notebook.\n")
 md=nb.v4.new_markdown_cell
@@ -178,10 +220,10 @@ cell=nb.v4.new_code_cell(
         'text/html':Video(filename=str(video),embed=True,width=800)._repr_html_()})])
 note=nb.v4.new_notebook(cells=[
     md(f'# {label} closed-loop verification\n\n{RUN.name}\n\n{config}\n\n{method}'),
-    md(f'## Results\n\n{table}\n\n{result}\n\n{stop_note}'),
+    md(f'## Results\n\n{table}\n\n{result}\n\n{stop_note}\n\n## Effect of reserving Home for return\n\n{comparison}'),
     md(f'## Trajectory and compute\n\n![]({rel}/figures/trajectory_and_compute.png)'),
     md('## MCAP pose replay\n\nPlayback at 4× speed.'),cell,
-    md(f'## Validation\n\n{trace}\n\nAll shared numeric fixtures match the saved WIVR run.'),
+    md(f'## Validation\n\n{trace}\n\nThe fixture retains all ten candidate locations and uses the original temperature field over the evaluation grid. The initial recorded pose verifies the new spawn.'),
 ])
 nb.validate(note)
 nb.write(note,ROOT/'test_report.ipynb')

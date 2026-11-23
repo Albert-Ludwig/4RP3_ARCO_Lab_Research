@@ -4,42 +4,57 @@ Validate the existing WIVR objective in the shared latest-GP ROS 2 simulation, w
 
 ## Configuration
 
-30 × 20 m arena, 10 candidate waypoints plus Home, Bunker Mini in Gazebo with Nav2, and up to 300 s for sampling and planning. Both policies use the saved map, directed path graph, Matérn SRF realization, 980 synthetic history samples, fixed real-data-fitted RBF hyperparameters, 1 Hz sampling and GP updates, and 9,150 common evaluation queries. GRG uses depth 2 and two time splits.
+30 × 20 m arena, Home and spawn at the field origin (0, 0) m, all 10 original candidate waypoints, Bunker Mini in Gazebo with Nav2, and up to 300 s for sampling and planning. The three policies share the origin-Home map, directed Nav2 path graph, Matérn SRF realization, 980 synthetic history samples, fixed real-data-fitted RBF hyperparameters, 1 Hz sampling and GP updates, and 9,150 common evaluation queries. The west and south simulator walls are 1.25 m outside the field, providing clearance for the robot. The temperature model and evaluation grid retain their original coordinates. The same random field also supplies samples within the clearance if needed. Nav2 generates the graph for this arena. GRG uses depth 2 and two time splits.
 
-Adaptive WIVR scores expected GP variance reduction from the 1 Hz sampling events, weighted by cell area times the posterior variance at the current sample time. Each search uses a fixed GP snapshot. The worker takes the latest pending snapshot when it is ready for another search. At each waypoint, the next sampling leg must fit within the remaining budget. The GRG route ends at any feasible waypoint. A visit to Home during sampling follows the same rules as any other waypoint. Once no next sampling leg fits, or the budget reaches 300 s, the robot stops sampling and starts a separate return to Home. The return has its own timing and supplies no samples to reconstruction.
+Adaptive WIVR scores expected GP variance reduction from the 1 Hz sampling events, weighted by cell area times the posterior variance at the current sample time. Each search uses a fixed GP snapshot. The worker takes the latest pending snapshot when it is ready for another search. At each waypoint, the next sampling leg must fit within the remaining budget. The GRG route ends at any feasible waypoint. Home is reserved for the initial pose and the final return. Once no next sampling leg fits, or the budget reaches 300 s, the robot stops sampling and starts a separate return to Home. The return has its own timing and supplies no samples to reconstruction.
 
 ## Results
 
 | Metric | WIVR |
 | --- | --- |
-| Sampling duration / budget (s) | 286.264 / 300 |
+| Sampling duration / budget (s) | 288.284 / 300 |
 | Sampling stop reason | no_sampling_leg_fits |
-| Final return duration (s) | 20.030 |
-| Elapsed time through final return (s) | 306.304 |
-| Measurements / missed ticks | 286 / 0 |
-| GP updates | 286 |
-| Initial GRG compute (s) | 3.087 |
-| Initial route (node IDs) | [0, 9, 2, 9] |
-| GRG requests started / completed within mission | 139 / 138 |
-| GRG compute mean / P95 / max (s) | 1.776 / 4.610 / 5.109 |
-| Cumulative GRG compute (s) | 246.92 |
+| Final return duration (s) | 27.444 |
+| Elapsed time through final return (s) | 315.738 |
+| Measurements / missed ticks | 288 / 0 |
+| GP updates | 288 |
+| Initial GRG compute (s) | 3.120 |
+| Initial route (node IDs) | [0, 10, 1, 10] |
+| GRG requests started / completed within mission | 154 / 153 |
+| GRG compute mean / P95 / max (s) | 1.588 / 3.670 / 4.160 |
+| Cumulative GRG compute (s) | 244.51 |
 | Peak pending slot / unfinished requests | 1 / 0 |
 | Search guard timeouts | 0 |
-| Arrival waiting (s) | 0.954 |
+| Arrival waiting (s) | 1.440 |
 | Handoffs with new plan / retained tail | 10 / 0 |
-| Sampling legs / distance (m) | 11 / 226.95 |
-| Returned Home / error (m) | True / 0.152 |
-| Mean process CPU (100% = one core) | 429.1% |
-| Peak aggregate process RSS (MiB) | 1314.6 |
-| Real-time factor | 0.99984 |
-| Final synthetic reconstruction RMSE (°C) | 0.07033 |
+| Sampling legs / distance (m) | 11 / 230.08 |
+| Returned Home / error (m) | True / 0.169 |
+| Mean process CPU (100% = one core) | 409.5% |
+| Peak aggregate process RSS (MiB) | 1318.2 |
+| Real-time factor | 0.99995 |
+| Final synthetic reconstruction RMSE (°C) | 0.07105 |
 | History-only reconstruction RMSE (°C) | 0.09073 |
 
-Mission acceptance **PASS**. The reference Python objective reproduced the initial score and 3 saved search scores within the 1e-8 absolute and relative tolerances (maximum absolute error 3.82e-17). The mission checks cover observation retention, arrival-only handoffs, per-leg sampling feasibility, the stop condition, and a separate final return. The reconstruction RMSE summarizes the final GP posterior on the shared synthetic evaluation grid for this single run.
+Mission acceptance **PASS**. The reference Python objective reproduced the initial score and 3 saved search scores within the 1e-8 absolute and relative tolerances (maximum absolute error 6.59e-17). The mission checks cover observation retention, arrival-only handoffs, per-leg sampling feasibility, the stop condition, and a separate final return. The reconstruction RMSE summarizes the final GP posterior on the shared synthetic evaluation grid for this single run.
 
-The robot stopped sampling at 286.26 s near waypoint 10. At that point, 13.74 s remained and the shortest next leg was estimated at 17.23 s. The final return started at 286.27 s. Home served as an intermediate sampling waypoint 0 time(s).
+The robot stopped sampling at 288.28 s near waypoint 6. At that point, 11.72 s remained and the shortest next leg was estimated at 17.23 s. The final return started at 288.29 s. Sampling arrivals at Home 0 time(s).
 
-[Notebook with plots and embedded replay](test_report.ipynb) · [Run summary](results/run_20261123T210449Z/latest_gp/summary.json)
+## Effect of reserving Home for return
+
+| Metric | Home eligible for sampling | Home reserved for return |
+| --- | --- | --- |
+| Sampling duration (s) | 290.880 | 288.284 |
+| Final return duration (s) | 0.070 | 27.444 |
+| Valid samples | 290 | 288 |
+| Sampling distance (m) | 233.91 | 230.08 |
+| Single-search GRG P95 (s) | 4.807 | 3.670 |
+| Reconstruction RMSE (°C) | 0.07041 | 0.07105 |
+
+Both runs use Home (0, 0) m and the same origin fixture.
+
+[Previous origin run summary](results/run_20261123T221750Z/latest_gp/summary.json).
+
+[Notebook with plots and embedded replay](test_report.ipynb) · [Run summary](results/run_20261123T225159Z/latest_gp/summary.json)
 
 ## Files and dependencies
 
@@ -53,6 +68,6 @@ The robot stopped sampling at 286.26 s near waypoint 10. At that point, 13.74 s 
 | `results/<run>/` | Inputs, hashes, event logs, final GP state and metrics |
 | `recordings/<run>/` | Raw rosbag and MP4 replay |
 
-The runner uses the existing `bunker-jazzy` Docker container with the ROS 2 Jazzy/Nav2/Bunker Mini overlay and the SRF verification Python environment. Its fixture is read from the saved [WIVR run](../WIVR_test/results/run_20261120T145549Z/). The Python evaluator uses the repository's GP, scoring and SRF reference modules.
+The runner uses the existing `bunker-jazzy` Docker container with the ROS 2 Jazzy/Nav2/Bunker Mini overlay and the SRF verification Python environment. Historical inputs are read from the saved [WIVR run](../WIVR_test/results/run_20261120T145549Z/). The Python evaluator uses the repository's GP, scoring and SRF reference modules. The shared sampling_fixture.py creates the origin Home, spawn and clearance geometry.
 
 With the container running, invoke `docker exec bunker-jazzy bash '/workspace/Code/Verification tests/WIVR_test/code/run.sh'`. Run `code/report.py` with the reporting Python environment to refresh the notebook.
