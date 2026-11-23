@@ -1,0 +1,57 @@
+{
+  "protected_file_count": 227,
+  "protected_files_unchanged": true,
+  "identical_inputs": {
+    "initial.json": true,
+    "candidates.json": true,
+    "srf_parameters_and_reference_hash": true
+  },
+  "field_reference_path_metadata": {
+    "old": "Data/Real_Data_Integration/result/gp_samples.csv",
+    "new": "Data/interpolated_data/result/gp_samples.csv"
+  },
+  "identical_nav2_graph": true,
+  "identical_evaluation_arrays": true,
+  "runtime_source_hashes_match": true,
+  "kernel_and_well_e_document_unchanged": true,
+  "interpolated_real_data_unchanged": true,
+  "notebook_valid": true,
+  "embedded_video_matches_mp4": true,
+  "video_metadata": {
+    "ffmpeg_version": "7.1-essentials_build-www.gyan.dev built with gcc 14.2.0 (Rev1, Built by MSYS2 project)",
+    "codec": "h264",
+    "pix_fmt": "yuv420p(progressive)",
+    "fps": 10.0,
+    "source_size": [
+      800,
+      608
+    ],
+    "size": [
+      800,
+      608
+    ],
+    "rotate": 0,
+    "duration": 75.1
+  },
+  "checks": {
+    "sensing_complete": true,
+    "all_samples_assimilated": true,
+    "no_silent_request_drops": true,
+    "sampled_completed_route_scores_audited": true,
+    "no_navigation_preemptions": true,
+    "returned_home": true,
+    "full_window": true,
+    "single_pending_state": true,
+    "fresh_snapshot_when_offered": true,
+    "all_started_jobs_recorded": true,
+    "retained_route_handoff": true,
+    "arrival_only_from_event_trace": true,
+    "matching_route_anchor_and_epoch": true,
+    "nonhome_leg_return_feasible": true
+  },
+  "source_hashes": {
+    "evaluate.py": "5e65fc80a37e9ac800086171cf26fec36559f056310dd5c451a638dad8a1eb86",
+    "evaluate_case.py": "f43c09a9329d105c86507712f3ddb347d1e03ae7b09a9583184551f2de5c64c4",
+    "report.py": "55fab821221c599d81160712b28f212306b70ad22d8d98001cb05b13bb20b31a"
+  }
+}

@@ -1,0 +1,130 @@
+{
+  "mission": {
+    "arrival_wait_s": 0.07200000000006312,
+    "duration_s": 300.002,
+    "goal_preemptions_before_deadline": 0,
+    "gp_updates": 299,
+    "grg_completed_at_stop": 104,
+    "grg_requested": 104,
+    "home_error_m": 0.1415530378256883,
+    "home_returned": true,
+    "measurements": 299,
+    "missed_ticks": 0,
+    "navigation_failures": 0,
+    "origin": 9.308,
+    "pending_sensor_requests": 0,
+    "segments": 10,
+    "stale_pose": 0,
+    "status": "window_completed",
+    "update_interval_s": 1,
+    "wall_s": 300.01985451400003
+  },
+  "worker": {
+    "coalesced_state_signals": 132,
+    "completed_total": 104,
+    "peak_queue": 1,
+    "pending_state_at_stop": 0,
+    "unprocessed": 0
+  },
+  "checks": {
+    "sensing_complete": true,
+    "all_samples_assimilated": true,
+    "no_silent_request_drops": true,
+    "sampled_completed_route_scores_audited": true,
+    "no_navigation_preemptions": true,
+    "returned_home": true,
+    "full_window": true,
+    "single_pending_state": true,
+    "fresh_snapshot_when_offered": true,
+    "all_started_jobs_recorded": true,
+    "retained_route_handoff": true,
+    "arrival_only_from_event_trace": true,
+    "matching_route_anchor_and_epoch": true,
+    "nonhome_leg_return_feasible": true
+  },
+  "score_audits": [
+    {
+      "id": 1,
+      "absolute_error": 3.8163916471489756e-17,
+      "passed": true
+    },
+    {
+      "id": 53,
+      "absolute_error": 1.734723475976807e-18,
+      "passed": true
+    },
+    {
+      "id": 104,
+      "absolute_error": 3.686287386450715e-18,
+      "passed": true
+    }
+  ],
+  "diagnostic_all_searches_within_1s": false,
+  "diagnostic_searches_within_1s": 57,
+  "grg_completed_during_window": 104,
+  "grg_compute_s": {
+    "mean": 1.8681296013173063,
+    "p95": 5.70304949444999,
+    "max": 5.892347769999986
+  },
+  "grg_search_s": {
+    "mean": 1.8335299581346147,
+    "p95": 5.676950651000008,
+    "max": 5.8647517790000165
+  },
+  "grg_queue_wait_s": {
+    "mean": 0.24854167532692217,
+    "p95": 0.8878396631500065,
+    "max": 0.9922844579999719
+  },
+  "grg_latency_s": {
+    "mean": 2.11667528053846,
+    "p95": 6.1924145197999945,
+    "max": 6.579123138
+  },
+  "grg_timeouts": 0,
+  "consumed_plan_age_s": {
+    "mean": 5.413333333333333,
+    "p95": 9.046000000000003,
+    "max": 9.310000000000002
+  },
+  "gp_update_total_s": 10.847973928999892,
+  "grg_compute_total_s": 194.28547853699985,
+  "gp_update_s": {
+    "mean": 0.036280849260869205,
+    "p95": 0.04431569519999812,
+    "max": 0.05762385799999947
+  },
+  "initial_plan_s": 3.8965558339999973,
+  "sampled_process_peak_mib": 1309.6953125,
+  "sampled_aggregate_cpu_peak_percent": 547.8711224832164,
+  "sampled_aggregate_cpu_mean_percent": 383.32029470376955,
+  "srf_source_ms": {
+    "mean": 0.7148645451505037,
+    "p95": 1.0554038999941893,
+    "max": 1.4548350000040955
+  },
+  "sensor_roundtrip_ms": {
+    "mean": 1.6195425685632883,
+    "p95": 2.306341800010614,
+    "max": 6.354805000000852
+  },
+  "distance_m": 190.5426954557068,
+  "real_time_factor": 0.9999404888918804,
+  "final_reconstruction_rmse_c": 0.0759466071510484,
+  "history_only_rmse_c": 0.09072630041237979,
+  "arrival_route_sources": {
+    "fresh_completed": 9,
+    "retained_tail": 0
+  },
+  "interpretation": "One replaceable latest-state signal; GRG starts with latest offered GP and navigation context, never restarts for each GP update. Retain executable route to Home; switch only at arrival. No hard GP age rejection. All observations assimilated at 1 Hz. Actual started jobs have contiguous IDs; coalesced state signals are explicitly counted. Initial planning precedes mission. Final in-flight search may complete after 300 s.",
+  "grg_snapshot_age_at_start_s": {
+    "mean": 0.293310906096156,
+    "p95": 0.919039663150005,
+    "max": 1.0402844579999737
+  },
+  "grg_feature_total_s": 130.8249375819997,
+  "grg_objective_total_s": 30.32720151300029,
+  "empty_event_searches": 0,
+  "scheduler_acceptance": true
+}

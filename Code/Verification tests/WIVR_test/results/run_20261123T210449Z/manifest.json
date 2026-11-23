@@ -1,0 +1,25 @@
+{
+  "sources": {
+    "capstone_nav2_reference.yaml": "644c4fe6443cafe4b194a1414d99b9c434f729f85065840e7fe910a07cacb522",
+    "evaluate.py": "5e65fc80a37e9ac800086171cf26fec36559f056310dd5c451a638dad8a1eb86",
+    "evaluate_case.py": "bbdd06c46e3d53ceb42b426b6d3821755823cd74cff9980352ba7b07b92d189e",
+    "field_config.json": "309629a79b21533f64ae7f66fe54f607441f733b73c012bdfacac5cdcdd7577f",
+    "navigation_profile.json": "571216d03afe968f2a1ce070040174f1f032369bcbcb179ea848f5624e8e59f7",
+    "navigation_profile.py": "0ebfb7245329e08810f518145711fba1b56655412ce7e7e7030a727137a66e2f",
+    "prepare.py": "29a242dfc840849ed32c6406fbf5c00e4cd7d8cc9db6c5f6822e3e4b6b656ad3",
+    "protocol.json": "d3d6fd4854bca5cf3c334be0ad1a88189a27a5cccac6459fd7a48d2012f2319a",
+    "report.py": "85b1ee03950136f8a812d5b6a532c8a5d162e12cdb5d16c98a52dfe59b67922a",
+    "Run-ClosedLoop.ps1": "1590e07e5466e52efaa4e016551041f018fbc41395bf2145cbf6b7d580f8211a",
+    "run.py": "1e73b5c3ff985c69d0c2133dfeb2611bef2f82ca85cf22fdd861591173bd0d6c",
+    "run.sh": "ab71539c2c4f48bdca54746021640f9fbbb2b57a504594e206ef925aec55fd42",
+    "scene.launch.py": "3a53963bfcb252d04b41ada8b3ed534adffbbed289ecf88c59993a00a9d019ac",
+    "srf_monitor.py": "328a10fee7f99949b5095a9a6f862465fed519b3034ae6bf6744e1f927c8a19c",
+    "src/CMakeLists.txt": "04f022230f6bf0ed942222cb4943eb88c02542f0a045a47014b11d69a3069ce6",
+    "src/core.hpp": "5de9a2888fed6a9db1a5a34697c15c115d4bcc347f64e1dfb619e92c641b02ba",
+    "src/matrix_threads.hpp": "a3f7e4bd9e859c6b13bae8f7ed5d26bd29e5b1f25591035badbd8ffa399aa6e9",
+    "src/nodes.cpp": "6f640fee05818cc7d6e51a31b3e33aaa9ac1621c9ceb8ed527df948155eedf58",
+    "src/package.xml": "2dd6ba22bca598635fc647366d804977c0700ea3d8d25dd752bbd09c0d90cb04"
+  },
+  "binary_sha256": "9c6568ddc11d8c2d9145c3a0a4b3d7e5295ebff044de5ec2a3e1a4cdd532c84e",
+  "source_snapshot": "code/snapshots/run_20261123T210449Z/source_snapshot"
+}

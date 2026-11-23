@@ -1,0 +1,13 @@
+{
+  "reference": "WIVR_test/results/run_20261120T145549Z",
+  "inputs_sha256": {
+    "initial.json": "7f747d15a22494c7a20306fcd3505fa79a5066aa7862e5d721ea89d55598546e",
+    "candidates.json": "e51075e7d139ae2e1c376a70ab24c3794362ba5c8ae4949b636b768184078401",
+    "field.json": "e0a5448b81f0fb80b580a143beab687d55f976db16ffa0542ebe469b36bfd84a",
+    "graph.json": "e40474c8154cb7ce964dc939956c1843d5789ebb6f4362ee6113cf1452ebe6a4",
+    "world.sdf": "ee2dda9429bde68f41f63bd4f57a1d3b43cb38291c8bdceb52af6f90573a45fb",
+    "map.yaml": "3f22616f4c71785bdac205bb994c392dfca83ac27d1ca55915e0bd16aa14e26b",
+    "map.pgm": "1b5641449ed0ab0cc85da0cf809b420c0e1cc6e0cd652c26348aee18cc037687"
+  },
+  "evaluation_grid_sha256": "45fc3bcba10abedcdae7698717ad88b280eae3cc357b27033c48e1938ce37de2"
+}

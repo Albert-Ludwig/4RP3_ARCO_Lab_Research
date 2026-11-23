@@ -1,0 +1,18 @@
+{
+  "sources": {
+    "evaluate_case.py": "bbdd06c46e3d53ceb42b426b6d3821755823cd74cff9980352ba7b07b92d189e",
+    "protocol.json": "18b5702c6a2100468a91a97251d2a96a49fef17984f42f973860a12cc0539d0c",
+    "report.py": "919f4497886fa42c535ac4855cb5eeec3b5fc25f5eeaf9f0092e64691cde30ca",
+    "run.py": "21390ea809a50d74effd26aea47aad37169169e8dbb1574dc8516929cab72863",
+    "run.sh": "3eccaf9bbd6e13b14dde648949c127e0f3cb8143d0dfe75cbf66a52e93adea01",
+    "scene.launch.py": "3a53963bfcb252d04b41ada8b3ed534adffbbed289ecf88c59993a00a9d019ac",
+    "srf_monitor.py": "328a10fee7f99949b5095a9a6f862465fed519b3034ae6bf6744e1f927c8a19c",
+    "src/CMakeLists.txt": "04f022230f6bf0ed942222cb4943eb88c02542f0a045a47014b11d69a3069ce6",
+    "src/core.hpp": "5de9a2888fed6a9db1a5a34697c15c115d4bcc347f64e1dfb619e92c641b02ba",
+    "src/matrix_threads.hpp": "a3f7e4bd9e859c6b13bae8f7ed5d26bd29e5b1f25591035badbd8ffa399aa6e9",
+    "src/nodes.cpp": "84b43c157d6d9b1a8c6860d433657e13a038dde796c7ea610beae2ac0e02285e",
+    "src/package.xml": "7da336ef929dc1f5e1be945f58a7bdf19587442fa6c4c58bbf4837c66a93b301"
+  },
+  "binary_sha256": "382d59f47eedc40f9792f56fdf004d6fbae1db29903054fab2a9bfd7be1253c7",
+  "source_snapshot": "code/snapshots/run_20261123T211629Z/source_snapshot"
+}

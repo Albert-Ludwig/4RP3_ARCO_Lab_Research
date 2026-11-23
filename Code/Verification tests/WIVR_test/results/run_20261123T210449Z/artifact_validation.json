@@ -1,0 +1,16 @@
+{
+  "shared_fixture_checks": {
+    "initial.json": true,
+    "candidates.json": true,
+    "field.json": true,
+    "world.sdf": true,
+    "map.yaml": true,
+    "map.pgm": true,
+    "evaluation_grid.npz": true,
+    "graph.json": true,
+    "navigation_profile.json": true,
+    "nav2_settings": true
+  },
+  "mission_acceptance": true,
+  "policy": "wivr"
+}
