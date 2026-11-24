@@ -35,6 +35,8 @@ struct Experiment:rclcpp::Node {
   double x=15,y=10,pose_time=0,origin=0,started_wall=0,arrived_t=0,waiting_s=0;
   bool cancel_requested=false;
   double sampling_end=0,sampling_wall=0,return_start=-1,return_wall=0;
+  double home_arrival_t=-1, home_error_at_arrival=0;
+  int return_measurements=0;
   int sampling_stop_node=0;
   int sampling_segments=0,completed_at_sampling_end=0,started_at_sampling_end=0;
   bool stop_had_feasible_leg=false;
@@ -51,7 +53,9 @@ struct Experiment:rclcpp::Node {
     temperature=create_subscription<Msg>("/cl/temperature",100,[this](Msg::SharedPtr msg){
       J row=J::parse(msg->data);pending--;row["roundtrip_ms"]=(wall()-double(row["request_wall"]))*1000;record("temperature",row);
       if(!row.value("ok",false)||!active)return;
-      received++;measurement_buffer.push_back(row);
+      received++;
+      if(row.value("returning",false))return_measurements++;
+      measurement_buffer.push_back(row);
       int interval=cfg["update_interval_s"];
       if(int(row["id"])%interval==0) update_gp(false);
 
@@ -66,13 +70,23 @@ struct Experiment:rclcpp::Node {
     geometry_msgs::msg::PoseStamped p;p.header.frame_id="map";p.header.stamp=now();p.pose.position.x=points(i,0)-15;p.pose.position.y=points(i,1)-10;
     double a=std::atan2(points(i,1)-points(from,1),points(i,0)-points(from,0));p.pose.orientation.z=std::sin(a/2);p.pose.orientation.w=std::cos(a/2);return p;
   }
+  double travel_time(double length_m) const {
+    return length_m / double(cfg["travel_estimator_speed_m_s"]) +
+           double(cfg["travel_estimator_segment_allowance_s"]);
+  }
   void prepare(){try{
     J graph=J::array();int n=points.rows();edges.resize(n,std::vector<Edge>(n));
     std::ifstream cached(out+"/graph.json");
     if(cached.good()){
       cached>>graph;
       for(int i=0;i<n;i++){edges[i][i].xy.resize(2,2);edges[i][i].xy.row(0)=edges[i][i].xy.row(1)=points.row(i);edges[i][i].length=V::Zero(2);edges[i][i].duration=0;}
-      for(const auto&j:graph){auto&e=edges[int(j["from"])][int(j["to"])];e.xy=matrix(j["xy"]);e.length=V::Zero(e.xy.rows());for(int k=1;k<e.xy.rows();k++)e.length(k)=e.length(k-1)+(e.xy.row(k)-e.xy.row(k-1)).norm();e.duration=j["duration_s"];}
+      for(auto&j:graph){
+        auto&e=edges[int(j["from"])][int(j["to"])];
+        e.xy=matrix(j["xy"]);e.length=V::Zero(e.xy.rows());
+        for(int k=1;k<e.xy.rows();k++)e.length(k)=e.length(k-1)+(e.xy.row(k)-e.xy.row(k-1)).norm();
+        e.duration=travel_time(e.length(e.length.size()-1));
+        j["duration_s"]=e.duration;
+      }
     } else
     for(int i=0;i<n;i++)for(int j=0;j<n;j++){
       auto&e=edges[i][j];
@@ -83,7 +97,7 @@ struct Experiment:rclcpp::Node {
       if(r.code!=rclcpp_action::ResultCode::SUCCEEDED||r.result->path.poses.size()<2)throw std::runtime_error("Path unreachable");
       auto ps=r.result->path.poses;e.xy.resize(ps.size(),2);e.length=V::Zero(ps.size());
       for(size_t k=0;k<ps.size();k++){e.xy.row(k)<<ps[k].pose.position.x+15,ps[k].pose.position.y+10;if(k)e.length(k)=e.length(k-1)+(e.xy.row(k)-e.xy.row(k-1)).norm();}
-      e.duration=e.length(e.length.size()-1)/double(cfg["travel_estimator_speed_m_s"])+8;
+      e.duration=travel_time(e.length(e.length.size()-1));
       graph.push_back({{"from",i},{"to",j},{"xy",array(e.xy)},{"duration_s",e.duration}});
     }
     save("graph.json",graph);Search search(gp,edges,cfg,"emse");initial_plan=search.run(0);save("initial_plan.json",initial_plan);
@@ -96,7 +110,23 @@ struct Experiment:rclcpp::Node {
     if(!active||returning||home_done)return;
     double t=now().seconds()-origin;
     int anchor=nav_active?target:current;
-    double start=t+(nav_active?std::hypot(x-points(anchor,0),y-points(anchor,1))/double(cfg["travel_estimator_speed_m_s"])+8:0);
+    double start=t;
+    if(nav_active){
+      // Project the current pose onto the planned polyline to estimate remaining arc length.
+      const auto& edge=edges[current][anchor];
+      Eigen::Vector2d location(x,y);
+      double best_distance=INFINITY, along=0;
+      for(int i=1;i<edge.xy.rows();++i){
+        const Eigen::Vector2d a=edge.xy.row(i-1).transpose(), b=edge.xy.row(i).transpose();
+        const Eigen::Vector2d segment=b-a;
+        const double norm=segment.squaredNorm();
+        if(norm<=0)continue;
+        const double fraction=std::clamp((location-a).dot(segment)/norm,0.,1.);
+        const double distance=(location-a-fraction*segment).squaredNorm();
+        if(distance<best_distance){best_distance=distance;along=edge.length(i-1)+fraction*std::sqrt(norm);}
+      }
+      start+=travel_time(std::max(0.,edge.length(edge.length.size()-1)-along));
+    }
     J state=gp.snapshot(); double sample_t=received?double(state["x"].back()[2]):0;
     J meta={{"sample_id_end",tick},{"gp_version",gp.version},{"assimilated_new_count",received},
       {"sample_t",sample_t},{"queued_t",t},{"queued_wall",wall()},{"anchor",anchor},{"goal_epoch",epoch},
@@ -172,9 +202,10 @@ struct Experiment:rclcpp::Node {
       }
       current=id;arrived_t=now().seconds()-origin;
       if(returning){
-        home_done=true;
+        home_done=true;home_arrival_t=arrived_t;
+        home_error_at_arrival=std::hypot(x-points(0,0),y-points(0,1));
         record("arrived",{{"target",id},{"goal_epoch",token}});
-        record("home_returned");
+        record("home_returned",{{"home_arrival_t",home_arrival_t}});
         return;
       }
       segments++;waiting=true;
@@ -186,7 +217,8 @@ struct Experiment:rclcpp::Node {
   bool can_sample_next(int id,double t) const {
     if(id==current||id<=Search::home||id>=points.rows())return false;
     double duration=edges[current][id].duration;
-    return std::isfinite(duration)&&duration>0&&t+duration<=budget()+1e-8;
+    double onward_return=edges[id][Search::home].duration;
+    return std::isfinite(duration)&&duration>0&&t+duration+onward_return<=budget()+1e-8;
   }
   bool has_sampling_leg(double t) const {
     for(int id=Search::home+1;id<points.rows();++id)if(can_sample_next(id,t))return true;
@@ -215,19 +247,21 @@ struct Experiment:rclcpp::Node {
     if(finished)return;
     active=false;finished=true;stop_worker=true;condition.notify_all();
     if(nav_active)nav->async_cancel_all_goals();
-    double stop_t=origin?now().seconds()-origin:0,stop_wall=origin?wall()-started_wall:0;
+    double stop_t=home_done?home_arrival_t:(origin?now().seconds()-origin:0),stop_wall=origin?wall()-started_wall:0;
     update_gp(true);
     save("final_gp.json",gp.snapshot());
     save("mission.json",{{"status",status},{"origin",origin},{"duration_s",stop_t},{"wall_s",stop_wall},
-      {"sampling_budget_s",budget()},{"sampling_duration_s",sampling_end},{"sampling_wall_s",sampling_wall},
+      {"mission_budget_s",budget()},{"sampling_duration_s",sampling_end},{"sampling_wall_s",sampling_wall},
+      {"home_arrival_t",home_arrival_t},{"within_mission_budget",home_done&&home_arrival_t<=budget()},
+      {"return_measurements",return_measurements},
       {"sampling_stop_reason",sampling_stop_reason},{"sampling_stop_node",sampling_stop_node},
-      {"return_duration_s",return_start>=0?stop_t-return_start:0},
+      {"return_duration_s",return_start>=0?(home_done?home_arrival_t:stop_t)-return_start:0},
       {"return_started_t",return_start},{"return_navigation_wall_s",return_start>=0?wall()-return_wall:0},
       {"update_interval_s",cfg["update_interval_s"]},{"measurements",received},{"gp_updates",gp.version},
       {"grg_requested",started_at_sampling_end},{"grg_completed_at_stop",completed_at_sampling_end},
       {"missed_ticks",missed},{"stale_pose",stale},{"pending_sensor_requests",pending},{"segments",sampling_segments},
       {"navigation_failures",nav_failures},{"home_returned",home_done},
-      {"home_error_m",std::hypot(x-points(0,0),y-points(0,1))},
+      {"home_error_m",home_done?home_error_at_arrival:std::hypot(x-points(0,0),y-points(0,1))},
       {"arrival_wait_s",waiting_s},{"goal_preemptions_before_deadline",0}});
     record("mission_finished",{{"status",status}});
   }
@@ -245,16 +279,20 @@ struct Experiment:rclcpp::Node {
       if(!returning&&!nav_active){
         returning=true;return_start=t;return_wall=wall();
         record("return_started");
-        dispatch(0,-1);
+        dispatch(Search::home,-1);
       }
-      return;
     }
     int due=int(std::floor(t+1e-9));
-    if(due>tick){missed+=due-tick-1;tick=due;if(now().seconds()-pose_time>.5){stale++;}else{
-      J row={{"id",tick},{"t",t},{"x",x},{"y",y},{"request_wall",wall()},{"pose_age_s",now().seconds()-pose_time}};
-      Msg msg;msg.data=row.dump();pending++;query->publish(msg);record("query",row);
-    }}
-    if(!waiting||home_done)return;
+    if(!home_done&&due>tick){
+      missed+=due-tick-1;tick=due;
+      if(now().seconds()-pose_time>.5){stale++;}
+      else{
+        J row={{"id",tick},{"t",t},{"x",x},{"y",y},{"returning",returning},
+          {"request_wall",wall()},{"pose_age_s",now().seconds()-pose_time}};
+        Msg msg;msg.data=row.dump();pending++;query->publish(msg);record("query",row);
+      }
+    }
+    if(!sampling_stop_reason.empty()||!waiting||home_done)return;
     if(!has_sampling_leg(t)){end_sampling("no_sampling_leg_fits",t);return;}
     J candidate;
     {std::lock_guard<std::mutex>l(result_lock);auto it=results.find(epoch);if(it!=results.end())candidate=it->second;}

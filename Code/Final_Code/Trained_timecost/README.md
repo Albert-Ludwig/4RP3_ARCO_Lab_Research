@@ -15,7 +15,7 @@ Positive and negative errors of the same size have equal weight. Squaring the er
 
 In a leave-one-run-out check on the 11 training runs, the selected fit had an RMSE of **1.910 s**. Equal weighting by run gave 1.912 s, and the best of three Huber thresholds gave 1.913 s. On the 33 held-out legs, equal weighting improved RMSE by just 0.002 s and increased the largest absolute error slightly. The original fit is therefore retained. Its held-out RMSE was **2.178 s**, and its largest absolute error was **5.623 s**.
 
-The 300 s limit runs from departure to actual arrival at Home. Use the same fitted model for sampling legs and the required return. During the Nav2 return, keep sensing at 1 Hz and include the valid return observations in the final GP. The policy continues to score the normal sampling route. This integration is pending.
+The 300 s limit runs from departure to actual arrival at Home. Use the same fitted model for sampling legs and the required return. During the Nav2 return, keep sensing at 1 Hz and include the valid return observations in the final GP. The policy continues to score the normal sampling route. The selected estimate is used in all three [return-inclusive Gazebo verification runs](../../Verification%20tests/README.md#return-inclusive-ros-closed-loop-verification).
 
 ## Comparison with fixed measured speed
 

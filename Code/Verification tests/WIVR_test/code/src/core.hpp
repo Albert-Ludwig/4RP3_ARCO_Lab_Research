@@ -117,7 +117,7 @@ struct Search {
   GP &gp;
   std::string policy;
   static constexpr int home = 0;
-  // Virtual terminal adds zero travel and no sampling events.
+  // Returning to Home consumes mission time. Its observations are acquired during execution.
   static constexpr int terminal = -1;
   std::vector<std::vector<Edge>> &edges;
   M q, qfeatures;
@@ -160,8 +160,7 @@ struct Search {
   double finish(const std::vector<int> &r) const {
     double t = elapsed;
     for (size_t i = 1; i < r.size(); i++)
-      if (r[i] >= 0)
-        t += edges[r[i - 1]][r[i]].duration;
+      t += edges[r[i - 1]][r[i] == terminal ? home : r[i]].duration;
     return t;
   }
   M events(const std::vector<int> &r) const {
@@ -170,7 +169,7 @@ struct Search {
     int tick = int(std::floor(elapsed + 1e-9)) + 1;
     for (size_t i = 1; i < r.size(); i++) {
       if (r[i] < 0)
-        break; // Zero-cost virtual terminal: finish at any real checkpoint.
+        break; // Return samples are outside the GRG objective.
       const auto &e = edges[r[i - 1]][r[i]];
       double end = left + e.duration;
       if (!std::isfinite(end))
@@ -303,7 +302,7 @@ struct Search {
         }
       } else {
         double lo = finish(p),
-               hi = end_s - (end < 0 ? 0. : edges[v][end].duration);
+               hi = end_s - edges[v][end == terminal ? home : end].duration;
         if (lo > hi + 1e-8)
           continue;
         for (int split = 1; split <= 2; split++) {
@@ -349,6 +348,7 @@ struct Search {
              {"score", best_gain},
              {"policy", policy},
              {"predicted_navigation_s", finish(best)},
+             {"predicted_home_arrival_s", finish(best) + edges[best.back()][home].duration},
              {"timeout", timed_out},
              {"calls", calls},
              {"cache_hits", hits},

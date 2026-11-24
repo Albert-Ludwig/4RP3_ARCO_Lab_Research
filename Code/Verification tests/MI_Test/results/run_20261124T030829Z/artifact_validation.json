@@ -1,0 +1,21 @@
+{
+  "shared_fixture_checks": {
+    "initial.json": true,
+    "evaluation_grid.npz": true,
+    "candidates.json": true,
+    "scene.json": true,
+    "world.sdf": true,
+    "map.pgm": true,
+    "map.yaml": true,
+    "field.json": true,
+    "saved_graph_hash": true,
+    "complete_directed_graph": true,
+    "original_candidate_coordinates": true,
+    "spawned_at_new_home": true,
+    "navigation_profile.json": true,
+    "nav2_settings": true,
+    "same_archived_graph_geometry": true
+  },
+  "mission_acceptance": true,
+  "policy": "mi"
+}

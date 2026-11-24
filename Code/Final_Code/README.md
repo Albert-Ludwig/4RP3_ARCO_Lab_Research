@@ -6,7 +6,7 @@
 
 ## Current mission protocol
 
-The next MI, EMSE and WIVR runs share a 300 s deadline from departure to arrival at Home. All use the fitted `d_ij = L_ij / v + delta`, where `L_ij` is the Nav2 path length, `v = 0.891822 m/s` and `delta = 2.709215 s`. GRG scores the normal candidate routes and accepts a next waypoint only when its travel and onward return fit the remaining time. When no waypoint fits, Nav2 navigates to the fixed Home goal. The 1 Hz sampler remains active during return, and all valid return samples condition the final GP. This revision is pending integration and verification.
+The next MI, EMSE and WIVR runs share a 300 s deadline from departure to arrival at Home. All use the fitted `d_ij = L_ij / v + delta`, where `L_ij` is the Nav2 path length, `v = 0.891822 m/s` and `delta = 2.709215 s`. GRG scores the normal candidate routes and accepts a next waypoint only when its travel and onward return fit the remaining time. When no waypoint fits, Nav2 navigates to the fixed Home goal. The 1 Hz sampler remains active during return, and all valid return samples condition the final GP. The revised protocol passed all three [Gazebo verification runs](../Verification%20tests/README.md#return-inclusive-ros-closed-loop-verification). The final registered-site experiment is pending.
 
 ## Planner sources
 

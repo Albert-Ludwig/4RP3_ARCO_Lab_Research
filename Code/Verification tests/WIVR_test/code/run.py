@@ -1,4 +1,4 @@
-"""One closed-loop sampling run with a separate return, using the saved WIVR fixture."""
+"""One return-inclusive closed-loop mission using the saved WIVR fixture."""
 from pathlib import Path
 from datetime import datetime,timezone
 import os,sys,json,subprocess,time,signal,shutil,hashlib

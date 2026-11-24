@@ -82,7 +82,7 @@ def stats(values):
     return dict(mean=float(a.mean()),p95=float(np.percentile(a,95)),max=float(a.max())) if len(a) else None
 deadline_success=sum(p['latency_s']<=m['update_interval_s'] and not p['timeout'] and not p['finished_after_window'] for p in plans)
 queries=[e for e in events if e['event']=='query']
-last_tick=min(math.floor(m['sampling_duration_s']+1e-9),math.ceil(m['sampling_budget_s'])-1)
+last_tick=math.floor(m['home_arrival_t']+1e-9)
 expected=list(range(1,last_tick+1))
 checks=dict(sensing_complete=[r['id'] for r in samples]==[r['id'] for r in queries]==expected and m['missed_ticks']==0 and m['stale_pose']==0,
     all_samples_assimilated=len(gp.x)==len(base.x)+len(samples),
@@ -93,8 +93,8 @@ checks=dict(sensing_complete=[r['id'] for r in samples]==[r['id'] for r in queri
     configured_policy_used=True,no_search_timeouts=all(not p["timeout"] for p in [initial_plan,*plans]),
     no_navigation_failures=m["navigation_failures"]==0,
     returned_home=m['home_returned'] and m['home_error_m']<=.3,
-    within_sampling_budget=0<m['sampling_duration_s']<=m['sampling_budget_s']
-        and all(0<=e['t']<m['sampling_budget_s'] for e in samples))
+    within_mission_budget=0<m['home_arrival_t']<=m['mission_budget_s']
+        and all(0<=e['t']<=m['home_arrival_t'] for e in samples))
 arrival_choices=[e for e in events if e['event']=='arrival_selection']
 summary=dict(policy=policy,home_xy_m=home_xy.tolist(),first_recorded_pose=trajectory[0].tolist(),spawn_offset_m=spawn_offset_m,initial_route=initial_plan["route"],mission=m,worker=worker,checks=checks,score_audits=audits,
     diagnostic_all_searches_within_1s=worker['completed_total']==m['grg_requested'] and deadline_success==m['grg_requested'],
@@ -108,7 +108,7 @@ summary=dict(policy=policy,home_xy_m=home_xy.tolist(),first_recorded_pose=trajec
     real_time_factor=m['duration_s']/m['wall_s'],final_reconstruction_rmse_c=float(np.sqrt(np.mean((pred-truth)**2))),
     history_only_rmse_c=float(np.sqrt(np.mean((base_pred-truth)**2))),
     arrival_route_sources={k:sum(e['route_source']==k for e in arrival_choices) for k in ('fresh_completed','retained_tail')},
-    interpretation='One replaceable latest-state signal; GRG starts with latest offered GP and navigation context, never restarts for each GP update. Retain the executable sampling tail; switch only at arrival during sampling. Final return begins after sampling stops. No hard GP age rejection. All observations assimilated at 1 Hz. Actual started jobs have contiguous IDs; coalesced state signals are explicitly counted. Initial planning precedes mission. Final in-flight search may complete after 300 s.')
+    interpretation='Latest-GP background GRG scores normal sampling routes and reserves travel time to Home. Nav2 executes the fixed Home goal. Temperature sensing continues during return, and all valid observations update the final GP.')
 starts=[e for e in events if e['event']=='grg_start']
 assert len(starts)==m['grg_requested']
 latest=0;latest_epoch=0;fresh_at_start=True
@@ -130,6 +130,9 @@ for e in events:
     if e['event']=='nav_goal':
         arrival_only &= not active_goal
         active_goal=True
+        if not e['returning']:
+            target=e['target']
+            budget_ok &= e['event_t']+edge_cost[current_node,target]+edge_cost[target,0]<=m['mission_budget_s']+.05
     elif e['event']=='arrived':
         active_goal=False;current_node=e['target'];arrived_epoch=e['goal_epoch']
     elif e['event']=='sampling_goal_ended':
@@ -139,25 +142,38 @@ for e in events:
         if e['route_source']=='fresh_completed':
             req=plan_by_id[e['selected_plan_id']]['request']
             matching &= req['anchor']==current_node and req['goal_epoch']==arrived_epoch
-        budget_ok &= e['event_t']+edge_cost[current_node,e['next']]<=m['sampling_budget_s']+.05
 [sampling_stop]=[e for e in events if e['event']=='sampling_finished']
 [return_start]=[e for e in events if e['event']=='return_started']
-no_edge_fits=all(sampling_stop['event_t']+cost>m['sampling_budget_s']
+no_edge_fits=all(sampling_stop['event_t']+cost+edge_cost[b,0]>m['mission_budget_s']-1e-8
                  for (a,b),cost in edge_cost.items() if a==sampling_stop['last_waypoint'] and a!=b and b!=0)
 [return_goal]=[e for e in events if e['event']=='nav_goal' and e['returning']]
 sampling_goals=[e for e in events if e['event']=='nav_goal' and not e['returning']]
+return_samples=[r for r in samples if r.get('returning')]
+return_queries=[q for q in queries if q.get('returning')]
+graph=read(RUN/'graph.json')
+protocol=read(RUN/'protocol.json')
+expected_cost=lambda e: (np.linalg.norm(np.diff(np.array(e['xy']),axis=0),axis=1).sum()
+    /protocol['travel_estimator_speed_m_s']+protocol['travel_estimator_segment_allowance_s'])
+summary['return_measurements']=len(return_samples)
 summary['checks'].update(arrival_only_from_event_trace=bool(arrival_only),
  matching_route_anchor_and_epoch=bool(matching),sampling_legs_fit_budget=bool(budget_ok),
  home_excluded_from_search_and_sampling_goals=bool(sampling_goals) and all(0<e['target']<=10 for e in sampling_goals),
  sampling_plan_cost_matches_executed_prefix=all(
      abs(p['predicted_navigation_s']-p.get('request',{}).get('planning_start_t',0)
          -sum(edge_cost[a,b] for a,b in zip(p['route'],p['route'][1:])))<=1e-8
-     and (p['predicted_navigation_s']<=m['sampling_budget_s']+1e-8 or len(p['route'])==1)
+     and abs(p['predicted_home_arrival_s']-p['predicted_navigation_s']
+             -edge_cost.get((p['route'][-1],0),0.0))<=1e-8
+     and (p['predicted_home_arrival_s']<=m['mission_budget_s']+1e-8 or len(p['route'])==1)
      for p in [initial_plan,*plans]),
  stop_reason_verified=(no_edge_fits and not sampling_stop['has_feasible_next_leg']
-     if m['sampling_stop_reason']=='no_sampling_leg_fits' else m['sampling_duration_s']==m['sampling_budget_s']),
- return_after_sampling=return_goal['target']==0 and return_start['event_t']>=sampling_stop['event_t']
-     and m['return_duration_s']>0 and all(q['t']<=sampling_stop['event_t'] for q in queries))
+     if m['sampling_stop_reason']=='no_sampling_leg_fits' else m['sampling_duration_s']==m['mission_budget_s']),
+ calibrated_graph_costs=all(abs(e['duration_s']-expected_cost(e))<1e-8 for e in graph),
+ return_to_fixed_home=return_goal['target']==0 and return_start['event_t']>=sampling_stop['event_t']
+     and m['return_duration_s']>0,
+ return_measurements_assimilated=bool(return_samples)
+     and [r['id'] for r in return_samples]==[q['id'] for q in return_queries]
+     and len(return_samples)==m['return_measurements']
+     and all(return_start['event_t']-.05<=r['t']<=m['home_arrival_t'] for r in return_samples))
 summary['sampling_distance_m']=float(np.linalg.norm(np.diff(trajectory[trajectory[:,0]<sampling_stop['event_t'],1:3],axis=0),axis=1).sum())
 summary['sampling_intermediate_home_visits']=sum(e['event']=='arrived' and e['target']==0
     and e['event_t']<sampling_stop['event_t'] for e in events)

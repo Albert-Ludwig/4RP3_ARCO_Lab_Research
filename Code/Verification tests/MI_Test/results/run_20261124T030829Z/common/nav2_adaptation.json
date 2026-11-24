@@ -1,0 +1,42 @@
+{
+  "source": {
+    "repository": "Albert-Ludwig/Mechatronics-Capstone",
+    "branch": "SIMULATION_LYRICAL",
+    "path": "Simulation/inventory_nav2_poc_ws/src/inventory_inspection_poc/config/nav2_overrides.yaml",
+    "blob_sha": "352c27d8356fa39e5c55ddb3f51ece01febfd3be",
+    "url": "https://github.com/Albert-Ludwig/Mechatronics-Capstone/blob/SIMULATION_LYRICAL/Simulation/inventory_nav2_poc_ws/src/inventory_inspection_poc/config/nav2_overrides.yaml"
+  },
+  "controller": "nav2_regulated_pure_pursuit_controller::RegulatedPurePursuitController",
+  "omitted_source_keys": [
+    "TrajectoryValidator",
+    "publish_optimal_trajectory"
+  ],
+  "source_components_not_launched": [
+    "AMCL",
+    "lidar obstacle layers",
+    "Collision Monitor",
+    "waypoint dwell"
+  ],
+  "reason": "Current flat component fixture uses ideal localization and static map only; no lidar topic is supplied.",
+  "global_radius_m": 0.56,
+  "chain": "controller/behaviors -> /cl/cmd_vel_nav -> velocity_smoother -> /cmd_vel -> bounded watchdog -> /simulation/cmd_vel -> Gazebo tracks",
+  "footprint": [
+    [
+      0.36,
+      0.282
+    ],
+    [
+      0.36,
+      -0.282
+    ],
+    [
+      -0.334,
+      -0.282
+    ],
+    [
+      -0.334,
+      0.282
+    ]
+  ],
+  "footprint_padding_m": 0.07
+}

@@ -2,9 +2,17 @@
 
 Component checks and individual-policy functional runs belong here. The current stage verifies correctness and integration readiness; it does not rank reconstruction performance. Final experiments and trained real-data kernels remain in [Final_Code](../Final_Code/README.md).
 
-## Next ROS closed-loop protocol
+## Return-inclusive ROS closed-loop verification
 
-The MI, EMSE and WIVR runs share a **300 s total budget including return to Home**. GRG retains the existing objective and checks return feasibility using the [calibrated travel-time model](../Final_Code/Trained_timecost/README.md), `d_ij = L_ij / v + delta` with `v = 0.891822 m/s` and `delta = 2.709215 s`. Nav2 handles the return to the fixed Home goal. Continue collecting temperature at 1 Hz on that route and assimilate the readings into the final GP. Runs using this protocol are pending.
+The MI, EMSE and WIVR runs share a **300 s total budget including return to Home**. GRG retains the existing objective and checks return feasibility using the [calibrated travel-time model](../Final_Code/Trained_timecost/README.md), `d_ij = L_ij / v + delta` with `v = 0.891822 m/s` and `delta = 2.709215 s`. Nav2 handles the return to the fixed Home goal. Continue collecting temperature at 1 Hz on that route and assimilate the readings into the final GP. Three single-seed Gazebo runs passed the return deadline and observation-retention checks. All recorded 1 Hz samples through Home arrival, with zero missed ticks and zero GRG timeouts.
+
+| Policy | Home arrival, old → new (s) | Observations, old → new | Return observations | Reconstruction RMSE, old → new (°C) | GRG compute P95, old → new (s) |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| [MI](MI_Test/README.md) | 315.19 → 290.55 | 282 → 290 | 7 | 0.07065 → 0.07097 | 0.77 → 0.51 |
+| [EMSE](EMSE_Test/README.md) | 320.98 → 284.11 | 283 → 284 | 8 | 0.07587 → 0.07376 | 3.87 → 2.52 |
+| [WIVR](WIVR_test/README.md) | 315.74 → 296.59 | 288 → 296 | 11 | 0.07105 → 0.07209 | 3.67 → 2.34 |
+
+The archived protocol used a separate return and the nominal travel estimate. The revised runs evaluate the calibrated estimate and return policy together on the same fixture.
 
 ## Shared Python-fixture configuration
 
@@ -37,4 +45,4 @@ The Python scoring fixture uses Home (3,3) m, a central box at x,y = [13,17] m, 
 | [SRF_test](SRF_test/README.md)                                                                 | Completed: 38 checks for the added obstacle-free 97 x 64 m / 120 s workload; 97 x 64 m / 900 s and 30 x 30 m / 120 s results retained. This source workload variant does not change the shared integration configuration above. |
 | [Continuous_sensing_test](Continuous_sensing_test/README.md)                                   | Completed: 48 moving-sampling, buffering and batch GP checks.                                                                                                                                                                   |
 | [Scoring_policy_test](Scoring_policy_test/README.md)                                           | Completed: 71 core checks and 6 independent route-score audits. All 30/50-point searches finished; 50-point EMSE/WIVR has a nominal 120 s budget limitation.                                                                    |
-| [MI_Test](MI_Test/README.md), [EMSE_Test](EMSE_Test/README.md), [WIVR_test](WIVR_test/README.md) | Archived ROS closed-loop runs and the scope of the next return-inclusive verification. |
+| [MI_Test](MI_Test/README.md), [EMSE_Test](EMSE_Test/README.md), [WIVR_test](WIVR_test/README.md) | Return-inclusive verification passed for each policy. The individual reports compare the saved and revised protocols and include MCAP replays. |

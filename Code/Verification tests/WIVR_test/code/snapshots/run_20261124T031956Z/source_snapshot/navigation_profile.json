@@ -1,0 +1,27 @@
+{
+  "status": "Simulation-only adapted profile; full GP/GRG rerun pending",
+  "source": {
+    "repository": "Albert-Ludwig/Mechatronics-Capstone",
+    "branch": "SIMULATION_LYRICAL",
+    "path": "Simulation/inventory_nav2_poc_ws/src/inventory_inspection_poc/config/nav2_overrides.yaml",
+    "blob_sha": "352c27d8356fa39e5c55ddb3f51ece01febfd3be",
+    "url": "https://github.com/Albert-Ludwig/Mechatronics-Capstone/blob/SIMULATION_LYRICAL/Simulation/inventory_nav2_poc_ws/src/inventory_inspection_poc/config/nav2_overrides.yaml"
+  },
+  "nominal_speed_m_s": 1.0,
+  "body_forward_max_m_s": 1.0,
+  "body_reverse_max_m_s": 0.3,
+  "body_yaw_max_rad_s": 0.6,
+  "track_max_m_s": 1.0,
+  "adaptation": "Partial reuse: Capstone speed bounds, smoother, goal/progress and costmap settings. Keep verified Bunker RPP; direct MPPI transfer was slow and remains unqualified.",
+  "angular_accel_rad_s2": 0.8,
+  "manufacturer_limits": {
+    "source_url": "https://global.agilex.ai/products/bunker-mini-tracked-mobile-robot",
+    "checked_date": "2026-11-11",
+    "maximum_linear_speed_m_s": 1.0,
+    "model_scope": "Current manufacturer BUNKER MINI / 2.0 listing. Exact laboratory chassis revision still requires confirmation.",
+    "angular_speed_rad_s": null,
+    "track_speed_m_s": null,
+    "note": "Only the linear maximum is manufacturer-confirmed here. Retain previous fixture yaw cap 0.6 rad/s; do not import the other robot's 1.2 rad/s. Individual track cap 1.0 m/s is a conservative simulation setting, not a published manufacturer specification."
+  },
+  "controller": "rpp"
+}

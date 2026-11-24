@@ -1,0 +1,186 @@
+{
+  "policy": "mi",
+  "home_xy_m": [
+    0,
+    0
+  ],
+  "first_recorded_pose": [
+    0.005999999999999339,
+    0.0,
+    0.0
+  ],
+  "spawn_offset_m": 0.0,
+  "initial_route": [
+    0,
+    10,
+    1,
+    10
+  ],
+  "mission": {
+    "arrival_wait_s": 0.10599999999996612,
+    "duration_s": 290.554,
+    "goal_preemptions_before_deadline": 0,
+    "gp_updates": 290,
+    "grg_completed_at_stop": 295,
+    "grg_requested": 295,
+    "home_arrival_t": 290.554,
+    "home_error_m": 0.16667106172215032,
+    "home_returned": true,
+    "measurements": 290,
+    "missed_ticks": 0,
+    "mission_budget_s": 300.0,
+    "navigation_failures": 0,
+    "origin": 5.714,
+    "pending_sensor_requests": 0,
+    "return_duration_s": 7.239999999999952,
+    "return_measurements": 7,
+    "return_navigation_wall_s": 7.252946933000203,
+    "return_started_t": 283.314,
+    "sampling_duration_s": 283.304,
+    "sampling_stop_node": 1,
+    "sampling_stop_reason": "no_sampling_leg_fits",
+    "sampling_wall_s": 283.3197788289981,
+    "segments": 12,
+    "stale_pose": 0,
+    "status": "window_completed",
+    "update_interval_s": 1,
+    "wall_s": 290.579793031,
+    "within_mission_budget": true
+  },
+  "worker": {
+    "coalesced_state_signals": 0,
+    "completed_total": 295,
+    "peak_queue": 1,
+    "pending_state_at_stop": 0,
+    "unprocessed": 0
+  },
+  "checks": {
+    "sensing_complete": true,
+    "all_samples_assimilated": true,
+    "no_silent_request_drops": true,
+    "sampled_completed_route_scores_audited": true,
+    "no_navigation_preemptions": true,
+    "spawned_near_home": true,
+    "configured_policy_used": true,
+    "no_search_timeouts": true,
+    "no_navigation_failures": true,
+    "returned_home": true,
+    "within_mission_budget": true,
+    "single_pending_state": true,
+    "fresh_snapshot_when_offered": true,
+    "all_started_jobs_recorded": true,
+    "retained_route_handoff": true,
+    "arrival_only_from_event_trace": true,
+    "matching_route_anchor_and_epoch": true,
+    "sampling_legs_fit_budget": true,
+    "home_excluded_from_search_and_sampling_goals": true,
+    "sampling_plan_cost_matches_executed_prefix": true,
+    "stop_reason_verified": true,
+    "calibrated_graph_costs": true,
+    "return_to_fixed_home": true,
+    "return_measurements_assimilated": true
+  },
+  "score_audits": [
+    {
+      "id": 0,
+      "absolute_error": 0.0,
+      "passed": true
+    },
+    {
+      "id": 1,
+      "absolute_error": 0.0,
+      "passed": true
+    },
+    {
+      "id": 148,
+      "absolute_error": 5.684341886080802e-14,
+      "passed": true
+    },
+    {
+      "id": 295,
+      "absolute_error": 0.0,
+      "passed": true
+    }
+  ],
+  "diagnostic_all_searches_within_1s": true,
+  "diagnostic_searches_within_1s": 295,
+  "grg_completed_during_window": 295,
+  "grg_compute_s": {
+    "mean": 0.29911823170513635,
+    "p95": 0.509821017799186,
+    "max": 0.582439099001931
+  },
+  "grg_search_s": {
+    "mean": 0.2603946353864172,
+    "p95": 0.4666417786011152,
+    "max": 0.5402713650000806
+  },
+  "grg_queue_wait_s": {
+    "mean": 0.0024547368541712107,
+    "p95": 0.00040271979778481196,
+    "max": 0.28250950099754846
+  },
+  "grg_latency_s": {
+    "mean": 0.3015763399151738,
+    "p95": 0.5107601863008313,
+    "max": 0.7874827460000233
+  },
+  "grg_timeouts": 0,
+  "consumed_plan_age_s": {
+    "mean": 0.8254545454545453,
+    "p95": 1.4399999999999977,
+    "max": 1.5699999999999932
+  },
+  "gp_update_total_s": 13.212065674022597,
+  "grg_compute_total_s": 88.23987835301523,
+  "gp_update_s": {
+    "mean": 0.04555884715180206,
+    "p95": 0.061366428249857566,
+    "max": 0.06868673800272518
+  },
+  "initial_plan_s": 0.3487051699994481,
+  "sampled_process_peak_mib": 1076.2578125,
+  "sampled_aggregate_cpu_peak_percent": 509.45875448942235,
+  "sampled_aggregate_cpu_mean_percent": 303.27076488949393,
+  "srf_source_ms": {
+    "mean": 0.6257922620942078,
+    "p95": 0.8774008998443605,
+    "max": 2.519396999559831
+  },
+  "sensor_roundtrip_ms": {
+    "mean": 1.3661793241947728,
+    "p95": 1.652144798390509,
+    "max": 10.59466600054293
+  },
+  "distance_m": 236.19309093871266,
+  "real_time_factor": 0.9999112359784863,
+  "final_reconstruction_rmse_c": 0.07097276357281812,
+  "history_only_rmse_c": 0.09072630041237979,
+  "arrival_route_sources": {
+    "fresh_completed": 11,
+    "retained_tail": 0
+  },
+  "interpretation": "Latest-GP background GRG scores normal sampling routes and reserves travel time to Home. Nav2 executes the fixed Home goal. Temperature sensing continues during return, and all valid observations update the final GP.",
+  "return_measurements": 7,
+  "sampling_distance_m": 231.2324215305233,
+  "sampling_intermediate_home_visits": 0,
+  "sampling_stop": {
+    "event": "sampling_finished",
+    "event_t": 283.304,
+    "has_feasible_next_leg": false,
+    "last_waypoint": 1,
+    "reason": "no_sampling_leg_fits",
+    "sampling_duration_s": 283.304,
+    "sim": 289.018,
+    "wall": 20832.294595673
+  },
+  "grg_snapshot_age_at_start_s": {
+    "mean": 0.06482083854908512,
+    "p95": 0.0662273027995866,
+    "max": 0.9123018069983289
+  },
+  "grg_feature_total_s": 67.4619027991248,
+  "grg_objective_total_s": 8.531252169090294,
+  "empty_event_searches": 8,
+  "scheduler_acceptance": true
+}
