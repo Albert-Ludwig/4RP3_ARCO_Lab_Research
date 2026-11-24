@@ -2,7 +2,7 @@
 
 ## 0. 算法的输入与输出
 
-目标是在给定起点、终点和时间预算的条件下，选择一条路线，使沿途预计取得的温度测量对时空场最有价值。算法的输入包括初始观测、时空 GP 模型、可行路径及其时间参数化、采样时钟，以及选定的信息目标。输出包括预算内的路线与时间安排，以及加入实际测量后的温度场后验。
+目标是在给定起点、终点和时间预算的条件下，选择一条路线，使沿途预计取得的温度测量对时空场最有价值。算法的输入包括初始观测、时空 GP 模型、可行路径及其时间参数化、采样时钟，以及选定的信息目标。输出包括采样路线、按时返回 Home 的安排，以及加入实际测量后的温度场后验。当前 ROS 目标是 **300 s 内完成从出发到抵达 Home 的任务**，常规导航和返航期间均按 1 Hz 持续采样。
 
 整个计算链可以写成：
 
@@ -213,13 +213,16 @@ $$
 
 ### 5.1 路线、边代价与预算
 
-设候选 Checkpoints 与 Home 构成顶点集合 $V$，有序路线为 $P=(v_0,\dots,v_M)$。路径规划器为可达的有向边 $(i,j)$ 提供路径折线 $g_{ij}$。对路径顶点 $\mathbf a_0,\ldots,\mathbf a_m$，令 $s_0=0$，逐段计算累计弧长 $s_r=s_{r-1}+\|\mathbf a_r-\mathbf a_{r-1}\|$，末项 $s_m=L_{ij}$ 即路径总长。当前沿边实现用名义速度 $v_{\mathrm{nom}}$ 和边时间补偿 $\delta_{ij}$ 估计运动耗时：
+设候选 Checkpoints 与 Home 构成顶点集合 $V$，有序路线为 $P=(v_0,\dots,v_M)$。路径规划器为可达的有向边 $(i,j)$ 提供路径折线 $g_{ij}$。对路径顶点 $\mathbf a_0,\ldots,\mathbf a_m$，令 $s_0=0$，逐段计算累计弧长 $s_r=s_{r-1}+\|\mathbf a_r-\mathbf a_{r-1}\|$，末项 $s_m=L_{ij}$ 即路径总长。本轮 ROS 实验采用从 Bunker Mini Gazebo / Nav2 行驶记录得到的统一边代价：
 
 $$
-d_{ij}=\frac{L_{ij}}{v_{\mathrm{nom}}}+\delta_{ij}.
+d_{ij}=\frac{L_{ij}}{v}+\delta,\qquad
+v=0.891822\,\mathrm{m/s},\quad \delta=2.709215\,\mathrm{s}.
 $$
 
-$d_{ij}$ 与路径几何共同构成边数据。出发时刻为 $t_0^P$ 时，第 $j$ 个 Checkpoint 的预计到达时刻为 $t_j^P=t_0^P+\sum_{r=1}^j d_{v_{r-1},v_r}$。路线须在搜索截止时刻 $t_{\max}^P$ 前到达 Home $h$，亦即 $v_M=h$ 且 $t_M^P\le t_{\max}^P$。$t_{\max}^P-t_0^P$ 是本次可用于导航搜索的预算。在这些约束下，GRG 近似最大化 $J(S(P)\mid\mathcal D)$。实际执行时另以任务时钟检查剩余时间和返航裕度。
+两项参数由 MI、EMSE 与 WIVR 的 113 段仿真导航记录联合最小化平方误差得到；另外 33 段留出记录的 RMSE 为 2.178 s。参数和数据出处见 [行驶时间标定](../Code/Final_Code/Trained_timecost/README.md)。
+
+出发时刻为 $t_0^P$ 时，第 $j$ 个 Checkpoint 的预计到达时刻为 $t_j^P=t_0^P+\sum_{r=1}^j d_{v_{r-1},v_r}$。对末端为 $v_M$ 的常规采样路线，要求 $t_M^P+d_{v_M,h}\le t_{\max}^P$，其中 $h$ 为 Home，任务截止时刻为 300 s。已经在 Home 时无需行驶，$d_{hh}=0$。GRG 在满足该约束的候选中继续按 $J(S(P)\mid\mathcal D)$ 评分，$S(P)$ 只包含常规采样路线的预计事件。返航的实际观测会进入最终 GP。
 
 ### 5.2 同一个采样时钟如何跨边运行
 
@@ -232,7 +235,7 @@ $$
 \widehat{\mathbf p}_P(\tau_n)=(1-\beta)\mathbf a_{r-1}+\beta\mathbf a_r.
 $$
 
-最终将 $(\widehat x_P(\tau_n),\widehat y_P(\tau_n),\tau_n)^\top$ 加入 $S(P)$。这个过程为整条路线生成预计输入，沿途与返航边遵循相同规则。路径形状、预计边耗时和出发时刻都会影响 $S(P)$。执行阶段的采样器按实际位姿与实际时间戳生成观测，可以在运动或等待期间取得读数。GP 输入与预计事件、实际记录、评价时刻共用同一时间基准和单位。
+最终将 $(\widehat x_P(\tau_n),\widehat y_P(\tau_n),\tau_n)^\top$ 加入 $S(P)$。这个过程为常规采样路线生成评分所需的预计输入。路径形状、预计边耗时和出发时刻都会影响 $S(P)$。执行阶段的采样器按实际位姿与时间戳取得观测，同一 1 Hz 时钟持续到返航完成。GP 输入与预计事件、实际记录、评价时刻共用同一时间基准和单位。
 
 ## 6. GRG 如何递归找路线
 
@@ -255,7 +258,7 @@ $$
 
 对某个固定 $R_1$，将所有候选后缀与它拼成整条路线，再按 $J(S(R_2)\mid\mathcal D)$ 比较。§4.5 表明，这个总分等于固定前缀分数加上后缀的条件收益，所以给整条路线联合评分就能实现对后缀的条件比较。连接点在传递前缀时已经存在，后续只追加新边，并在同一时钟上计算该边的事件。
 
-对子路线的选择是贪心的。每个分割先保留一个前段，再用它递归搜索后段，最后将完整路线与直接路线及其他分割的候选比较。根调用以当前位置或当前目标的预计到达位置为起点，以 Home 为终点。有限递归深度、分割离散化和前段贪心选择共同限制了搜索空间，因此返回的是近似路线。
+对子路线的选择是贪心的。每个分割先保留一个前段，再用它递归搜索后段，最后将完整路线与直接路线及其他分割的候选比较。根调用以当前位置或当前目标的预计到达位置为起点。Home 是预算约束中的任务终点，搜索仍比较常规采样路线。有限递归深度、分割离散化和前段贪心选择共同限制了搜索空间，因此返回的是近似路线。
 
 在固定的可选事件全集、固定当前 GP 与独立观测噪声下，MI 具有边际收益递减性质：单事件的条件增益为 $\tfrac12\log(1+v_{\mathcal D\mid A}(s)/\sigma_n^2)$，随已条件化的事件集扩大，方差只会减小。EMSE 和固定权重 WIVR 具有单调性，因为各评价点的方差下降非负。一般 GP 的方差降低目标可能出现互补性，单调性本身不足以证明次模性或推出 GRG 的近似保证。分割与递归结构参考 [Binney、Krause 和 Sukhatme, 2013](https://doi.org/10.1177/0278364913488427)。
 
@@ -287,23 +290,31 @@ $$
 
 系统使用采样时钟取得离散观测。仓库的沿边闭环按配置的间隔触发 GP 更新，将缓冲区内已收到的观测合并为一批，并用更新后的 GP 快照发起搜索。WIVR 的权重参考时刻 $t_k$ 取本批最后一条测量的时刻。如果机器人正向某个目标运动，下一次搜索从该目标及其预计到达时刻 $t_0^P$ 开始。$t_k$ 决定空间权重，$t_0^P$ 决定预计样本的时间安排。
 
-新的候选路线在当前路径段结束后才进入下一段的选择。选用前核对路线是否对应当前目标、是否已有完成的搜索结果，再用实际任务时间检查下一段与返航是否仍能放进预算。若 $t_{\mathrm{now}}$ 为当前实际时刻，拟执行 $s\to v$，至少需要为
+新的候选路线在当前路径段结束后才进入下一段的选择。选用前核对路线是否对应当前目标、是否已有完成的搜索结果，再用实际任务时间检查下一段与返航是否仍能放进预算。若 $t_{\mathrm{now}}$ 为当前实际时刻，拟执行 $s\to v$，则须满足
 
 $$
-t_{\mathrm{now}}+d_{sv}+d_{vh}+r_{\mathrm{home}}
+t_{\mathrm{now}}+d_{sv}+d_{vh}\le 300\,\mathrm{s}.
 $$
 
-保留时间，其中 $r_{\mathrm{home}}$ 是额外返航裕度。超出任务截止时刻或触发返航规则时，执行返航分支。导航边代价属于预测量，实际耗时由任务时钟更新。GP 批处理触发、下一段路线启用和采样时钟分别决定何时吸收读数、何时改变路线和何时取得读数。
+如果没有满足条件的下一站，就结束 GRG 的目标选择，把 Home 作为唯一目标交给 Nav2。Nav2 根据地图和当前位置规划实际返航路径，采样器继续按 1 Hz 记录温度；到家后将全部有效返航观测纳入最终 GP。以实际任务时钟判断是否在 300 s 内到家，记录超时与返航失败。
 
 ## 9. 端到端计算顺序
 
 1. 加载拟合得到的常数均值、RBF 参数和噪声，以初始观测构造 GP 后验及其 Cholesky 分解。
-2. 固定当前 GP 快照，读取边的路径几何、预计耗时与剩余导航预算。对 Adaptive WIVR，计算并冻结本轮评价权重。
+2. 固定当前 GP 快照，读取 Nav2 路径几何、拟合边代价与含返航的剩余任务预算。对 Adaptive WIVR，计算并冻结本轮评价权重。
 3. GRG 递归枚举中间点与时间分割。对每条可行候选路线，用同一采样时钟生成 $S(P)$，计算联合事件协方差，再用当前选定目标评分。
 4. 启用可执行的路径段，同时缓冲带实际位置、时间与温度的观测。到达 GP 更新触发条件时，批量加入有效读数。
-5. 需要重规划时，从更新后的 GP 快照开始步骤 2，并按当前目标和剩余时间启用下一段。执行结束后，将剩余有效观测纳入最终后验。
+5. 需要重规划时，从更新后的 GP 快照开始步骤 2，并检查下一段和返航是否都能放入剩余预算。没有可行的下一站时，交给 Nav2 返回 Home 并持续采样，到家后将剩余有效观测纳入最终后验。
 
-原方法可对照 [GP-Planning 的 GRG 与 MI](../GP-Planning/src/planners.py) 和 [时空 GP 与方差下降目标](../GP-Planning/notebooks/06_temporal_nonstationary.ipynb)。训练过程见 [GP 模型与拟合代码](../Code/ROS_simulation/Trained_Real_Data_Kernel/testing_code/gp_model.py)。[沿边搜索核心](../Code/Verification%20tests/ROS_closed_loop_test/code/src/core.hpp) 提供 MI、EMSE 与 WIVR 三种目标，[闭环调度](../Code/Verification%20tests/ROS_closed_loop_test/code/src/nodes.cpp) 使用 Adaptive WIVR。
+原方法可对照 [GP-Planning 的 GRG 与 MI](../GP-Planning/src/planners.py) 和 [时空 GP 与方差下降目标](../GP-Planning/notebooks/06_temporal_nonstationary.ipynb)。训练过程见 [GP 模型与拟合代码](../Code/Final_Code/Trained_Real_Data_Kernel/testing_code/gp_model.py)。[沿边搜索核心](../Code/Verification%20tests/WIVR_test/code/src/core.hpp) 提供 MI、EMSE 与 WIVR 三种目标，[闭环调度](../Code/Verification%20tests/WIVR_test/code/src/nodes.cpp) 使用 Adaptive WIVR。
+
+---
+
+## 未来规划
+
+- **改进行驶时间估计。** 尝试使用扩展卡尔曼滤波（EKF）或其他估计方法，结合运行反馈在线估计行驶状态，据此更新 GRG 的边代价 $d_{ij}$。
+- **比较路径规划算法。** 在相同地图、采样规则和任务预算下，比较 GRG 与其他规划算法的温度场重建误差和计算开销。
+- **尝试其他 GP 核函数与外推。** 比较不同核函数在观测时间范围之外预测温度的效果。
 
 ---
 
@@ -311,7 +322,7 @@ $$
 
 ### 10.1 Scope, research question, and evidence status
 
-**Status: proposed revision; the new continuous-edge/SRF experiment has not been implemented or validated by this document edit.** Preserve the GP–GRG–Nav2–Mission Manager architecture and compare MI, EMSE, and Adaptive WIVR for spatiotemporal temperature reconstruction/interpolation under a common 900 s mission budget.
+**Status: proposed revision; the new continuous-edge/SRF experiment has not been implemented or validated by this document edit.** Preserve the GP–GRG–Nav2–Mission Manager architecture and compare MI, EMSE, and Adaptive WIVR for spatiotemporal temperature reconstruction/interpolation under a common **300 s mission budget from departure to arrival at Home**, with continuous 1 Hz sensing during the return.
 
 **Adaptive WIVR status: Design Defined; Implementation Pending.** The variance-based weighting rule is specified in §4.4; neither its implementation nor an RMSE improvement has been validated. Future temperature forecasting is outside the current research scope.
 
@@ -321,10 +332,10 @@ $$
 | --- | --- | --- |
 | Historical Python experiments | Original 10.18 / 11.2 experiments, currently organized under `Code/Robot_close_loop_system/` and `Code/Policy_compare/` | Preserve code, saved models, logs, and established results; reuse verified components where applicable. |
 | Completed node-based Nav2 prototype | `Code/ROS_Nav2_policy_compare/result/synthetic_ros_full_01/` and its saved reports | Evidence for the previous synthetic-record, checkpoint-sampling workflow. It does not validate continuous edge sensing or a GSTools SRF. |
-| Proposed revised experiment | Continuous sampling on Nav2 edges, segment-end batch updates, and an independent SRF temperature source | Pending implementation, component tests, integrated MI baseline, and the subsequent three-policy comparison. |
+| Proposed revised experiment | Continuous sampling on Nav2 edges, an independent SRF, the fitted travel-time model, and a Home return inside the 300 s budget | Integration and three-policy results under the revised return rule are pending. |
 | Physical WELL-E experiment | Future deployment and validation | Pending; neither synthetic navigation results nor ideal-localization tests establish hardware performance. |
 
-Do not overwrite the original 10.18 or 11.2 experiments, the node-based Nav2 prototype, or any completed result. Use a separate implementation/configuration and result namespace for the revised protocol; its exact new location remains to be specified. Retain one experiment README for purpose, objects and dependencies, and one `Comparison.ipynb` for saved results, figures and conclusions.
+Do not overwrite the original 10.18 or 11.2 experiments, the node-based Nav2 prototype, or any completed result. Use a separate implementation/configuration and result namespace for the revised protocol; use [Final_Code/Integration_test](../Code/Final_Code/Integration_test/README.md) for the final experiment. Retain one experiment README for purpose, objects and dependencies, and one `Comparison.ipynb` for saved results, figures and conclusions.
 
 ### 10.2 Real datasets, Initial GP, and common reference frames
 
@@ -379,31 +390,31 @@ For a given seed, every policy must encounter the same field realization, trend 
 Establish an integrated **MI baseline first**, using the Gazebo Bunker Mini and Nav2, before substituting EMSE and Adaptive WIVR.
 
 1. Load the same saved Initial GP, registered map, candidate Checkpoints, Home, SRF configuration/seed, noise configuration, and mission timing setup.
-2. Obtain feasible Nav2 paths and expected motion schedules; predict continuous route events and run MI-based GRG.
+2. Obtain feasible Nav2 paths and estimate each leg with the calibrated $d_{ij}$ in §5.1. Predict the normal GRG sampling events and reserve enough budget to navigate back to Home.
 3. Execute the next Checkpoint-to-Checkpoint segment through Nav2. Let the simulated body move through the physics/controller stack; do not substitute direct pose changes for execution.
 4. While navigating, initially sample every 1 s using the **actual simulated pose and timestamp** to query the fixed SRF. Record the noise-free source value and noisy observation separately when applicable, with source/measurement identities and quality flags.
 5. Buffer valid observations. Initially, after each completed segment, perform a **batch GP posterior update**; for Adaptive WIVR, refresh the 10 m grid weights from the updated posterior at the current time. Update remaining time and path/event estimates, freeze weights for the next GRG search, and replan. MI/EMSE skip adaptive weighting.
 6. Handle navigation failures independently from measurement validity: valid samples already acquired on a partially executed edge remain real observations of the simulated field. Specify and test their batch-update handling; do not fabricate samples for missing positions or times.
-7. Stop extending the sampling route early enough to execute Home and the required final online update within the budget. Record actual return success, final pose, duration and termination reason.
+7. When no further sampling waypoint fits with its onward return, send Home as the Nav2 goal. Continue sampling at 1 Hz along the executed return path. Include those observations in the final posterior and record actual Home arrival time, return duration, return sample count, final pose and termination reason.
 
 There is **no fixed per-checkpoint sensing dwell** and no Dataset 4 recorded-data Acquisition Pool in this revised mission. The actual sensor response, viable 1 Hz rate, GP update frequency, replanning frequency, buffering policy, Nav2 target-switching behavior and computation/motion overlap remain to be validated.
 
 ### 10.6 Mission budget and stopping rule
 
-Use a common **900 s** mission budget:
+Use a common **300 s** mission budget, measured from departure to actual Home arrival.
 
 $$
 \tau_{\mathrm{motion}}
 +\tau_{\mathrm{planning}}
 +\tau_{\mathrm{other}}
-\leq 900\,\mathrm{s}.
+\leq 300\,\mathrm{s}.
 $$
 
 Motion includes navigation and return, with temperature sensing performed concurrently. Planning includes online GP updates, Adaptive WIVR weight calculation where applicable, and GRG work that actually occupies mission time. Other includes necessary non-overlapping waiting, switching or recovery overhead. Define a non-overlapping time ledger and use actual elapsed ROS simulation time as the authoritative budget; do not add a separate sensing duration to motion, or count overlapping computation twice. Initial historical training and final offline evaluation are outside the mission clock.
 
-Before accepting another segment, require sufficient remaining time for the segment, exposed online update/planning work, return, necessary extra overhead, and a predeclared safety margin. Include the final required online batch update in this accounting. Recheck after delays, failures, path changes and computation. Stop when no admissible continuation preserves return feasibility; do not use Ground Truth, reconstruction RMSE or a target sample count as the stopping rule.
+Before dispatching another sampling goal, check actual elapsed time plus the fitted cost of the next leg and the fitted cost from that waypoint to Home. Use the same $d_{ij}=L_{ij}/v+\delta$ for all three policies, with $v=0.891822\,\mathrm{m/s}$ and $\delta=2.709215\,\mathrm{s}$. Recheck after delays or path changes. When no next leg preserves return feasibility, Nav2 navigates to Home. The return samples contribute to the final GP; the information objectives continue to score the normal candidate routes.
 
-Record any overrun, failed return or implementation watchdog as such. An early feasible return is allowed; do not invent measurements to fill unused budget. Exact reserve values and scheduling behavior are Pending experimental choices.
+Record any overrun, failed return or watchdog separately. The fitted travel times are estimates, and actual ROS elapsed time determines whether the mission met the deadline.
 
 ### 10.7 Policies, baselines, and fair comparison
 
@@ -414,7 +425,7 @@ Record any overrun, failed return or implementation watchdog as such. An early f
 | GRG + EMSE | Average posterior-variance reduction over the common fixed spatiotemporal scoring domain, with effective-area correction. |
 | GRG + Adaptive WIVR | Posterior variance reduction with dynamically updated uncertainty-based spatial weights over the same domain. |
 
-Freeze and share the Initial GP, RBF hyperparameters, candidate set, start/Home, navigation map, Gazebo model, Nav2/localization configuration, SRF realization/seed/trend, noise protocol, continuous sensing interval/phase, batch-update and replanning rules, mission time mapping, 900 s budget, return rule, GRG settings and reconstruction evaluation protocol. Only the scoring objective and its necessary weight computation differ; account for their actual online costs.
+Freeze and share the Initial GP, RBF hyperparameters, candidate set, start/Home, navigation map, Gazebo model, Nav2/localization configuration, SRF realization/seed/trend, noise protocol, continuous sensing interval/phase, batch-update and replanning rules, mission time mapping, the fitted travel-time parameters, the 300 s budget including return, 1 Hz return sensing, GRG settings and reconstruction evaluation protocol. Only the scoring objective and its necessary weight computation differ; account for their actual online costs.
 
 **Defined Adaptive WIVR configuration**
 
@@ -443,7 +454,7 @@ $$
 \left[\mu_{\mathrm{final}}(q_j)-T_{\mathrm{sim}}(q_j;\eta)\right]^2}.
 $$
 
-Compute large-grid metrics in batches. Compare History Only, MI, EMSE and Adaptive WIVR at identical offline evaluation inputs for each seed. The offline grid may be denser than the 10 m online scoring grid; explicitly record both. Online weighting must never read SRF Ground Truth or offline RMSE. Keep a common target interval despite different return times; separately flag any unsupported late-time queries as extrapolation, not interpolation evidence. Future forecasting is not the current research objective.
+Compute large-grid metrics in batches. Use each policy's final posterior conditioned on all valid mission observations, including samples collected on the return. Compare History Only, MI, EMSE and Adaptive WIVR at identical offline evaluation inputs for each seed. The offline grid may be denser than the 10 m online scoring grid; explicitly record both. Online weighting must never read SRF Ground Truth or offline RMSE. Keep a common target interval despite different return times; separately flag any unsupported late-time queries as extrapolation, not interpolation evidence. Future forecasting is not the current research objective.
 
 Additional outputs: MAE, posterior variance, error versus mission time and successful measurement count, spatial coverage versus temporal revisits, actual Nav2 trajectories, estimated/actual travel time, GP-update/GRG latency, peak memory, actual sampling interval, mission-time ledger, failure/recovery events and return success. Reconstruct curves from saved GP snapshots and logs; evaluation truth never feeds online choices.
 
@@ -454,7 +465,7 @@ Maintain separate result categories for **Synthetic Reconstruction RMSE**, **ind
 1. **Review/reuse:** identify existing GP, GRG, Nav2, logging and numerical components. Preserve historical records and document which old assumptions are superseded.
 2. **Component checks:** test Checkpoint filtering, path-to-event timing, global sampling phase/junction deduplication, correlated joint scoring, batch updates, recursive objective propagation, cache invalidation and non-overlapping budget accounting.
 3. **SRF checks:** fit/check historical-data-informed parameters; test fixed-realization consistency, query order and batching, noise separation, on-demand latency and memory. Freeze the accepted configuration before comparisons.
-4. **MI integration:** demonstrate actual Nav2 motion with continuous measurements, multiple segment-end GP updates/replans, failure handling and timely physical Home arrival in simulation.
+4. **MI integration:** verify that the calibrated cost governs the return-aware budget, that the sampler stays active during Nav2 return, and that the final GP retains the return observations. Record actual Home arrival against the 300 s deadline.
 5. **Policy comparison:** change only the scoring objective and its necessary Adaptive WIVR weight calculation; run the paired seed protocol under the same conditions.
 6. **Reporting:** produce tables and figures from saved outputs; report independent real-data reconstruction/interpolation only when the held-out dataset and spatial/temporal support protocol are available.
 
@@ -487,7 +498,7 @@ Keep one README for the experiment purpose, test objects and dependencies, and o
 | On-demand SRF consistency and performance | **Pending:** same realization under repeat/order/batch/restart tests, reproducible noise, query latency and peak memory. |
 | Adaptive WIVR | **Design Defined; Implementation Pending:** 10 m grid; current GP posterior-variance weights; representative-point variance with effective-area correction; no separate temporal weighting; refresh after each Batch GP Update; frozen within iteration. Implementation, numerical tests and RMSE improvement remain Pending. |
 | Scoring-grid sensitivity | **Pending:** 10 m versus 5 m comparison of scoring behavior, runtime, memory and reconstruction outcomes. |
-| Continuous ROS 2 system integration | **Pending:** path-to-event builder, continuous sampler, buffering, batch updates, actual replanning rate, target switching, budget and failure/return checks. Existing node-based tests do not complete this item. |
+| Revised ROS 2 mission protocol | **Pending:** integrate the fitted travel-time model and verify budget-aware dispatch, actual arrival at Home within 300 s, continued 1 Hz return sensing, and inclusion of return observations in the final GP. |
 | Physical-robot validation | **Pending:** real sensor/navigation interfaces, localization, environment sensing and actual WELL-E trials. |
 | Dataset availability and registration | **Pending:** available Dataset 0–3 training set, independent Dataset 4, confirmed approximately 97 × 64 m registered extent/mask, common map/time references and an interpolation-valid real-data holdout protocol. No automatic future-forecasting substitution. |
 | References, paper notation and LaTeX | **Pending:** bibliography completion, formal manuscript symbol harmonization and publication formatting; this note revision is not a completed paper-format/reference update. |

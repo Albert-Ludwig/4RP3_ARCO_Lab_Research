@@ -1,6 +1,10 @@
 # WIVR closed-loop verification
 
-Validate the existing WIVR objective in the shared latest-GP ROS 2 simulation, with the final return outside the sampling budget.
+The next verification uses the [current mission protocol](../../Final_Code/README.md#current-mission-protocol). The 300 s budget includes the Nav2 return, sensing continues at 1 Hz on the return, and GRG uses the [calibrated travel-time model](../../Final_Code/Trained_timecost/README.md) for budget checks and predicted sampling times. Results for this protocol are pending.
+
+## Archived verification
+
+The run below validated WIVR with a 300 s sampling window and a separately timed final return.
 
 ## Configuration
 

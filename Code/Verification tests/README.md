@@ -1,6 +1,10 @@
 # Verification Tests
 
-Component checks and individual-policy functional runs belong here. The current stage verifies correctness and integration readiness; it does not rank reconstruction performance. Final experiments and trained real-data kernels remain in [ROS_simulation](../ROS_simulation/README.md).
+Component checks and individual-policy functional runs belong here. The current stage verifies correctness and integration readiness; it does not rank reconstruction performance. Final experiments and trained real-data kernels remain in [Final_Code](../Final_Code/README.md).
+
+## Next ROS closed-loop protocol
+
+The MI, EMSE and WIVR runs share a **300 s total budget including return to Home**. GRG retains the existing objective and checks return feasibility using the [calibrated travel-time model](../Final_Code/Trained_timecost/README.md), `d_ij = L_ij / v + delta` with `v = 0.891822 m/s` and `delta = 2.709215 s`. Nav2 handles the return to the fixed Home goal. Continue collecting temperature at 1 Hz on that route and assimilate the readings into the final GP. Runs using this protocol are pending.
 
 ## Shared Python-fixture configuration
 
@@ -16,9 +20,9 @@ Component checks and individual-policy functional runs belong here. The current 
 | Scoring               | MI, area-averaged EMSE, Adaptive WIVR. A separate 10 m scoring grid uses 0.5 s scoring times. WIVR weights refresh after GP updates and freeze within each search.            |
 | GRG                   | Recursive depth 2; time-split parameter 2.                                                                                                                                    |
 
-The ROS performance test has its own **30 × 20 m, 10-waypoint + Home, 300 s** configuration and compares **GP + GRG update intervals of 1 s and 5 s**, with WIVR fixed and sensing at 1 Hz. The following shared settings describe earlier Python fixtures.
+The archived ROS performance tests used a **30 × 20 m arena, 10 waypoints plus Home, and a 300 s sampling window with a separate return**. The WIVR scheduling benchmark also compared the 1 s and 5 s GP/GRG update intervals.
 
-The Python scoring fixture uses Home (3,3) m, a central box at x,y = [13,17] m, and 1 m/s nominal timing. ROS execution and interval-dependent timing are recorded in the current closed-loop test. See the [ROS verification configuration](ROS_closed_loop_test/code/protocol.json).
+The Python scoring fixture uses Home (3,3) m, a central box at x,y = [13,17] m, and 1 m/s nominal timing. Archived ROS execution and timing are recorded in the [WIVR test](WIVR_test/README.md).
 
 ## Test folders and status
 
@@ -33,4 +37,4 @@ The Python scoring fixture uses Home (3,3) m, a central box at x,y = [13,17] m, 
 | [SRF_test](SRF_test/README.md)                                                                 | Completed: 38 checks for the added obstacle-free 97 x 64 m / 120 s workload; 97 x 64 m / 900 s and 30 x 30 m / 120 s results retained. This source workload variant does not change the shared integration configuration above. |
 | [Continuous_sensing_test](Continuous_sensing_test/README.md)                                   | Completed: 48 moving-sampling, buffering and batch GP checks.                                                                                                                                                                   |
 | [Scoring_policy_test](Scoring_policy_test/README.md)                                           | Completed: 71 core checks and 6 independent route-score audits. All 30/50-point searches finished; 50-point EMSE/WIVR has a nominal 120 s budget limitation.                                                                    |
-| [ROS_closed_loop_test](ROS_closed_loop_test/README.md) | Executed: fixed WIVR, 30 × 20 m, ten waypoints + Home, 300 s; GP/GRG update every 1 s versus 5 s, with unchanged 1 Hz sampling. See recorded backlog, deadlines and navigation results. |
+| [MI_Test](MI_Test/README.md), [EMSE_Test](EMSE_Test/README.md), [WIVR_test](WIVR_test/README.md) | Archived ROS closed-loop runs and the scope of the next return-inclusive verification. |
