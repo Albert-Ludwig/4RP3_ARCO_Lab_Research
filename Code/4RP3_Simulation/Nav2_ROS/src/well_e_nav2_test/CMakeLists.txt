@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 3.8)
+project(well_e_nav2_test)
+find_package(ament_cmake REQUIRED)
+install(PROGRAMS scripts/truth_localization.py DESTINATION lib/${PROJECT_NAME})
+ament_package()

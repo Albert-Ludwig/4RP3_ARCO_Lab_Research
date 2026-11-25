@@ -1,0 +1,21 @@
+{
+  "home_m": [
+    0,
+    0
+  ],
+  "map_field_origin_m": [
+    -15,
+    -10
+  ],
+  "clearance_m": 1.25,
+  "map_resolution_m": 0.05,
+  "candidate_count": 10,
+  "scoring_cell_m": 5,
+  "scoring_time_step_s": 2,
+  "search_guard_s": 60,
+  "evaluation_cell_m": 2,
+  "evaluation_time_step_s": 5,
+  "gp_update_interval_s": 1,
+  "prior_mean_c": 25.0,
+  "prior_variance_c2": 1.0
+}

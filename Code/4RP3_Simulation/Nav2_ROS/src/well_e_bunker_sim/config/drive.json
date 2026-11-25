@@ -1,0 +1,7 @@
+{
+  "steering_efficiency": 0.624,
+  "odometry_yaw_scale": 0.624,
+  "calibration_run": "run_20261027T220231_218839Z",
+  "method": "Mean steady physical-yaw to track-odometry gain from the two efficiency=1, +/-0.4 rad/s in-place cases, rounded to three decimals",
+  "scope": "This simulated flat-ground contact geometry only; not a hardware calibration"
+}
