@@ -16,6 +16,5 @@
   "evaluation_cell_m": 2,
   "evaluation_time_step_s": 5,
   "gp_update_interval_s": 1,
-  "prior_mean_c": 25.0,
-  "prior_variance_c2": 1.0
+  "prior_mean_c": 25.0
 }

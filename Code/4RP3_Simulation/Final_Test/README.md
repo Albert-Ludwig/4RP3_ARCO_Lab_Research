@@ -2,9 +2,9 @@
 
 ### 10.1 Scope, research question, and evidence status
 
-**Status: waiting for the newly trained RBF kernel. No formal mission has been run.** The final comparison consists of three ROS 2 / Gazebo scenarios using one synthetic temperature-field realization. Each scenario runs MI, EMSE, and Adaptive WIVR once. All mission budgets run from departure to actual Home arrival, and sensing continues at 1 Hz on the return.
+**Status: the all-data RBF kernel has been exported. The formal comparison with this kernel is paused pending review.** The final comparison consists of three ROS 2 / Gazebo scenarios using one synthetic temperature-field realization. Each scenario runs MI, EMSE, and Adaptive WIVR once. All mission budgets run from departure to actual Home arrival, and sensing continues at 1 Hz on the return.
 
-Adaptive WIVR and return-inclusive continuous sensing were exercised in the earlier 30 × 20 m / 300 s verification. The three planned scenarios have yet to run. Future temperature forecasting is outside the current research scope.
+Adaptive WIVR and return-inclusive continuous sensing were exercised in the earlier 30 × 20 m / 300 s verification. The earlier comparison using the 5,087-observation kernel was stopped during Scenario B and its output was cleared. The three scenarios have yet to run with the all-data kernel. Future temperature forecasting is outside the current research scope.
 
 **Research question** Which scoring objective gives the lowest synthetic reconstruction RMSE within each scenario, and how does performance change when the mission budget is shortened or the operating area is expanded?
 
@@ -29,12 +29,12 @@ Do not overwrite the original 10.18 or 11.2 experiments, the node-based Nav2 pro
 ### 10.2 Real datasets, Initial GP, and common reference frames
 
 - The three simulation scenarios use the declared 30 × 20 m and 60 × 40 m working regions. A separate registered-site evaluation remains pending. Its estimated **97 × 64 m** enclosing extent and traversable mask still need confirmation.
-- Use the fitted RBF length scales and measurement noise variance from the real Lawnmower data export. Start every mission with **zero observations**, a **fixed prior mean of 25 °C**, and a **fixed prior variance of 1 °C²**. The formal setup creates empty observation arrays and starts SRF queries at mission time zero. The GP first conditions on a valid measurement collected after mission start.
-- Fit normalization, RBF GP hyperparameters, and empirical statistics/trends for simulation using historical training data only. Freeze the GP prior and simulation configuration before comparing policies.
-- Reserve **Dataset 4 for independent real-data reconstruction/interpolation validation**, subject to verified spatial support, temporal coverage and a predefined held-out protocol. It must not supply simulated sensor readings, fit the SRF, select its parameters/seeds/trends, tune weighting rules, or train/update the independent validation GP.
+- Use the fitted RBF length scales, signal variance, and measurement noise variance from the real Lawnmower data export. Start every mission with **zero observations** and a **fixed prior mean of 25 °C**. The fitted signal variance is the pointwise prior variance at cold start. The formal setup creates empty observation arrays and starts SRF queries at mission time zero. The GP first conditions on a valid measurement collected after mission start.
+- Fit the formal RBF kernel using all **6,448 aligned temperature observations** from the six traversals on **3 November and 17–21 November 2026**, including the 1,361 observations on 21 November. The previously configured synthetic field is shared across policies. Freeze the GP prior and simulation configuration before comparing policies.
+- All six real traversals are used for the formal kernel fit. Independent real-data validation is a separate study and requires unseen data or a separately fitted held-out model. Formal policy scores use the synthetic ground truth.
 - Preserve measured coordinates, dates, timestamps, source identities, units and synchronization assumptions. Register runs to a common metric map frame; a GNSS trajectory is not an occupancy map.
 - Define the ROS mission origin and its explicit mapping to the real-data and SRF time references. Do not compress dates or stretch recorded intervals to create apparent temporal coverage.
-- Evaluate the frozen real-data model only on a predefined interpolation-valid held-out subset. If Dataset 4 occurs entirely after the training interval or otherwise lacks suitable support, mark independent real-data reconstruction validation **Pending**. Do not automatically substitute future forecasting. Synthetic observations must not enter this independent model.
+- Any independent real-data reconstruction evaluation remains **Pending**. It requires a predefined interpolation-valid holdout with suitable spatial and temporal support.
 
 ### 10.3 Checkpoints, feasible paths, and continuous route events
 
@@ -63,7 +63,7 @@ An initial candidate is a **Matérn covariance model** for a spatially/temporall
 
 Calibrate plausible temperature range, spatial variation scales and temporal behavior from historical data; characterize the resulting distribution rather than assuming every random realization remains inside the historical minimum and maximum. The generator remains separate from the planning GP: the proposed Matérn SRF is the simulation source, while the planner retains the RBF GP. Do not use the GP Posterior Mean as Ground Truth or claim the generated field is the actual measured field.
 
-Freeze one field seed and the complete generator configuration before evaluation, including the model, scales, mean, variance, trend and number of modes. Keep the field in physical units as the queried region changes. Use a separate fixed sensor-noise seed and stable measurement IDs, and reset each mission to the same initial state. Across scenarios, the field and noise process stay fixed while routes, actual query positions and times can differ. The planner receives only the noisy acquired measurements. Keep unmeasured truth offline and select the field independently of policy results and Dataset 4.
+Freeze one field seed and the complete generator configuration before evaluation, including the model, scales, mean, variance, trend and number of modes. Keep the field in physical units as the queried region changes. Use a separate fixed sensor-noise seed and stable measurement IDs, and reset each mission to the same initial state. Across scenarios, the field and noise process stay fixed while routes, actual query positions and times can differ. The planner receives only the noisy acquired measurements. Keep unmeasured truth offline and select the field independently of policy results.
 
 **On-demand and memory requirements**
 
@@ -78,7 +78,7 @@ Freeze one field seed and the complete generator configuration before evaluation
 
 Establish an integrated **MI baseline first**, using the Gazebo Bunker Mini and Nav2, before substituting EMSE and Adaptive WIVR.
 
-1. Initialize an empty GP with a 25 °C prior mean, 1 °C² prior variance, and the shared fitted length scales and measurement noise. Load the shared SRF and restore the scenario map, candidate Checkpoints, Home and mission timing setup.
+1. Initialize an empty GP with a 25 °C prior mean and the shared fitted length scales, signal variance, and measurement noise variance. Load the shared SRF and restore the scenario map, candidate Checkpoints, Home and mission timing setup.
 2. Obtain feasible Nav2 paths and estimate each leg with the calibrated $d_{ij}$ in [§5.1](../../../Notes/WELL-E项目核心逻辑.md#51-路线边代价与预算). Predict the normal GRG sampling events and reserve enough budget to navigate back to Home.
 3. Execute the next Checkpoint-to-Checkpoint segment through Nav2. Let the simulated body move through the physics/controller stack; do not substitute direct pose changes for execution.
 4. While navigating, initially sample every 1 s using the **actual simulated pose and timestamp** to query the fixed SRF. Record the noise-free source value and noisy observation separately when applicable, with source/measurement identities and quality flags.
@@ -86,7 +86,7 @@ Establish an integrated **MI baseline first**, using the Gazebo Bunker Mini and 
 6. Handle navigation failures independently from measurement validity: valid samples already acquired on a partially executed edge remain real observations of the simulated field. Specify and test their batch-update handling; do not fabricate samples for missing positions or times.
 7. When no further sampling waypoint fits with its onward return, send Home as the Nav2 goal. Continue sampling at 1 Hz along the executed return path. Include those observations in the final posterior and record actual Home arrival time, return duration, return sample count, final pose and termination reason.
 
-There is **no fixed per-checkpoint sensing dwell** and no Dataset 4 recorded-data Acquisition Pool in this revised mission. Validation of the three prepared simulation scenarios and the physical sensor response remains pending.
+The robot senses continuously along each navigation segment, including return, without a fixed per-checkpoint dwell. Validation of the three prepared simulation scenarios and the physical sensor response remains pending.
 
 ### 10.6 Mission budget and stopping rule
 
@@ -127,7 +127,7 @@ Freeze and share the Initial GP, RBF hyperparameters, candidate set, start/Home,
 - At cold start, the stationary RBF prior has constant variance, so Adaptive WIVR uses the same area weights as EMSE. After the first observation, compute the weights from the updated GP. Freeze weights across all routes, hypothetical observations, gain calculations and recursive subproblems in one GRG search. Model-based conditioning on a proposed route must not refresh weights within that search.
 - Use the normalized WIVR objective from [§4.4](../../../Notes/WELL-E项目核心逻辑.md#44-wivr带空间重要性的方差下降量) without a second weight normalization. If all current variances are near zero, fall back to effective-area weights $a_i$; predeclare and validate the numerical threshold.
 - For the Uniform Spatial Weighting check, set per-unit-area importance constant, so weights are proportional to $a_i$. This must match area-averaged EMSE numerically, including boundary cells; with equal-area cells it reduces to the ordinary arithmetic-mean identity.
-- Weights use only the online GP posterior, not unseen SRF temperatures, offline RMSE or Dataset 4 labels. Freeze the adaptive rule before evaluation, not the weight values for the whole mission. The earlier pool-distance rule and upper-region 3:1 fixture remain historical examples.
+- Weights use only the online GP posterior. Freeze the adaptive rule before evaluation, not the weight values for the whole mission. The earlier pool-distance rule and upper-region 3:1 fixture remain historical examples.
 
 Use the same continuous-event construction at every GRG recursion level. Cache keys/invalidation must distinguish objective, GP version, event coordinates/times, grid/mask/area configuration, frozen weight version and affected path/timing state. Do not allow an Adaptive WIVR recursive call or shared cache to fall back to, or mix with, default MI. Checkpoints alone are insufficient cache identities.
 
@@ -150,7 +150,7 @@ Compute metrics in batches on a **2 m spatial and 5 s temporal** offline grid wi
 
 | RMSE report | Evaluation domain | Interpretation |
 | --- | --- | --- |
-| Within each scenario | A/C use their full work region × 0–300 s. B uses its full work region × 0–150 s. | Compare the four methods on the scenario's own task. Use the full declared window even when Home arrival is earlier, and flag queries beyond the last valid measurement. |
+| Within each scenario | A/C use their full work region × 0–300 s. B uses its full work region × 0–150 s. | Compare MI, EMSE, and Adaptive WIVR on the scenario's own task. Use the full declared window even when Home arrival is earlier, and flag queries beyond the last valid measurement. |
 | A vs. B on common time support | Shared 30 × 20 m region × 0–150 s. | Compare final posteriors on identical targets. A can condition on data collected after 150 s, so this is a retrospective comparison. To compare performance at the same elapsed time, use each run's GP state at 150 s instead. |
 | A vs. C on common spatial support | Shared 30 × 20 m valid region × 0–300 s. | Compare performance in the original operating region on identical queries. Report C's full-region RMSE and the RMSE in its added area separately to expose the effect of expanding coverage. |
 
@@ -158,7 +158,7 @@ For each scenario, compare the final RMSE of MI, EMSE and Adaptive WIVR on ident
 
 Additional outputs: MAE, posterior variance, error versus mission time and successful measurement count, spatial coverage versus temporal revisits, actual Nav2 trajectories, estimated/actual travel time, GP-update/GRG latency, peak memory, actual sampling interval, mission-time ledger, failure/recovery events and return success. Reconstruct curves from saved GP snapshots and logs; evaluation truth never feeds online choices.
 
-Maintain separate result categories for **Synthetic Reconstruction RMSE**, **independent real-data reconstruction/interpolation validation**, and **future physical-robot experiments**. Dataset 4 remains an independent real-data source, but validation is **Pending** unless the frozen real-data training model and held-out inputs satisfy the stated spatial/temporal support protocol. Do not treat a later collection automatically as interpolation or replace missing coverage with a forecasting study. None of the new results are assumed complete.
+Maintain separate result categories for **Synthetic Reconstruction RMSE**, **independent real-data reconstruction/interpolation validation**, and **future physical-robot experiments**. The all-data fit has no independent real-data score. A separate validation study requires suitable spatial and temporal support.
 
 ### 10.9 Staged validation, implementation trace, and reports
 
@@ -200,14 +200,14 @@ Keep one README for the experiment purpose, test objects and dependencies, and o
 | Scoring cost across regions | **Pending:** time the common 5 m scoring configuration as the number of scoring cells increases in C. |
 | Three-scenario ROS 2 protocol | **Pending:** validate the expanded map and shared path fixtures, exercise the configured 150 s scoring window for B, and verify budget-aware dispatch, on-time Home arrival, continued 1 Hz return sensing, and assimilation of return observations in A–C. |
 | Physical-robot validation | **Pending:** real sensor/navigation interfaces, localization, environment sensing and actual WELL-E trials. |
-| Dataset availability and registration | **Pending:** available Dataset 0–3 training set, independent Dataset 4, confirmed approximately 97 × 64 m registered extent/mask, common map/time references and an interpolation-valid real-data holdout protocol. No automatic future-forecasting substitution. |
+| Real-data fit and registration | **Fit complete:** six traversals and 6,448 observations. **Pending:** registered field extent and navigability, plus a separate independent real-data validation protocol. |
 | References, paper notation and LaTeX | **Pending:** bibliography completion, formal manuscript symbol harmonization and publication formatting; this note revision is not a completed paper-format/reference update. |
 
 The earlier verification runs provide implementation evidence for continuous sensing, Adaptive WIVR and return-to-Home. The three-scenario comparison requires frozen shared inputs, readiness checks for the new horizons and geometry, and saved results for all nine missions.
 
 ## Running the formal experiments
 
-**Waiting for the newly trained RBF kernel.** Each group follows the verification layout. The `code/` directory contains its scenario and entry point, `results/` receives mission logs and GP artifacts, and `recordings/` receives MCAP rosbag files. Use one final `Comparison.ipynb` after results are available.
+Each group follows the verification layout. The `code/` directory contains its scenario and entry point, `results/` receives mission logs and GP artifacts, and `recordings/` receives MCAP rosbag files. Use one final `Comparison.ipynb` after results are available.
 
 | Group | Entry point | Only scenario change |
 | --- | --- | --- |
@@ -215,14 +215,15 @@ The earlier verification runs provide implementation evidence for continuous sen
 | [Test B](<Test B/README.md>) | [`Test B/code/run.sh`](<Test B/code/run.sh>) | Same geometry, 150 s budget and scoring window. |
 | [Test C](<Test C/README.md>) | [`Test C/code/run.sh`](<Test C/code/run.sh>) | 60 × 40 m, same 300 s budget. |
 
-Use the same ROS 2 Jazzy, Gazebo Harmonic and SRF Python environment as the [WIVR verification](<../../Verification tests/WIVR_test/README.md>). Build the [shared Nav2 packages](../Nav2_ROS/src) and the [configurable closed-loop controller](../WIVR/src) in the ROS overlay for these experiments. When ready, provide the new RBF export explicitly and use the same file for all groups. The export is the trained `hyperparameters.json` with length scales in m, m, s and measurement noise variance in °C².
+Use the same ROS 2 Jazzy, Gazebo Harmonic and SRF Python environment as the [WIVR verification](<../../Verification tests/WIVR_test/README.md>). Build the [shared Nav2 packages](../Nav2_ROS/src) and the [configurable closed-loop controller](../WIVR/src) in the ROS overlay for these experiments. Use the same [multi-run RBF export](../Trained_Kernel/result/multirun_fit_20261127T025820Z/hyperparameters.json) for all groups. It currently supplies length scales of 6.24703 m east, 44.10294 m north, and 37.93368 s, a signal variance of 0.47980997 °C², and a measurement noise variance of 0.00084209 °C². Run the commands below from `Final_Test`.
 
 ```bash
-kernel="/path/to/newly_trained/hyperparameters.json"
-bash "Baseline/code/run.sh" --kernel "$kernel" --record
-bash "Test B/code/run.sh" --kernel "$kernel" --record
-bash "Test C/code/run.sh" --kernel "$kernel" --record
-python code/evaluate.py
+kernel="../Trained_Kernel/result/multirun_fit_20261127T025820Z/hyperparameters.json"
+run_name="formal_all_runs"
+bash "Baseline/code/run.sh" --kernel "$kernel" --name "$run_name" --record
+bash "Test B/code/run.sh" --kernel "$kernel" --name "$run_name" --record
+bash "Test C/code/run.sh" --kernel "$kernel" --name "$run_name" --record
+python code/evaluate.py --name "$run_name"
 ```
 
-Each entry point runs MI, EMSE and Adaptive WIVR sequentially. Use `--policy` to select one policy. A shared `--name` identifies one comparison and must match across the three groups and the evaluator. The runner prepares and pins the shared inputs automatically on the first launch. Every formal mission starts with zero observations and uses the 25 °C prior mean and 1 °C² prior variance in [settings.json](settings.json). The [same SRF](../Nav2_ROS/fixtures/field.json), GP update and replanning rules apply throughout. The export supplies the fitted RBF length scales and measurement noise variance. Shared provenance and the offline RMSE report are saved in `results/<name>/` at the Final_Test level. No formal mission has been run.
+Each entry point runs MI, EMSE and Adaptive WIVR sequentially. Use `--policy` to select one policy. A shared `--name` identifies one comparison and must match across the three groups and the evaluator. The runner prepares and pins the shared inputs automatically on the first launch. Every formal mission starts with zero observations and the 25 °C prior mean in [settings.json](settings.json). The export supplies the fitted RBF length scales, signal variance, and measurement noise variance. The [same SRF](../Nav2_ROS/fixtures/field.json), GP update and replanning rules apply throughout. Shared provenance and the offline RMSE report are saved in `results/<name>/` at the Final_Test level. Use the all-data kernel and a new comparison name for the next run.

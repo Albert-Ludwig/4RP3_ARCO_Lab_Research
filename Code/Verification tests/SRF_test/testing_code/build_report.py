@@ -35,7 +35,11 @@ def build():
             assert sha(directory/name)==expected, "Retained result changed: "+entry["run"]+"/"+name
     for name,expected in manifest["source_hashes"].items():
         assert sha(ROOT/"testing_code"/name)==expected, name
-    history=ROOT.parents[2]/summary["config"]["history_file"]
+    history_path = summary["config"]["history_file"]
+    if history_path in {"Data/Real_Data_Integration/result/gp_samples.csv",
+                        "Data/interpolated_data/result/gp_samples.csv"}:
+        history_path = "Data/Interpolated Data/result/gp_samples.csv"
+    history = ROOT.parents[2] / history_path
     assert sha(history)==manifest["history_sha256"]
     protected={p:sha(p) for p in run.iterdir() if p.is_file() and p.suffix in (".json",".csv",".npy",".npz",".txt")
                and p.name not in ("report_verification.json","baseline_comparison.json")}

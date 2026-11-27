@@ -1,3 +1,3 @@
 # Preserve acquisition bytes and recorded output hashes.
-real_data/** -text
-interpolated_data/result/** -text
+"Original Data/**" -text
+"Interpolated Data/result/**" -text

@@ -1,0 +1,613 @@
+{
+  "run_id": "nov-17-johnson-filtered",
+  "status": "prepared_with_unverified_clock_alignment",
+  "temperature_count": 1386,
+  "gps_count": 1362,
+  "valid_gps_count": 1362,
+  "matched_count": 1360,
+  "alignment_counts": {
+    "matched": 1360,
+    "after_gps": 26
+  },
+  "temperature_start_utc": "2026-11-17T18:31:12.000000000Z",
+  "temperature_end_utc": "2026-11-17T18:54:17.000000000Z",
+  "gps_start_utc": "2026-11-17T18:31:10.378672357Z",
+  "gps_end_utc": "2026-11-17T18:53:51.378605338Z",
+  "matched_start_utc": "2026-11-17T18:31:12.000000000Z",
+  "matched_end_utc": "2026-11-17T18:53:51.000000000Z",
+  "temperature_interval_s": {
+    "min": 1.0,
+    "median": 1.0,
+    "p95": 1.0,
+    "max": 1.0
+  },
+  "gps_interval_s": {
+    "min": 0.727758499,
+    "median": 0.999997676,
+    "p95": 1.001248493,
+    "max": 1.272000707
+  },
+  "temperature_c": {
+    "min": 15.913271484374995,
+    "median": 16.363725585937498,
+    "p95": 18.444394531250005,
+    "max": 18.744697265625
+  },
+  "gps_bracket_gap_s": {
+    "min": 0.727758499,
+    "median": 0.9999973200000001,
+    "p95": 1.0012486422,
+    "max": 1.272000707
+  },
+  "nearest_gps_time_distance_s": {
+    "min": 0.350494925,
+    "median": 0.3775810305,
+    "p95": 0.3789801217,
+    "max": 0.622495632
+  },
+  "receipt_minus_header_s": {
+    "min": 0.000238789,
+    "median": 0.00045002,
+    "p95": 0.0014682134500000016,
+    "max": 0.102184252
+  },
+  "gps_status_counts": {
+    "2": 1360,
+    "0": 2
+  },
+  "gps_covariance_type_counts": {
+    "3": 1362
+  },
+  "gps_frame_ids": [
+    "gps"
+  ],
+  "gps_extent_east_north_m": [
+    91.66346603169002,
+    92.65632280703034
+  ],
+  "horizontal_path_length_m": 1484.2866542305746,
+  "horizontal_speed_m_s": {
+    "min": 0.0,
+    "median": 1.1147146353497612,
+    "p95": 1.2314178636716435,
+    "max": 9.022848971711936
+  },
+  "coordinate_system": {
+    "name": "local_enu_at_reference_origin",
+    "datum": "WGS84",
+    "origin_latitude_deg": 43.265474,
+    "origin_longitude_deg": -79.928666,
+    "origin_altitude_m": 45.3434,
+    "origin_gps_message_id": 369,
+    "spatial_reference_run_id": "nov-3-baseball-1",
+    "time_origin_gps_message_id": 178,
+    "time_origin_utc": "2026-11-17T18:31:10.378672357Z",
+    "time_origin_utc_ns": 1794940270378672357,
+    "axes": "x east, y north, z up",
+    "position_reference": "GPS antenna; HOBO lever arm unknown",
+    "ros_map_transform": "not established"
+  },
+  "assumptions": {
+    "temperature_timezone": "Fixed EST UTC-05:00, as declared by workbook",
+    "temperature_offset_s": 0.0,
+    "clock_alignment_verified": false,
+    "gps_time": "NavSatFix header timestamp interpreted as Unix UTC",
+    "max_gps_gap_s": 2.0,
+    "interpolation": "Linear ENU interpolation between consecutive valid fixes; no extrapolation",
+    "sensor_response_delay": "unknown; no correction applied",
+    "common_synchronization_event": "not identified"
+  },
+  "offset_sensitivity": [
+    {
+      "assumed_extra_offset_s": -2.0,
+      "comparable_samples": 1359,
+      "horizontal_displacement_m": {
+        "min": 0.0,
+        "median": 2.2352551326096455,
+        "p95": 2.3347952419315785,
+        "max": 9.785020932615199
+      }
+    },
+    {
+      "assumed_extra_offset_s": -1.0,
+      "comparable_samples": 1360,
+      "horizontal_displacement_m": {
+        "min": 0.0,
+        "median": 1.1167680635408015,
+        "p95": 1.1846117991677962,
+        "max": 5.61780128224605
+      }
+    },
+    {
+      "assumed_extra_offset_s": 1.0,
+      "comparable_samples": 1359,
+      "horizontal_displacement_m": {
+        "min": 0.0,
+        "median": 1.1167693425117804,
+        "p95": 1.1846138005967302,
+        "max": 5.61780128224605
+      }
+    },
+    {
+      "assumed_extra_offset_s": 2.0,
+      "comparable_samples": 1358,
+      "horizontal_displacement_m": {
+        "min": 0.0,
+        "median": 2.235255150429551,
+        "p95": 2.334839951400102,
+        "max": 9.785020932615199
+      }
+    }
+  ],
+  "limitations": [
+    "Sample phase and bag receipt latency do not establish HOBO/GPS clock synchronization.",
+    "NavSatStatus=2 indicates GBAS; it does not alone establish an RTK fixed solution or centimetre accuracy.",
+    "GPS antenna position is a proxy for temperature sensor position; mounting offset is unmeasured.",
+    "One mobile run confounds spatial and temporal variation. No long-term temporal validation is possible here.",
+    "No temperature detrending, smoothing, calibration, response correction or kernel fitting was performed.",
+    "This trajectory provides sampled locations, not an occupancy or traversability map.",
+    "Only selected GPS messages were deserialized; no whole-bag integrity or image-stream validation."
+  ],
+  "source_workbook_events": [
+    [
+      "#",
+      "Date-Time (EST)",
+      "Host Connected",
+      "End of File",
+      "Started",
+      "Stopped",
+      "Button Up",
+      "Button Down"
+    ],
+    [
+      1,
+      "2026-11-17T13:31:12",
+      null,
+      null,
+      "Logged",
+      null,
+      null,
+      null
+    ],
+    [
+      2,
+      "2026-11-17T13:54:02",
+      null,
+      null,
+      null,
+      null,
+      null,
+      "Logged"
+    ],
+    [
+      3,
+      "2026-11-17T13:54:03",
+      null,
+      null,
+      null,
+      null,
+      "Logged",
+      null
+    ],
+    [
+      4,
+      "2026-11-17T13:54:04",
+      "Logged",
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    [
+      5,
+      "2026-11-17T13:54:17",
+      null,
+      "Logged",
+      null,
+      "Logged",
+      null,
+      null
+    ]
+  ],
+  "source_workbook_details": [
+    [
+      "Details",
+      null,
+      null,
+      null
+    ],
+    [
+      "Devices",
+      null,
+      null,
+      null
+    ],
+    [
+      null,
+      "App Info",
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      "App Name",
+      "HOBOconnect"
+    ],
+    [
+      null,
+      null,
+      "Version",
+      "2.11.1 (1787146363)"
+    ],
+    [
+      null,
+      "Device Info",
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      "Product",
+      "MX2202"
+    ],
+    [
+      null,
+      null,
+      "Serial Number",
+      "22209634"
+    ],
+    [
+      null,
+      null,
+      "Firmware Version",
+      "70.140"
+    ],
+    [
+      null,
+      null,
+      "Manufacturer",
+      "Onset Computer Corporation"
+    ],
+    [
+      null,
+      null,
+      "Device Memory",
+      "176128"
+    ],
+    [
+      null,
+      null,
+      "Header Created",
+      "2026/11/17 13:31:11 EST"
+    ],
+    [
+      null,
+      "Deployment Info",
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      "Name",
+      "22209634"
+    ],
+    [
+      null,
+      null,
+      "Location",
+      "Off"
+    ],
+    [
+      null,
+      null,
+      "Group Name",
+      "NA"
+    ],
+    [
+      null,
+      null,
+      "Deployment Number",
+      "5"
+    ],
+    [
+      null,
+      null,
+      "Never Stop (Overwrites Old Data) Enabled",
+      "No"
+    ],
+    [
+      null,
+      null,
+      "Configure Date",
+      "2026/11/17 13:31:11 EST"
+    ],
+    [
+      null,
+      null,
+      "Logging Interval",
+      "0 hour 0 minutes 1 seconds"
+    ],
+    [
+      null,
+      null,
+      "Logging Mode",
+      "Fixed - Normal"
+    ],
+    [
+      null,
+      null,
+      "Start Logging",
+      "On Save"
+    ],
+    [
+      null,
+      null,
+      "Stop Logging",
+      "Stop When Memory Fills "
+    ],
+    [
+      null,
+      null,
+      "Show Visual Alarms Until",
+      "Sensors In Limits"
+    ],
+    [
+      null,
+      null,
+      "Show LED",
+      "On"
+    ],
+    [
+      null,
+      null,
+      "Bluetooth Always On",
+      "Off"
+    ],
+    [
+      null,
+      null,
+      "Upload Data Via",
+      "Off"
+    ],
+    [
+      "Series : Temperature , °C",
+      null,
+      null,
+      null
+    ],
+    [
+      null,
+      "Alarm Settings",
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      "High Alarm Value",
+      "Not Configured"
+    ],
+    [
+      null,
+      null,
+      "Low Alarm Value",
+      "Not Configured"
+    ],
+    [
+      null,
+      "Series Statistics",
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      "Samples",
+      "1386"
+    ],
+    [
+      null,
+      null,
+      "Max",
+      "18.74"
+    ],
+    [
+      null,
+      null,
+      "Min",
+      "15.91"
+    ],
+    [
+      null,
+      null,
+      "Avg",
+      "16.71"
+    ],
+    [
+      null,
+      null,
+      "Std Dev",
+      ".76"
+    ],
+    [
+      null,
+      null,
+      "First Sample Time",
+      "2026/11/17 13:31:12 EST"
+    ],
+    [
+      null,
+      null,
+      "Last Sample Time",
+      "2026/11/17 13:54:17 EST"
+    ],
+    [
+      "Series : Light , lux",
+      null,
+      null,
+      null
+    ],
+    [
+      null,
+      "Alarm Settings",
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      "High Alarm Value",
+      "Not Configured"
+    ],
+    [
+      null,
+      null,
+      "Low Alarm Value",
+      "Not Configured"
+    ],
+    [
+      null,
+      "Series Statistics",
+      null,
+      null
+    ],
+    [
+      null,
+      null,
+      "Samples",
+      "1386"
+    ],
+    [
+      null,
+      null,
+      "Max",
+      "51036.16"
+    ],
+    [
+      null,
+      null,
+      "Min",
+      "1468.16"
+    ],
+    [
+      null,
+      null,
+      "Avg",
+      "8232.75"
+    ],
+    [
+      null,
+      null,
+      "Std Dev",
+      "8514.16"
+    ],
+    [
+      null,
+      null,
+      "First Sample Time",
+      "2026/11/17 13:31:12 EST"
+    ],
+    [
+      null,
+      null,
+      "Last Sample Time",
+      "2026/11/17 13:54:17 EST"
+    ]
+  ],
+  "source_topics": [
+    {
+      "id": 1,
+      "name": "/tf_static",
+      "type": "tf2_msgs/msg/TFMessage",
+      "serialization_format": "cdr"
+    },
+    {
+      "id": 2,
+      "name": "/calian_gnss/gps",
+      "type": "sensor_msgs/msg/NavSatFix",
+      "serialization_format": "cdr"
+    },
+    {
+      "id": 3,
+      "name": "/imu/mag",
+      "type": "sensor_msgs/msg/MagneticField",
+      "serialization_format": "cdr"
+    },
+    {
+      "id": 4,
+      "name": "/calian_gnss/gps_extended",
+      "type": "calian_gnss_ros2_msg/msg/GnssSignalStatus",
+      "serialization_format": "cdr"
+    },
+    {
+      "id": 5,
+      "name": "/client_count",
+      "type": "std_msgs/msg/Int32",
+      "serialization_format": "cdr"
+    },
+    {
+      "id": 6,
+      "name": "/imu/data_raw",
+      "type": "sensor_msgs/msg/Imu",
+      "serialization_format": "cdr"
+    },
+    {
+      "id": 7,
+      "name": "/cmd_vel",
+      "type": "geometry_msgs/msg/Twist",
+      "serialization_format": "cdr"
+    },
+    {
+      "id": 8,
+      "name": "/parameter_events",
+      "type": "rcl_interfaces/msg/ParameterEvent",
+      "serialization_format": "cdr"
+    },
+    {
+      "id": 9,
+      "name": "/tf",
+      "type": "tf2_msgs/msg/TFMessage",
+      "serialization_format": "cdr"
+    },
+    {
+      "id": 10,
+      "name": "/imu/is_calibrated",
+      "type": "std_msgs/msg/Bool",
+      "serialization_format": "cdr"
+    },
+    {
+      "id": 11,
+      "name": "/jtop/diagnostics",
+      "type": "diagnostic_msgs/msg/DiagnosticArray",
+      "serialization_format": "cdr"
+    },
+    {
+      "id": 12,
+      "name": "/odom",
+      "type": "nav_msgs/msg/Odometry",
+      "serialization_format": "cdr"
+    },
+    {
+      "id": 13,
+      "name": "/diagnostics",
+      "type": "diagnostic_msgs/msg/DiagnosticArray",
+      "serialization_format": "cdr"
+    },
+    {
+      "id": 14,
+      "name": "/rosout",
+      "type": "rcl_interfaces/msg/Log",
+      "serialization_format": "cdr"
+    },
+    {
+      "id": 15,
+      "name": "/mux/cmd_vel",
+      "type": "geometry_msgs/msg/Twist",
+      "serialization_format": "cdr"
+    }
+  ]
+}

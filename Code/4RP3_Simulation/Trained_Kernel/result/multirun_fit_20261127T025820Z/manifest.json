@@ -1,0 +1,17 @@
+{
+  "input_sha256_by_date": {
+    "2026-11-03": "c81c0176feeda7a115ec764805f48bd7edb95648c841fb058bcbcc38d22b8f76",
+    "2026-11-17": "8e0089d5f6e0d592b76497d10ca4bc1916d723ab4f5bcac655fc5b612b35e532",
+    "2026-11-18": "dadf69cee04e253adde5c237be2a3854198e2215314d4fb4443ac1e60246aa2b",
+    "2026-11-19": "9c5bcd0f940ee28e054b7b3b3fa50ea0b570162aa8cc9314ce0ddeb791c2916b",
+    "2026-11-20": "fc52daf4d89fb8a46a26e29531b3791c029eac2259e683be8040d69432ced546",
+    "2026-11-21": "cacb21c4b04c8c64a4148f4fb30ee4b3cdbc3b9ae86125598e211ff6c92f605e"
+  },
+  "worker_sha256": "3b7314d461f4b78528449a8d27900f91fc7479167bc169272449b6620efef2b5",
+  "output_sha256": {
+    "hyperparameters.json": "9996fb3cde538d004ba134f7345315467ce24949a0711982c5c08db854136276",
+    "initialization_comparison.csv": "adbfbb5eff65a7eb5de0f57e7edbecca340786c421877a0ee4fdd6c741074827",
+    "training_history.csv": "f30cff956bfdf8d9bacfd7ba3a86e7ce5a9eecc0f3d6ef64491a1066ce1933fe",
+    "training_summary.json": "53b187cdaeb176dfa0ca088216754c36623333cf85fa9a797177b645391eef72"
+  }
+}

@@ -10,7 +10,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 REPO=ROOT.parents[2]
 HERE=Path(__file__).resolve().parent
-DATA=REPO/'Data/interpolated_data/result/gp_samples.csv'
+DATA=REPO/'Data/Interpolated Data/result/gp_samples.csv'
 MODEL=REPO/'Code/GP3D_baseline_test/10.16_testing_code/3D_time&spatial temp field rebuild & prediction/gp_model.py'
 
 

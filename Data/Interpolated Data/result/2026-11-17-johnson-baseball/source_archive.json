@@ -1,0 +1,150 @@
+{
+  "source_archive": {
+    "filename": "2026-11-17-johnson-baseball.zip",
+    "size_bytes": 153712632,
+    "sha256": "7749756c7518d62da0800eb565996e43fcbf3b35f2712956f842d239321420f3"
+  },
+  "spatial_reference": {
+    "path": "Data/Interpolated Data/result/summary.json",
+    "sha256": "308eff4fd578edbad8de5de972a94ce2d3ca8a0072a6a039e5a6e482bd2d6189"
+  },
+  "inputs_by_date": {
+    "2026-11-17": [
+      {
+        "path": "2026-11-17-johnson-baseball/Day_1_Tuesday/22209634 2026-11-17 13_54_34 EST (Data EST)(1).xlsx",
+        "size_bytes": 63014,
+        "sha256": "66ddae4e71b904bdc0b981870e372a1462183207635affc06368c5bfaed6bd44",
+        "storage": "zip_entry"
+      },
+      {
+        "path": "nov-17-johnson-filtered/nov-17-johnson-filtered_0.db3",
+        "size_bytes": 180826112,
+        "sha256": "d90a6f0dd40e0410bc89727035eba7bd51045b1a9fada682cb36c53c51a40815",
+        "storage": "tar_member",
+        "zip_entry": "2026-11-17-johnson-baseball/Day_1_Tuesday/2026-11-17-johnson-filtered.tar.gz"
+      },
+      {
+        "path": "nov-17-johnson-filtered/metadata.yaml",
+        "size_bytes": 12830,
+        "sha256": "a79bb4b22418475777e97958b59e921595a16eed743dc5efeb5958b6b21258e6",
+        "storage": "tar_member",
+        "zip_entry": "2026-11-17-johnson-baseball/Day_1_Tuesday/2026-11-17-johnson-filtered.tar.gz"
+      },
+      {
+        "path": "Data/Interpolated Data/result/summary.json",
+        "size_bytes": 14929,
+        "sha256": "308eff4fd578edbad8de5de972a94ce2d3ca8a0072a6a039e5a6e482bd2d6189"
+      }
+    ],
+    "2026-11-18": [
+      {
+        "path": "2026-11-17-johnson-baseball/Day_2_Wednesday/22209634 2026-11-18 13_52_57 EST (Data EST).xlsx",
+        "size_bytes": 17523,
+        "sha256": "fe0a854cbf6c045b490bdfd8760a84866b4ad111475285a01a965e5f65b8ab58",
+        "storage": "zip_entry"
+      },
+      {
+        "path": "nov-18-johnson/nov-18-johnson_0.db3",
+        "size_bytes": 171360256,
+        "sha256": "987d9bfa1c9fbceca0a9915afcce24048df0d9900ba3e80719cbb6b1b70d38dd",
+        "storage": "tar_member",
+        "zip_entry": "2026-11-17-johnson-baseball/Day_2_Wednesday/2026-11-18-johnson.tar.gz"
+      },
+      {
+        "path": "nov-18-johnson/metadata.yaml",
+        "size_bytes": 10143,
+        "sha256": "2cfeb880bf00f017960aeded239212ddba78ca9c3e0482fcc0b43d002d24442e",
+        "storage": "tar_member",
+        "zip_entry": "2026-11-17-johnson-baseball/Day_2_Wednesday/2026-11-18-johnson.tar.gz"
+      },
+      {
+        "path": "Data/Interpolated Data/result/summary.json",
+        "size_bytes": 14929,
+        "sha256": "308eff4fd578edbad8de5de972a94ce2d3ca8a0072a6a039e5a6e482bd2d6189"
+      }
+    ],
+    "2026-11-19": [
+      {
+        "path": "2026-11-17-johnson-baseball/Day_3_Thursday/22209634 2026-11-19 14_06_42 EST (Data EST).xlsx",
+        "size_bytes": 64364,
+        "sha256": "4023430ff7901a233c9ac409fb4400a86519b5f89c42fc30cf982666e7d27a83",
+        "storage": "zip_entry"
+      },
+      {
+        "path": "nov-19-johnson/nov-19-johnson_0.db3",
+        "size_bytes": 164958208,
+        "sha256": "be8b09a5e73fa7906a7e2cee31df351f689c274f8d3019f3f820574c50006417",
+        "storage": "tar_member",
+        "zip_entry": "2026-11-17-johnson-baseball/Day_3_Thursday/2026-11-19-johnson.tar.gz"
+      },
+      {
+        "path": "nov-19-johnson/metadata.yaml",
+        "size_bytes": 9164,
+        "sha256": "47a520c1169e9a55d3093c9377d8957900c966943b2f64b42e215a241b27dcb4",
+        "storage": "tar_member",
+        "zip_entry": "2026-11-17-johnson-baseball/Day_3_Thursday/2026-11-19-johnson.tar.gz"
+      },
+      {
+        "path": "Data/Interpolated Data/result/summary.json",
+        "size_bytes": 14929,
+        "sha256": "308eff4fd578edbad8de5de972a94ce2d3ca8a0072a6a039e5a6e482bd2d6189"
+      }
+    ],
+    "2026-11-20": [
+      {
+        "path": "2026-11-17-johnson-baseball/Day_4_Friday/22209634 2026-11-20 16_11_49 EST (Data EST).xlsx",
+        "size_bytes": 62701,
+        "sha256": "3e3a40cfd47b4f646fbb845b92a925d9c64bfb7bf3f45fea4b9c717a355ff671",
+        "storage": "zip_entry"
+      },
+      {
+        "path": "nov-20-johnson/nov-20-johnson2_0.db3",
+        "size_bytes": 163606528,
+        "sha256": "466b82ddc4b27e82ca7301e9c3970d036be2293023c9a60b17224c03574d3d22",
+        "storage": "tar_member",
+        "zip_entry": "2026-11-17-johnson-baseball/Day_4_Friday/2026-11-20-johnson.tar.gz"
+      },
+      {
+        "path": "nov-20-johnson/metadata.yaml",
+        "size_bytes": 8893,
+        "sha256": "e6750d9d932b044fa3d6b96855bac222970c36ff72bbaf21955a42957207c3b9",
+        "storage": "tar_member",
+        "zip_entry": "2026-11-17-johnson-baseball/Day_4_Friday/2026-11-20-johnson.tar.gz"
+      },
+      {
+        "path": "Data/Interpolated Data/result/summary.json",
+        "size_bytes": 14929,
+        "sha256": "308eff4fd578edbad8de5de972a94ce2d3ca8a0072a6a039e5a6e482bd2d6189"
+      }
+    ],
+    "2026-11-21": [
+      {
+        "path": "2026-11-17-johnson-baseball/Day_5_Saturday/22209634 2026-11-21 16_34_30 EST (Data EST).xlsx",
+        "size_bytes": 62565,
+        "sha256": "e2e24b28b2dd0adc50052b7e93ce0d9777d9503a085798c472b484354af81096",
+        "storage": "zip_entry"
+      },
+      {
+        "path": "nov-21-johnson/nov-21-johnson_0.db3",
+        "size_bytes": 164089856,
+        "sha256": "64150ecdc4e43c363c29dd7c560547d21b31068d457de098c75f7ac43ae5bd6f",
+        "storage": "tar_member",
+        "zip_entry": "2026-11-17-johnson-baseball/Day_5_Saturday/2026-11-21-johnson.tar.gz"
+      },
+      {
+        "path": "nov-21-johnson/metadata.yaml",
+        "size_bytes": 13893,
+        "sha256": "61ab24da38a1a3ce192439ec38d7b073ba5b573223b610f76e29094d1f8ee174",
+        "storage": "tar_member",
+        "zip_entry": "2026-11-17-johnson-baseball/Day_5_Saturday/2026-11-21-johnson.tar.gz"
+      },
+      {
+        "path": "Data/Interpolated Data/result/summary.json",
+        "size_bytes": 14929,
+        "sha256": "308eff4fd578edbad8de5de972a94ce2d3ca8a0072a6a039e5a6e482bd2d6189"
+      }
+    ]
+  },
+  "campaign_csv_sha256": "520e775ed090d9cb56c3405538942048b17b1777e6ba57c2c33bf20989d2d79b",
+  "retained_archive_root": "Data/Original Data"
+}

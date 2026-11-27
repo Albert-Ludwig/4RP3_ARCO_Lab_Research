@@ -8,6 +8,6 @@ The 97 x 64 m / 900 s baseline and 30 x 30 m / 120 s results are preserved. All 
 
 [Results and three-run comparison](test_report.ipynb) | [Latest saved output](result/run_20261111T013002148927Z/summary.json) | [Protocol](testing_code/protocol.json)
 
-Files: `testing_code/srf_field.py` provides the source; `verify.py` runs checks; `build_report.py` produces the single notebook; `result/` stores measurements and provenance. Historical temperature mean/variance come from `Data/interpolated_data/result/gp_samples.csv`; field calibration remains provisional.
+Files: `testing_code/srf_field.py` provides the source; `verify.py` runs checks; `build_report.py` produces the single notebook; `result/` stores measurements and provenance. Historical temperature mean/variance come from `Data/Interpolated Data/result/gp_samples.csv`; field calibration remains provisional.
 
 Run: `powershell -ExecutionPolicy Bypass -File .\testing_code\Run-SRF.ps1` (existing Docker SRF and host reporting environments required).

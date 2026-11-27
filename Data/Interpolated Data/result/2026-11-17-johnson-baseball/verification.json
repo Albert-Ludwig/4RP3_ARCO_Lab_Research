@@ -1,0 +1,51 @@
+{
+  "campaign_time_origin_utc_ns": 1794940270378672357,
+  "shared_enu_origin_wgs84": {
+    "origin_latitude_deg": 43.265474,
+    "origin_longitude_deg": -79.928666,
+    "origin_altitude_m": 45.3434
+  },
+  "legacy_gp_samples_byte_identical": true,
+  "runs": {
+    "2026-11-17": {
+      "source_temperatures_unchanged": true,
+      "shared_enu_origin": true,
+      "matched_positions_reproduced": 1360,
+      "maximum_allowed_gps_gap_s": 2.0,
+      "no_extrapolation": true,
+      "output_hashes_match": true
+    },
+    "2026-11-18": {
+      "source_temperatures_unchanged": true,
+      "shared_enu_origin": true,
+      "matched_positions_reproduced": 24,
+      "maximum_allowed_gps_gap_s": 2.0,
+      "no_extrapolation": true,
+      "output_hashes_match": true
+    },
+    "2026-11-19": {
+      "source_temperatures_unchanged": true,
+      "shared_enu_origin": true,
+      "matched_positions_reproduced": 1365,
+      "maximum_allowed_gps_gap_s": 2.0,
+      "no_extrapolation": true,
+      "output_hashes_match": true
+    },
+    "2026-11-20": {
+      "source_temperatures_unchanged": true,
+      "shared_enu_origin": true,
+      "matched_positions_reproduced": 1358,
+      "maximum_allowed_gps_gap_s": 2.0,
+      "no_extrapolation": true,
+      "output_hashes_match": true
+    },
+    "2026-11-21": {
+      "source_temperatures_unchanged": true,
+      "shared_enu_origin": true,
+      "matched_positions_reproduced": 1361,
+      "maximum_allowed_gps_gap_s": 2.0,
+      "no_extrapolation": true,
+      "output_hashes_match": true
+    }
+  }
+}

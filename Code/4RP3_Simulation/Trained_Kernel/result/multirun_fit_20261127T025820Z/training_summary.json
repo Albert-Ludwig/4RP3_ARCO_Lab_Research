@@ -1,0 +1,71 @@
+{
+  "observations_by_date": {
+    "2026-11-03": 980,
+    "2026-11-17": 1360,
+    "2026-11-18": 24,
+    "2026-11-19": 1365,
+    "2026-11-20": 1358,
+    "2026-11-21": 1361
+  },
+  "fitted_run_means_c": {
+    "2026-11-03": 27.280222251283057,
+    "2026-11-17": 16.702016111802084,
+    "2026-11-18": 20.116546270057096,
+    "2026-11-19": 22.771478162859733,
+    "2026-11-20": 16.392182959556486,
+    "2026-11-21": 10.821071981634416
+  },
+  "coordinate_frame": "Shared 3 November local ENU",
+  "time_input": "t_s since each run's first valid GPS fix; no cross-run covariance",
+  "fit": "Exact Gaussian marginal likelihood with a GLS constant mean per run and shared covariance/noise",
+  "optimizer": "L-BFGS-B in log physical units, selecting the best converged restart by training likelihood",
+  "starts": [
+    [
+      4,
+      20,
+      25,
+      0.2,
+      0.001
+    ],
+    [
+      15,
+      15,
+      100,
+      1,
+      0.005
+    ],
+    [
+      40,
+      40,
+      350,
+      2.5,
+      0.02
+    ]
+  ],
+  "bounds": [
+    [
+      0.25,
+      300
+    ],
+    [
+      0.25,
+      300
+    ],
+    [
+      1,
+      3600
+    ],
+    [
+      0.0001,
+      100
+    ],
+    [
+      1e-06,
+      4
+    ]
+  ],
+  "gradient_check_error": 4.690486714392249e-08,
+  "bound_parameters": [],
+  "held_out_data": null,
+  "held_out_score": null
+}

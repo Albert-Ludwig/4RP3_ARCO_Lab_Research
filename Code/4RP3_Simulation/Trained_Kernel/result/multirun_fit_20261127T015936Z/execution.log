@@ -1,0 +1,28 @@
+Restart 1: loss=-1.76966689, steps=12, converged=True, 2.6 s
+Restart 2: loss=-1.76966689, steps=21, converged=True, 4.7 s
+Restart 3: loss=-1.76966689, steps=17, converged=True, 4.6 s
+{
+  "kernel": "3D ARD RBF with Gaussian measurement noise",
+  "lengthscales_m_m_s": [
+    6.019220596299899,
+    38.390022658893166,
+    35.77112288895743
+  ],
+  "output_variance_c2": 0.5351878659756856,
+  "noise_variance_c2": 0.0008709494184768045,
+  "noise_std_c": 0.02951185216954037,
+  "mean_c": 20.664046057552156,
+  "mean_c_role": "Average of fitted traversal means for export; formal simulation fixes its own prior mean",
+  "training_observations": 5087,
+  "training_dates": [
+    "2026-11-03",
+    "2026-11-17",
+    "2026-11-18",
+    "2026-11-19",
+    "2026-11-20"
+  ],
+  "reserved_validation_date": "2026-11-21",
+  "independent_test_performed": false,
+  "negative_training_mll_per_observation": -1.769666891889034,
+  "selected_restart": 2
+}

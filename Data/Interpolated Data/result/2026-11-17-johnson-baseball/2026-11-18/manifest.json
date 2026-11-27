@@ -1,0 +1,55 @@
+{
+  "created_at_utc": "2026-11-27T01:40:25.292795+00:00",
+  "inputs": [
+    {
+      "path": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\welle-baseball-20261117-tza898_3\\Day_2_Wednesday\\22209634 2026-11-18 13_52_57 EST (Data EST).xlsx",
+      "size_bytes": 17523,
+      "sha256": "fe0a854cbf6c045b490bdfd8760a84866b4ad111475285a01a965e5f65b8ab58"
+    },
+    {
+      "path": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\welle-baseball-20261117-tza898_3\\Day_2_Wednesday\\nov-18-johnson\\nov-18-johnson_0.db3",
+      "size_bytes": 171360256,
+      "sha256": "987d9bfa1c9fbceca0a9915afcce24048df0d9900ba3e80719cbb6b1b70d38dd"
+    },
+    {
+      "path": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\welle-baseball-20261117-tza898_3\\Day_2_Wednesday\\nov-18-johnson\\metadata.yaml",
+      "size_bytes": 10143,
+      "sha256": "2cfeb880bf00f017960aeded239212ddba78ca9c3e0482fcc0b43d002d24442e"
+    },
+    {
+      "path": "Data/interpolated_data/result/summary.json",
+      "size_bytes": 14929,
+      "sha256": "308eff4fd578edbad8de5de972a94ce2d3ca8a0072a6a039e5a6e482bd2d6189"
+    }
+  ],
+  "source_size_and_mtime_unchanged": true,
+  "selected_cdr_sha256": "3f8bd9bece0c6d35b1d8d8f77c372b18aad3e9b9169b457a9e54d6cf77ccd390",
+  "script_sha256": "efb6263bc5fa7432f3c6f0aec21d9178f636d5066ea4013a18696ad3cd6613e1",
+  "runtime": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "openpyxl": "3.1.5",
+    "decoder": "rclpy.serialization.deserialize_message(sensor_msgs.msg.NavSatFix)",
+    "decoder_command": [
+      "docker",
+      "--context",
+      "desktop-linux",
+      "exec",
+      "-i",
+      "-u",
+      "ubuntu",
+      "-e",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "bunker-jazzy",
+      "bash",
+      "-lc",
+      "source /opt/ros/jazzy/setup.bash && exec /usr/bin/python3 -B -"
+    ]
+  },
+  "outputs": {
+    "gp_samples.csv": "dadf69cee04e253adde5c237be2a3854198e2215314d4fb4443ac1e60246aa2b",
+    "gps.csv": "e1e0dca05f1e86ae3f495431f8089048a4d35b8490d8800ff812fcadd4b84122",
+    "summary.json": "a2471870abe05647094d6bd6ff17a6cf06a5c9a04cb35f09b57fc74c3c889107",
+    "temperature_alignment.csv": "6a4cbfa6de7fc1f600c0ea1bcc99746b23801e29afb32f6fd8955d0084a11841"
+  }
+}

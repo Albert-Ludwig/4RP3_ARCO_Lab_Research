@@ -1,10 +1,6 @@
 # Data
 
-| Folder | Contents |
-| --- | --- |
-| [real_data](real_data/) | Retained original HOBO temperature workbook, all original GPS messages in `gps_only.db3`, route image and acquisition metadata. |
-| [interpolated_data](interpolated_data/) | Temperature/GPS alignment outputs, processing code and report. The GP input is [gp_samples.csv](interpolated_data/result/gp_samples.csv). |
+- [Original Data](<Original Data/README.md>) contains the available acquisition files for 3 November and 17-21 November 2026, with raw HOBO and GPS record counts for each day.
+- [Interpolated Data](<Interpolated Data/README.md>) contains the GPS-to-temperature alignment method, code, and outputs. The GP inputs are the [3 November CSV](<Interpolated Data/result/gp_samples.csv>) and the [17-21 November CSV](<Interpolated Data/result/2026-11-17-johnson-baseball/gp_samples.csv>).
 
-Only GPS positions are interpolated to temperature timestamps; temperature values remain measured values. Moving these directories does not change data values or trained kernel parameters.
-
-Historical saved manifests/results retain their original path names: `Data/Real_spatialtemporal_data` now corresponds to `Data/real_data`, and `Data/Real_Data_Integration` to `Data/interpolated_data`. Original checksums remain unchanged. The earlier full ROS bag was already reduced to the retained GPS subset; this reorganization does not restore discarded topics.
+The older directory names `real_data` and `Real_spatialtemporal_data` refer to the retained 3 November inputs now under `Original Data/2026-11-03`. The older names `interpolated_data` and `Real_Data_Integration` refer to what is now `Interpolated Data`. Saved run manifests may retain the paths used when the runs were recorded.

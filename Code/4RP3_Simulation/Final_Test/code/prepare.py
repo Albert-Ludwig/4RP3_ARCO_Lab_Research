@@ -44,13 +44,14 @@ def sha256(path):
 def read_kernel(path):
     hp = read_json(path)
     length = np.asarray(hp["lengthscales_m_m_s"], dtype=float)
+    variance = float(hp["output_variance_c2"])
     noise = float(hp["noise_variance_c2"])
     if (length.shape != (3,) or not np.isfinite(length).all() or (length <= 0).any()
-            or not np.isfinite(noise) or noise <= 0):
-        raise ValueError("Expected positive RBF lengths in m, m, s and positive noise variance in °C²")
+            or not np.isfinite([variance, noise]).all() or min(variance, noise) <= 0):
+        raise ValueError("Expected positive RBF length scales and positive signal and noise variances")
     if "kernel" in hp and "rbf" not in hp["kernel"].lower():
         raise ValueError("The closed-loop implementation expects fitted RBF hyperparameters")
-    return dict(length=length.tolist(), noise=noise)
+    return dict(length=length.tolist(), variance=variance, noise=noise)
 
 
 def make_arena(path, extent, settings):
@@ -100,11 +101,8 @@ def prepare(bundle, kernel_path):
     ]
     small, large = specs[0]["extent_m"], specs[2]["extent_m"]
     mean = float(settings["prior_mean_c"])
-    variance = float(settings["prior_variance_c2"])
     if not np.isfinite(mean):
         raise ValueError("The GP prior mean must be finite")
-    if not np.isfinite(variance) or variance <= 0:
-        raise ValueError("The GP prior variance must be positive and finite")
     field_source = NAV2 / "fixtures/field.json"
     field = read_json(field_source)
     if small != field["working_extent_m"]:
@@ -120,7 +118,8 @@ def prepare(bundle, kernel_path):
         working_origin_m=[-settings["clearance_m"]] * 2,
         mission_interval_s=[0, max(s["mission_budget_s"] for s in specs)],
     )
-    initial = dict(read_kernel(kernel_path), mean=mean, variance=variance, x=[], y=[])
+    initial = dict(read_kernel(kernel_path), mean=mean, x=[], y=[])
+    variance = initial["variance"]
 
     protocol = read_json(VERIFIED / "protocol.json")
     for key in ("reference_fixture_run", "history_seed", "history_count", "history_interval_s"):
@@ -139,7 +138,7 @@ def prepare(bundle, kernel_path):
         evaluation_time_step_s=settings["evaluation_time_step_s"],
         update_interval_s=settings["gp_update_interval_s"],
         update_intervals_s=[settings["gp_update_interval_s"]],
-        initial_gp="RBF prior with fixed mean and variance and zero pre-mission observations.",
+        initial_gp="RBF prior with a fixed mean, fitted covariance and noise, and zero observations.",
         run_end="Reserve return time within the scenario budget and sense through Home arrival.",
         reconstruction="Final posterior on the scenario and common-support grids.",
         execution_mode="Background latest-GP search with arrival-only waypoint switching.",

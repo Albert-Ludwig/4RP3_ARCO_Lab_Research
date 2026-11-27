@@ -15,7 +15,7 @@ from uuid import uuid4
 
 from prepare import (
     FINAL_TEST, NAV2, POLICIES, SCENARIO_FOLDERS, experiment_directory,
-    prepare, read_json, sha256, write_json,
+    prepare, read_json, read_kernel, sha256, write_json,
 )
 
 INPUT_FILES = ("initial.json", "field.json", "protocol.json", "candidates.json")
@@ -163,6 +163,8 @@ def main():
             parser.error("This run name belongs to an older initialization protocol. Choose a new --name.")
         if provenance["kernel_sha256"] != sha256(kernel):
             parser.error("This run name is already paired with another kernel. Choose a new --name.")
+        if provenance.get("prior_variance_c2") != read_kernel(kernel)["variance"]:
+            parser.error("This run name uses a different GP signal variance. Choose a new --name.")
     group = FINAL_TEST / SCENARIO_FOLDERS[args.scenario]
     policies = (args.policy,) if args.policy else POLICIES
     for policy in policies:
