@@ -2,9 +2,9 @@
 
 ### 10.1 Scope, research question, and evidence status
 
-**Status: the all-data RBF kernel has been exported. The formal comparison with this kernel is paused pending review.** The final comparison consists of three ROS 2 / Gazebo scenarios using one synthetic temperature-field realization. Each scenario runs MI, EMSE, and Adaptive WIVR once. All mission budgets run from departure to actual Home arrival, and sensing continues at 1 Hz on the return.
+**Formal run completed.** All nine missions used the six-traversal, 6,448-observation RBF export. 8/9 met the return-inclusive acceptance criteria. See the [executed comparison notebook](Comparison.ipynb) and [formal RMSE by evaluation domain](results/formal_all_runs/evaluation.json). The final comparison consists of three ROS 2 / Gazebo scenarios using one synthetic temperature-field realization. Each scenario runs MI, EMSE, and Adaptive WIVR once. All mission budgets run from departure to actual Home arrival, and sensing continues at 1 Hz on the return.
 
-Adaptive WIVR and return-inclusive continuous sensing were exercised in the earlier 30 × 20 m / 300 s verification. The earlier comparison using the 5,087-observation kernel was stopped during Scenario B and its output was cleared. The three scenarios have yet to run with the all-data kernel. Future temperature forecasting is outside the current research scope.
+Adaptive WIVR and return-inclusive continuous sensing were exercised in the earlier 30 × 20 m / 300 s verification. The earlier comparison using the 5,087-observation kernel was stopped during Scenario B and its output was cleared. Future temperature forecasting is outside the current research scope.
 
 **Research question** Which scoring objective gives the lowest synthetic reconstruction RMSE within each scenario, and how does performance change when the mission budget is shortened or the operating area is expanded?
 
@@ -21,7 +21,7 @@ Run **nine ROS missions** in total. Each mission starts with zero temperature ob
 | Historical Python experiments | Original 10.18 / 11.2 experiments, including the [archived GP–GRG replay](<../../Verification tests/Robot_close_loop_system/README.md>) | Preserve code, saved models, logs, and established results; reuse verified components where applicable. |
 | Completed node-based Nav2 prototype | [saved Nav2 prototype](<../../Verification tests/GRG grading policy compare verification/result/synthetic_ros_full_01/>) and its saved reports | Evidence for the previous synthetic-record, checkpoint-sampling workflow. It does not validate continuous edge sensing or a GSTools SRF. |
 | Return-inclusive verification | [Saved 30 × 20 m / 300 s runs](<../../Verification tests/README.md#return-inclusive-ros-closed-loop-verification>) | The three policies reached Home on time and retained return samples on the verification fixture. |
-| Planned three-scenario comparison | Scenarios A–C above | Results and readiness checks for these settings are pending. |
+| Completed three-scenario comparison | [Recorded formal run](results/formal_all_runs/) | One mission per scenario and policy on the shared realization. Return and budget outcomes determine eligibility for a formal RMSE. |
 | Physical WELL-E experiment | Future deployment and validation | Pending; neither synthetic navigation results nor ideal-localization tests establish hardware performance. |
 
 Do not overwrite the original 10.18 or 11.2 experiments, the node-based Nav2 prototype, or any completed result. Use a separate implementation/configuration and result namespace for the revised protocol; keep the final experiment in this directory. Retain one experiment README for purpose, objects and dependencies, and one `Comparison.ipynb` for saved results, figures and conclusions.
@@ -86,7 +86,7 @@ Establish an integrated **MI baseline first**, using the Gazebo Bunker Mini and 
 6. Handle navigation failures independently from measurement validity: valid samples already acquired on a partially executed edge remain real observations of the simulated field. Specify and test their batch-update handling; do not fabricate samples for missing positions or times.
 7. When no further sampling waypoint fits with its onward return, send Home as the Nav2 goal. Continue sampling at 1 Hz along the executed return path. Include those observations in the final posterior and record actual Home arrival time, return duration, return sample count, final pose and termination reason.
 
-The robot senses continuously along each navigation segment, including return, without a fixed per-checkpoint dwell. Validation of the three prepared simulation scenarios and the physical sensor response remains pending.
+The robot senses continuously along each navigation segment, including return, without a fixed per-checkpoint dwell. The nine formal simulation outcomes are reported in the comparison notebook. Physical sensor response remains pending.
 
 ### 10.6 Mission budget and stopping rule
 
@@ -105,7 +105,7 @@ Before dispatching another sampling goal, check actual elapsed time plus the fit
 
 Record any overrun, failed return or watchdog separately. The fitted travel times are estimates, and actual ROS elapsed time determines whether the mission met the deadline.
 
-**150 s configuration.** The [shared GRG core](../WIVR/src/core.hpp#L137) now uses the scenario's `navigation_budget_s` for the mission cap, the EMSE/WIVR temporal scoring grid and the predicted route-event limit for all three objectives. At the configured 2 s scoring step, B uses **0, 2, …, 150 s**, and A/C use **0, 2, …, 300 s**. MI scores the predicted route events. Runtime checks of the 150 s scoring endpoint, event bounds and return remain pending.
+**150 s configuration.** The [shared GRG core](../WIVR/src/core.hpp#L137) now uses the scenario's `navigation_budget_s` for the mission cap, the EMSE/WIVR temporal scoring grid and the predicted route-event limit for all three objectives. At the configured 2 s scoring step, B uses **0, 2, …, 150 s**, and A/C use **0, 2, …, 300 s**. MI scores the predicted route events. The B mission records and return times are available under [Test B](<Test B/results/formal_all_runs/>).
 
 **GRG search timeout.** All formal scenarios and policies use a 60 s wall-clock limit per initial or background search (`search_guard_s` in [settings.json](settings.json)). Timed-out results are ineligible for route adoption. The return-inclusive mission budgets remain 300 simulation seconds in A/C and 150 in B.
 
@@ -186,24 +186,24 @@ Document each major calculation with its actual repository-relative file/functio
 
 Save full configuration/version/seed records, registered coordinate/time conventions, selected Checkpoints, predicted paths/events and actual trajectories, every valid/rejected observation, batch membership, GP snapshots, online computation and memory measurements, navigation outcomes and exact termination reasons. Also save the scoring-grid mask/representatives/effective areas, per-iteration variances and weight vectors, frozen weight versions, fallback events and weight-calculation latency. Record enough generator state to reproduce offline truth without storing the full 3D field.
 
-Keep one README for the experiment purpose, test objects and dependencies, and one `Comparison.ipynb` for the actual results and concise conclusions. The notebook should include the three-policy RMSE summary, RMSE versus mission time/sample count, variance, actual trajectories, sampling coverage/revisits, estimated versus actual travel time, GP-update/GRG cost and return/budget outcomes. New experiment tables remain **TBD** until the revised runs are completed; do not relabel previous node-based results as continuous-SRF results.
+Keep one README for the experiment purpose, test objects and dependencies, and one `Comparison.ipynb` for the actual results and concise conclusions. The notebook should include the three-policy RMSE summary, RMSE versus mission time/sample count, variance, actual trajectories, sampling coverage/revisits, estimated versus actual travel time, GP-update/GRG cost and return/budget outcomes. The notebook reports the nine formal outcomes and marks missions excluded from RMSE.
 
 ### 10.10 Pending decisions and completion criteria
 
 | Item | Status / required evidence |
 | --- | --- |
 | Real sensor response and proposed 1 Hz measurement | **Pending:** response/delay, synchronization, valid sample rate and noise characterization. |
-| Checkpoints and GRG cost | **Configured:** 10 sensing checkpoints plus Home. Reuse the verified A/B path graph. C uses the scaled layout, with graph reachability and search cost pending runtime validation. |
+| Checkpoints and GRG cost | **Configured:** 10 sensing checkpoints plus Home. Reuse the verified A/B path graph. C used the scaled layout. The saved graph contains 110 directed edges, and the notebook reports measured search costs. |
 | SRF calibration from real data | **Pending:** Matérn/spatiotemporal form, units, range/variance, spatial/temporal scales, empirical trend and parameter-fit checks using historical data only. |
 | On-demand SRF consistency and performance | **Pending:** same realization under repeat/order/batch/restart tests, reproducible noise, query latency and peak memory. |
 | Adaptive WIVR | **Pending for A–C:** verify the 5 m scoring grid and weights on each scenario. The earlier small-arena pilot exercised the adaptive weighting rule. |
 | Scoring cost across regions | **Pending:** time the common 5 m scoring configuration as the number of scoring cells increases in C. |
-| Three-scenario ROS 2 protocol | **Pending:** validate the expanded map and shared path fixtures, exercise the configured 150 s scoring window for B, and verify budget-aware dispatch, on-time Home arrival, continued 1 Hz return sensing, and assimilation of return observations in A–C. |
+| Three-scenario ROS 2 protocol | **Executed:** the notebook records actual Home arrival, budget compliance, and valid return observations for each mission. |
 | Physical-robot validation | **Pending:** real sensor/navigation interfaces, localization, environment sensing and actual WELL-E trials. |
 | Real-data fit and registration | **Fit complete:** six traversals and 6,448 observations. **Pending:** registered field extent and navigability, plus a separate independent real-data validation protocol. |
 | References, paper notation and LaTeX | **Pending:** bibliography completion, formal manuscript symbol harmonization and publication formatting; this note revision is not a completed paper-format/reference update. |
 
-The earlier verification runs provide implementation evidence for continuous sensing, Adaptive WIVR and return-to-Home. The three-scenario comparison requires frozen shared inputs, readiness checks for the new horizons and geometry, and saved results for all nine missions.
+The earlier verification runs provide implementation evidence for continuous sensing, Adaptive WIVR and return-to-Home. The formal run stores its frozen inputs alongside the evaluation, with separate mission logs and recordings in each scenario folder.
 
 ## Running the formal experiments
 
@@ -211,7 +211,7 @@ Each group follows the verification layout. The `code/` directory contains its s
 
 | Group | Entry point | Only scenario change |
 | --- | --- | --- |
-| [Baseline](Baseline/README.md) | [`Baseline/code/run.sh`](Baseline/code/run.sh) | Reuse the verified closed-loop geometry, graph and execution settings. Use the new trained GP kernel. |
+| [Baseline Test A](<Baseline Test A/README.md>) | [`run.sh`](<Baseline Test A/code/run.sh>) | Reuse the verified closed-loop geometry, graph and execution settings. Use the new trained GP kernel. |
 | [Test B](<Test B/README.md>) | [`Test B/code/run.sh`](<Test B/code/run.sh>) | Same geometry, 150 s budget and scoring window. |
 | [Test C](<Test C/README.md>) | [`Test C/code/run.sh`](<Test C/code/run.sh>) | 60 × 40 m, same 300 s budget. |
 
@@ -219,8 +219,8 @@ Use the same ROS 2 Jazzy, Gazebo Harmonic and SRF Python environment as the [WIV
 
 ```bash
 kernel="../Trained_Kernel/result/multirun_fit_20261127T025820Z/hyperparameters.json"
-run_name="formal_all_runs"
-bash "Baseline/code/run.sh" --kernel "$kernel" --name "$run_name" --record
+run_name="formal_all_runs_repeat"  # choose an unused name for a new comparison
+bash "Baseline Test A/code/run.sh" --kernel "$kernel" --name "$run_name" --record
 bash "Test B/code/run.sh" --kernel "$kernel" --name "$run_name" --record
 bash "Test C/code/run.sh" --kernel "$kernel" --name "$run_name" --record
 python code/evaluate.py --name "$run_name"

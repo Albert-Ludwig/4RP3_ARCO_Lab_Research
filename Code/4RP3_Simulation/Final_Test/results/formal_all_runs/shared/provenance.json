@@ -1,0 +1,11 @@
+{
+  "kernel_path": "/workspace/Code/4RP3_Simulation/Trained_Kernel/result/multirun_fit_20261127T025820Z/hyperparameters.json",
+  "kernel_sha256": "9996fb3cde538d004ba134f7345315467ce24949a0711982c5c08db854136276",
+  "initial_observation_count": 0,
+  "prior_mean_c": 25.0,
+  "prior_variance_c2": 0.47980997033896927,
+  "field_reference_sha256": "d284be706bf7ed268c42905eb43fb28add364a28b958fb4ba5593aef8a7ea728",
+  "verification_graph_sha256": "dce6bc6ab6283a5da29f6bc40924654967b44ad00fd2542c55f131d88c012215",
+  "field_sha256": "2e17f98ee8b9e106854a57a0c03c88411ab5d445db5aa42550aaac436dd3b36c",
+  "initial_sha256": "f9298a617dca2e84f8a7919244f115768e5ae29b3810020188703d46b178b48a"
+}

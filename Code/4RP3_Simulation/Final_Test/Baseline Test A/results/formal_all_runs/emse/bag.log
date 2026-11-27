@@ -1,0 +1,21 @@
+[WARN] [ros2bag]: Positional "topics" argument deprecated. Please use optional "--topics" argument instead.
+stdin is not a terminal device. Keyboard handling disabled.[INFO] [1795749743.279039402] [rosbag2_recorder]: Press SPACE for pausing/resuming
+[INFO] [1795749743.279051275] [rosbag2_recorder]: Event publisher thread: Started
+[INFO] [1795749743.282384993] [rosbag2_recorder]: Starting recording to '/workspace/Code/4RP3_Simulation/Final_Test/Baseline/recordings/formal_all_runs/emse/rosbag'
+[INFO] [1795749743.292067258] [rosbag2_recorder]: Subscribed to topic '/cl/query'
+[INFO] [1795749743.292513312] [rosbag2_recorder]: Listening for topics...
+[INFO] [1795749743.300461419] [rosbag2_recorder]: Recording...
+[INFO] [1795749743.292539713] [rosbag2_recorder]: Topics discovery started.
+[INFO] [1795749743.802710663] [rosbag2_recorder]: Subscribed to topic '/tf'
+[INFO] [1795749743.803510212] [rosbag2_recorder]: Subscribed to topic '/tf_static'
+[INFO] [1795749745.210219033] [rosbag2_recorder]: Subscribed to topic '/cmd_vel'
+[INFO] [1795749745.292346099] [rosbag2_recorder]: Subscribed to topic '/odom'
+[INFO] [1795749745.472897490] [rosbag2_recorder]: Subscribed to topic '/cl/temperature'
+[INFO] [1795749746.424628173] [rosbag2_recorder]: Subscribed to topic '/clock'
+[INFO] [1795749746.433761659] [rosbag2_recorder]: Subscribed to topic '/simulation/ground_truth/odom'
+[INFO] [1795749746.433947749] [rosbag2_recorder]: All requested topics are subscribed. Stopping discovery...
+[INFO] [1795749746.434059846] [rosbag2_recorder]: Topics discovery stopped.
+[INFO] [1795750044.966698914] [rosbag2_recorder]: Pausing recording.
+[INFO] [1795750044.966943895] [rosbag2_cpp]: Writing remaining messages from cache to the bag. It may take a while
+[INFO] [1795750044.979203786] [rosbag2_recorder]: Recording stopped
+[INFO] [1795750044.984760283] [rosbag2_recorder]: Event publisher thread: Exited

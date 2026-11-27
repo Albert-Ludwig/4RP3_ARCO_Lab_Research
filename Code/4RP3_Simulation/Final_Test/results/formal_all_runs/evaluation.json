@@ -1,0 +1,174 @@
+{
+  "A": {
+    "mi": {
+      "status": "overtime",
+      "within_mission_budget": false,
+      "home_returned": true
+    },
+    "emse": {
+      "status": "accepted",
+      "within_mission_budget": true,
+      "home_returned": true,
+      "domains": {
+        "full": {
+          "rmse_c": 0.16389837918526565,
+          "queries": 9150,
+          "after_last_sample": 150
+        },
+        "common_time": {
+          "rmse_c": 0.14640593557485865,
+          "queries": 4650,
+          "after_last_sample": 0
+        },
+        "common_space": {
+          "rmse_c": 0.16389837918526565,
+          "queries": 9150,
+          "after_last_sample": 150
+        }
+      }
+    },
+    "wivr": {
+      "status": "accepted",
+      "within_mission_budget": true,
+      "home_returned": true,
+      "domains": {
+        "full": {
+          "rmse_c": 0.16367998931789762,
+          "queries": 9150,
+          "after_last_sample": 150
+        },
+        "common_time": {
+          "rmse_c": 0.14523306124284774,
+          "queries": 4650,
+          "after_last_sample": 0
+        },
+        "common_space": {
+          "rmse_c": 0.16367998931789762,
+          "queries": 9150,
+          "after_last_sample": 150
+        }
+      }
+    }
+  },
+  "B": {
+    "mi": {
+      "status": "accepted",
+      "within_mission_budget": true,
+      "home_returned": true,
+      "domains": {
+        "full": {
+          "rmse_c": 0.28173049338422745,
+          "queries": 4650,
+          "after_last_sample": 300
+        },
+        "common_time": {
+          "rmse_c": 0.28173049338422745,
+          "queries": 4650,
+          "after_last_sample": 300
+        }
+      }
+    },
+    "emse": {
+      "status": "accepted",
+      "within_mission_budget": true,
+      "home_returned": true,
+      "domains": {
+        "full": {
+          "rmse_c": 0.23794021138163945,
+          "queries": 4650,
+          "after_last_sample": 300
+        },
+        "common_time": {
+          "rmse_c": 0.23794021138163945,
+          "queries": 4650,
+          "after_last_sample": 300
+        }
+      }
+    },
+    "wivr": {
+      "status": "accepted",
+      "within_mission_budget": true,
+      "home_returned": true,
+      "domains": {
+        "full": {
+          "rmse_c": 0.20692840310517183,
+          "queries": 4650,
+          "after_last_sample": 300
+        },
+        "common_time": {
+          "rmse_c": 0.20692840310517183,
+          "queries": 4650,
+          "after_last_sample": 300
+        }
+      }
+    }
+  },
+  "C": {
+    "mi": {
+      "status": "accepted",
+      "within_mission_budget": true,
+      "home_returned": true,
+      "domains": {
+        "full": {
+          "rmse_c": 0.6984904962732501,
+          "queries": 36600,
+          "after_last_sample": 1800
+        },
+        "common_space": {
+          "rmse_c": 0.5054590066755664,
+          "queries": 9150,
+          "after_last_sample": 450
+        },
+        "added_area": {
+          "rmse_c": 0.75190138673161,
+          "queries": 27450,
+          "after_last_sample": 1350
+        }
+      }
+    },
+    "emse": {
+      "status": "accepted",
+      "within_mission_budget": true,
+      "home_returned": true,
+      "domains": {
+        "full": {
+          "rmse_c": 0.700145496026785,
+          "queries": 36600,
+          "after_last_sample": 2400
+        },
+        "common_space": {
+          "rmse_c": 0.5226332603098548,
+          "queries": 9150,
+          "after_last_sample": 600
+        },
+        "added_area": {
+          "rmse_c": 0.7500376296436206,
+          "queries": 27450,
+          "after_last_sample": 1800
+        }
+      }
+    },
+    "wivr": {
+      "status": "accepted",
+      "within_mission_budget": true,
+      "home_returned": true,
+      "domains": {
+        "full": {
+          "rmse_c": 0.7452907019188825,
+          "queries": 36600,
+          "after_last_sample": 1800
+        },
+        "common_space": {
+          "rmse_c": 0.427424020036138,
+          "queries": 9150,
+          "after_last_sample": 450
+        },
+        "added_area": {
+          "rmse_c": 0.824447618825904,
+          "queries": 27450,
+          "after_last_sample": 1350
+        }
+      }
+    }
+  }
+}

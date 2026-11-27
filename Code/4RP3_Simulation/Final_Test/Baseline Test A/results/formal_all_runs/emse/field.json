@@ -1,0 +1,41 @@
+{
+  "working_extent_m": [
+    60,
+    40
+  ],
+  "mission_interval_s": [
+    0,
+    300
+  ],
+  "scaled_coordinate_scales_m_m_s": [
+    12,
+    12,
+    180
+  ],
+  "matern_nu": 1.5,
+  "fourier_modes": 1024,
+  "field_seed": 20261109,
+  "mean_c": 27.114475924744895,
+  "variance_c2": 0.04039312168957292,
+  "trend_c_per_s": 0,
+  "noise_std_c": 0.03,
+  "noise_seed": 20261110,
+  "batch_size": 1024,
+  "threads": 4,
+  "reference_resolution": {
+    "space_m": 0.1,
+    "time_s": 0.5
+  },
+  "calibration_pending": [
+    "Spatial and temporal scales",
+    "Matern smoothness and finite-mode accuracy for the field",
+    "Sensor noise and response",
+    "Independent temporal trend",
+    "Real map registration and mask",
+    "Multi-run calibration"
+  ],
+  "working_origin_m": [
+    -1.25,
+    -1.25
+  ]
+}

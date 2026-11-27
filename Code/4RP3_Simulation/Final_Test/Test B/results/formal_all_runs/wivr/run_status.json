@@ -1,0 +1,51 @@
+{
+  "scenario": "B",
+  "policy": "wivr",
+  "inputs": {
+    "initial.json": "f9298a617dca2e84f8a7919244f115768e5ae29b3810020188703d46b178b48a",
+    "field.json": "2e17f98ee8b9e106854a57a0c03c88411ab5d445db5aa42550aaac436dd3b36c",
+    "protocol.json": "0646518c6f1c7d35ded80dd99053f7fec424c7d0aca1383adbf3a02aa4e004d2",
+    "candidates.json": "98a85abf5e0095307bbe76c09b95465047242449ab7b3ac6db0d0a0da00f2060"
+  },
+  "navigation": {
+    "map.yaml": "4a8891bf4a18009dab8d3ce7e59c032a280d68f686b837bb707ec65c3bbac721",
+    "map.pgm": "f35f85222efe3a75a0da6a38a67ed5c33068d443106ead26d0532cc837c5dc1e",
+    "world.sdf": "e2c06a0bffdadc158e2243709189f2253c0ba716240dd2edcf27ba100163f6a8"
+  },
+  "graph_source": "bundle cache",
+  "status": "accepted",
+  "within_mission_budget": true,
+  "home_returned": true,
+  "mission_summary": {
+    "arrival_wait_s": 0.04199999999998738,
+    "duration_s": 144.032,
+    "goal_preemptions_before_deadline": 0,
+    "gp_updates": 144,
+    "grg_completed_at_stop": 143,
+    "grg_requested": 143,
+    "home_arrival_t": 144.032,
+    "home_error_m": 0.1553577032227245,
+    "home_returned": true,
+    "measurements": 144,
+    "missed_ticks": 0,
+    "mission_budget_s": 150.0,
+    "navigation_failures": 0,
+    "origin": 1.45,
+    "pending_sensor_requests": 0,
+    "return_duration_s": 5.901999999999987,
+    "return_measurements": 6,
+    "return_navigation_wall_s": 5.912172541000473,
+    "return_started_t": 138.13000000000002,
+    "sampling_duration_s": 138.12,
+    "sampling_stop_node": 1,
+    "sampling_stop_reason": "no_sampling_leg_fits",
+    "sampling_wall_s": 138.12001778000013,
+    "segments": 5,
+    "stale_pose": 0,
+    "status": "window_completed",
+    "update_interval_s": 1,
+    "wall_s": 144.0399872630005,
+    "within_mission_budget": true
+  },
+  "graph_sha256": "dce6bc6ab6283a5da29f6bc40924654967b44ad00fd2542c55f131d88c012215"
+}

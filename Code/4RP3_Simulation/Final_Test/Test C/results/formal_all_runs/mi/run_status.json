@@ -1,0 +1,51 @@
+{
+  "scenario": "C",
+  "policy": "mi",
+  "inputs": {
+    "initial.json": "f9298a617dca2e84f8a7919244f115768e5ae29b3810020188703d46b178b48a",
+    "field.json": "2e17f98ee8b9e106854a57a0c03c88411ab5d445db5aa42550aaac436dd3b36c",
+    "protocol.json": "c1f8843cd3e7eb621285b44734ddb86cfd79e8ddfcf884ef01a5f5049a7fb2a7",
+    "candidates.json": "046c8e965b953638f948033577ad67be5044036ba48d31eec003ee357a487fcf"
+  },
+  "navigation": {
+    "map.yaml": "4a8891bf4a18009dab8d3ce7e59c032a280d68f686b837bb707ec65c3bbac721",
+    "map.pgm": "5a3d57031d223c354d926e1f6416a96935727d62963212c60215f5ff330969f0",
+    "world.sdf": "5c9496e16c4bf262cce2a0757abb02ded4327c50979bb4dee959cd80256b7d7e"
+  },
+  "graph_source": "ComputePathToPose",
+  "status": "accepted",
+  "within_mission_budget": true,
+  "home_returned": true,
+  "mission_summary": {
+    "arrival_wait_s": 0.05999999999995964,
+    "duration_s": 287.35200000000003,
+    "goal_preemptions_before_deadline": 0,
+    "gp_updates": 287,
+    "grg_completed_at_stop": 281,
+    "grg_requested": 281,
+    "home_arrival_t": 287.35200000000003,
+    "home_error_m": 0.16884410533306074,
+    "home_returned": true,
+    "measurements": 287,
+    "missed_ticks": 0,
+    "mission_budget_s": 300.0,
+    "navigation_failures": 0,
+    "origin": 1.568,
+    "pending_sensor_requests": 0,
+    "return_duration_s": 12.340000000000032,
+    "return_measurements": 12,
+    "return_navigation_wall_s": 12.351837573000012,
+    "return_started_t": 275.012,
+    "sampling_duration_s": 275.002,
+    "sampling_stop_node": 1,
+    "sampling_stop_reason": "no_sampling_leg_fits",
+    "sampling_wall_s": 275.0102358029999,
+    "segments": 7,
+    "stale_pose": 0,
+    "status": "window_completed",
+    "update_interval_s": 1,
+    "wall_s": 287.36999565299993,
+    "within_mission_budget": true
+  },
+  "graph_sha256": "f101a3301359ac5909bb59999b0711d54f70c3284094a45970789c73a2f2ce73"
+}

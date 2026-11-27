@@ -1,0 +1,28 @@
+{
+  "scenario": "A",
+  "policy": "mi",
+  "status": "overtime",
+  "eligible_for_formal_ranking": false,
+  "mission_budget_s": 300,
+  "home_arrival_s": 301.25,
+  "overrun_s": 1.25,
+  "measurements": 300,
+  "last_measurement_s": 300.0,
+  "domains": {
+    "full": {
+      "rmse_c": 0.18869414582036542,
+      "queries": 9150,
+      "after_last_sample": 0
+    },
+    "common_time": {
+      "rmse_c": 0.14328328052505923,
+      "queries": 4650,
+      "after_last_sample": 0
+    },
+    "common_space": {
+      "rmse_c": 0.18869414582036542,
+      "queries": 9150,
+      "after_last_sample": 0
+    }
+  }
+}

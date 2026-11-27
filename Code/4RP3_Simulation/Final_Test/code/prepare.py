@@ -18,7 +18,7 @@ NAV2 = FINAL_CODE / "Nav2_ROS"
 VERIFIED = (REPO / "Code/Verification tests/WIVR_test/results"
             / "run_20261124T031956Z/latest_gp")
 POLICIES = ("mi", "emse", "wivr")
-SCENARIO_FOLDERS = {"A": "Baseline", "B": "Test B", "C": "Test C"}
+SCENARIO_FOLDERS = {"A": "Baseline Test A", "B": "Test B", "C": "Test C"}
 sys.path.insert(0, str(NAV2 / "tools"))
 from srf_field import TemperatureField
 

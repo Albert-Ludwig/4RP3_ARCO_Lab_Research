@@ -1,0 +1,9 @@
+{
+  "id": "C",
+  "geometry": "large",
+  "extent_m": [
+    60,
+    40
+  ],
+  "mission_budget_s": 300
+}
